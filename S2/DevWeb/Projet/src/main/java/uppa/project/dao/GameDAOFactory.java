@@ -4,9 +4,9 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao;
+package uppa.project.dao;
 
-import project.pojo.*;
+import uppa.project.pojo.*;
 
 /**
  * Fabrique abstraite de DAO pour le schéma sports

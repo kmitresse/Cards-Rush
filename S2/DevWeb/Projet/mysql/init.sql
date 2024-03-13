@@ -2,37 +2,38 @@ CREATE DATABASE IF NOT EXISTS db;
 USE db;
 
 -- Table: User
-CREATE TABLE IF NOT EXISTS User
+CREATE TABLE IF NOT EXISTS `user`
 (
-    id_user    INT          NOT NULL AUTO_INCREMENT,
-    username   VARCHAR(255) NOT NULL,
+    id         INT          NOT NULL AUTO_INCREMENT,
+    username   VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
-    birth_date DATE         NOT NULL,
-    sexe       VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id_user)
+    gender     VARCHAR(255) NOT NULL,
+    birth      DATE         NOT NULL,
+    PRIMARY KEY (id)
 );
 
 -- Table: Game
-CREATE TABLE IF NOT EXISTS Game
-( 
-    id_game    INT          NOT NULL AUTO_INCREMENT,
-    date       DATE         NOT NULL,
-    starting_time TIME      NOT NULL,
-    PRIMARY KEY (id_game)
+CREATE TABLE IF NOT EXISTS game
+(
+    id    INT          NOT NULL AUTO_INCREMENT,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS Player
+CREATE TABLE IF NOT EXISTS player
 (
-    id_player       INT     NOT NULL  AUTO_INCREMENT,
-    id_game         INT     NOT NULL,
-    id_user         INT     NOT NULL,
-    score           INT     NOT NULL,
-    winner          BOOLEAN NOT NULL,
-    nb_clicks       INT     NOT NULL,
-    nb_good_clicks  INT     NOT NULL,
-    nb_rapid_clicks INT     NOT NULL,
-    PRIMARY KEY (id_player),
-    FOREIGN KEY (id_game) REFERENCES Game (id_game),
-    FOREIGN KEY (id_user) REFERENCES User (id_user)
-)
+    id                INT     NOT NULL  AUTO_INCREMENT,
 
+    game_id           INT     NOT NULL,
+    user_id           INT     NOT NULL,
+
+    score             INT     NOT NULL,
+    winner            BOOLEAN NOT NULL,
+    click_count       INT     NOT NULL,
+    right_click_count INT     NOT NULL,
+    rapid_click_count INT     NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (game_id) REFERENCES game (id),
+    FOREIGN KEY (user_id) REFERENCES `user` (id)
+);

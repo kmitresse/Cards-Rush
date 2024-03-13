@@ -4,7 +4,7 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao;
+package uppa.project.dao;
 
 /**
  * Type de support de persistance pour les données

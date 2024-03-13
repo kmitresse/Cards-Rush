@@ -4,12 +4,12 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao.jpa;
+package uppa.project.dao.jpa;
 
-import project.dao.DAO;
-import project.pojo.*;
-import project.dao.DAOException;
-import project.dao.GameDAOFactory;
+import uppa.project.dao.DAO;
+import uppa.project.pojo.*;
+import uppa.project.dao.DAOException;
+import uppa.project.dao.GameDAOFactory;
 
 /**
  * Fabrique concrète de DAO pour le schéma relationnel sports avec une implémentation en JDBC.

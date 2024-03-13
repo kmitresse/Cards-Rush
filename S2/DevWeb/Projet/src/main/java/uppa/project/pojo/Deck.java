@@ -1,4 +1,4 @@
-package project.pojo;
+package uppa.project.pojo;
 
 import java.util.ArrayList;
 import java.util.Collections;

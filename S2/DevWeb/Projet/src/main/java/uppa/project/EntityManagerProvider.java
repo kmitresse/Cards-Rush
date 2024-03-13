@@ -1,4 +1,4 @@
-package project;
+package uppa.project;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -8,7 +8,7 @@ public final class EntityManagerProvider {
 
   private static EntityManager instance;
   private static EntityManagerFactory factory;
-  private final static String PERSISTANCE_UNIT_NAME = "default";
+  private final static String PERSISTANCE_UNIT_NAME = "db";
 
   public static EntityManager getInstance() {
     if (factory == null) {

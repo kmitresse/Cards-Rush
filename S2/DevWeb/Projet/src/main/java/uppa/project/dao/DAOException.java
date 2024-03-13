@@ -4,7 +4,7 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao;
+package uppa.project.dao;
 
 /**
  * Exception spécifique aux problèmes d'accès aux données via un DAO

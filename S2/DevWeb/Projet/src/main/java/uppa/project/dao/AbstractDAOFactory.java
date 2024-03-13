@@ -4,9 +4,9 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao;
+package uppa.project.dao;
 
-import project.dao.jpa.Game_JPA_DAO_Factory;
+import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
 
 /**
  * Factory renvoyant une factory de DAO en fonction du support de persistance choisi

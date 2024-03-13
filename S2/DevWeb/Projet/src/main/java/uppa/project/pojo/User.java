@@ -1,4 +1,4 @@
-package project.pojo;
+package uppa.project.pojo;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,45 +15,41 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
 
-  public enum Sexe {FEMME, HOMME, NONBINAIRE};
-
   @Id
-  @Column(name = "id_user")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private BigDecimal id;
 
   @Column(name = "username")
   private String username;
-
   @Column(name = "password")
   private String password;
-
   @Temporal(TemporalType.DATE)
-  @Column(name = "birth_date")
-  private Date bithDate;
-
-  @Column(name = "sexe")
-  @Enumerated( EnumType.STRING)
-  private Sexe sexe;
+  @Column(name = "birth")
+  private Date birth;
+  @Column(name = "gender")
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> playedGame;
-  public User() {}
-  public User(String username, String password, Date birthDate, Sexe sexe) {
-    this.username = username;
-    String hashedPassword = hashPassword(password);
-    this.password = hashedPassword;
-    this.bithDate = birthDate;
-    this.sexe = sexe;
+  public User() {
+  }
 
+  public User(String username, String password, Date birth, Gender gender) {
+    this.username = username;
+    this.password = hashPassword(password);
+    this.birth = birth;
+    this.gender = gender;
   }
 
   public User(BigDecimal id, String username, String password) {
@@ -64,11 +60,13 @@ public class User implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, bithDate, sexe);
+    return Objects.hash(id, username, password, birth, gender);
   }
-  public BigDecimal getId(){
+
+  public BigDecimal getId() {
     return id;
   }
+
   public String getUsername() {
     return username;
   }
@@ -82,29 +80,30 @@ public class User implements Serializable {
   }
 
   public void setPassword(String password) {
-    String hashedPassword = hashPassword(password);
-    this.password = hashedPassword;
+    this.password = hashPassword(password);
   }
 
-  public Date getBithDate() {
-    return bithDate;
+  public Date getBirth() {
+    return birth;
   }
 
-  public void setBithDate(Date bithDate) {
-    this.bithDate = bithDate;
+  public void setBirth(Date birth) {
+    this.birth = birth;
   }
 
-  public Sexe getSexe() {
-    return sexe;
+  public Gender getGender() {
+    return gender;
   }
 
-  public void setSexe(Sexe sexe) {
-    this.sexe = sexe;
+  public void setGender(Gender gender) {
+    this.gender = gender;
   }
 
-  public int getAge(){
-    //TODO: Implement this function
-    return 1;
+  public int getAge() {
+    Date currentDate = new Date();
+    long diff = currentDate.getTime() - birth.getTime();
+    long diffDays = diff / (24 * 60 * 60 * 1000);
+    return (int) (diffDays / 365);
   }
 
   private String hashPassword(String password) {
@@ -134,11 +133,8 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return "User{" +
-      "id=" + id +
-      ", username='" + username + '\'' +
-      ", age=" + getAge() +
-      ", sexe=" + sexe +
-      '}';
+    return String.format("User{id=%s, username='%s', birth=%s, gender=%s}", id.toString(), username, birth.toString(), gender.toString());
   }
+
+  public enum Gender {MALE, FEMALE, OTHER}
 }

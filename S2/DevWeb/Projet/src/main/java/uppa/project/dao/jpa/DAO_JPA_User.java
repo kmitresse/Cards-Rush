@@ -1,13 +1,13 @@
-package project.dao.jpa;
+package uppa.project.dao.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
-import project.dao.DAO;
-import project.dao.DAOException;
-import project.EntityManagerProvider;
-import project.pojo.User;
+import uppa.project.dao.DAO;
+import uppa.project.dao.DAOException;
+import uppa.project.EntityManagerProvider;
+import uppa.project.pojo.User;
 
 public class DAO_JPA_User extends DAO<User> {
 

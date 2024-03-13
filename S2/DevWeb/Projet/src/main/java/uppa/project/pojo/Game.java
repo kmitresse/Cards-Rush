@@ -1,4 +1,4 @@
-package project.pojo;
+package uppa.project.pojo;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,52 +23,30 @@ import java.util.Set;
 public class Game implements Serializable {
 
   @Id
-  @Column(name = "id_game")
+  @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private BigDecimal id;
 
-  @Temporal(TemporalType.DATE)
-  @Column(name="date")
-  private Date date;
-
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name="starting_time")
-  private Timestamp startTime;
+  @Column(name="created_at")
+  private Date createdAt;
 
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> players;
 
   public Game() {
-
-  }
-
-  public Game(Date date, Timestamp startTime) {
-    this.date = date;
-    this.startTime = startTime;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, date);
+    return Objects.hash(id, createdAt, players);
   }
   public BigDecimal getId() {
     return id;
   }
 
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
-  public Timestamp getStartTime() {
-    return startTime;
-  }
-
-  public void setStartTime(Timestamp startTime) {
-    this.startTime = startTime;
+  public Date getCreatedAt() {
+    return createdAt;
   }
 
   public Set<Player> getPlayers() {
@@ -87,10 +65,6 @@ public class Game implements Serializable {
 
   @Override
   public String toString() {
-    return "Game{" +
-      "id=" + id +
-      ", date=" + date +
-      ", players=" + players +
-      '}';
+    return String.format("Game{id=%s, createdAt=%s, players=%s}", id.toString(), createdAt, players);
   }
 }

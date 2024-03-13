@@ -1,13 +1,13 @@
-package project.pojo;
+package uppa.project.pojo;
 
 public class Card {
 
-  public enum Color{coeur, carreau, pique, trèfle}
+  public enum Color{coeur, carreau, pique, trefle}
 
   public enum Value{un, deux, trois, quatre, cinq, six, sept, huit, neuf, dix, valet, dame, roi}
-  private Color color;
+  private final Color color;
 
-  private Value value;
+  private final Value value;
 
   public Card(Color color, Value value) {
     this.color = color;

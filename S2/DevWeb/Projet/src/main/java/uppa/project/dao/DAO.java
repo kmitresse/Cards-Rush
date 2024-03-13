@@ -4,7 +4,7 @@
  * Pas de copyright, aucun droits
  */
 
-package project.dao;
+package uppa.project.dao;
 
 /**
  * DAO abstrait et générique pour tout type de données
