@@ -1,10 +1,16 @@
 package uppa.project.pojo;
 
 public class Card {
+  /**
+   * The color of the card:
+   * Heart -> Coeur
+   * Clubs -> Trèfle
+   * Spades -> Pique
+   * Diamonds -> Carreau
+   */
+  public enum Color{HEART, CLUBS, SPADES, DIAMONDS}
 
-  public enum Color{coeur, carreau, pique, trefle}
-
-  public enum Value{un, deux, trois, quatre, cinq, six, sept, huit, neuf, dix, valet, dame, roi}
+  public enum Value{ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
   private final Color color;
 
   private final Value value;

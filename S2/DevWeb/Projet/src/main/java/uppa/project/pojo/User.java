@@ -106,7 +106,7 @@ public class User implements Serializable {
     return (int) (diffDays / 365);
   }
 
-  private String hashPassword(String password) {
+  public static String hashPassword(String password) {
     try {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -118,7 +118,6 @@ public class User implements Serializable {
         if (hex.length() == 1) hexString.append('0');
         hexString.append(hex);
       }
-
       return hexString.toString();
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();

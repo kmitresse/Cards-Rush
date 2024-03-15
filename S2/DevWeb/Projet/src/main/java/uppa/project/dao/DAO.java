@@ -6,6 +6,10 @@
 
 package uppa.project.dao;
 
+import jakarta.persistence.TypedQuery;
+import java.util.List;
+import uppa.project.pojo.User;
+
 /**
  * DAO abstrait et générique pour tout type de données
  *
@@ -52,4 +56,6 @@ public abstract class DAO<D> {
    * @throws DAOException en cas de problème
    */
   public abstract void delete(D data) throws DAOException;
+
+  public abstract D[] findByField(String field, String value) throws DAOException;
 }

@@ -8,6 +8,7 @@ import uppa.project.EntityManagerProvider;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.Game;
+import uppa.project.pojo.User;
 
 public class DAO_JPA_Game extends DAO<Game> {
 
@@ -22,6 +23,14 @@ public class DAO_JPA_Game extends DAO<Game> {
     Game result =  entityManager.find(Game.class, new BigDecimal(id));
     entityManager.flush();
     return result;
+  }
+
+  public Game[] findByField(String field, String value) throws DAOException {
+    TypedQuery<Game> query = entityManager.createQuery("SELECT u FROM Game u WHERE ?1=?2", Game.class);
+    query.setParameter(1, field);
+    query.setParameter(2, value);
+    List<Game> results = query.getResultList();
+    return results.toArray(new Game[0]);
   }
 
   @Override
