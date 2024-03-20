@@ -6,6 +6,7 @@
 
 package uppa.project.pojo;
 
+import com.google.gson.Gson;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
