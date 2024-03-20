@@ -20,9 +20,10 @@ import java.io.PrintWriter;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
-import uppa.project.servlet.json.ErrorApi;
+import uppa.project.pojo.json.ErrorResponse;
 import uppa.project.pojo.User;
-import uppa.project.servlet.utils.HttpRequestUtils;
+import uppa.project.pojo.json.LoginResponse;
+import uppa.project.utils.HttpRequestUtils;
 
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -54,9 +55,9 @@ public class LoginServlet extends HttpServlet {
     } catch (Exception e) {
       int STATUS = 400;
 
-      ErrorApi error = new ErrorApi(STATUS, "Bad Request", "Invalid JSON");
+      ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Invalid JSON");
       response.setStatus(STATUS);
-      out.println(error.toJson());
+      out.println(gson.toJson(error));
       return;
     }
 
@@ -66,9 +67,9 @@ public class LoginServlet extends HttpServlet {
     if (username == null || password == null) {
       int STATUS = 400;
 
-      ErrorApi error = new ErrorApi(STATUS, "Bad Request", "Username and password are required");
+      ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Username and password are required");
       response.setStatus(STATUS);
-      out.println(error.toJson());
+      out.println(gson.toJson(error));
       return;
     }
 
@@ -76,15 +77,19 @@ public class LoginServlet extends HttpServlet {
     User user = LoginServlet.loginUser(username.getAsString(), password.getAsString());
     if (user == null) {
       int STATUS = 401;
-      ErrorApi error = new ErrorApi(STATUS, "Unauthorized", "Invalid username or password");
+      ErrorResponse error = new ErrorResponse(STATUS, "Unauthorized", "Invalid username or password");
 
       response.setStatus(STATUS);
-      out.println(error.toJson());
+      out.println(gson.toJson(error));
       return;
     }
 
+    // Set the user in the session
+    request.getSession().setAttribute("user", user);
+
     // Return the user as JSON
-    String json = gson.toJson(user);
+    LoginResponse loginResponse = new LoginResponse(200, user, request.getContextPath() + "/main-menu");
+    String json = gson.toJson(loginResponse);
     out.println(json);
     out.flush();
   }

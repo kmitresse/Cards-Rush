@@ -17,7 +17,7 @@ loginForm.addEventListener("submit", (event) => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            if (data.status === 200 && data.nextUrl) window.location.href = data.nextUrl;
+            if (data.status === 200) window.location.href = data.redirect;
         })
         .catch(error => console.error("Error:", error))
     ;
