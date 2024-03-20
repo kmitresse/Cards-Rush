@@ -7,10 +7,9 @@ loginForm.addEventListener("submit", (event) => {
     formData.forEach((value, key) => data[key] = value);
 
     const action = loginForm.getAttribute("action")
-    const endpoint = loginForm.getAttribute("data-login-endpoint");
     const method = loginForm.getAttribute("method")
 
-    fetch(endpoint, {
+    fetch(action, {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
         method,
@@ -18,7 +17,7 @@ loginForm.addEventListener("submit", (event) => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            if (data.status == 200) window.location.href = action;
+            if (data.status === 200 && data.nextUrl) window.location.href = data.nextUrl;
         })
         .catch(error => console.error("Error:", error))
     ;
