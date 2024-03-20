@@ -20,21 +20,6 @@ import uppa.project.dao.GameDAOFactory;
  */
 public class Game_JPA_DAO_Factory extends GameDAOFactory {
 
-  /**
-   * DAO pour les utilisateurs
-   */
-  private DAO_JPA_User daoUser = null;
-
-  /**
-   * DAO pour les parties
-   */
-  private DAO_JPA_Game daoGame = null;
-
-  /**
-   * DAO pour les joueurs
-   */
-  private DAO_JPA_Player daoPlayer = null;
-
   @Override
   public DAO<User> getDAOUser() throws DAOException {
     if (daoUser == null) daoUser = new DAO_JPA_User();

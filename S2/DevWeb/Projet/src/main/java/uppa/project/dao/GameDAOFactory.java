@@ -18,6 +18,10 @@ import uppa.project.pojo.User;
  */
 public abstract class GameDAOFactory {
 
+  protected DAO<User> daoUser = null;
+  protected DAO<Game> daoGame = null;
+  protected DAO<Player> daoPlayer = null;
+
   /**
    * @return le DAO pour la classe/table User
    * @throws DAOException en cas de problème
