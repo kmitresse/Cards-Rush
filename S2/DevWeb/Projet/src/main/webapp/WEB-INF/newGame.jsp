@@ -34,7 +34,7 @@
                         <th>Game won</th>
                         <th>Invite</th>
                     </tr>
-                    <%--                Récuperer les joueurs connecter et les lister sous forme de tableau--%>
+                    <%-- Récuperer les joueurs connecter et les lister sous forme de tableau--%>
                 </table>
             </div>
         </section>

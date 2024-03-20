@@ -1,9 +1,16 @@
+/*
+ * LoginServlet.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,14 +22,18 @@ import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.servlet.json.ErrorApi;
 import uppa.project.pojo.User;
-import uppa.project.servlet.utils.RequestUtils;
+import uppa.project.servlet.utils.HttpRequestUtils;
 
-@WebServlet(name = "loginApiServlet", value = "/api/login")
+@WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
   private final Gson gson = new Gson();
 
   public void init() {
+  }
+
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -33,7 +44,7 @@ public class LoginServlet extends HttpServlet {
     // Convert the string to a JSON object
     JsonObject jsonBody;
     try {
-      String requestBody = RequestUtils.getRequestBody(request);
+      String requestBody = HttpRequestUtils.getRequestBody(request);
       jsonBody = JsonParser.parseString(requestBody).getAsJsonObject();
     } catch (Exception e) {
       int STATUS = 400;

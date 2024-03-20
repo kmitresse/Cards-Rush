@@ -15,7 +15,10 @@
         <div class="flex-column login-gap">
             <div>
                 <h1>Login</h1>
-                <form id="login-form" data-login-endpoint="api/login" action="dashboard.jsp" method="POST">
+                <form id="login-form"
+                      data-login-endpoint="${pageContext.request.contextPath}/login"
+                      action="${pageContext.request.contextPath}/login"
+                      method="POST">
 
                     <label id="username-label" for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -28,6 +31,7 @@
                 </form>
             </div>
             <div>
+                <p><a href="forgottenPassword.jsp">Forgotten password?</a></p>
                 <hr>
                 <p>Don't have an account? <a href="register.jsp">Register</a></p>
             </div>
