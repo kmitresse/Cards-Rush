@@ -1,5 +1,5 @@
 /*
- * ErrorResponse.java, 20/03/2024
+ * HttpResponse.java, 20/03/2024
  * UPPA M1 TI 2023-2024
  * Pas de copyright, aucun droits
  */
