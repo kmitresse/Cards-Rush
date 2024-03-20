@@ -6,12 +6,14 @@
 
 package uppa.project.dao.jpa;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.User;
+import uppa.project.provider.EntityManagerProvider;
 
 /**
  * DAO pour les utilisateurs
@@ -23,8 +25,13 @@ import uppa.project.pojo.User;
  */
 public class DAO_JPA_User extends DAO<User> {
 
+  /**
+   * Gestionnaire d'entités
+   */
+  private final EntityManager entityManager;
+
   public DAO_JPA_User() throws DAOException {
-    super();
+    this.entityManager = EntityManagerProvider.getInstance();
   }
 
   @Override

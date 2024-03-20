@@ -6,12 +6,14 @@
 
 package uppa.project.dao.jpa;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.Player;
+import uppa.project.provider.EntityManagerProvider;
 
 /**
  * DAO pour les joueurs
@@ -23,8 +25,13 @@ import uppa.project.pojo.Player;
  */
 public class DAO_JPA_Player extends DAO<Player> {
 
+  /**
+   * Gestionnaire d'entités
+   */
+  private final EntityManager entityManager;
+
   public DAO_JPA_Player() throws DAOException {
-    super();
+    this.entityManager = EntityManagerProvider.getInstance();
   }
 
   @Override

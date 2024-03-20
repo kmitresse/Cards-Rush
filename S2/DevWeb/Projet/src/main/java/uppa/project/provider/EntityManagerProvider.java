@@ -4,7 +4,7 @@
  * Pas de copyright, aucun droits
  */
 
-package uppa.project.dao;
+package uppa.project.provider;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

@@ -18,17 +18,12 @@ import jakarta.persistence.EntityManager;
 public abstract class DAO<D> {
 
   /**
-   * Gestionnaire d'entités
-   */
-  protected EntityManager entityManager;
-
-  /**
    * Constructeur par défaut
    *
    * @throws DAOException si une erreur survient lors de la création du DAO
    */
   public DAO() throws DAOException {
-    this.entityManager = EntityManagerProvider.getInstance();
+    throw new DAOException("DAO not implemented");
   }
 
   /**
