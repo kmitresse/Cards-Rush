@@ -13,20 +13,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "mainMenuServlet", value = "/main-menu")
-public class MainMenuServlet extends HttpServlet {
-
+@WebServlet(name = "newGameServlet", value = "/new-game")
+public class NewGameServlet extends HttpServlet {
   public void init() {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
     if (request.getSession().getAttribute("user") == null) {
-      request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+      response.sendRedirect(request.getContextPath() + "/login");
       return;
     }
 
-    response.sendRedirect(request.getContextPath() + "/main-menu");
+    request.getRequestDispatcher("/WEB-INF/views/new-game.jsp").forward(request, response);
   }
 
   public void destroy() {

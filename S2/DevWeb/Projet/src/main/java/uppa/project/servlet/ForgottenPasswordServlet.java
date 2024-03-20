@@ -13,20 +13,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "mainMenuServlet", value = "/main-menu")
-public class MainMenuServlet extends HttpServlet {
-
+@WebServlet(name = "forgottenPasswordServlet", value = "/forgotten-password")
+public class ForgottenPasswordServlet extends HttpServlet {
   public void init() {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-    if (request.getSession().getAttribute("user") == null) {
-      request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+    if (request.getSession().getAttribute("user") != null) {
+      response.sendRedirect(request.getContextPath() + "/main-menu");
       return;
     }
 
-    response.sendRedirect(request.getContextPath() + "/main-menu");
+    request.getRequestDispatcher("/WEB-INF/views/forgotten-password.jsp").forward(request, response);
   }
 
   public void destroy() {

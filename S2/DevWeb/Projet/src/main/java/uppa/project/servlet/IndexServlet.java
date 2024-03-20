@@ -6,7 +6,6 @@
 
 package uppa.project.servlet;
 
-import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,15 +16,13 @@ import java.io.IOException;
 @WebServlet(name = "indexServlet", value = "/")
 public class IndexServlet extends HttpServlet {
 
-  private final Gson gson = new Gson();
-
   public void init() {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
     if (request.getSession().getAttribute("user") != null) {
-      response.sendRedirect(request.getContextPath() + "/dashboard");
+      response.sendRedirect(request.getContextPath() + "/main-menu");
       return;
     }
 

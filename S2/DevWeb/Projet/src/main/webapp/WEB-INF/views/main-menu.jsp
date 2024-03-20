@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="css/dashboard.css"/>
-  <link rel="stylesheet" href="css/nav.css"/>
+  <title>Main Menu</title>
 </head>
 <body>
   <main>
-    <jsp:include page="navBar.jsp"></jsp:include>
+
+    <jsp:include page="../components/navbar.jsp"/>
+
     <section id="main">
       <h1 id="Title">Titre du jeu</h1>
       <div class="main-button">

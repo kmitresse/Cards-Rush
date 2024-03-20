@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Register</title>
-  <link rel="stylesheet" href="css/login.css"/>
+  <style><%@include file="../static/css/login.css"%></style>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
     <div class="flex-column register-gap">
       <div>
         <h1>Register</h1>
-        <form id="register-form" action="register" method="post">
+        <form id="register-form" action="${pageContext.request.contextPath}/register" method="post">
 
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required>
@@ -25,7 +25,7 @@
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
 
-          <label for="password">RePassword:</label>
+          <label for="repassword">RePassword:</label>
           <input type="password" id="repassword" name="password" required>
 
           <label for="birthdate">Birthdate:</label>
@@ -34,9 +34,9 @@
           <label for="gender">Gender:</label>
           <select name="gender" id="gender">
             <option value="">--Please choose an option--</option>
-            <option value="male">Mâle</option>
-            <option value="female">Female</option>
-            <option value="non-binary">Non-binary</option>
+            <option value="MALE">Mâle</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
           </select>
 
           <input id="register-submit" type="submit" value="Register">
@@ -44,7 +44,7 @@
       </div>
       <div>
         <hr>
-        <p>Already have an account? <a href="login.jsp">Login</a></p>
+        <p>Already have an account? <a href="${pageContext.request.contextPath}/login">Login</a></p>
       </div>
     </div>
   </section>
