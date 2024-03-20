@@ -239,6 +239,7 @@ public class Player implements Serializable {
     rapidClickCount++;
   }
 
+//  public void getRatioRightCl
   @Override
   public String toString() {
     return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}", id.toString(), game.toString(), user.toString(), score, winner, clickCount, rightClickCount, rapidClickCount);
