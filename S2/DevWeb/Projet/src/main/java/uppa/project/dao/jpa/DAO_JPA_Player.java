@@ -1,21 +1,30 @@
+/*
+ * DAO_JPA_Player.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.dao.jpa;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
-import uppa.project.EntityManagerProvider;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.Player;
-import uppa.project.pojo.User;
 
+/**
+ * DAO pour les joueurs
+ *
+ * @author Kévin Mitresse
+ * @author Lucàs Vabre
+ * @see Player
+ * @see DAO
+ */
 public class DAO_JPA_Player extends DAO<Player> {
 
-  private final EntityManager entityManager;
-
   public DAO_JPA_Player() throws DAOException {
-    this.entityManager = EntityManagerProvider.getInstance();
+    super();
   }
 
   @Override
@@ -25,6 +34,7 @@ public class DAO_JPA_Player extends DAO<Player> {
     return result;
   }
 
+  @Override
   public Player[] findByField(String field, String value) throws DAOException {
     TypedQuery<Player> query = entityManager.createQuery("SELECT p FROM Player p WHERE ?1=?2", Player.class);
     query.setParameter(1, field);

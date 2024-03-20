@@ -1,3 +1,9 @@
+/*
+ * Player.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.pojo;
 
 import jakarta.persistence.Column;
@@ -12,6 +18,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * Représentation d'un joueur
+ *
+ * @author Kevin Mitressé
+ * @author Lucàs Vabre
+ */
 @Entity
 @Table(name = "player")
 public class Player implements Serializable {
@@ -44,10 +56,16 @@ public class Player implements Serializable {
   @Column(name = "rapid_click_count")
   private int rapidClickCount;
 
-  public Player() {
+  /**
+   * Constructeur par défaut
+   */
+  public Player() {}
 
-  }
-
+  /**
+   * Constructeur d'un joueur
+   * @param game la partie de jeu
+   * @param user l'utilisateur
+   */
   public Player(Game game, User user) {
     this.game = game;
     this.user = user;
@@ -58,6 +76,16 @@ public class Player implements Serializable {
     this.rapidClickCount = 0;
   }
 
+  /**
+   * Constructeur d'un joueur
+   * @param game la partie de jeu
+   * @param user l'utilisateur
+   * @param score le score
+   * @param winner si le joueur est gagnant
+   * @param clickCount le nombre de clics
+   * @param rightClickCount le nombre de clics corrects
+   * @param rapidClickCount le nombre de clics rapides
+   */
   public Player(Game game, User user, int score, boolean winner, int clickCount, int rightClickCount, int rapidClickCount) {
     this.game = game;
     this.user = user;
@@ -73,71 +101,140 @@ public class Player implements Serializable {
     return Objects.hash(game, user, score, winner, clickCount, rightClickCount, rapidClickCount);
   }
 
+  /**
+   * @return La partie de jeu du joueur
+   */
   public Game getGame() {
     return game;
   }
 
+  /**
+   * Modifie la partie de jeu du joueur
+   *
+   * @param game le nouveau jeu
+   */
   public void setGame(Game game) {
     this.game = game;
   }
 
+  /**
+   * @return l'utilisateur
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * Modifie l'utilisateur
+   *
+   * @param user le nouvel utilisateur
+   */
   public void setUser(User user) {
     this.user = user;
   }
 
+  /**
+   * @return l'identifiant
+   */
   public int getScore() {
     return score;
   }
 
+  /**
+   * Modifie le score
+   *
+   * @param score le nouveau score
+   */
   public void setScore(int score) {
     this.score = score;
   }
 
+  /**
+   * Ajoute des points au score
+   *
+   * @param points les points à ajouter
+   */
   public void updateScore(int points) { this.score += points; }
 
+  /**
+   * @return si le joueur est gagnant
+   */
   public boolean isWinner() {
     return winner;
   }
 
+  /**
+   * Déclare le joueur comme gagnant
+   */
   public void setWinner() {
     this.winner = true;
   }
 
+  /**
+   * @return le nombre de clics
+   */
   public int getClickCount() {
     return clickCount;
   }
 
+  /**
+   * Modifie le nombre de clics
+   *
+   * @param clickCount le nouveau nombre de clics
+   */
   public void setClickCount(int clickCount) {
     this.clickCount = clickCount;
   }
 
+  /**
+   * Incrémente de 1 le nombre de clics
+   */
   public void incrementClickCount() {
     clickCount++;
   }
 
+  /**
+   * @return le nombre de clics corrects
+   */
   public int getRightClickCount() {
     return rightClickCount;
   }
 
+  /**
+   * Modifie le nombre de clics corrects
+   *
+   * @param rightClickCount le nouveau nombre de clics corrects
+   */
   public void setRightClickCount(int rightClickCount) {
     this.rightClickCount = rightClickCount;
   }
 
+  /**
+   * Incrémente de 1 le nombre de clics corrects
+   */
   public void incrementRightClickCount() {
     rightClickCount++;
   }
+
+  /**
+   * @return le nombre de clics rapides
+   */
   public int getRapidClickCount() {
     return rapidClickCount;
   }
 
+  /**
+   * Modifie le nombre de clics rapides
+   *
+   * @param rapidClickCount le nouveau nombre de clics rapides
+   */
   public void setRapidClickCount(int rapidClickCount) {
     this.rapidClickCount = rapidClickCount;
   }
 
+  /**
+   * Incrémente de 1 le nombre de clics rapides
+   */
   public void incrementRapidClickCount() {
     rapidClickCount++;
   }

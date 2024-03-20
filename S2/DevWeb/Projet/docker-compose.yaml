@@ -1,6 +1,6 @@
 version: '2'
 services:
-  db:
+  mysql-db:
     image: mysql:latest
     volumes:
       - ./mysql:/docker-entrypoint-initdb.d

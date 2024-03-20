@@ -1,20 +1,30 @@
+/*
+ * DAO_JPA_User.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.dao.jpa;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
-import uppa.project.EntityManagerProvider;
 import uppa.project.pojo.User;
 
+/**
+ * DAO pour les utilisateurs
+ *
+ * @author Kévin Mitresse
+ * @author Lucàs Vabre
+ * @see User
+ * @see DAO
+ */
 public class DAO_JPA_User extends DAO<User> {
 
-  private final EntityManager entityManager;
-
   public DAO_JPA_User() throws DAOException {
-    this.entityManager = EntityManagerProvider.getInstance();
+    super();
   }
 
   @Override

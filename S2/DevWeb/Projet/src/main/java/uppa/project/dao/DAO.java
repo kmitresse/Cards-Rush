@@ -6,56 +6,86 @@
 
 package uppa.project.dao;
 
-import jakarta.persistence.TypedQuery;
-import java.util.List;
-import uppa.project.pojo.User;
+import jakarta.persistence.EntityManager;
 
 /**
  * DAO abstrait et générique pour tout type de données
  *
  * @param <D> la classe paramétrant le DAO
+ * @author Kevin Mitressé
+ * @author Lucàs Vabre
  */
 public abstract class DAO<D> {
 
-  public void DAO() throws DAOException {
+  /**
+   * Gestionnaire d'entités
+   */
+  protected EntityManager entityManager;
 
+  /**
+   * Constructeur par défaut
+   *
+   * @throws DAOException si une erreur survient lors de la création du DAO
+   */
+  public DAO() throws DAOException {
+    this.entityManager = EntityManagerProvider.getInstance();
   }
 
   /**
-   * Retourne à partir du support de persistance un objet en fonction de son identifiant
+   * Retourne l'objet {@link D} en fonction de son identifiant
    *
    * @param id identifiant de l'objet
-   * @return l'instance de l'objet
+   * @return l'instance de l'objet {@link D}
    * @throws DAOException en cas de problème
+   * @see D
    */
   public abstract D findById(int id) throws DAOException;
 
+  /**
+   * Retourne tous les objets {@link D} paramétrant le DAO
+   *
+   * @return un tableau d'objets {@link D}
+   * @throws DAOException en cas de problème
+   * @see D
+   */
   public abstract D[] findAll() throws DAOException;
 
   /**
-   * Rend persistant un objet qui n'avait pas encore de réprésentation sur le support de persistance
+   * Rend persistant un objet {@link D} qui n'avait pas encore de réprésentation sur le support de persistance
    *
-   * @param data l'objet à rendre persistant
+   * @param data l'objet {@link D} à rendre persistant
    * @throws DAOException en cas de problème
+   * @see D
    */
   public abstract void create(D data) throws DAOException;
 
   /**
-   * Met à jour le contenu correspondant à l'objet sur le support persistant (l'objet
+   * Met à jour le contenu correspondant à l'objet {@link D} sur le support persistant (l'objet
    * avait déjà une représentation sur le support persistant)
    *
-   * @param data l'objet modifié dont le contenu est à mettre à jour
+   * @param data l'objet {@link D} modifié dont le contenu est à mettre à jour
    * @throws DAOException en cas de problème
+   * @see D
    */
   public abstract void update(D data) throws DAOException;
 
   /**
-   * Efface du support persistant le contenu équivalent à l'objet
+   * Efface du support persistant le contenu équivalent à l'objet {@link D}
    *
-   * @param data l'objet à supprimer
+   * @param data l'objet {@link D} à supprimer
    * @throws DAOException en cas de problème
+   * @see D
    */
   public abstract void delete(D data) throws DAOException;
 
+  /**
+   * Retourne les objets {@link D} paramétrant le DAO en fonction d'un champ et d'une valeur
+   *
+   * @param field le champ à rechercher
+   * @param value la valeur à rechercher
+   * @return un tableau d'objets {@link D}
+   * @throws DAOException en cas de problème
+   * @see D
+   */
   public abstract D[] findByField(String field, String value) throws DAOException;
 }

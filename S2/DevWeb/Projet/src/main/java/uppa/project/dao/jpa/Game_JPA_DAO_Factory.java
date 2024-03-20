@@ -13,13 +13,26 @@ import uppa.project.dao.GameDAOFactory;
 
 /**
  * Fabrique concrète de DAO pour le schéma relationnel sports avec une implémentation en JDBC.
+ *
+ * @author Kevin Mitressé
+ * @author Lucàs Vabre
+ * @see GameDAOFactory
  */
 public class Game_JPA_DAO_Factory extends GameDAOFactory {
 
+  /**
+   * DAO pour les utilisateurs
+   */
   private DAO_JPA_User daoUser = null;
 
+  /**
+   * DAO pour les parties
+   */
   private DAO_JPA_Game daoGame = null;
 
+  /**
+   * DAO pour les joueurs
+   */
   private DAO_JPA_Player daoPlayer = null;
 
   @Override

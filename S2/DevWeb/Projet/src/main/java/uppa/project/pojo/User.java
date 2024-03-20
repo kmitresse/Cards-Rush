@@ -1,3 +1,9 @@
+/*
+ * User.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.pojo;
 
 import jakarta.persistence.CascadeType;
@@ -21,6 +27,12 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Représentation d'un utilisateur
+ *
+ * @author Kevin Mitressé
+ * @author Lucàs Vabre
+ */
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -29,29 +41,36 @@ public class User implements Serializable {
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private BigDecimal id;
-
   @Column(name = "username")
   private String username;
-
   @Column(name = "email")
   private String email;
-
   @Column(name = "password")
   private String password;
-
   @Temporal(TemporalType.DATE)
   @Column(name = "birth")
   private Date birth;
-
   @Column(name = "gender")
   @Enumerated(EnumType.STRING)
   private Gender gender;
-
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> playedGame;
+
+  /**
+   * Constructeur par défaut
+   */
   public User() {
   }
 
+  /**
+   * Constructeur d'un utilisateur
+   *
+   * @param username le pseudonyme
+   * @param email    l'adresse email
+   * @param password le mot de passe
+   * @param birth    la date de naissance
+   * @param gender   le genre
+   */
   public User(String username, String email, String password, Date birth, Gender gender) {
     this.username = username;
     this.email = email;
@@ -60,6 +79,16 @@ public class User implements Serializable {
     this.gender = gender;
   }
 
+  /**
+   * Constructeur d'un utilisateur
+   *
+   * @param id       l'identifiant
+   * @param username le pseudonyme
+   * @param email    l'adresse email
+   * @param password le mot de passe
+   * @param birth    la date de naissance
+   * @param gender   le genre
+   */
   public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender) {
     this.id = id;
     this.username = username;
@@ -69,63 +98,13 @@ public class User implements Serializable {
     this.gender = gender;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, username, email, password, birth, gender);
-  }
-
-  public BigDecimal getId() {
-    return id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = hashPassword(password);
-  }
-
-  public Date getBirth() {
-    return birth;
-  }
-
-  public void setBirth(Date birth) {
-    this.birth = birth;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public void setGender(Gender gender) {
-    this.gender = gender;
-  }
-
-  public int getAge() {
-    Date currentDate = new Date();
-    long diff = currentDate.getTime() - birth.getTime();
-    long diffDays = diff / (24 * 60 * 60 * 1000);
-    return (int) (diffDays / 365);
-  }
-
-  public static String hashPassword(String password) {
+  /**
+   * Hash le mot de passe en SHA-256
+   *
+   * @param password le mot de passe à hasher
+   * @return le mot de passe hashé
+   */
+  private static String hashPassword(String password) {
     try {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -144,6 +123,114 @@ public class User implements Serializable {
     }
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username, email, password, birth, gender);
+  }
+
+  /**
+   * @return l'identifiant de l'utilisateur
+   */
+  public BigDecimal getId() {
+    return id;
+  }
+
+  /**
+   * @return le pseudonyme de l'utilisateur
+   */
+  public String getUsername() {
+    return username;
+  }
+
+  /**
+   * Modifie le pseudonyme de l'utilisateur
+   *
+   * @param username le nouveau pseudonyme
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  /**
+   * @return l'adresse email de l'utilisateur
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * Modifie l'adresse email de l'utilisateur
+   *
+   * @param email la nouvelle adresse email
+   */
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  /**
+   * @return le mot de passe hashé de l'utilisateur
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * Modifie le mot de passe de l'utilisateur
+   *
+   * @param password le nouveau mot de passe
+   */
+  public void setPassword(String password) {
+    this.password = hashPassword(password);
+  }
+
+  /**
+   * @return la date de naissance de l'utilisateur
+   */
+  public Date getBirth() {
+    return birth;
+  }
+
+  /**
+   * Modifie la date de naissance de l'utilisateur
+   *
+   * @param birth la nouvelle date de naissance
+   */
+  public void setBirth(Date birth) {
+    this.birth = birth;
+  }
+
+  /**
+   * @return le genre de l'utilisateur
+   */
+  public Gender getGender() {
+    return gender;
+  }
+
+  /**
+   * Modifie le genre de l'utilisateur
+   */
+  public void setGender(Gender gender) {
+    this.gender = gender;
+  }
+
+  /**
+   * Calcule l'âge de l'utilisateur
+   *
+   * @return l'âge de l'utilisateur en années
+   */
+  public int getAge() {
+    Date currentDate = new Date();
+    long diff = currentDate.getTime() - birth.getTime();
+    long diffDays = diff / (24 * 60 * 60 * 1000);
+    return (int) (diffDays / 365);
+  }
+
+  /**
+   * Prédicat qui vérifie si le mot de passe fourni est correct
+   *
+   * @param password le mot de passe à vérifier
+   * @return true si le prédicat est vérifié, false sinon
+   */
   public boolean verifyPassword(String password) {
     String hashedPassword = hashPassword(password);
     return hashedPassword != null && hashedPassword.equals(this.password);
@@ -154,5 +241,8 @@ public class User implements Serializable {
     return String.format("User{id=%s, username='%s', birth=%s, gender=%s}", id.toString(), username, birth.toString(), gender.toString());
   }
 
-  public static enum Gender {MALE, FEMALE, OTHER}
+  /**
+   * Enumération des genres possibles
+   */
+  public enum Gender {MALE, FEMALE, OTHER}
 }
