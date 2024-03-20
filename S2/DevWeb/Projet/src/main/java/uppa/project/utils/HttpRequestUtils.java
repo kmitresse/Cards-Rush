@@ -4,7 +4,7 @@
  * Pas de copyright, aucun droits
  */
 
-package uppa.project.servlet.utils;
+package uppa.project.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;

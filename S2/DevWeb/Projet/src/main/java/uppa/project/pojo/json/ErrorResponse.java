@@ -1,25 +1,18 @@
 /*
- * ErrorApi.java, 20/03/2024
+ * ErrorResponse.java, 20/03/2024
  * UPPA M1 TI 2023-2024
  * Pas de copyright, aucun droits
  */
 
-package uppa.project.servlet.json;
-
-import com.google.gson.Gson;
+package uppa.project.pojo.json;
 
 /**
- * Classe représentant une erreur pour l'API
+ * Classe représentant une erreur
  *
  * @author Kevin Mitresse
  * @author Lucàs Vabre
  */
-public class ErrorApi {
-
-  /**
-   * Code HTTP de l'erreur
-   */
-  private final int status;
+public class ErrorResponse extends HttpResponse{
 
   /**
    * Type de l'erreur
@@ -38,17 +31,10 @@ public class ErrorApi {
    * @param error type de l'erreur
    * @param message message d'erreur
    */
-  public ErrorApi(int status, String error, String message) {
-    this.status = status;
+  public ErrorResponse(int status, String error, String message) {
+    super(status);
     this.error = error;
     this.message = message;
-  }
-
-  /**
-   * @return le code HTTP de l'erreur
-   */
-  public int getStatus() {
-    return status;
   }
 
   /**
@@ -63,13 +49,5 @@ public class ErrorApi {
    */
   public String getMessage() {
     return message;
-  }
-
-  /**
-   * @return la représentation JSON de l'erreur
-   */
-  public String toJson() {
-    Gson gson = new Gson();
-    return gson.toJson(this);
   }
 }
