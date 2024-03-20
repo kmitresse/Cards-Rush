@@ -9,16 +9,16 @@ import java.util.Set;
 public class Deck {
   private Set<Card> cards;
 
-  public Deck(){
+  public Deck(int nbColors, int nbValues){
     cards = new HashSet<>();
-    initializeDeck();
+    initializeDeck(nbColors, nbValues);
     shuffleDeck();
   }
 
-  private void initializeDeck() {
-    for (Card.Color color : Card.Color.values()){
-      for (Card.Value value : Card.Value.values()) {
-        cards.add(new Card(color, value));
+  private void initializeDeck(int nbColors, int nbValues){
+    for (int i = 0; i < nbColors; i++) {
+      for (int j = 0; j < nbValues; j++) {
+        cards.add(new Card(Card.Color.values()[i], Card.Value.values()[j]));
       }
     }
   }

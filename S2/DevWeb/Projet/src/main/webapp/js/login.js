@@ -17,8 +17,8 @@ loginForm.addEventListener("submit", (event) => {
     })
         .then(res => res.json())
         .then(data => {
-            if (data)
-            window.location.href = action;
+            console.log(data);
+            if (data.status == 200) window.location.href = action;
         })
         .catch(error => console.error("Error:", error))
     ;

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `user`
 (
     id         INT          NOT NULL AUTO_INCREMENT,
     username   VARCHAR(255) NOT NULL UNIQUE,
+    email      VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
     gender     VARCHAR(255) NOT NULL,
     birth      DATE         NOT NULL,
@@ -15,11 +16,13 @@ CREATE TABLE IF NOT EXISTS `user`
 -- Table: Game
 CREATE TABLE IF NOT EXISTS game
 (
-    id    INT          NOT NULL AUTO_INCREMENT,
+    id         INT          NOT NULL AUTO_INCREMENT,
+    difficulty VARCHAR(255) NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
 
+-- Table: Player
 CREATE TABLE IF NOT EXISTS player
 (
     id                INT     NOT NULL  AUTO_INCREMENT,

@@ -16,47 +16,65 @@ main {
     align-items: center;
 }
 
+/*Common */
+
+hr {
+    width: 100%;
+}
+
+.border-left {
+    border-left: ridge;
+    padding-left: 6%;
+}
+
+/*Section titre*/
 #title {
     width:60%;
     text-align: center;
     font-size: xxx-large;
 }
 
+/*Section login / register*/
 #form {
-    width: 18%;
+    display: flex;
+    flex-direction: row;
     height: 100%;
-    border-left: ridge;
-    padding-left: 6%;
 }
 
 h1 {
     justify-self: center;
 }
 
-#loginForm, #registerForm {
-    display: grid;
-}
-
-.field {
+.flex-column {
     display: flex;
-    flex-direction: row;
-    width: auto;
-    justify-content: space-between;
-    margin: 1%;
+    flex-direction: column;
+    justify-content: left;
 }
 
-#birthdate {
-    width: 59%;
-    text-align: right;
+.login-gap {
+    gap: 20px;
 }
-.submit {
+
+.register-gap {
+    gap: 75px;
+}
+
+
+#login-form, #register-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 8% 2%;
+}
+
+#login-submit {
+    grid-column: 2/2;
+    grid-row: 3/3;
     justify-self: right;
-    width: 35%;
-    margin: 1%;
 }
 
-p {
-    border-top: ridge;
-    padding-top: 5%;
-}
+#register-submit {
+    grid-column: 2/2;
+    grid-row: 7/7;
+    justify-self: right;
 
+}

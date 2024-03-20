@@ -32,35 +32,46 @@ public class User implements Serializable {
 
   @Column(name = "username")
   private String username;
+
+  @Column(name = "email")
+  private String email;
+
   @Column(name = "password")
   private String password;
+
   @Temporal(TemporalType.DATE)
   @Column(name = "birth")
   private Date birth;
+
   @Column(name = "gender")
   @Enumerated(EnumType.STRING)
   private Gender gender;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> playedGame;
   public User() {
   }
 
-  public User(String username, String password, Date birth, Gender gender) {
+  public User(String username, String email, String password, Date birth, Gender gender) {
     this.username = username;
+    this.email = email;
     this.password = hashPassword(password);
     this.birth = birth;
     this.gender = gender;
   }
 
-  public User(BigDecimal id, String username, String password) {
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender) {
     this.id = id;
     this.username = username;
+    this.email = email;
     this.password = password;
+    this.birth = birth;
+    this.gender = gender;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, birth, gender);
+    return Objects.hash(id, username, email, password, birth, gender);
   }
 
   public BigDecimal getId() {
@@ -73,6 +84,14 @@ public class User implements Serializable {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getPassword() {
@@ -135,5 +154,5 @@ public class User implements Serializable {
     return String.format("User{id=%s, username='%s', birth=%s, gender=%s}", id.toString(), username, birth.toString(), gender.toString());
   }
 
-  public enum Gender {MALE, FEMALE, OTHER}
+  public static enum Gender {MALE, FEMALE, OTHER}
 }

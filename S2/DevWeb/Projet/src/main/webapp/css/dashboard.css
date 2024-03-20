@@ -1,0 +1,27 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Title {
+    text-align: center;
+    justify-self: center;
+    font-size: xxx-large;
+}
+
+.main-button {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+}
+
+input {
+    font-size: x-large;
+    margin: 10px 0;
+}
