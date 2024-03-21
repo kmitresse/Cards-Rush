@@ -22,9 +22,7 @@ public abstract class DAO<D> {
    *
    * @throws DAOException si une erreur survient lors de la création du DAO
    */
-  public DAO() throws DAOException {
-    throw new DAOException("DAO not implemented");
-  }
+  public DAO() throws DAOException {}
 
   /**
    * Retourne l'objet {@link D} en fonction de son identifiant
