@@ -1,7 +1,8 @@
-const loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
     const formData = new FormData(loginForm);
     const data = {};
     formData.forEach((value, key) => data[key] = value);
@@ -17,7 +18,7 @@ loginForm.addEventListener("submit", (event) => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            if (data.status === 200) window.location.href = data.redirect;
+            // if (data.status === 200) window.location.href = data.redirect;
         })
         .catch(error => console.error("Error:", error))
     ;

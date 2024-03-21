@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Login</title>
-    <script defer type="text/javascript"><%@include file="../static/js/login.js" %></script>
     <style><%@include file="../static/css/login.css" %></style>
 </head>
 <body>
@@ -15,7 +14,7 @@
         <div class="flex-column login-gap">
             <div>
                 <h1>Login</h1>
-                <form id="login-form" action="${pageContext.request.contextPath}/login" method="POST">
+                <form id="login-form" action="${pageContext.request.contextPath}/api/auth/login" method="POST">
 
                     <label id="username-label" for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -35,6 +34,8 @@
         </div>
     </section>
 </main>
+
+<script defer type="text/javascript"><%@include file="../static/js/login.js" %></script>
 
 </body>
 </html>
