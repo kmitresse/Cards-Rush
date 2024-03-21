@@ -49,6 +49,15 @@ public class Game implements Serializable {
   @Enumerated(EnumType.STRING)
   private Difficulty difficulty;
 
+  @Column(name = "nb_rounds")
+  private int nbRounds;
+
+  @Column(name = "nb_colors")
+  private int nbColors;
+
+  @Column(name = "nb_values_per_color")
+  private int nbValuesPerColor;
+
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> players;
 
@@ -63,9 +72,15 @@ public class Game implements Serializable {
    *
    * @param difficulty la difficulté de la partie
    * @see Difficulty
+   * @param nbRounds le nombre de tours de la partie
+   * @param nbColors le nombre de couleurs présente dans le deck
+   * @param nbValuesPerColor le nombre de valeurs par couleur
    */
-  public Game(Difficulty difficulty) {
+  public Game(Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor) {
     this.difficulty = difficulty;
+    this.nbRounds = nbRounds;
+    this.nbColors = nbColors;
+    this.nbValuesPerColor = nbValuesPerColor;
   }
 
   /**
@@ -74,12 +89,18 @@ public class Game implements Serializable {
    * @param id         l'identifiant de la partie
    * @param createdAt  la date de création de la partie
    * @param difficulty la difficulté de la partie
+   * @param nbRounds le nombre de tours de la partie
+   * @param nbColors le nombre de couleurs présente dans le deck
+   * @param nbValuesPerColor le nombre de valeurs par couleur
    * @param players    les joueurs de la partie
    */
-  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, Set<Player> players) {
+  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor, Set<Player> players) {
     this.id = id;
     this.createdAt = createdAt;
     this.difficulty = difficulty;
+    this.nbRounds = nbRounds;
+    this.nbColors = nbColors;
+    this.nbValuesPerColor = nbValuesPerColor;
     this.players = players;
   }
 
@@ -118,6 +139,48 @@ public class Game implements Serializable {
   }
 
   /**
+   * @return le nombre de tours de la partie
+   */
+  public int getNbRounds() {
+    return nbRounds;
+  }
+
+  /**
+   * @param nbRounds le nouveau nombre de tours de la partie
+   */
+  public void setNbRounds(int nbRounds) {
+    this.nbRounds = nbRounds;
+  }
+
+  /**
+   * @return le nombre de couleurs présente dans le deck
+   */
+  public int getNbColors() {
+    return nbColors;
+  }
+
+  /**
+   * @param nbColors le nouveau nombre de couleurs présente dans le deck
+   */
+  public void setNbColors(int nbColors) {
+    this.nbColors = nbColors;
+  }
+
+  /**
+   * @return le nombre de valeurs par couleur
+   */
+  public int getNbValuesPerColor() {
+    return nbValuesPerColor;
+  }
+
+  /**
+   * @param nbValuesPerColor le nouveau nombre de valeurs par couleur
+   */
+  public void setNbValuesPerColor(int nbValuesPerColor) {
+    this.nbValuesPerColor = nbValuesPerColor;
+  }
+
+  /**
    * @return les joueurs de la partie
    */
   public Set<Player> getPlayers() {
@@ -134,12 +197,26 @@ public class Game implements Serializable {
   }
 
   /**
+   * @return le nombre de joueurs de la partie
+   */
+  public int getNbPlayers() {
+    return this.players.size();
+  }
+
+  /**
    * Ajoute un joueur à la partie
    *
    * @param player le joueur à ajouter
    */
   public void addPlayer(Player player) {
     this.players.add(player);
+  }
+
+  /**
+   * Tri des joueurs de la partie par score
+   */
+  public void sortPlayersByScore() {
+    this.players.stream().sorted((p1, p2) -> p1.getScore() - p2.getScore());
   }
 
   @Override

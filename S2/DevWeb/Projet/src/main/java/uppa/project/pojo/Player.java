@@ -217,6 +217,13 @@ public class Player implements Serializable {
   }
 
   /**
+   * @return le pourcentage de clics corrects du joueur sur la partie courante
+   */
+  public double getRatioRightClick() {
+    return (double) rightClickCount * 100 / clickCount;
+  }
+
+  /**
    * @return le nombre de clics rapides
    */
   public int getRapidClickCount() {
@@ -239,7 +246,12 @@ public class Player implements Serializable {
     rapidClickCount++;
   }
 
-//  public void getRatioRightCl
+  /**
+   * @return le pourcentage de clics rapides du joueur sur la partie courante
+   */
+  public double getRatioRapidClick() {
+    return (double) rapidClickCount * 100 / clickCount;
+  }
   @Override
   public String toString() {
     return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}", id.toString(), game.toString(), user.toString(), score, winner, clickCount, rightClickCount, rapidClickCount);

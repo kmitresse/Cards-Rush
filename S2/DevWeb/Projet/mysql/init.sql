@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS game
     id         INT          NOT NULL AUTO_INCREMENT,
     difficulty VARCHAR(255) NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    nb_rounds  INT          NOT NULL,
+    nb_colors  INT          NOT NULL,
+    nb_values_per_color INT NOT NULL,
     PRIMARY KEY (id)
 );
 

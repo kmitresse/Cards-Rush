@@ -237,6 +237,94 @@ public class User implements Serializable {
     return hashedPassword != null && hashedPassword.equals(this.password);
   }
 
+  /**
+   * Récupère le nombre de parties jouées
+   *
+   * @return le nombre de parties jouées
+   */
+  public int getNbPlayedGame() {
+    return playedGame.size();
+  }
+
+  /**
+   * Récupère le nombre de parties gagnées
+   *
+   * @return le nombre de parties gagnées
+   */
+  public int getNbWin(){
+    int nbWin = 0;
+    for (Player p : playedGame) {
+      if (p.isWinner()) nbWin++;
+    }
+    return nbWin;
+  }
+
+  /**
+   * Récupère le pourcentage de victoire
+   *
+   * @return le pourcentage de victoire
+   */
+  public double getWinRate(){
+    return (double) getNbWin() * 100 / getNbPlayedGame();
+  }
+
+  /**
+   * Récupère le nombre total de clics toute partie confondue
+   *
+   * @return le nombre total de clics
+   */
+  public int getNbClicks(){
+    int nbClicks = 0;
+    for (Player p : playedGame) {
+      nbClicks += p.getClickCount();
+    }
+    return nbClicks;
+  }
+
+  /**
+   * Récupère le nombre total de clics réussi toute partie confondue
+   *
+   * @return le nombre total de clics réussi
+   */
+  public int getNbRightClicks(){
+    int nbRightClicks = 0;
+    for (Player p : playedGame) {
+      nbRightClicks += p.getRightClickCount();
+    }
+    return nbRightClicks;
+  }
+
+  /**
+   * Récupère le pourcentage de clics réussi
+   *
+   * @return le pourcentage de clics réussi
+   */
+  public double getRightClickPercentRate(){
+    return (double) getNbRightClicks() * 100 / getNbClicks();
+  }
+
+  /**
+   * Récupère le nombre total de clics les plus rapides  toute partie confondue
+   *
+   * @return le nombre total de clics les plus rapides
+   */
+  public int getNbRapidClicks(){
+    int nbRapidClicks = 0;
+    for (Player p : playedGame) {
+      nbRapidClicks += p.getRapidClickCount();
+    }
+    return nbRapidClicks;
+  }
+
+  /**
+   * Récupère le pourcentage de clics les plus rapides
+   *
+   * @return le pourcentage de clics les plus rapides
+   */
+  public double getRapidClickPercentRate(){
+    return (double) getNbRapidClicks() * 100 / getNbClicks();
+  }
+
   @Override
   public String toString() {
     return String.format("User{id=%s, username='%s', birth=%s, gender=%s}", id.toString(), username, birth.toString(), gender.toString());
