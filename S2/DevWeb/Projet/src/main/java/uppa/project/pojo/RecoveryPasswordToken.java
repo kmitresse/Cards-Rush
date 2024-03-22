@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -24,10 +26,13 @@ public class RecoveryPasswordToken {
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
   @Column(name = "token")
   private String token;
-  @Column(name = "email")
-  private String email;
+
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "expires_at")
@@ -38,24 +43,27 @@ public class RecoveryPasswordToken {
 
   /**
    * Constructeur
+   *
    * @param token
-   * @param email
+   * @param user
    */
-  public RecoveryPasswordToken(String token, String email) {
+  public RecoveryPasswordToken(String token, User user) {
     this.token = token;
-    this.email = email;
+    this.user = user;
   }
 
   /**
    * Constructeur depuis la base de données
+   *
    * @param id
    * @param token
-   * @param email
+   * @param user
    */
-  public RecoveryPasswordToken(int id, String token, String email) {
+  public RecoveryPasswordToken(int id, String token, User user, Date expiresAt) {
     this.id = id;
     this.token = token;
-    this.email = email;
+    this.user = user;
+    this.expiresAt = expiresAt;
   }
 
   /**
@@ -86,21 +94,21 @@ public class RecoveryPasswordToken {
   }
 
   /**
-   * Récupère l'email associé au token
+   * Récupère l'utilisateur associé au token
    *
-   * @return l'email associé au token
+   * @return l'utilisateur associé au token
    */
-  public String getEmail() {
-    return email;
+  public User getUser() {
+    return user;
   }
 
   /**
-   * Définit l'email associé au token
+   * Définit l'utilisateur associé au token
    *
-   * @param email
+   * @param user
    */
-  public void setEmail(String email) {
-    this.email = email;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   /**
@@ -119,5 +127,24 @@ public class RecoveryPasswordToken {
    */
   public void setExpiresAt(Date expiresAt) {
     this.expiresAt = expiresAt;
+  }
+
+  @Override
+  public String toString() {
+    return "RecoveryPasswordToken{" +
+      "id=" + id +
+      ", token='" + token + '\'' +
+      ", user=" + user +
+      ", expiresAt=" + expiresAt +
+      '}';
+  }
+
+  /**
+   * Récupère la date d'expiration du token
+   *
+   * @return la date d'expiration du token
+   */
+  public Date getExpirationDate() {
+    return expiresAt;
   }
 }

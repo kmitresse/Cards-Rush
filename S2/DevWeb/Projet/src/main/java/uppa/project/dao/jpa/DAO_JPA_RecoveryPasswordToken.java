@@ -16,7 +16,7 @@ import uppa.project.pojo.RecoveryPasswordToken;
 import uppa.project.provider.EntityManagerProvider;
 
 /**
- * DAO pour les utilisateurs
+ * DAO pour les tokens de récupération de mot de passe
  *
  * @author Kévin Mitresse
  * @author Lucàs Vabre

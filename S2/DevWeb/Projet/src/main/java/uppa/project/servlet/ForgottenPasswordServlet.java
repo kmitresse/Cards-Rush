@@ -31,11 +31,6 @@ public class ForgottenPasswordServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-    if (request.getSession().getAttribute("user") != null) {
-      response.sendRedirect(request.getContextPath() + "/main-menu");
-      return;
-    }
-
     request.getRequestDispatcher("/WEB-INF/views/forgotten-password.jsp").forward(request, response);
   }
 
@@ -53,18 +48,9 @@ public class ForgottenPasswordServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/forgotten-password?error=1");
     } else {
       String token = UUID.randomUUID().toString();
-      System.out.println("Token : " + token);
-      System.out.println("1");
-      RecoveryPasswordToken recoveryPasswordToken = new RecoveryPasswordToken(token, user.getEmail());
-      Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
-      try {
-        System.out.println("2");
-        DAO<RecoveryPasswordToken> daoJpaRecoveryPasswordToken = jpaDaoFactory.getDAORecoveryPasswordToken();
-        System.out.println("3");
-        daoJpaRecoveryPasswordToken.create(recoveryPasswordToken);
-      } catch (DAOException e) {
-        throw new RuntimeException(e);
-      }
+
+      RecoveryPasswordToken recoveryPasswordToken = new RecoveryPasswordToken(token, user);
+      CreateToken(recoveryPasswordToken);
       sendRecoveryEmail(email, token);
       response.sendRedirect(request.getContextPath() + "/forgotten-password?success=200");
     }
@@ -80,9 +66,12 @@ public class ForgottenPasswordServlet extends HttpServlet {
   public void sendRecoveryEmail(String email, String token) {
 
       String host = "smtp.gmail.com";
-      String port = "587";
-      String username = System.getenv("MAIL_USERNAME");
-      String password = System.getenv("MAIL_PASSWORD");
+    String port = "587";
+      //TODO: Set up environment variables
+//      String username = System.getenv("MAIL_USERNAME");
+//      String password = System.getenv("MAIL_PASSWORD");
+      String username = "kmitresse@gmail.com";
+      String password = "xwos ujwf cesq ocyt";
 
       Properties props = new Properties();
       props.put("mail.smtp.auth", "true");
@@ -105,7 +94,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
         message.setSubject("Réinitialisation de votre mot de passe");
         message.setText("Bonjour,\n\n" +
           "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
-          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:8080/reset-password?token=" + token + "\n\n" +
+          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:8088/project_war_exploded/reset-password?token=" + token + "\n\n" +
           "Cordialement,\n" +
           "L'équipe CardRush");
         // Envoi du message
@@ -128,8 +117,16 @@ public class ForgottenPasswordServlet extends HttpServlet {
       } catch (DAOException e) {
         throw new RuntimeException(e);
       }
-
+  }
+  public static void CreateToken(RecoveryPasswordToken token){
+    Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
+    try {
+      DAO<RecoveryPasswordToken> daoJpaRecoveryPasswordToken = jpaDaoFactory.getDAORecoveryPasswordToken();
+      daoJpaRecoveryPasswordToken.create(token);
+    } catch (DAOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
   public void destroy() {
   }

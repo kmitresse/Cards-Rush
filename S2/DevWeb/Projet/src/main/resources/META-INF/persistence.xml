@@ -8,6 +8,7 @@
     <class>uppa.project.pojo.User</class>
     <class>uppa.project.pojo.Game</class>
     <class>uppa.project.pojo.Player</class>
+    <class>uppa.project.pojo.RecoveryPasswordToken</class>
 
     <properties>
         <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

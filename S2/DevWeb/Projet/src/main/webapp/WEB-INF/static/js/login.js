@@ -23,3 +23,10 @@ loginForm.addEventListener("submit", (event) => {
         .catch(error => console.error("Error:", error))
     ;
 });
+
+//Récupération de mot de passe réussie = redirection vers la page de connexion + message d'alerte
+const urlParams = new URLSearchParams(window.location.search);
+const succes = urlParams.get('succes');
+if (succes != null) {
+    window.alert(succes);
+}

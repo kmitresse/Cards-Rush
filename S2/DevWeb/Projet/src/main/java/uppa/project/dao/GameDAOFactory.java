@@ -45,6 +45,11 @@ public abstract class GameDAOFactory {
    */
   public abstract DAO<Player> getDAOPlayer() throws DAOException;
 
+  /**
+   * @return le DAO pour la classe/table RecoveryPasswordToken
+   * @throws DAOException en cas de problème
+   * @see RecoveryPasswordToken
+   */
   public abstract DAO<RecoveryPasswordToken> getDAORecoveryPasswordToken() throws DAOException;
 
 }

@@ -6,7 +6,6 @@
 
 package uppa.project.pojo;
 
-import com.google.gson.Gson;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,20 +41,29 @@ public class User implements Serializable {
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private BigDecimal id;
+
   @Column(name = "username")
   private String username;
+
   @Column(name = "email")
   private String email;
+
   @Column(name = "password")
   private String password;
+
   @Temporal(TemporalType.DATE)
   @Column(name = "birth")
   private Date birth;
+
   @Column(name = "gender")
   @Enumerated(EnumType.STRING)
   private Gender gender;
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> playedGame;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private Set<RecoveryPasswordToken> recoveryPasswordTokens;
 
   /**
    * Constructeur par défaut
