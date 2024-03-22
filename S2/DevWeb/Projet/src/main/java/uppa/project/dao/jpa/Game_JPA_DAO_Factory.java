@@ -36,4 +36,10 @@ public class Game_JPA_DAO_Factory extends GameDAOFactory {
     if (daoPlayer == null) daoPlayer = new DAO_JPA_Player();
     return daoPlayer;
   }
+
+  @Override
+  public DAO<RecoveryPasswordToken> getDAORecoveryPasswordToken() throws DAOException {
+    if (daoRecoveryPasswordToken == null) daoRecoveryPasswordToken= new DAO_JPA_RecoveryPasswordToken();
+    return daoRecoveryPasswordToken;
+  }
 }

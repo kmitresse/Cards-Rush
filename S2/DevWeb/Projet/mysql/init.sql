@@ -43,3 +43,17 @@ CREATE TABLE IF NOT EXISTS player
     FOREIGN KEY (game_id) REFERENCES game (id),
     FOREIGN KEY (user_id) REFERENCES `user` (id)
 );
+
+CREATE TABLE IF NOT EXISTS recovery_password_token(
+    id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+DELIMITER //
+CREATE TRIGGER expires_at BEFORE INSERT ON recovery_password_token FOR EACH ROW
+BEGIN
+    SET NEW.`expires_at` = TIMESTAMPADD(MINUTE, 15, CURRENT_TIMESTAMP);
+END;//

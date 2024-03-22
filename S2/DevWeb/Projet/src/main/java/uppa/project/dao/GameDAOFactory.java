@@ -8,6 +8,7 @@ package uppa.project.dao;
 
 import uppa.project.pojo.Game;
 import uppa.project.pojo.Player;
+import uppa.project.pojo.RecoveryPasswordToken;
 import uppa.project.pojo.User;
 
 /**
@@ -21,6 +22,7 @@ public abstract class GameDAOFactory {
   protected DAO<User> daoUser = null;
   protected DAO<Game> daoGame = null;
   protected DAO<Player> daoPlayer = null;
+  protected DAO<RecoveryPasswordToken> daoRecoveryPasswordToken = null;
 
   /**
    * @return le DAO pour la classe/table User
@@ -42,5 +44,7 @@ public abstract class GameDAOFactory {
    * @see Player
    */
   public abstract DAO<Player> getDAOPlayer() throws DAOException;
+
+  public abstract DAO<RecoveryPasswordToken> getDAORecoveryPasswordToken() throws DAOException;
 
 }
