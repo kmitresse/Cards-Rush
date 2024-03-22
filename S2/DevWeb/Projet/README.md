@@ -6,6 +6,7 @@ Pour pouvoir lancer le projet, il vous faut avoir docker et maven d'installé su
 
 Lancez les commandes suivantes pour installer le projet :
 ````
+./mysql/build.sh
 docker-compose up -d
 mvn install
 ````
