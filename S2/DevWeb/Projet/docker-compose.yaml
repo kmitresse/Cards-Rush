@@ -2,13 +2,12 @@ version: '2'
 services:
   mysql-db:
     image: mysql:latest
-    volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_DATABASE=db
       - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
     ports:
-      - "6033:3306"
+      - "3306:3306"
     expose:
       - "3306"
 
@@ -16,11 +15,9 @@ services:
     image: maildev/maildev
     environment:
       - TZ=Asia/Shanghai
-      - MAILDEV_WEB_PORT=1080
-      - MAILDEV_SMTP_PORT=1025
     ports:
-      - "8090:1080"
-      - "8025:1025"
+      - "1080:1080"
+      - "1025:1025"
     logging:
       driver: "json-file"
       options:

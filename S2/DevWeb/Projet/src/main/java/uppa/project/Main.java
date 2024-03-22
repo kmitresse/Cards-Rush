@@ -15,11 +15,11 @@ public class Main {
 //      DAO<Player> daoJpaPlayer = jpaDaoFactory.getDAOPlayer();
 
       // Contenu de la BD au début
-//      User[] users = daoJpaUser.findAll();
-//      for (User u : users) {
-//        System.out.println(u.toString());
-//      }
-//      System.out.println();
+      User[] users = daoJpaUser.findAll();
+      for (User u : users) {
+        System.out.println(u.toString());
+      }
+      System.out.println();
 
 //      // Ajout d'User :
 //      Calendar cal1 = Calendar.getInstance();
@@ -33,12 +33,12 @@ public class Main {
 //      daoJpaUser.create(user1);
 //      daoJpaUser.create(user2);
 
-      System.out.println("test récupération user");
-      User[] users2 = daoJpaUser.findByField("username", "Kevin");
-      for (User user : users2) {
-        System.out.println(user.toString());
-      }
-      System.out.println("fin test");
+//      System.out.println("test récupération user");
+//      User[] users2 = daoJpaUser.findByField("username", "Kevin");
+//      for (User user : users2) {
+//        System.out.println(user.toString());
+//      }
+//      System.out.println("fin test");
     } catch (DAOException e) {
       throw new RuntimeException(e);
     }

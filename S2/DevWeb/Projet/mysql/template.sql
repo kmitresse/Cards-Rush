@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS db;
-USE db;
+CREATE DATABASE IF NOT EXISTS ${database};
+USE ${database};
 
 -- Table: User
 CREATE TABLE IF NOT EXISTS `user`
@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS recovery_password_token
     FOREIGN KEY (user_id) REFERENCES `user` (id)
 );
 
-DELIMITER //
-CREATE TRIGGER expires_at BEFORE INSERT ON recovery_password_token FOR EACH ROW
-BEGIN
-    SET NEW.`expires_at` = TIMESTAMPADD(MINUTE, 15, CURRENT_TIMESTAMP);
-END;//
+# DELIMITER //
+# CREATE TRIGGER expires_at BEFORE INSERT ON recovery_password_token FOR EACH ROW
+# BEGIN
+#     SET NEW.`expires_at` = TIMESTAMPADD(MINUTE, 15, CURRENT_TIMESTAMP);
+# END;//

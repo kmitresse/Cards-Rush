@@ -18,8 +18,7 @@ import jakarta.persistence.Persistence;
  * @see jakarta.persistence.EntityManager
  */
 public final class EntityManagerProvider {
-
-  private final static String PERSISTANCE_UNIT_NAME = "db";
+  private static final String PERSISTANCE_UNIT_NAME = DotenvProvider.getInstance().get("PERSISTANCE_UNIT_NAME");
   private static EntityManager instance;
   private static EntityManagerFactory factory;
 
