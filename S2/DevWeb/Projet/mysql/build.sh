@@ -2,8 +2,8 @@
 
 databases=("db_test" "db_prod")
 
-template="template.sql"
-output="init/init.sql"
+template="./mysql/template.sql"
+output="./mysql/init/init.sql"
 
 > "$output"
 for database in "${databases[@]}"; do
