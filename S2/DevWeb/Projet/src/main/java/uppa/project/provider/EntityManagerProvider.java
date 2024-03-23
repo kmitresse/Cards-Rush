@@ -18,13 +18,15 @@ import jakarta.persistence.Persistence;
  * @see jakarta.persistence.EntityManager
  */
 public final class EntityManagerProvider {
-  private static final String PERSISTANCE_UNIT_NAME = DotenvProvider.getInstance().get("PERSISTANCE_UNIT_NAME");
+//  private static final String PERSISTENCE_UNIT_NAME = DotenvProvider.getInstance().get("PERSISTENCE_UNIT_NAME");
+  private static final String PERSISTENCE_UNIT_NAME = "prod";
+
   private static EntityManager instance;
   private static EntityManagerFactory factory;
 
   public static EntityManager getInstance() {
     if (factory == null) {
-      factory = Persistence.createEntityManagerFactory(PERSISTANCE_UNIT_NAME);
+      factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
     if (instance == null) {
