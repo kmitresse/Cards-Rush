@@ -50,6 +50,7 @@ public class RecoveryPasswordToken {
   public RecoveryPasswordToken(String token, User user) {
     this.token = token;
     this.user = user;
+    this.expiresAt = new Date(new Date().getTime() + 600000);
   }
 
   /**

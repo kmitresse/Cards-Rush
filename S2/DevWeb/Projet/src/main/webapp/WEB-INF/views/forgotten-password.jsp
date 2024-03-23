@@ -19,11 +19,12 @@
             <input type="email" id="email" name="email" required>
             <button type="submit">Send</button>
         </form>
-        <%if(request.getParameter("error") != null){%>
+        <%if(request.getParameter("error") != null && request.getParameter("error").equals("1")){%>
         <p>L'adresse mail insérée est incorrecte</p>
         <%} else if (request.getParameter("success") != null) {%>
         <p>Un email vous a été envoyé</p>
         <%}%>
     </main>
 </body>
+<script><%@include file="../static/js/forgotten-password.js"%></script>
 </html>

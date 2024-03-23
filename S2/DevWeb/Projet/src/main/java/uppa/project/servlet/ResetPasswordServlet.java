@@ -19,9 +19,13 @@ public class ResetPasswordServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-    RecoveryPasswordToken recoveryPasswordToken = findRecoveryToken(request.getParameter("token"));
-    if (recoveryPasswordToken == null) {
-      response.sendRedirect(request.getContextPath() + "/error?code=404");
+    RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
+    if (token == null) {
+      response.sendRedirect(request.getContextPath() + "/forgotten-password?error=invalid-token");
+      return;
+    }
+    if (token.getExpirationDate().compareTo(new java.util.Date()) > 0){
+      response.sendRedirect(request.getContextPath() + "/forgotten-password?error=expired-token");
       return;
     }
     request.getRequestDispatcher("/WEB-INF/views/reset-password.jsp").forward(request, response);
@@ -44,7 +48,7 @@ public class ResetPasswordServlet extends HttpServlet {
       System.out.println(!newPassword.equals(confirmPassword));
       if (!newPassword.equals(confirmPassword)) {
         System.out.println("ici");
-        response.sendRedirect(request.getContextPath() + "/reset-password?error=1&token=" + recoveryPasswordToken.getToken());
+        response.sendRedirect(request.getContextPath() + "/reset-password?error=matching-password&token=" + recoveryPasswordToken.getToken());
         return;
       }
       user.setPassword(newPassword);
@@ -52,9 +56,9 @@ public class ResetPasswordServlet extends HttpServlet {
       try {
         daoJpaUser = new DAO_JPA_User();
         daoJpaUser.update(user);
-        response.sendRedirect(request.getContextPath() + "/login?success=password-modified");
+        response.sendRedirect(request.getContextPath() + "/login?success=password-reseted");
       } catch (DAOException e) {
-        response.sendRedirect(request.getContextPath() + "/reset-password?error=2");
+        response.sendRedirect(request.getContextPath() + "/reset-password?error=1");
       }
     }
 

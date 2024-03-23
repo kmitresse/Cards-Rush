@@ -23,6 +23,9 @@ import uppa.project.pojo.User;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import uppa.project.provider.DotenvProvider;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 @WebServlet(name = "forgottenPasswordServlet", value = "/forgotten-password")
 public class ForgottenPasswordServlet extends HttpServlet {
@@ -64,14 +67,11 @@ public class ForgottenPasswordServlet extends HttpServlet {
    * @param token
    */
   public void sendRecoveryEmail(String email, String token) {
-
-      String host = "smtp.gmail.com";
-    String port = "587";
-      //TODO: Set up environment variables
-//      String username = System.getenv("MAIL_USERNAME");
-//      String password = System.getenv("MAIL_PASSWORD");
-      String username = "kmitresse@gmail.com";
-      String password = "xwos ujwf cesq ocyt";
+      Dotenv dotEnv = DotenvProvider.getInstance();
+      String host = dotEnv.get("MAIL_HOST");
+      String port = dotEnv.get("MAIL_PORT");
+      String username = dotEnv.get("MAIL_USERNAME");
+      String password = dotEnv.get("MAIL_PASSWORD");
 
       Properties props = new Properties();
       props.put("mail.smtp.auth", "true");
@@ -87,6 +87,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
       });
 
       try {
+        String tomcatHost = dotEnv.get("TOMCAT_HOST");
         // Création du message
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username));
@@ -94,7 +95,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
         message.setSubject("Réinitialisation de votre mot de passe");
         message.setText("Bonjour,\n\n" +
           "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
-          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:8088/project_war_exploded/reset-password?token=" + token + "\n\n" +
+          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:"+tomcatHost+"/project_war_exploded/reset-password?token=" + token + "\n\n" +
           "Cordialement,\n" +
           "L'équipe CardRush");
         // Envoi du message

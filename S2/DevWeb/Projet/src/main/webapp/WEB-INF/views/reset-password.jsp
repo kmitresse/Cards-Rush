@@ -11,28 +11,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Recovery password</title>
+    <title>Récupération du mot de passe</title>
 </head>
 <body>
     <main>
-        <%
-            DAO_JPA_RecoveryPasswordToken dao = null;
-            RecoveryPasswordToken[] token;
-            try {
-                dao = new DAO_JPA_RecoveryPasswordToken();
-                token = dao.findByField("token",request.getParameter("token"));
-            } catch (DAOException e) {
-                throw new RuntimeException(e);
-            }
-            if (token.length == 0 || token[0] == null || token[0].getExpirationDate()== null) {%>
-        <p> Lien invalide </p>
-        <%
-            } else if (token[0].getExpirationDate().compareTo(new java.util.Date()) >0){
-        %>
-        <p> Lien expiré </p>
-        <%
-            } else {
-        %>
         <jsp:include page="../components/navbar.jsp"/>
         <h1>Récupération du mot de passe</h1>
         <form id="resetPasswordForm" action="reset-password" method="post">
@@ -40,15 +22,12 @@
             <input type="password" id="newPassword" name="newPassword" required>
             <label for="confirmPassword">Confirmer le mot de passe</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
-            <% if (request.getParameter("error") != null && request.getParameter("error").equals("1")) {%>
+            <% if (request.getParameter("error") != null && request.getParameter("error").equals("matching-password")) {%>
             <p>Les mots de passe ne correspondent pas</p>
             <% } %>
             <input type="hidden" name="token" value="${param.token}">
             <input type="submit" value="Valider">
         </form>
-        <%
-            }
-        %>
     </main>
 </body>
 </html>
