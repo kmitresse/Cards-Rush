@@ -342,4 +342,11 @@ public class User implements Serializable {
    * Enumération des genres possibles
    */
   public enum Gender {MALE, FEMALE, OTHER}
+
+  public static Gender getGender(String value) throws IllegalArgumentException{
+    if (value.equals("MALE")) return Gender.MALE;
+    if (value.equals("FEMALE")) return Gender.FEMALE;
+    if (value.equals("OTHER")) return Gender.OTHER;
+    throw new IllegalArgumentException("Le genre selectionné n'existe pas");
+  }
 }
