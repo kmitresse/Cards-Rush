@@ -54,9 +54,3 @@ CREATE TABLE IF NOT EXISTS recovery_password_token
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES `user` (id)
 );
-
-# DELIMITER //
-# CREATE TRIGGER expires_at BEFORE INSERT ON recovery_password_token FOR EACH ROW
-# BEGIN
-#     SET NEW.`expires_at` = TIMESTAMPADD(MINUTE, 15, CURRENT_TIMESTAMP);
-# END;//
