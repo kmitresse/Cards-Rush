@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import uppa.project.pojo.User;
 
 @WebServlet(name = "newGameServlet", value = "/new-game")
 public class NewGameServlet extends HttpServlet {
@@ -24,8 +25,15 @@ public class NewGameServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/login");
       return;
     }
+    User[] users = null;
+    /*TODO: récuperer la liste des joueurs connectés
+         penser à retirer l'utilisateur principal de la liste*/
 
+    request.setAttribute("connectedUsers", users);
     request.getRequestDispatcher("/WEB-INF/views/new-game.jsp").forward(request, response);
+
+
+
   }
 
   public void destroy() {
