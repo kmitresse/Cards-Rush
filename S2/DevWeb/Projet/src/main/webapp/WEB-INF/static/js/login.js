@@ -24,9 +24,14 @@ loginForm.addEventListener("submit", (event) => {
     ;
 });
 
-//Récupération de mot de passe réussie = redirection vers la page de connexion + message d'alerte
-const urlParams = new URLSearchParams(window.location.search);
-const succes = urlParams.get('succes');
-if (succes != null) {
-    window.alert(succes);
+window.onload = function (){
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success')) {
+        if (urlParams.get('success') === "account-created") {
+            window.alert("Compte créé avec succès.");
+        }
+        if (urlParams.get('success') === "password-reseted") {
+            window.alert("Mot de passe réinitialisé avec succès.");
+        }
+    }
 }

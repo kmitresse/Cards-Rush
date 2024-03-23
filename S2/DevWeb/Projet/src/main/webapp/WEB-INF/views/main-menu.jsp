@@ -3,13 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Main Menu</title>
+  <title>Cards Rush</title>
 </head>
 <body>
   <main>
-
     <jsp:include page="../components/navbar.jsp"/>
-
     <section id="main">
       <h1 id="Title">Titre du jeu</h1>
       <div class="main-button">
