@@ -36,7 +36,7 @@
                         <th>% Clicks rapides</th>
                         <th>Invite</th>
                     </tr>
-                    <% User[] connectedUsers = (User[]) request.getAttribute("connectedUser"); %>
+                    <% User[] connectedUsers = (User[]) request.getAttribute("connectedUsers"); %>
                     <% for (User user : connectedUsers) { %>
                         <tr>
                             <td><%= user.getUsername() %></td>
@@ -53,4 +53,5 @@
         </section>
     </main>
 </body>
+<script defer type="text/javascript"> <%@include file="../static/js/new-game.js"%></script>
 </html>
