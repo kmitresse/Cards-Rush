@@ -12,7 +12,7 @@
 </head>
 <body>
     <main>
-        <h1>Forgotten Password</h1>
+        <h1>Mot de passe oublié</h1>
         <p>Entrer votre email pour recevoir un lien de récupération</p>
         <form id="forgottenPasswordForm" action="forgotten-password" method="post">
             <label for="email">Email</label>
@@ -26,5 +26,5 @@
         <%}%>
     </main>
 </body>
-<script><%@include file="../static/js/forgotten-password.js"%></script>
+<script defer type="text/javascript"><%@include file="../static/js/forgotten-password.js"%></script>
 </html>

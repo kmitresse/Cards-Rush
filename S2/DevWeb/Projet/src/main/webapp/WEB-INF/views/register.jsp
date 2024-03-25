@@ -8,7 +8,7 @@
 <body>
 
 <main>
-  <section id="title">Cards Rush - Inscription</section>
+  <section id="title">Inscription</section>
   <section id="form">
     <div class="border-left"></div>
     <div class="flex-column register-gap">

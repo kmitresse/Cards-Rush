@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title> Cards Rush - Connexion</title>
     <style><%@include file="../static/css/login.css" %></style>
 </head>
 <body>
 
 <main>
-    <section id="title"> Cards Rush - Connexion </section>
+    <section id="title">Cards Rush</section>
     <section id="form">
         <div class="border-left"></div>
         <div class="flex-column login-gap">
