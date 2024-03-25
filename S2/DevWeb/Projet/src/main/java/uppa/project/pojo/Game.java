@@ -19,6 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -61,6 +62,8 @@ public class Game implements Serializable {
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<Player> players;
 
+  @Transient
+  private Deck deck;
   /**
    * Constructeur par défaut
    */
@@ -81,6 +84,7 @@ public class Game implements Serializable {
     this.nbRounds = nbRounds;
     this.nbColors = nbColors;
     this.nbValuesPerColor = nbValuesPerColor;
+    this.deck = new Deck(nbColors, nbValuesPerColor);
   }
 
   /**
@@ -210,6 +214,10 @@ public class Game implements Serializable {
    */
   public void addPlayer(Player player) {
     this.players.add(player);
+  }
+
+  public Set<Card> getDeck() {
+    return deck.getCards();
   }
 
   /**

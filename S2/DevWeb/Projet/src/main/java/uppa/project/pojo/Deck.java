@@ -38,6 +38,9 @@ public class Deck {
     cards = initializeDeck(nbColors, nbValues);
   }
 
+  public Set<Card> getCards() {
+    return cards;
+  }
   /**
    * Créé un paquet de cartes mélangé avec un nombre de couleurs et de valeurs donné
    *
@@ -89,4 +92,5 @@ public class Deck {
     Collections.shuffle(cardList);
     return new HashSet<>(cardList);
   }
+
 }

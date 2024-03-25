@@ -14,9 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Représentation d'un joueur
@@ -56,6 +58,9 @@ public class Player implements Serializable {
   @Column(name = "rapid_click_count")
   private int rapidClickCount;
 
+  @Transient
+  private Deck deck;
+
   /**
    * Constructeur par défaut
    */
@@ -74,6 +79,7 @@ public class Player implements Serializable {
     this.clickCount = 0;
     this.rightClickCount = 0;
     this.rapidClickCount = 0;
+    this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
   }
 
   /**
@@ -251,6 +257,10 @@ public class Player implements Serializable {
    */
   public double getRatioRapidClick() {
     return (double) rapidClickCount * 100 / clickCount;
+  }
+
+  public Set<Card> getDeck() {
+    return deck.getCards();
   }
   @Override
   public String toString() {
