@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 import javax.mail.Message;
+import uppa.project.Global;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.DAO_JPA_User;
@@ -23,8 +24,6 @@ import uppa.project.pojo.User;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
-import uppa.project.provider.DotenvProvider;
-import io.github.cdimascio.dotenv.Dotenv;
 
 
 @WebServlet(name = "forgottenPasswordServlet", value = "/forgotten-password")
@@ -67,11 +66,10 @@ public class ForgottenPasswordServlet extends HttpServlet {
    * @param token
    */
   public void sendRecoveryEmail(String email, String token) {
-      Dotenv dotEnv = DotenvProvider.getInstance();
-      String host = dotEnv.get("MAIL_HOST");
-      String port = dotEnv.get("MAIL_PORT");
-      String username = dotEnv.get("MAIL_USERNAME");
-      String password = dotEnv.get("MAIL_PASSWORD");
+      String host = Global.MAIL_HOST;
+      String port = Global.MAIL_PORT;
+      String username = Global.MAIL_USERNAME;
+      String password = Global.MAIL_PASSWORD;
 
       Properties props = new Properties();
       props.put("mail.smtp.auth", "true");
@@ -87,7 +85,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
       });
 
       try {
-        String tomcatHost = dotEnv.get("TOMCAT_HOST");
+        String tomcatHost = Global.TOMCAT_PORT;
         // Création du message
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username));
@@ -95,7 +93,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
         message.setSubject("Réinitialisation de votre mot de passe");
         message.setText("Bonjour,\n\n" +
           "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
-          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:"+tomcatHost+"/project_war_exploded/reset-password?token=" + token + "\n\n" +
+          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:"+ tomcatHost +"/project_war_exploded/reset-password?token=" + token + "\n\n" +
           "Cordialement,\n" +
           "L'équipe CardRush");
         // Envoi du message

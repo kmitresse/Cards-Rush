@@ -9,6 +9,7 @@ package uppa.project.provider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import uppa.project.Global;
 
 /**
  * Fournisseur d'EntityManager
@@ -18,7 +19,7 @@ import jakarta.persistence.Persistence;
  * @see jakarta.persistence.EntityManager
  */
 public final class EntityManagerProvider {
-  private static final String PERSISTENCE_UNIT_NAME = DotenvProvider.getInstance().get("PERSISTENCE_UNIT_NAME");
+  private static final String PERSISTENCE_UNIT_NAME = Global.PERSISTENCE_UNIT_NAME;
 
   private static EntityManager instance;
   private static EntityManagerFactory factory;
