@@ -1,6 +1,6 @@
 package uppa.project;
 
-public class Global {
+public final class Global {
 
   public static final String PERSISTENCE_UNIT_NAME = "prod";
   public static final String PERSISTENCE_UNIT_NAME_TEST = "test";

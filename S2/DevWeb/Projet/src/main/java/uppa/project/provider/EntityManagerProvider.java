@@ -19,7 +19,7 @@ import uppa.project.Global;
  * @see jakarta.persistence.EntityManager
  */
 public final class EntityManagerProvider {
-  private static final String PERSISTENCE_UNIT_NAME = Global.PERSISTENCE_UNIT_NAME;
+  private static String PERSISTENCE_UNIT_NAME = Global.PERSISTENCE_UNIT_NAME;
 
   private static EntityManager instance;
   private static EntityManagerFactory factory;
@@ -35,6 +35,9 @@ public final class EntityManagerProvider {
     return instance;
   }
 
+  public static void setPersitenceUnitName(String name) {
+    PERSISTENCE_UNIT_NAME = name;
+  }
   public static void close() {
     if (instance.isOpen()) instance.close();
     if (factory.isOpen()) factory.close();

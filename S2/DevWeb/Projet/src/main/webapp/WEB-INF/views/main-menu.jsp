@@ -4,6 +4,7 @@
 <html>
 <head>
   <title>Cards Rush</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
 </head>
 <body>
   <main>
@@ -11,8 +12,10 @@
     <section id="main">
       <h1 id="Title">Titre du jeu</h1>
       <div class="main-button">
-        <input type="button" value="New game" >
-        <input type="button" value="Hard mode" >
+        //create a modal button for new game:
+        <button data-toggle="modal" data-target="#newGameModal" >New Game</button>
+          <%@include file="../components/new-game.jsp"%>
+        </div>;
         <input type="button" value="Statistics" >
       </div>
     </section>

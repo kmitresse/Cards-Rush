@@ -51,4 +51,5 @@
 </main>
 
 </body>
+<script defer type="module"><%@include file="../static/js/register.js"%></script>
 </html>

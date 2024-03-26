@@ -23,9 +23,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Représentation d'un utilisateur
@@ -60,10 +60,10 @@ public class User implements Serializable {
   private Gender gender;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Player> playedGame;
+  private ArrayList<Player> playedGames;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<RecoveryPasswordToken> recoveryPasswordTokens;
+  private ArrayList<RecoveryPasswordToken> recoveryPasswordTokens;
 
   /**
    * Constructeur par défaut
@@ -98,13 +98,14 @@ public class User implements Serializable {
    * @param birth    la date de naissance
    * @param gender   le genre
    */
-  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender) {
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames) {
     this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;
     this.birth = birth;
     this.gender = gender;
+    this.playedGames = playedGames;
   }
 
   /**
@@ -246,12 +247,21 @@ public class User implements Serializable {
   }
 
   /**
+   * Récupère la liste des parties jouées par l'utilisateur
+   *
+   * @return  la liste des parties jouées
+   */
+  public ArrayList<Player> getPlayedGames() {
+    return playedGames;
+  }
+
+  /**
    * Récupère le nombre de parties jouées
    *
    * @return le nombre de parties jouées
    */
   public int getNbPlayedGame() {
-    return playedGame.size();
+    return playedGames.size();
   }
 
   /**
@@ -261,7 +271,7 @@ public class User implements Serializable {
    */
   public int getNbWin(){
     int nbWin = 0;
-    for (Player p : playedGame) {
+    for (Player p : playedGames) {
       if (p.isWinner()) nbWin++;
     }
     return nbWin;
@@ -283,7 +293,7 @@ public class User implements Serializable {
    */
   public int getNbClicks(){
     int nbClicks = 0;
-    for (Player p : playedGame) {
+    for (Player p : playedGames) {
       nbClicks += p.getClickCount();
     }
     return nbClicks;
@@ -296,7 +306,7 @@ public class User implements Serializable {
    */
   public int getNbRightClicks(){
     int nbRightClicks = 0;
-    for (Player p : playedGame) {
+    for (Player p : playedGames) {
       nbRightClicks += p.getRightClickCount();
     }
     return nbRightClicks;
@@ -318,7 +328,7 @@ public class User implements Serializable {
    */
   public int getNbRapidClicks(){
     int nbRapidClicks = 0;
-    for (Player p : playedGame) {
+    for (Player p : playedGames) {
       nbRapidClicks += p.getRapidClickCount();
     }
     return nbRapidClicks;

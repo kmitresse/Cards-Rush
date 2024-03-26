@@ -24,14 +24,13 @@ loginForm.addEventListener("submit", (event) => {
     ;
 });
 
-window.onload = function (){
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('success')) {
-        if (urlParams.get('success') === "account-created") {
-            window.alert("Compte créé avec succès.");
-        }
-        if (urlParams.get('success') === "password-reseted") {
-            window.alert("Mot de passe réinitialisé avec succès.");
-        }
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('success')) {
+    if (urlParams.get('success') === "account-created") {
+        window.alert("Compte créé avec succès.");
+    }
+    if (urlParams.get('success') === "password-reseted") {
+        window.alert("Mot de passe réinitialisé avec succès.");
     }
 }

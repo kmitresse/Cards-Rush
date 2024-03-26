@@ -17,8 +17,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Représentation d'un joueur
@@ -259,7 +259,7 @@ public class Player implements Serializable {
     return (double) rapidClickCount * 100 / clickCount;
   }
 
-  public Set<Card> getDeck() {
+  public ArrayList<Card> getDeck() {
     return deck.getCards();
   }
   @Override

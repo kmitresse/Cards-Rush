@@ -8,9 +8,6 @@ package uppa.project.pojo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Représentation d'un paquet de cartes
@@ -24,7 +21,7 @@ public class Deck {
    * Ensemble de cartes du paquet
    * @see Card
    */
-  private Set<Card> cards;
+  private ArrayList<Card> cards;
 
   /**
    * Constructeur par défaut
@@ -38,9 +35,13 @@ public class Deck {
     cards = initializeDeck(nbColors, nbValues);
   }
 
-  public Set<Card> getCards() {
+  /**
+   * @return l'ensemble de cartes du paquet
+   */
+  public ArrayList<Card> getCards() {
     return cards;
   }
+
   /**
    * Créé un paquet de cartes mélangé avec un nombre de couleurs et de valeurs donné
    *
@@ -48,9 +49,10 @@ public class Deck {
    * @param nbValues nombre de valeurs (doit être compris entre 1 et le nombre de valeurs de {@link Card.Value})
    * @return un ensemble de cartes mélangées
    */
-  private static Set<Card> initializeDeck(int nbColors, int nbValues) {
-    Set<Card> cards = createSetOfCard(nbColors, nbValues);
-    return shuffleSetOfCard(cards);
+  private static ArrayList<Card> initializeDeck(int nbColors, int nbValues) {
+    ArrayList<Card> cards = createSetOfCard(nbColors, nbValues);
+    shuffleSetOfCard(cards);
+    return cards;
   }
 
   /**
@@ -63,8 +65,8 @@ public class Deck {
    * @throws IllegalArgumentException si le nombre de couleurs ou de valeurs est incorrect
    * @return un ensemble de cartes
    */
-  private static Set<Card> createSetOfCard(int nbColors, int nbValues) throws IllegalArgumentException {
-    Set<Card> cards = new HashSet<>();
+  private static ArrayList<Card> createSetOfCard(int nbColors, int nbValues) throws IllegalArgumentException {
+    ArrayList<Card> cards = new ArrayList<>(nbColors*nbValues);
 
     if (nbColors < 1 || nbColors > Card.Color.values().length) {
       throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
@@ -87,10 +89,8 @@ public class Deck {
    * @param cards ensemble de cartes à mélanger
    * @return un ensemble de cartes mélangées
    */
-  private static HashSet<Card> shuffleSetOfCard(Set<Card> cards) {
-    List<Card> cardList = new ArrayList<>(cards);
-    Collections.shuffle(cardList);
-    return new HashSet<>(cardList);
+  private static void shuffleSetOfCard(ArrayList<Card> cards) {
+    Collections.shuffle(cards);
   }
 
 }

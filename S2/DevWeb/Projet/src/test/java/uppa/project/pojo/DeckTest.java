@@ -19,8 +19,11 @@ class DeckTest {
 
   @Test
   void throw_error_on_creation_of_invalid_deck() {
+    // Nombre de couleurs invalides
     assertThrows(IllegalArgumentException.class, () -> new Deck(0, 13));
     assertThrows(IllegalArgumentException.class, () -> new Deck(5, 13));
+
+    // Nombre de valeurs invalides
     assertThrows(IllegalArgumentException.class, () -> new Deck(1, 0));
     assertThrows(IllegalArgumentException.class, () -> new Deck(1, 15));
   }

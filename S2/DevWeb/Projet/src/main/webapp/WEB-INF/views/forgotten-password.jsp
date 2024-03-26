@@ -26,5 +26,5 @@
         <%}%>
     </main>
 </body>
-<script defer type="text/javascript"><%@include file="../static/js/forgotten-password.js"%></script>
+<script defer type="module"><%@include file="../static/js/forgotten-password.js"%></script>
 </html>

@@ -4,6 +4,7 @@
 <head>
     <title> Cards Rush - Connexion</title>
     <style><%@include file="../static/css/login.css" %></style>
+    <meta charset="utf-8">
 </head>
 <body>
 
@@ -35,7 +36,7 @@
     </section>
 </main>
 
-<script defer type="text/javascript"><%@include file="../static/js/login.js" %></script>
+<script defer type="module"><%@include file="../static/js/login.js" %></script>
 
 </body>
 </html>

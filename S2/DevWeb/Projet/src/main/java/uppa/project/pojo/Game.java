@@ -22,9 +22,9 @@ import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Représentation d'une partie de jeu
@@ -60,7 +60,7 @@ public class Game implements Serializable {
   private int nbValuesPerColor;
 
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private Set<Player> players;
+  private ArrayList<Player> players;
 
   @Transient
   private Deck deck;
@@ -98,7 +98,7 @@ public class Game implements Serializable {
    * @param nbValuesPerColor le nombre de valeurs par couleur
    * @param players    les joueurs de la partie
    */
-  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor, Set<Player> players) {
+  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor, ArrayList<Player> players) {
     this.id = id;
     this.createdAt = createdAt;
     this.difficulty = difficulty;
@@ -187,7 +187,7 @@ public class Game implements Serializable {
   /**
    * @return les joueurs de la partie
    */
-  public Set<Player> getPlayers() {
+  public ArrayList<Player> getPlayers() {
     return players;
   }
 
@@ -196,7 +196,7 @@ public class Game implements Serializable {
    *
    * @param players les nouveaux joueurs
    */
-  public void setPlayers(Set<Player> players) {
+  public void setPlayers(ArrayList<Player> players) {
     this.players = players;
   }
 
@@ -216,7 +216,7 @@ public class Game implements Serializable {
     this.players.add(player);
   }
 
-  public Set<Card> getDeck() {
+  public ArrayList<Card> getDeck() {
     return deck.getCards();
   }
 

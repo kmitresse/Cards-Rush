@@ -1,5 +1,6 @@
 package uppa.project;
 
+import java.util.Calendar;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
@@ -7,8 +8,8 @@ import uppa.project.pojo.User;
 
 public class Main {
 
-  public static void main(String[] args) {
-    try {
+  public static void main(String[] args) throws DAOException {
+        try {
       Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
       DAO<User> daoJpaUser = jpaDaoFactory.getDAOUser();
 //      DAO<Game> daoJpaGame = jpaDaoFactory.getDAOGame();
@@ -21,17 +22,17 @@ public class Main {
       }
       System.out.println();
 
-//      // Ajout d'User :
-//      Calendar cal1 = Calendar.getInstance();
-//      cal1.set(1996, Calendar.FEBRUARY, 20);
-//      User user1 = new User("Kevin", "Mitresse", cal1.getTime(), User.Gender.MALE);
-//
-//      Calendar cal2 = Calendar.getInstance();
-//      cal2.set(2002, Calendar.JUNE, 28);
-//      User user2 = new User("Lucàs", "Vabre", cal2.getTime(), User.Gender.MALE);
-//
-//      daoJpaUser.create(user1);
-//      daoJpaUser.create(user2);
+      // Ajout d'User :
+      Calendar cal1 = Calendar.getInstance();
+      cal1.set(1996, Calendar.FEBRUARY, 20);
+      User user1 = new User("Kevin","kmitresse@gmail.com", "Mitresse", cal1.getTime(), User.Gender.MALE);
+
+      Calendar cal2 = Calendar.getInstance();
+      cal2.set(2002, Calendar.JUNE, 28);
+      User user2 = new User("Lucàs", "lucas@gmail.com" ,"Vabre", cal2.getTime(), User.Gender.MALE);
+
+      daoJpaUser.create(user1);
+      daoJpaUser.create(user2);
 
 //      System.out.println("test récupération user");
 //      User[] users2 = daoJpaUser.findByField("username", "Kevin");

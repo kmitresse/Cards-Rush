@@ -1,15 +1,16 @@
-const resetPasswordForm = document.getElementById("resetPasswordForm");
+const registerForm = document.getElementById("register-form");
 const confirmPassword = document.getElementById("confirmPassword");
 
-resetPasswordForm.addEventListener("submit", function (event) {
+registerForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    const formData = new FormData(resetPasswordForm);
+    const formData = new FormData(registerForm);
 
     const data = {};
     formData.forEach((value, key) => data[key] = value);
 
     const action = loginForm.getAttribute("action")
     const method = loginForm.getAttribute("method")
+
 
     fetch("/reset-password", {
         method: "POST",
@@ -25,7 +26,5 @@ resetPasswordForm.addEventListener("submit", function (event) {
                 alert(data.message);
             });
         }
-    }).catch(error => {
-        console.error("Error:", error);
-    });
+    }).catch(error => console.error("Error:", error));
 });
