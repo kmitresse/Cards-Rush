@@ -90,4 +90,32 @@ class CardTest {
       assertEquals(expected[i], FIXTURE[i].getValue());
     }
   }
+
+  @Test
+  void to_string_return_right_format() {
+    String[] expected = new String[] {
+      "Card{color=HEART, value=ONE}",
+      "Card{color=HEART, value=TWO}",
+      "Card{color=HEART, value=THREE}",
+      "Card{color=CLUBS, value=FOUR}",
+      "Card{color=CLUBS, value=FIVE}",
+      "Card{color=CLUBS, value=SIX}",
+      "Card{color=DIAMONDS, value=SEVEN}",
+      "Card{color=DIAMONDS, value=EIGHT}",
+      "Card{color=DIAMONDS, value=NINE}",
+      "Card{color=SPADES, value=TEN}",
+      "Card{color=SPADES, value=JACK}",
+      "Card{color=SPADES, value=QUEEN}",
+      "Card{color=HEART, value=KING}",
+
+      "Card{color=HEART, value=ONE}",
+      "Card{color=CLUBS, value=ONE}",
+      "Card{color=DIAMONDS, value=ONE}",
+      "Card{color=SPADES, value=ONE}",
+    };
+
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], FIXTURE[i].toString());
+    }
+  }
 }

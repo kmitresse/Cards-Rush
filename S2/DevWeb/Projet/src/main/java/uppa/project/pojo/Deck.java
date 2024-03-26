@@ -65,7 +65,7 @@ public class Deck {
    * @throws IllegalArgumentException si le nombre de couleurs ou de valeurs est incorrect
    * @return un ensemble de cartes
    */
-  private static ArrayList<Card> createSetOfCard(int nbColors, int nbValues) throws IllegalArgumentException {
+  public static ArrayList<Card> createSetOfCard(int nbColors, int nbValues) throws IllegalArgumentException {
     ArrayList<Card> cards = new ArrayList<>(nbColors*nbValues);
 
     if (nbColors < 1 || nbColors > Card.Color.values().length) {
@@ -89,7 +89,7 @@ public class Deck {
    * @param cards ensemble de cartes à mélanger
    * @return un ensemble de cartes mélangées
    */
-  private static void shuffleSetOfCard(ArrayList<Card> cards) {
+  public static void shuffleSetOfCard(ArrayList<Card> cards) {
     Collections.shuffle(cards);
   }
 
