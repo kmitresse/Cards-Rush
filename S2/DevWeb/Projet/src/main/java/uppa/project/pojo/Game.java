@@ -81,6 +81,15 @@ public class Game implements Serializable {
    */
   public Game(Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor) {
     this.difficulty = difficulty;
+    if (nbRounds < 1 || nbRounds > nbColors * nbValuesPerColor){
+      throw new IllegalArgumentException("Le nombre de tours doit être supérieur ou égal à 1");
+    }
+    if (nbColors < 1 || nbColors > Card.Color.values().length) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    }
+    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    }
     this.nbRounds = nbRounds;
     this.nbColors = nbColors;
     this.nbValuesPerColor = nbValuesPerColor;
@@ -102,6 +111,15 @@ public class Game implements Serializable {
     this.id = id;
     this.createdAt = createdAt;
     this.difficulty = difficulty;
+    if (nbRounds < 1 || nbRounds > nbColors * nbValuesPerColor){
+      throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
+    }
+    if (nbColors < 1 || nbColors > Card.Color.values().length) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    }
+    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    }
     this.nbRounds = nbRounds;
     this.nbColors = nbColors;
     this.nbValuesPerColor = nbValuesPerColor;
@@ -153,6 +171,15 @@ public class Game implements Serializable {
    * @param nbRounds le nouveau nombre de tours de la partie
    */
   public void setNbRounds(int nbRounds) {
+    if (nbRounds < 1 || nbRounds > nbColors * nbValuesPerColor){
+      throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
+    }
+    if (nbColors < 1 || nbColors > Card.Color.values().length) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    }
+    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    }
     this.nbRounds = nbRounds;
   }
 
@@ -167,6 +194,9 @@ public class Game implements Serializable {
    * @param nbColors le nouveau nombre de couleurs présente dans le deck
    */
   public void setNbColors(int nbColors) {
+    if (nbColors < 1 || nbColors > Card.Color.values().length) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    }
     this.nbColors = nbColors;
   }
 
@@ -181,6 +211,9 @@ public class Game implements Serializable {
    * @param nbValuesPerColor le nouveau nombre de valeurs par couleur
    */
   public void setNbValuesPerColor(int nbValuesPerColor) {
+    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    }
     this.nbValuesPerColor = nbValuesPerColor;
   }
 
