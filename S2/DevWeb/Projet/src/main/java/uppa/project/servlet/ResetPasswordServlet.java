@@ -24,7 +24,7 @@ public class ResetPasswordServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/forgotten-password?error=invalid-token");
       return;
     }
-    if (token.getExpirationDate().compareTo(new java.util.Date()) > 0){
+    if (token.getExpirationDate().compareTo(new java.util.Date()) < 0){
       response.sendRedirect(request.getContextPath() + "/forgotten-password?error=expired-token");
       return;
     }
