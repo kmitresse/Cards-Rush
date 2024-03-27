@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -25,7 +26,7 @@ public class RecoveryPasswordToken {
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private BigDecimal id;
 
   @Column(name = "token")
   private String token;
@@ -60,7 +61,7 @@ public class RecoveryPasswordToken {
    * @param token
    * @param user
    */
-  public RecoveryPasswordToken(int id, String token, User user, Date expiresAt) {
+  public RecoveryPasswordToken(BigDecimal id, String token, User user, Date expiresAt) {
     this.id = id;
     this.token = token;
     this.user = user;
@@ -72,7 +73,7 @@ public class RecoveryPasswordToken {
    *
    * @return l'id
    */
-  public int getId() {
+  public BigDecimal getId() {
     return id;
   }
 
