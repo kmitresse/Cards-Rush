@@ -6,8 +6,6 @@
 
 package uppa.project.dao;
 
-import jakarta.persistence.EntityManager;
-
 /**
  * DAO abstrait et générique pour tout type de données
  *
