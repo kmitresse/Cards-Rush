@@ -345,7 +345,13 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return String.format("User{username='%s', birth=%s, gender=%s}", username, birth.toString(), gender.toString());
+    return String.format(
+      "User{id = '%s', username='%s', email='%s', birth=%s, gender=%s}",
+      id != null ? id.toString() : "null",
+      username,
+      birth.toString(),
+      gender.toString()
+    );
   }
 
   @Override
@@ -353,8 +359,14 @@ public class User implements Serializable {
     if (this == o) return true;
     if (!(o instanceof User)) return false;
     User user = (User) o;
-    return
-      Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getBirth(), user.getBirth()) && getGender() == user.getGender();
+    return Objects.equals(id, user.id)
+      && Objects.equals(username, user.username)
+      && Objects.equals(email, user.email)
+      && Objects.equals(password, user.password)
+      && Objects.equals(birth, user.birth)
+      && gender == user.gender
+      && Objects.equals(playedGames, user.playedGames)
+      && Objects.equals(recoveryPasswordTokens, user.recoveryPasswordTokens);
   }
 
   /**

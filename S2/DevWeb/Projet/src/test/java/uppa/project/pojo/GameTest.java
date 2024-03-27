@@ -287,7 +287,6 @@ class GameTest {
     for (int i = 0; i < players.size(); i++) {
       assertEquals(initial[i], players.get(i));
     }
-    System.out.println("expected");
     Player[] expected = new Player[]{
       new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
       new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),

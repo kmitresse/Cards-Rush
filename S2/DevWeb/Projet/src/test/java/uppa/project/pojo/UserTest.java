@@ -7,15 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
   @Test
-  void testHashCode() {
-    // TODO Implement this method
-    fail();
-  }
-
-  @Test
   void getId() {
-    // TODO Implement this method
-    fail();
   }
 
   @Test

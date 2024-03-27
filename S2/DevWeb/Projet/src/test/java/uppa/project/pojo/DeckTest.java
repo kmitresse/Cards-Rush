@@ -1,132 +1,139 @@
 package uppa.project.pojo;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class DeckTest {
 
-  static Deck[] FIXTURE;
-
-  @BeforeAll
-  static void setup() {
-    FIXTURE = new Deck[] {
-      new Deck(4, 13),
-      new Deck(4, 13),
-    };
+  @Test
+  void test_constructor() {
+    new Deck(4, 13);
+    new Deck(3, 10);
+    new Deck(2, 7);
+    new Deck(1, 1);
   }
 
   @Test
-  void throw_error_on_creation_of_invalid_deck_with_an_invalid_color() {
-    // Nombre de couleurs invalides
-    assertThrows(IllegalArgumentException.class, () -> new Deck(0, 13));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(5, 10));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(8, 7));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(-1, 11));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(-6, 12));
-  }
-
-  @Test
-  void throw_error_on_creation_of_invalid_deck_with_an_invalid_value() {
-    // Nombre de valeurs invalides
-    assertThrows(IllegalArgumentException.class, () -> new Deck(1, 0));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(2, 14));
-    assertThrows(IllegalArgumentException.class, () -> new Deck(3, -2));
-  }
-
-  @Test
-  void create_deck_get_the_right_number_cards() {
-    assertEquals(52, new Deck(4,13).getCards().size());
-    assertEquals(33, new Deck(3,11).getCards().size());
-    assertEquals(26, new Deck(2,13).getCards().size());
-    assertEquals(1, new Deck(1,1).getCards().size());
-  }
-
-  @Test
-  void create_deck_get_the_right_number_colors() {
-    assertEquals(4, new Deck(4,13).getCards().stream().map(Card::getColor).distinct().count());
-    assertEquals(3, new Deck(3,10).getCards().stream().map(Card::getColor).distinct().count());
-    assertEquals(2, new Deck(2,7).getCards().stream().map(Card::getColor).distinct().count());
-    assertEquals(1, new Deck(1,1).getCards().stream().map(Card::getColor).distinct().count());
-  }
-
-  @Test
-  void create_deck_get_the_right_number_values() {
-    assertEquals(13, new Deck(4,13).getCards().stream().map(Card::getValue).distinct().count());
-    assertEquals(10, new Deck(3,10).getCards().stream().map(Card::getValue).distinct().count());
-    assertEquals(7, new Deck(2,7).getCards().stream().map(Card::getValue).distinct().count());
-    assertEquals(1, new Deck(1,1).getCards().stream().map(Card::getValue).distinct().count());
-  }
-
-  @Test
-  void shuffle_list_of_cards_set_them_in_an_aleatory_order(){
-    ArrayList<Card> initialCards = new ArrayList<>();
-    initialCards.add(new Card(Card.Color.HEART, Card.Value.ONE));
-    initialCards.add(new Card(Card.Color.HEART, Card.Value.TWO));
-    initialCards.add(new Card(Card.Color.HEART, Card.Value.THREE));
-    initialCards.add(new Card(Card.Color.CLUBS, Card.Value.FOUR));
-    initialCards.add(new Card(Card.Color.CLUBS, Card.Value.FIVE));
-    initialCards.add(new Card(Card.Color.CLUBS, Card.Value.SIX));
-    initialCards.add(new Card(Card.Color.DIAMONDS, Card.Value.SEVEN));
-    initialCards.add(new Card(Card.Color.DIAMONDS, Card.Value.EIGHT));
-    initialCards.add(new Card(Card.Color.DIAMONDS, Card.Value.NINE));
-    initialCards.add(new Card(Card.Color.SPADES, Card.Value.TEN));
-    initialCards.add(new Card(Card.Color.SPADES, Card.Value.JACK));
-    initialCards.add(new Card(Card.Color.SPADES, Card.Value.QUEEN));
-    ArrayList<Card> shuffledCards = new ArrayList<>(initialCards);
-    ArrayList<Card> shuffledCards2 = new ArrayList<>(initialCards);
-    Deck.shuffleSetOfCard(shuffledCards);
-    Deck.shuffleSetOfCard(shuffledCards2);
-
-    assertNotEquals(initialCards, shuffledCards);
-    assertNotEquals(initialCards, shuffledCards2);
-    assertNotEquals(shuffledCards, shuffledCards2);
-  }
-
-  @Test
-  void initialize_deck_shuffle_cards() {
+  void test_constructor_deckWithSameParametersHaveSameCards() {
     Deck mockDeck = new Deck(4, 13);
     Deck mockDeck2 = new Deck(4, 13);
-    assertNotEquals(mockDeck.getCards(), mockDeck2.getCards());
+    assertEquals(mockDeck, mockDeck2);
   }
 
   @Test
-  void get_same_size_when_shuffle() {
+  void test_isValidDeck() {
+    // Nombre de couleurs et de valeurs valides
+    final int[][] TRUE_EXPECTED = {{4, 13}, {3, 10}, {2, 7},};
+
+    for (int[] args : TRUE_EXPECTED) {
+      assertTrue(Deck.isDeckValid(args[0], args[1]));
+    }
+
+    // Nombre de couleurs et de valeurs invalides
+    final int[][] FALSE_EXPECTED = {{0, 13}, {5, 10}, {8, 7}, {-1, 11}, {-6, 12},};
+
+    for (int[] args : FALSE_EXPECTED) {
+      assertFalse(Deck.isDeckValid(args[0], args[1]));
+    }
+  }
+
+  @Test
+  void test_constructor_throwIllegalArgumentExceptionOnInvalidColor() {
+    int[] INCORRECT_COLORS = {Integer.MIN_VALUE, 0, 5, 8, -1, -6, Integer.MAX_VALUE};
+    for (int incorrect_color : INCORRECT_COLORS) {
+      assertThrows(IllegalArgumentException.class, () -> new Deck(incorrect_color, 13));
+    }
+  }
+
+  @Test
+  void test_constructor_throwIllegalArgumentExceptionOnInvalidValues() {
+    int[] INCORRECT_VALUES = {Integer.MIN_VALUE, -2, 0, 14, Integer.MAX_VALUE};
+    for (int incorrect_value : INCORRECT_VALUES) {
+      assertThrows(IllegalArgumentException.class, () -> new Deck(4, incorrect_value));
+    }
+  }
+
+  @Test
+  void test_getCards_size() {
+    final HashMap<Deck, Integer> TESTS = new HashMap<>() {{
+      put(new Deck(4, 13), 52);
+      put(new Deck(3, 11), 33);
+      put(new Deck(2, 7), 14);
+      put(new Deck(1, 1), 1);
+    }};
+    for (Deck deck : TESTS.keySet()) {
+      assertEquals(TESTS.get(deck), deck.getCards().size());
+    }
+  }
+
+  @Test
+  void test_getCards_returnTheRightNumberOfColors() {
+    HashMap<Deck, Integer> TESTS = new HashMap<>() {{
+      put(new Deck(4, 13), 4);
+      put(new Deck(3, 10), 3);
+      put(new Deck(2, 7), 2);
+      put(new Deck(1, 1), 1);
+    }};
+
+    for (Deck deck : TESTS.keySet()) {
+      int expected = TESTS.get(deck);
+      int actual = (int)deck.getCards().stream().map(Card::getColor).distinct().count();
+      assertEquals(expected, actual);
+    }
+  }
+
+  @Test
+  void test_getCards_returnTheRightNumberOfValues() {
+    HashMap<Deck, Integer> TESTS = new HashMap<>() {{
+      put(new Deck(4, 13), 13);
+      put(new Deck(3, 10), 10);
+      put(new Deck(2, 7), 7);
+      put(new Deck(1, 1), 1);
+    }};
+
+    for (Deck deck : TESTS.keySet()) {
+      int expected = TESTS.get(deck);
+      int actual = (int)deck.getCards().stream().map(Card::getValue).distinct().count();
+      assertEquals(expected, actual);
+    }
+  }
+
+  @Test
+  void test_shuffle() {
+    Deck mockDeck1 = new Deck(4,6);
+    Deck mockDeck2 = new Deck(4,6);
+    Deck mockDeck3 = new Deck(4,6);
+
+    mockDeck1.shuffle();
+    mockDeck2.shuffle();
+    mockDeck3.shuffle();
+    assertNotEquals(mockDeck1.getCards(), mockDeck2.getCards());
+    assertNotEquals(mockDeck1.getCards(), mockDeck3.getCards());
+    assertNotEquals(mockDeck2.getCards(), mockDeck3.getCards());
+  }
+
+  @Test
+  void test_shuffle_deckSizeHasNotChange() {
     Deck mockDeck = new Deck(4, 13);
     int initialSize = mockDeck.getCards().size();
-    Deck.shuffleSetOfCard(mockDeck.getCards());
+    mockDeck.shuffle();
     assertEquals(initialSize, mockDeck.getCards().size());
   }
 
   @Test
-  void get_same_cards_when_shuffle(){
+  void test_shuffle_deckHaveSameCards() {
     Deck mockDeck = new Deck(4, 13);
-    List<Card> initialCards = new ArrayList<>(mockDeck.getCards());
-    Deck.shuffleSetOfCard(mockDeck.getCards());
-    for (int i = 0; i < initialCards.size(); i++) {
-      assertTrue(mockDeck.getCards().contains(initialCards.get(i)));
-    }
-  }
-
-  @Test
-  void create_multiple_deck_with_same_parameters_get_same_cards() {
-    Deck mockDeck = new Deck(4, 13);
-    Deck mockDeck2 = new Deck(4, 13);
-    ArrayList<Card> cards = mockDeck.getCards();
-    ArrayList<Card> cards2 = mockDeck2.getCards();
-    int counter = 0;
-    for (int i = 0; i < cards.size(); i++) {
-      for(int j = 0; j < cards2.size(); j++) {
-        if (cards.get(i).getColor() == cards2.get(j).getColor()
-          && cards.get(i).getValue() == cards2.get(j).getValue()) {
-          counter++;
-          continue;
-        }
-      }
-    }
-    assertEquals(cards.size(), counter);
+    Deck mockDeck2 = new Deck(4,13);
+    mockDeck2.shuffle();
+    assertEquals(mockDeck, mockDeck2);
   }
 }

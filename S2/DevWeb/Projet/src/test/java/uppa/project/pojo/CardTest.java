@@ -1,121 +1,132 @@
 package uppa.project.pojo;
 
-import org.junit.jupiter.api.BeforeAll;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CardTest {
 
-  static Card[] FIXTURE;
+  @Test
+  void test_constructor() {
 
-  @BeforeAll
-  static void setup() {
-    FIXTURE = new Card[]{
-      // Card Value
-      new Card(Card.Color.HEART, Card.Value.ONE),
-      new Card(Card.Color.HEART, Card.Value.TWO),
-      new Card(Card.Color.HEART, Card.Value.THREE),
-      new Card(Card.Color.CLUBS, Card.Value.FOUR),
-      new Card(Card.Color.CLUBS, Card.Value.FIVE),
-      new Card(Card.Color.CLUBS, Card.Value.SIX),
-      new Card(Card.Color.DIAMONDS, Card.Value.SEVEN),
-      new Card(Card.Color.DIAMONDS, Card.Value.EIGHT),
-      new Card(Card.Color.DIAMONDS, Card.Value.NINE),
-      new Card(Card.Color.SPADES, Card.Value.TEN),
-      new Card(Card.Color.SPADES, Card.Value.JACK),
-      new Card(Card.Color.SPADES, Card.Value.QUEEN),
-      new Card(Card.Color.HEART, Card.Value.KING),
+    // Card with correct Value
+    new Card(Card.Color.HEART, Card.Value.ACE);
+    new Card(Card.Color.HEART, Card.Value.TWO);
+    new Card(Card.Color.HEART, Card.Value.THREE);
+    new Card(Card.Color.CLUBS, Card.Value.FOUR);
+    new Card(Card.Color.CLUBS, Card.Value.FIVE);
+    new Card(Card.Color.CLUBS, Card.Value.SIX);
+    new Card(Card.Color.DIAMONDS, Card.Value.SEVEN);
+    new Card(Card.Color.DIAMONDS, Card.Value.EIGHT);
+    new Card(Card.Color.DIAMONDS, Card.Value.NINE);
+    new Card(Card.Color.SPADES, Card.Value.TEN);
+    new Card(Card.Color.SPADES, Card.Value.JACK);
+    new Card(Card.Color.SPADES, Card.Value.QUEEN);
+    new Card(Card.Color.HEART, Card.Value.KING);
 
-      // Card Color
-      new Card(Card.Color.HEART, Card.Value.ONE),
-      new Card(Card.Color.CLUBS, Card.Value.ONE),
-      new Card(Card.Color.DIAMONDS, Card.Value.ONE),
-      new Card(Card.Color.SPADES, Card.Value.ONE),
-    };
+    // Card with correct Color
+    new Card(Card.Color.HEART, Card.Value.ACE);
+    new Card(Card.Color.CLUBS, Card.Value.ACE);
+    new Card(Card.Color.DIAMONDS, Card.Value.ACE);
+    new Card(Card.Color.SPADES, Card.Value.ACE);
+
+    // Invalid Card Color
+    assertThrows(IllegalArgumentException.class, () -> new Card(null, Card.Value.ACE));
+
+    // Invalid Card Value
+    assertThrows(IllegalArgumentException.class, () -> new Card(Card.Color.HEART, null));
   }
 
   @Test
-  void getColor() {
-    Card.Color[] expected = new Card.Color[] {
-      Card.Color.HEART,
-      Card.Color.HEART,
-      Card.Color.HEART,
-      Card.Color.CLUBS,
-      Card.Color.CLUBS,
-      Card.Color.CLUBS,
-      Card.Color.DIAMONDS,
-      Card.Color.DIAMONDS,
-      Card.Color.DIAMONDS,
-      Card.Color.SPADES,
-      Card.Color.SPADES,
-      Card.Color.SPADES,
-      Card.Color.HEART,
+  void test_getColor() {
+    final HashMap<Card, Card.Color> TESTS = new HashMap<>() {{
+      put(new Card(Card.Color.HEART, Card.Value.ACE), Card.Color.HEART);
+      put(new Card(Card.Color.CLUBS, Card.Value.TWO), Card.Color.CLUBS);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.THREE), Card.Color.DIAMONDS);
+      put(new Card(Card.Color.SPADES, Card.Value.FOUR), Card.Color.SPADES);
+    }};
 
-      Card.Color.HEART,
-      Card.Color.CLUBS,
-      Card.Color.DIAMONDS,
-      Card.Color.SPADES,
-    };
+    for (Card card : TESTS.keySet()) {
+      assertEquals(TESTS.get(card), card.getColor());
+    }
 
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getColor());
+  }
+
+  @Test
+  void test_getValue() {
+    final HashMap<Card, Card.Value> TESTS = new HashMap<>() {{
+      put(new Card(Card.Color.DIAMONDS, Card.Value.ACE), Card.Value.ACE);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.TWO), Card.Value.TWO);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.THREE), Card.Value.THREE);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.FOUR), Card.Value.FOUR);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.FIVE), Card.Value.FIVE);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.SIX), Card.Value.SIX);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.SEVEN), Card.Value.SEVEN);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.EIGHT), Card.Value.EIGHT);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.NINE), Card.Value.NINE);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.TEN), Card.Value.TEN);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.JACK), Card.Value.JACK);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.QUEEN), Card.Value.QUEEN);
+      put(new Card(Card.Color.DIAMONDS, Card.Value.KING), Card.Value.KING);
+    }};
+
+    for (Card card : TESTS.keySet()) {
+      assertEquals(TESTS.get(card), card.getValue());
     }
   }
 
   @Test
-  void getValue() {
-    Card.Value[] expected = new Card.Value[] {
-      Card.Value.ONE,
-      Card.Value.TWO,
-      Card.Value.THREE,
-      Card.Value.FOUR,
-      Card.Value.FIVE,
-      Card.Value.SIX,
-      Card.Value.SEVEN,
-      Card.Value.EIGHT,
-      Card.Value.NINE,
-      Card.Value.TEN,
-      Card.Value.JACK,
-      Card.Value.QUEEN,
-      Card.Value.KING,
+  void test_toString() {
 
-      Card.Value.ONE,
-      Card.Value.ONE,
-      Card.Value.ONE,
-      Card.Value.ONE,
-    };
+    final HashMap<Card, String> TESTS = new HashMap<>() {{
+      put(new Card(Card.Color.HEART, Card.Value.ACE), "Card{color=HEART, value=ACE}");
+      put(new Card(Card.Color.CLUBS, Card.Value.TWO), "Card{color=CLUBS, value=TWO}");
+      put(new Card(Card.Color.DIAMONDS, Card.Value.THREE), "Card{color=DIAMONDS, value=THREE}");
+      put(new Card(Card.Color.SPADES, Card.Value.FOUR), "Card{color=SPADES, value=FOUR}");
+    }};
 
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getValue());
+    for (Card card : TESTS.keySet()) {
+      assertEquals(TESTS.get(card), card.toString());
     }
   }
 
   @Test
-  void to_string_return_right_format() {
-    String[] expected = new String[] {
-      "Card{color=HEART, value=ONE}",
-      "Card{color=HEART, value=TWO}",
-      "Card{color=HEART, value=THREE}",
-      "Card{color=CLUBS, value=FOUR}",
-      "Card{color=CLUBS, value=FIVE}",
-      "Card{color=CLUBS, value=SIX}",
-      "Card{color=DIAMONDS, value=SEVEN}",
-      "Card{color=DIAMONDS, value=EIGHT}",
-      "Card{color=DIAMONDS, value=NINE}",
-      "Card{color=SPADES, value=TEN}",
-      "Card{color=SPADES, value=JACK}",
-      "Card{color=SPADES, value=QUEEN}",
-      "Card{color=HEART, value=KING}",
+  void test_CardValue() {
 
-      "Card{color=HEART, value=ONE}",
-      "Card{color=CLUBS, value=ONE}",
-      "Card{color=DIAMONDS, value=ONE}",
-      "Card{color=SPADES, value=ONE}",
+    // Expect the right number of values
+    assertEquals(13, Card.Value.values().length);
+
+    // Expect the right name and ordinal for each value
+    final String[] EXPECTED_NAMES = new String[]{
+      "ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING"
     };
 
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].toString());
+    for (int index = 0; index < EXPECTED_NAMES.length; index++) {
+      String expectedName = EXPECTED_NAMES[index];
+      Card.Value currentValue = Card.Value.values()[index];
+
+      assertEquals(index, currentValue.ordinal());     // Ordinal
+      assertEquals(expectedName, currentValue.name()); // Name
     }
   }
+
+  @Test
+  void test_CardColor() {
+    // Expect the right number of colors
+    assertEquals(4, Card.Color.values().length);
+
+    // Expect the right name and ordinal for each color
+    final String[] EXPECTED_NAMES = new String[]{"HEART", "CLUBS", "SPADES", "DIAMONDS"};
+
+    for (int index = 0; index < Card.Color.values().length; index++) {
+      String expectedName = EXPECTED_NAMES[index];
+      Card.Color currentColor = Card.Color.values()[index];
+
+      assertEquals(index, currentColor.ordinal());     // Ordinal
+      assertEquals(expectedName, currentColor.name()); // Name
+    }
+  }
+
 }

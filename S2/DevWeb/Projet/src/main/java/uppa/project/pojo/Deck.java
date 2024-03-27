@@ -32,7 +32,30 @@ public class Deck {
    * @see Card.Value
    */
   public Deck(int nbColors, int nbValues) {
-    cards = initializeDeck(nbColors, nbValues);
+    if (!Deck.isDeckValid(nbColors, nbValues)) {
+      throw new IllegalArgumentException("Nombre de couleurs et/ou nombre de valeurs invalide(s)");
+    }
+
+    this.cards = new ArrayList<>(nbColors * nbValues);
+
+    for (int nbCard = 0; nbCard < nbColors * nbValues; nbCard++) {
+      int color = nbCard % nbColors;
+      int value = nbCard / nbColors;
+
+      cards.add(new Card(Card.Color.values()[color], Card.Value.values()[value]));
+    }
+  }
+
+  /**
+   * Prédicat qui vérifie si un Deck est correctement initialisé
+   *
+   * @param nbColors Nombre de couleurs {@link Card.Color}
+   * @param nbValues Nombre de valeurs {@link Card.Value}
+   * @return true si le prédicat est vérifié, false sinon
+   */
+  public static boolean isDeckValid(int nbColors, int nbValues) {
+    return 1 <= nbColors && nbColors <= Card.Color.values().length
+      && 1 <= nbValues && nbValues <= Card.Value.values().length;
   }
 
   /**
@@ -43,56 +66,13 @@ public class Deck {
   }
 
   /**
-   * Créé un paquet de cartes mélangé avec un nombre de couleurs et de valeurs donné
-   *
-   * @param nbColors nombre de couleurs (doit être compris entre 1 et le nombre de couleurs de {@link Card.Color})
-   * @param nbValues nombre de valeurs (doit être compris entre 1 et le nombre de valeurs de {@link Card.Value})
-   * @return un ensemble de cartes mélangées
-   */
-  private static ArrayList<Card> initializeDeck(int nbColors, int nbValues) {
-    ArrayList<Card> cards = createSetOfCard(nbColors, nbValues);
-    shuffleSetOfCard(cards);
-    return cards;
-  }
-
-  /**
-   * Créé un ensemble de cartes avec un nombre de couleurs et de valeurs donné
-   *
-   * @param nbColors nombre de couleurs à utiliser pour créer les cartes (doit être compris entre 1 et le nombre de couleurs de {@link Card.Color})
-   * @param nbValues nombre de valeurs à utiliser pour créer les cartes (doit être compris entre 1 et le nombre de valeurs de {@link Card.Value})
-   * @see Card.Color
-   * @see Card.Value
-   * @throws IllegalArgumentException si le nombre de couleurs ou de valeurs est incorrect
-   * @return un ensemble de cartes
-   */
-  public static ArrayList<Card> createSetOfCard(int nbColors, int nbValues) throws IllegalArgumentException {
-    ArrayList<Card> cards = new ArrayList<>(nbColors*nbValues);
-
-    if (nbColors < 1 || nbColors > Card.Color.values().length) {
-      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
-    }
-    if (nbValues < 1 || nbValues > Card.Value.values().length) {
-      throw new IllegalArgumentException("Le nombre de valeurs doit être compris entre 1 et " + Card.Value.values().length);
-    }
-
-    for (int i = 0; i < nbColors; i++) {
-      for (int j = 0; j < nbValues; j++) {
-        cards.add(new Card(Card.Color.values()[i], Card.Value.values()[j]));
-      }
-    }
-    return cards;
-  }
-
-  /**
    * Mélange les cartes d'un paquet
-   *
-   * @param cards ensemble de cartes à mélanger
-   * @return un ensemble de cartes mélangées
    */
-  public static void shuffleSetOfCard(ArrayList<Card> cards) {
-    Collections.shuffle(cards);
+  public void shuffle() {
+    Collections.shuffle(this.cards);
   }
 
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -104,7 +84,7 @@ public class Deck {
         if (cards.get(i).getColor() == deck.cards.get(j).getColor()
           && cards.get(i).getValue() == deck.cards.get(j).getValue()) {
           counter++;
-          continue;
+          break;
         }
       }
     }

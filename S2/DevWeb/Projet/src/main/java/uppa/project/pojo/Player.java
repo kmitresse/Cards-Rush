@@ -80,6 +80,7 @@ public class Player implements Serializable {
     this.rightClickCount = 0;
     this.rapidClickCount = 0;
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
+    this.deck.shuffle();
   }
 
   /**

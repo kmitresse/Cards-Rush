@@ -22,7 +22,7 @@ public class Card {
   /**
    * Valeurs disponibles pour les cartes
    */
-  public enum Value{ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
+  public enum Value{ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
 
   /**
    * Couleur de la carte
