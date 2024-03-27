@@ -14,7 +14,11 @@ class EntityManagerProviderTest {
   }
 
   @Test
-  void getInstance() {
+  void test_getInstance() {
+    // If the method throws an exception, make sure the database is running
+    assertDoesNotThrow(EntityManagerProvider::getInstance);
+
+    // Check if the object is unique
     EntityManager entity1 = EntityManagerProvider.getInstance();
     EntityManager entity2 = EntityManagerProvider.getInstance();
 
@@ -24,7 +28,11 @@ class EntityManagerProviderTest {
   }
 
   @Test
-  void close() {
+  void test_close() {
+    // If the method throws an exception, make sure the database is running
+    assertDoesNotThrow(EntityManagerProvider::getInstance);
+
+    // Check if the object is closed
     EntityManager entity = EntityManagerProvider.getInstance();
     EntityManagerProvider.close();
 
