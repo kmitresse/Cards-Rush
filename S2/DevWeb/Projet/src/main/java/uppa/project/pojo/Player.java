@@ -267,7 +267,15 @@ public class Player implements Serializable {
 
   @Override
   public String toString() {
-    return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}", id.toString(), game.toString(), user.toString(), score, winner, clickCount, rightClickCount, rapidClickCount);
+    return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}",
+      id != null ? id.toString() : "null",
+      game != null ? game.toString() : "null",
+      user != null ? user.toString() : "null",
+      score,
+      winner,
+      clickCount,
+      rightClickCount,
+      rapidClickCount);
   }
 
   @Override

@@ -133,12 +133,11 @@ public class RecoveryPasswordToken {
 
   @Override
   public String toString() {
-    return "RecoveryPasswordToken{" +
-      "id=" + id +
-      ", token='" + token + '\'' +
-      ", user=" + user +
-      ", expiresAt=" + expiresAt +
-      '}';
+    return String.format("RecoveryPasswordToken{id=%s, token=%s, user=%s, expiresAt=%s}",
+      id != null ? id.toString() : "null",
+      token != null ? token : "null",
+      user != null ? user.toString() : "null",
+      expiresAt != null ? expiresAt.toString() : "null");
   }
 
   /**

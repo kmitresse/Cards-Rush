@@ -1,10 +1,8 @@
 package uppa.project.pojo;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -294,7 +292,7 @@ class PlayerTest {
     for (Player player : TESTS.keySet()) {
       int expected = TESTS.get(player);
       player.setRightClickCount(3);
-      assertEquals(expected, player.getRapidClickCount());
+      assertEquals(expected, player.getRightClickCount());
     }
 
   }
@@ -308,7 +306,7 @@ class PlayerTest {
     }};
     for (Player player : TESTS.keySet()) {
       int expected = TESTS.get(player);
-      player.incrementRightClickCount();
+      player.incrementRapidClickCount();
       assertEquals(expected, player.getRapidClickCount());
     }
   }
@@ -350,7 +348,24 @@ class PlayerTest {
 
   @Test
   void test_to_string() {
-    // TODO Implement this method
-    fail();
+    Game game = new Game(new BigDecimal(1), new Date(2024-1900,3,27), Game.Difficulty.EASY,20,4,5,null);
+    User user = new User("username1", "email1", "password1", new Date(1996-1900,2,20), User.Gender.MALE);
+    final HashMap<Player, String> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),
+        "Player{id=1, game=Game{id=null, createdAt=null, difficulty=null, nbRounds=0, nbColors=0, nbValuesPerColor=0}, " +
+        "user=User{id='null', username=null, email=null, birth='null', gender='null'}, " +
+        "score=10, winner=true, clickCount=6, rightClickCount=5, rapidClickCount=5}");
+      put(new Player(new BigDecimal(2), game, new User(), 20, false, 4,2,1),
+        "Player{id=2, game=Game{id=1, createdAt=Sat Apr 27 00:00:00 CEST 2024, difficulty=EASY, nbRounds=20, nbColors=4, nbValuesPerColor=5}, " +
+          "user=User{id='null', username=null, email=null, birth='null', gender='null'}, " +
+          "score=20, winner=false, clickCount=4, rightClickCount=2, rapidClickCount=1}");
+      put(new Player(new BigDecimal(3), new Game(), user, 15, true, 10,5,5),
+        "Player{id=3, game=Game{id=null, createdAt=null, difficulty=null, nbRounds=0, nbColors=0, nbValuesPerColor=0}, " +
+          "user=User{id='null', username=username1, email=email1, birth='Wed Mar 20 00:00:00 CET 1996', gender='MALE'}, " +
+          "score=15, winner=true, clickCount=10, rightClickCount=5, rapidClickCount=5}");
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.toString());
+    }
   }
 }

@@ -2,7 +2,6 @@ package uppa.project.pojo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-
 
   @Test
   void test_constructor() {
@@ -22,9 +20,6 @@ class UserTest {
 
     @Test
   void test_getId() {
-    Calendar date = Calendar.getInstance();
-    date.set(1996,6,3);
-    date.getTime();
     final HashMap<User, BigDecimal> TESTS = new HashMap<>() {{
       put(new User(new BigDecimal(1), "username1", "email1", "password1",
         new Date(1996-1900,2,6), User.Gender.MALE,null), new BigDecimal(1));

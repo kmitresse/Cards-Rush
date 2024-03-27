@@ -44,6 +44,9 @@ public class Card {
    * @see Value
    */
   public Card(Color color, Value value) {
+    if (color == null || value == null) {
+      throw new IllegalArgumentException("Color cannot be null");
+    }
     this.color = color;
     this.value = value;
   }

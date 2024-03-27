@@ -349,10 +349,10 @@ public class User implements Serializable {
     return String.format(
       "User{id='%s', username=%s, email=%s, birth='%s', gender='%s'}",
       id != null ? id.toString() : "null",
-      username,
-      email,
-      birth.toString(),
-      gender.toString()
+      username != null ? username : "null",
+      email != null ? email : "null",
+      birth != null ? birth.toString() : "null",
+      gender != null ? gender.toString() : "null"
     );
   }
 
