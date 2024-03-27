@@ -23,6 +23,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -81,6 +83,9 @@ public class User implements Serializable {
    * @param gender   le genre
    */
   public User(String username, String email, String password, Date birth, Gender gender) {
+    if (!isValidBirthDate(birth)){
+      throw new IllegalArgumentException("La date de naissance n'est pas valide");
+    }
     this.username = username;
     this.email = email;
     this.password = hashPassword(password);
@@ -99,6 +104,9 @@ public class User implements Serializable {
    * @param gender   le genre
    */
   public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames) {
+    if (!isValidBirthDate(birth)){
+      throw new IllegalArgumentException("La date de naissance n'est pas valide");
+    }
     this.id = id;
     this.username = username;
     this.email = email;
@@ -114,7 +122,7 @@ public class User implements Serializable {
    * @param password le mot de passe à hasher
    * @return le mot de passe hashé
    */
-  private static String hashPassword(String password) {
+  public static String hashPassword(String password) {
     try {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -224,18 +232,6 @@ public class User implements Serializable {
   }
 
   /**
-   * Calcule l'âge de l'utilisateur
-   *
-   * @return l'âge de l'utilisateur en années
-   */
-  public int getAge() {
-    Date currentDate = new Date();
-    long diff = currentDate.getTime() - birth.getTime();
-    long diffDays = diff / (24 * 60 * 60 * 1000);
-    return (int) (diffDays / 365);
-  }
-
-  /**
    * Prédicat qui vérifie si le mot de passe fourni est correct
    *
    * @param password le mot de passe à vérifier
@@ -283,7 +279,7 @@ public class User implements Serializable {
    * @return le pourcentage de victoire
    */
   public double getWinRate(){
-    return (double) getNbWin() * 100 / getNbPlayedGame();
+    return (double) Math.abs(getNbWin() * 10000 / getNbPlayedGame()) /100;
   }
 
   /**
@@ -318,7 +314,7 @@ public class User implements Serializable {
    * @return le pourcentage de clics réussi
    */
   public double getRightClickPercentRate(){
-    return (double) getNbRightClicks() * 100 / getNbClicks();
+    return (double) Math.abs(getNbRightClicks() * 10000 / getNbClicks())/100;
   }
 
   /**
@@ -340,15 +336,21 @@ public class User implements Serializable {
    * @return le pourcentage de clics les plus rapides
    */
   public double getRapidClickPercentRate(){
-    return (double) getNbRapidClicks() * 100 / getNbClicks();
+    return (double) Math.abs(getNbRapidClicks() * 10000 / getNbClicks())/100;
+  }
+
+  public boolean isValidBirthDate(Date birthdate){
+    Date currentDate = new Date();
+    return birthdate.before(currentDate) || birthdate.equals(currentDate);
   }
 
   @Override
   public String toString() {
     return String.format(
-      "User{id = '%s', username='%s', email='%s', birth=%s, gender=%s}",
+      "User{id='%s', username=%s, email=%s, birth='%s', gender='%s'}",
       id != null ? id.toString() : "null",
       username,
+      email,
       birth.toString(),
       gender.toString()
     );

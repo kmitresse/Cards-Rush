@@ -250,8 +250,8 @@ public class Game implements Serializable {
     this.players.add(player);
   }
 
-  public ArrayList<Card> getDeck() {
-    return deck.getCards();
+  public Deck getDeck() {
+    return deck;
   }
 
   /**

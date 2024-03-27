@@ -228,7 +228,7 @@ public class Player implements Serializable {
    * @return le pourcentage de clics corrects du joueur sur la partie courante
    */
   public double getRatioRightClick() {
-    return (double) rightClickCount * 100 / clickCount;
+    return (double) Math.abs(rightClickCount * 10000 / clickCount) / 100;
   }
 
   /**
@@ -258,11 +258,11 @@ public class Player implements Serializable {
    * @return le pourcentage de clics rapides du joueur sur la partie courante
    */
   public double getRatioRapidClick() {
-    return (double) rapidClickCount * 100 / clickCount;
+    return (double) Math.abs(rapidClickCount * 10000 / clickCount) / 100;
   }
 
-  public ArrayList<Card> getDeck() {
-    return deck.getCards();
+  public Deck getDeck() {
+    return deck;
   }
 
   @Override

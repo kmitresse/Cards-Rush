@@ -51,7 +51,6 @@ class CardTest {
     for (Card card : TESTS.keySet()) {
       assertEquals(TESTS.get(card), card.getColor());
     }
-
   }
 
   @Test

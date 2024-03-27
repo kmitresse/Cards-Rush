@@ -1,6 +1,9 @@
 package uppa.project.pojo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -8,191 +11,341 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
 
-  static Player[] FIXTURE;
-
-  @BeforeAll
-  static void setUp() {
-    FIXTURE = new Player[] {
-      new Player(new BigDecimal(0), new Game(), new User(), 15, false, 20, 15, 6 ),
-      new Player(new BigDecimal(0), new Game(), new User(), 13, false, 15, 13, 8),
-      new Player(new BigDecimal(0), new Game(), new User(), 8, false, 10, 8, 2)
-    };
-  }
 
   @Test
-  void test_hash_code() {
-    // TODO Implement this method
-    fail();
+  void test_constructor() {
+    new Player();
+    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
+    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
+    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
+    new Player(new BigDecimal(1), new Game(), new User(),45, true, 15, 20, 6);
   }
 
   @Test
   void get_game() {
-    // TODO Implement this method
-    fail();
+    Game[] games = new Game[]{
+      new Game(new BigDecimal(1), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(2), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(3), new Date(), Game.Difficulty.EASY,20,4,5,null),
+    };
+
+    final HashMap<Player, Game> TESTS = new HashMap<>() {{
+      put(new Player(games[0], new User()), games[0]);
+      put(new Player(games[1], new User()), games[1]);
+      put(new Player(games[2], new User()), games[2]);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getGame());
+    }
   }
 
   @Test
   void set_game() {
-    // TODO Implement this method
-    fail();
+    Game[] games = new Game[]{
+      new Game(new BigDecimal(1), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(2), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(3), new Date(), Game.Difficulty.EASY,20,4,5,null),
+    };
+    Game game =
+      new Game(new BigDecimal(4), new Date(), Game.Difficulty.HARD,20,4,5,null);
+
+    final HashMap<Player, Game> TESTS = new HashMap<>() {{
+      put(new Player(games[0], new User()), game);
+      put(new Player(games[1], new User()), game);
+      put(new Player(games[2], new User()), game);
+    }};
+    for (Player player : TESTS.keySet()) {
+      Game expected = TESTS.get(player);
+      player.setGame(game);
+      assertEquals(expected, player.getGame());
+    }
   }
 
   @Test
   void get_user() {
-    // TODO Implement this method
-    fail();
+    Game[] games = new Game[]{
+      new Game(new BigDecimal(1), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(2), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(3), new Date(), Game.Difficulty.EASY,20,4,5,null),
+    };
+    User[] users = new User[]{
+      new User("username1", "email1", "password1", new Date(), User.Gender.MALE),
+      new User("username2", "email2", "password2", new Date(), User.Gender.FEMALE),
+      new User("username3", "email3", "password3", new Date(), User.Gender.OTHER),
+    };
+
+    final HashMap<Player, User> TESTS = new HashMap<>() {{
+      put(new Player(games[0], users[0]), users[0]);
+      put(new Player(games[1], users[1]), users[1]);
+      put(new Player(games[2], users[2]), users[2]);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getUser());
+    }
   }
+
 
   @Test
   void set_user() {
-    // TODO Implement this method
-    fail();
+    Game[] games = new Game[]{
+      new Game(new BigDecimal(1), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(2), new Date(), Game.Difficulty.EASY,20,4,5,null),
+      new Game(new BigDecimal(3), new Date(), Game.Difficulty.EASY,20,4,5,null),
+    };
+    User[] users = new User[]{
+      new User("username1", "email1", "password1", new Date(), User.Gender.MALE),
+      new User("username2", "email2", "password2", new Date(), User.Gender.FEMALE),
+      new User("username3", "email3", "password3", new Date(), User.Gender.OTHER),
+    };
+    User user =   new User("username000", "email000", "password000", new Date(), User.Gender.OTHER);
+
+    final HashMap<Player, User> TESTS = new HashMap<>() {{
+      put(new Player(games[0], users[0]), user);
+      put(new Player(games[1], users[1]), user);
+      put(new Player(games[2], users[2]), user);
+    }};
+    for (Player player : TESTS.keySet()) {
+      User expected =TESTS.get(player);
+      player.setUser(user);
+      assertEquals(expected, player.getUser());
+    }
   }
 
   @Test
   void get_score() {
-    int[] expected = new int[]{15, 13, 8};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getScore());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 5,5,5),10);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, true, 5,5,5),20);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 5,5,5),15);;
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getScore());
     }
   }
 
   @Test
   void set_score() {
-    int[] expected = new int[]{20, 9, 1};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setScore(expected[i]);
-      assertEquals(expected[i], FIXTURE[i].getScore());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 5,5,5),50);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, true, 5,5,5),50);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 5,5,5),50);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.setScore(50);
+      assertEquals(expected, player.getScore());
     }
   }
 
   @Test
   void update_score() {
-    int[] expected1 = new int[]{16, 14, 9};
-    int[] expected2 = new int[]{11, 9, 4};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].updateScore(1);
-      assertEquals(expected1[i], FIXTURE[i].getScore());
-      FIXTURE[i].updateScore(-5);
-      assertEquals(expected2[i], FIXTURE[i].getScore());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 5,5,5),13);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, true, 5,5,5),23);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 5,5,5),18);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.updateScore(3);
+      assertEquals(expected, player.getScore());
+      expected -= 5;
+      player.updateScore(-5);
+      assertEquals(expected, player.getScore());
     }
   }
 
   @Test
   void is_winner() {
-    boolean[] expected = new boolean[]{false, false, false};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].isWinner());
+    final HashMap<Player, Boolean> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 5,5,5),true);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false, 5,5,5),false);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 5,5,5),true);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.isWinner());
     }
   }
 
   @Test
   void set_winner() {
-    boolean[] expected = new boolean[]{true, true, true};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setWinner();
-      assertEquals(expected[i], FIXTURE[i].isWinner());
+    Player[] players = new Player[]{
+      new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,5,5),
+      new Player(new BigDecimal(2), new Game(), new User(), 20, false, 5,5,5),
+      new Player(new BigDecimal(3), new Game(), new User(), 15, false, 5,5,5),
+    };
+    for (Player player: players){
+      player.setWinner();
+      assertTrue(player.isWinner());
     }
   }
 
   @Test
   void get_click_count() {
-    int[] expected = new int[]{20, 15, 10};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),6);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),4);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,5,5),2);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getClickCount());
     }
   }
 
   @Test
   void set_click_count() {
-    int[] expected = new int[]{25, 20, 15};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setClickCount(expected[i]);
-      assertEquals(expected[i], FIXTURE[i].getClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),3);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),3);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,5,5),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.setClickCount(3);
+      assertEquals(expected, player.getClickCount());
     }
   }
 
   @Test
   void increment_click_count() {
-    int[] expected = new int[]{21, 16, 11};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].incrementClickCount();
-      assertEquals(expected[i], FIXTURE[i].getClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),7);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),5);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,5,5),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.incrementClickCount();
+      assertEquals(expected, player.getClickCount());
     }
   }
 
   @Test
   void get_right_click_count() {
-    int[] expected = new int[]{15, 13, 8};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getRightClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),5);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),4);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,3,5),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getRightClickCount());
     }
   }
 
   @Test
   void set_right_click_count() {
-    int[] expected = new int[]{20, 15, 10};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setRightClickCount(expected[i]);
-      assertEquals(expected[i], FIXTURE[i].getRightClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),3);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),3);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,5,5),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.setRightClickCount(3);
+      assertEquals(expected, player.getRightClickCount());
     }
   }
 
   @Test
   void increment_right_click_count() {
-    int[] expected = new int[]{16, 14, 9};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].incrementRightClickCount();
-      assertEquals(expected[i], FIXTURE[i].getRightClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),6);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,8 ,4,1),5);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 9,5,5),6);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.incrementRightClickCount();
+      assertEquals(expected, player.getRightClickCount());
     }
   }
 
   @Test
   void get_ratio_right_click() {
-    double[] expected = new double[]{0.75*100, 0.8666666666666667*100, 0.8*100};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getRatioRightClick());
+    final HashMap<Player, Double> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,3,5),50.);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,1,1),25.);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 17,5,5),29.41);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getRatioRightClick());
     }
+
   }
 
   @Test
   void get_rapid_click_count() {
-    int[] expected = new int[]{6, 8, 2};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getRapidClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,3,5),5);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,1,1),1);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 17,3,2),2);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getRapidClickCount());
     }
   }
 
   @Test
   void set_rapid_click_count() {
-    int[] expected = new int[]{10, 15, 20};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setRapidClickCount(expected[i]);
-      assertEquals(expected[i], FIXTURE[i].getRapidClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,5,5),3);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,4,1),3);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 2,5,5),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.setRightClickCount(3);
+      assertEquals(expected, player.getRapidClickCount());
     }
+
   }
 
   @Test
   void increment_rapid_click_count() {
-    int[] expected = new int[]{7, 9, 3};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].incrementRapidClickCount();
-      assertEquals(expected[i], FIXTURE[i].getRapidClickCount());
+    final HashMap<Player, Integer> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,3,5),6);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,1,1),2);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 17,3,2),3);
+    }};
+    for (Player player : TESTS.keySet()) {
+      int expected = TESTS.get(player);
+      player.incrementRightClickCount();
+      assertEquals(expected, player.getRapidClickCount());
     }
   }
 
   @Test
   void get_ratio_rapid_click() {
-    double[] expected = new double[]{0.3*100, 0.5333333333333333*100, 0.2*100};
-    for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(expected[i], FIXTURE[i].getRatioRapidClick());
+    final HashMap<Player, Double> TESTS = new HashMap<>() {{
+      put(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 6,3,5),83.33);
+      put(new Player(new BigDecimal(2), new Game(), new User(), 20, false,4 ,1,1),25.);
+      put(new Player(new BigDecimal(3), new Game(), new User(), 15, true, 17,3,2),11.76);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getRatioRapidClick());
     }
   }
 
   @Test
   void get_deck() {
-    // TODO Implement this method
-    fail();
+    Deck[] decks = new Deck[]{
+      new Deck(2,10),
+      new Deck(4,13),
+      new Deck(3,6),
+    };
+
+    Game[] games = new Game[]{
+      new Game(new BigDecimal(1), new Date(), Game.Difficulty.EASY,20,2,10,null),
+      new Game(new BigDecimal(2), new Date(), Game.Difficulty.EASY,52,4,13,null),
+      new Game(new BigDecimal(3), new Date(), Game.Difficulty.EASY,18,3,6,null),
+    };
+    final HashMap<Player, Deck> TESTS = new HashMap<>() {{
+      put(new Player(games[0], new User()), decks[0]);
+      put(new Player(games[1], new User()), decks[1]);
+      put(new Player(games[2], new User()), decks[2]);
+    }};
+    for (Player player : TESTS.keySet()) {
+      assertEquals(TESTS.get(player), player.getDeck());
+    }
   }
 
   @Test
