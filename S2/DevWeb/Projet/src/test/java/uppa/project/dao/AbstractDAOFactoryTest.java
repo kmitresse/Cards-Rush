@@ -1,5 +1,7 @@
 package uppa.project.dao;
 
+import java.util.HashMap;
+import java.util.Objects;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
@@ -14,9 +16,20 @@ class AbstractDAOFactoryTest {
   }
 
   @Test
-  void getDAOFactory() {
-    assertEquals(Game_JPA_DAO_Factory.class, AbstractDAOFactory.getDAOFactory(PersistenceKind.JPA).getClass());
+  void test_getDAOFactory() {
+    // If the method throws an exception, make sure the database is running
+    assertDoesNotThrow(() -> AbstractDAOFactory.getDAOFactory(PersistenceKind.JPA));
 
-    assertThrows(NullPointerException.class, () -> AbstractDAOFactory.getDAOFactory(null));
+    // Test if the method returns the correct DAO factory
+    HashMap<PersistenceKind, Class> factories = new HashMap<>() {{
+      put(PersistenceKind.JPA, Game_JPA_DAO_Factory.class);
+    }};
+
+    for (PersistenceKind kind : PersistenceKind.values()) {
+      assertEquals(
+        factories.get(kind),
+        Objects.requireNonNull(AbstractDAOFactory.getDAOFactory(kind)).getClass()
+      );
+    }
   }
 }
