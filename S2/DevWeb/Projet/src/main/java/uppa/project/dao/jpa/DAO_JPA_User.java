@@ -37,7 +37,6 @@ public class DAO_JPA_User extends DAO<User> {
   @Override
   public User findById(int id) throws DAOException {
     User result =  entityManager.find(User.class, new BigDecimal(id));
-    entityManager.flush();
     return result;
   }
 
@@ -64,15 +63,11 @@ public class DAO_JPA_User extends DAO<User> {
 
   @Override
   public void update(User data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.merge(data);
-    entityManager.getTransaction().commit();
   }
 
   @Override
   public void delete(User data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.remove(data);
-    entityManager.getTransaction().commit();
   }
 }
