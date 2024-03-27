@@ -93,4 +93,22 @@ public class Deck {
     Collections.shuffle(cards);
   }
 
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Deck deck = (Deck) o;
+    boolean sameSize = cards.size() == deck.cards.size();
+    int counter = 0;
+    for (int i = 0; i < cards.size(); i++) {
+      for (int j = 0; j < deck.cards.size(); j++) {
+        if (cards.get(i).getColor() == deck.cards.get(j).getColor()
+          && cards.get(i).getValue() == deck.cards.get(j).getValue()) {
+          counter++;
+          continue;
+        }
+      }
+    }
+    return sameSize && counter == cards.size();
+  }
+
 }

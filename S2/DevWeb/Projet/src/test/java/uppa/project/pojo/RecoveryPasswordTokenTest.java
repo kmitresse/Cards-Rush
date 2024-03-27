@@ -20,21 +20,21 @@ class RecoveryPasswordTokenTest {
     };
    }
   @Test
-  void getId() {
+  void get_id() {
     assertEquals(1, FIXTURE[0].getId());
     assertEquals(2, FIXTURE[1].getId());
     assertEquals(3, FIXTURE[2].getId());
   }
 
   @Test
-  void getToken() {
+  void get_token() {
     assertEquals("token1", FIXTURE[0].getToken());
     assertEquals("token2", FIXTURE[1].getToken());
     assertEquals("token3", FIXTURE[2].getToken());
   }
 
   @Test
-  void setToken() {
+  void set_token() {
     String[] expected = new String[]{"token1", "token2", "token3"};
     for (int i = 0; i < FIXTURE.length; i++) {
       FIXTURE[i].setToken(expected[i]);
@@ -43,7 +43,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void getUser() {
+  void get_user() {
     User[] expected = new User[]{
       new User(new BigDecimal(1), "username1", "password1", "email1", new Date(1996, 1, 4), User.Gender.MALE, new ArrayList<Player>()),
       new User(new BigDecimal(2), "username2", "password2", "email2", new Date(1996, 2, 5), User.Gender.FEMALE, new ArrayList<Player>()),
@@ -60,7 +60,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void setUser() {
+  void set_user() {
     User[] expected = new User[]{
       new User(new BigDecimal(4), "username4", "password4", "email4", new Date(1996, 4, 7), User.Gender.MALE, new ArrayList<Player>()),
       new User(new BigDecimal(5), "username5", "password5", "email5", new Date(1996, 5, 8), User.Gender.FEMALE, new ArrayList<Player>()),
@@ -78,7 +78,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void getExpiresAt() {
+  void get_expires_at() {
     Date[] expected = new Date[]{
       new Date(2024, 1, 2),
       new Date(2024, 3, 4),
@@ -89,7 +89,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void setExpiresAt() {
+  void set_expires_at() {
     Date[] expected = new Date[]{
       new Date(2024, 2, 3),
       new Date(2024, 4, 5),
@@ -101,13 +101,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void to_string_return_the_rigth_format() {
-    // TODO Implement this method
-    fail();
-  }
-
-  @Test
-  void getExpirationDate() {
+  void get_expiration_date() {
     Date[] expected = new Date[]{
       new Date(2024, 1, 2),
       new Date(2024, 3, 4),
@@ -115,5 +109,11 @@ class RecoveryPasswordTokenTest {
     for (int i = 0; i < FIXTURE.length; i++) {
       assertEquals(expected[i], FIXTURE[i].getExpirationDate());
     }
+  }
+
+  @Test
+  void to_string_return_the_rigth_format() {
+    // TODO Implement this method
+    fail();
   }
 }

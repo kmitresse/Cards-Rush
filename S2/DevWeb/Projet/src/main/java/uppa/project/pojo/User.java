@@ -345,7 +345,16 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return String.format("User{id=%s, username='%s', birth=%s, gender=%s}", id.toString(), username, birth.toString(), gender.toString());
+    return String.format("User{username='%s', birth=%s, gender=%s}", username, birth.toString(), gender.toString());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
+    return
+      Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getBirth(), user.getBirth()) && getGender() == user.getGender();
   }
 
   /**

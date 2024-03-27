@@ -257,12 +257,28 @@ public class Game implements Serializable {
    * Tri des joueurs de la partie par score
    */
   public void sortPlayersByScore() {
-    this.players.stream().sorted((p1, p2) -> p1.getScore() - p2.getScore());
+    for (int i = 0; i < players.size(); i++) {
+      for (int j = i + 1; j < players.size(); j++) {
+        if (players.get(i).getScore() < players.get(j).getScore()) {
+          Player temp = players.get(i);
+          players.set(i, players.get(j));
+          players.set(j, temp);
+        }
+      }
+    }
   }
 
   @Override
   public String toString() {
-    return String.format("Game{id=%s, createdAt=%s, players=%s}", id.toString(), createdAt, players);
+    return String.format("Game{id=%s, createdAt=%s}", id.toString(), createdAt.toString());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Game)) return false;
+    Game game = (Game) o;
+    return getNbRounds() == game.getNbRounds() && getNbColors() == game.getNbColors() && getNbValuesPerColor() == game.getNbValuesPerColor() && Objects.equals(getId(), game.getId()) && Objects.equals(getCreatedAt(), game.getCreatedAt()) && getDifficulty() == game.getDifficulty() && Objects.equals(getPlayers(), game.getPlayers()) && Objects.equals(getDeck(), game.getDeck());
   }
 
   /**
@@ -270,3 +286,4 @@ public class Game implements Serializable {
    */
   public enum Difficulty {EASY, HARD}
 }
+

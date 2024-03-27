@@ -92,7 +92,8 @@ public class Player implements Serializable {
    * @param rightClickCount le nombre de clics corrects
    * @param rapidClickCount le nombre de clics rapides
    */
-  public Player(Game game, User user, int score, boolean winner, int clickCount, int rightClickCount, int rapidClickCount) {
+  public Player(BigDecimal id, Game game, User user, int score, boolean winner, int clickCount, int rightClickCount, int rapidClickCount) {
+    this.id = id;
     this.game = game;
     this.user = user;
     this.score = score;
@@ -262,8 +263,17 @@ public class Player implements Serializable {
   public ArrayList<Card> getDeck() {
     return deck.getCards();
   }
+
   @Override
   public String toString() {
     return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}", id.toString(), game.toString(), user.toString(), score, winner, clickCount, rightClickCount, rapidClickCount);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Player)) return false;
+    Player player = (Player) o;
+    return getScore() == player.getScore() && isWinner() == player.isWinner() && getClickCount() == player.getClickCount() && getRightClickCount() == player.getRightClickCount() && getRapidClickCount() == player.getRapidClickCount() && Objects.equals(id, player.id) && Objects.equals(getGame(), player.getGame()) && Objects.equals(getUser(), player.getUser());
   }
 }

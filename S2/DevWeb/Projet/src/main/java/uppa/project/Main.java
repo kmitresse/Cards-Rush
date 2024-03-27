@@ -15,13 +15,13 @@ public class Main {
 //      DAO<Game> daoJpaGame = jpaDaoFactory.getDAOGame();
 //      DAO<Player> daoJpaPlayer = jpaDaoFactory.getDAOPlayer();
 
-      // Contenu de la BD au début
-      User[] users = daoJpaUser.findAll();
-      for (User u : users) {
-        System.out.println(u.toString());
-      }
-      System.out.println();
-
+//      // Contenu de la BD au début
+//      User[] users = daoJpaUser.findAll();
+//      for (User u : users) {
+//        System.out.println(u.toString());
+//      }
+//      System.out.println();
+//
       // Ajout d'User :
       Calendar cal1 = Calendar.getInstance();
       cal1.set(1996, Calendar.FEBRUARY, 20);

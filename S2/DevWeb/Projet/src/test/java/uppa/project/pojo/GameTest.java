@@ -3,6 +3,7 @@ package uppa.project.pojo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,16 @@ class GameTest {
       new Game(new BigDecimal(2), new Date(2024,3,26), Game.Difficulty.HARD, 52, 4,13, new ArrayList<Player>()),
       new Game(new BigDecimal(3), new Date(2023,9,18), Game.Difficulty.EASY, 5, 2,10, new ArrayList<Player>()),
     };
+    Player[] players = new Player[]{
+      new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+      new Player(new BigDecimal(2), FIXTURE[1], new User("username2", "email2", "password2", new Date(1996, 4, 7), User.Gender.MALE),34, false, 7,7,7),
+      new Player(new BigDecimal(3), FIXTURE[2], new User("username3", "email3", "password3", new Date(1996, 4, 7), User.Gender.MALE),22, false, 7,7,7),
+      new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+    };
+    FIXTURE[0].addPlayer(players[0]);
+    FIXTURE[0].addPlayer(players[3]);
+    FIXTURE[1].addPlayer(players[1]);
+    FIXTURE[2].addPlayer(players[2]);
   }
 
   @Test
@@ -85,7 +96,7 @@ class GameTest {
   @Test
   void get_Id() {
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getId(), new BigDecimal(i + 1));
+      assertEquals(new BigDecimal(i + 1), FIXTURE[i].getId());
     }
   }
 
@@ -95,7 +106,7 @@ class GameTest {
                     new Date(2024,3,26),
                     new Date(2023,9,18)};
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getCreatedAt(), dates[i]);
+      assertEquals(dates[i], FIXTURE[i].getCreatedAt());
     }
   }
 
@@ -106,7 +117,7 @@ class GameTest {
       Game.Difficulty.HARD,
       Game.Difficulty.EASY };
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getDifficulty(), difficulties[i]);
+      assertEquals(difficulties[i], FIXTURE[i].getDifficulty());
     }
   }
 
@@ -118,9 +129,9 @@ class GameTest {
       Game.Difficulty.EASY };
     for (int i = 0; i < FIXTURE.length; i++) {
       FIXTURE[i].setDifficulty(Game.Difficulty.HARD);
-      assertEquals(FIXTURE[i].getDifficulty(), Game.Difficulty.HARD);
+      assertEquals(Game.Difficulty.HARD, FIXTURE[i].getDifficulty());
       FIXTURE[i].setDifficulty(difficulties[i]);
-      assertEquals(FIXTURE[i].getDifficulty(), difficulties[i]);
+      assertEquals(difficulties[i], FIXTURE[i].getDifficulty());
     }
   }
 
@@ -128,7 +139,7 @@ class GameTest {
   void get_nb_Rounds() {
     int[] nbRounds = new int[]{17, 52, 5};
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getNbRounds(), nbRounds[i]);
+      assertEquals(nbRounds[i], FIXTURE[i].getNbRounds());
     }
   }
 
@@ -137,9 +148,9 @@ class GameTest {
     int[] nbRounds = new int[]{17, 52, 5};
     for (int i = 0; i < FIXTURE.length; i++) {
       FIXTURE[i].setNbRounds(10);
-      assertEquals(FIXTURE[i].getNbRounds(), 10);
+      assertEquals(10, FIXTURE[i].getNbRounds());
       FIXTURE[i].setNbRounds(nbRounds[i]);
-      assertEquals(FIXTURE[i].getNbRounds(), nbRounds[i]);
+      assertEquals(nbRounds[i], FIXTURE[i].getNbRounds());
     }
   }
 
@@ -147,7 +158,7 @@ class GameTest {
   void get_nb_Colors() {
     int[] nbColors = new int[]{3, 4, 2};
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getNbColors(), nbColors[i]);
+      assertEquals(nbColors[i], FIXTURE[i].getNbColors());
     }
   }
 
@@ -155,10 +166,10 @@ class GameTest {
   void set_nb_Colors() {
     int[] nbColors = new int[]{3, 4, 2};
     for (int i = 0; i < FIXTURE.length; i++) {
-      FIXTURE[i].setNbColors(5);
-      assertEquals(FIXTURE[i].getNbColors(), 5);
+      FIXTURE[i].setNbColors(1);
+      assertEquals(1, FIXTURE[i].getNbColors());
       FIXTURE[i].setNbColors(nbColors[i]);
-      assertEquals(FIXTURE[i].getNbColors(), nbColors[i]);
+      assertEquals(nbColors[i], FIXTURE[i].getNbColors());
     }
   }
 
@@ -166,7 +177,7 @@ class GameTest {
   void getnbValuesPerColor() {
     int[] nbValuesPerColor = new int[]{6, 13, 10};
     for (int i = 0; i < FIXTURE.length; i++) {
-      assertEquals(FIXTURE[i].getNbValuesPerColor(), nbValuesPerColor[i]);
+      assertEquals(nbValuesPerColor[i], FIXTURE[i].getNbValuesPerColor());
     }
   }
 
@@ -175,46 +186,118 @@ class GameTest {
     int[] nbValuesPerColor = new int[]{6, 13, 10};
     for (int i = 0; i < FIXTURE.length; i++) {
       FIXTURE[i].setNbValuesPerColor(8);
-      assertEquals(FIXTURE[i].getNbValuesPerColor(), 8);
+      assertEquals(8,FIXTURE[i].getNbValuesPerColor());
       FIXTURE[i].setNbValuesPerColor(nbValuesPerColor[i]);
-      assertEquals(FIXTURE[i].getNbValuesPerColor(), nbValuesPerColor[i]);
+      assertEquals(nbValuesPerColor[i], FIXTURE[i].getNbValuesPerColor());
     }
   }
 
   @Test
-  void getPlayers() {
-    // TODO Implement this method
-    fail();
+  void get_Players_return_rigth_number_of_players() {
+    Player[] players = new Player[]{
+      new Player(FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE)),
+      new Player(FIXTURE[1], new User("username2", "email2", "password2", new Date(1996, 4, 7), User.Gender.MALE)),
+      new Player(FIXTURE[2], new User("username3", "email3", "password3", new Date(1996, 4, 7), User.Gender.MALE)),
+      new Player(FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE)),
+    };
+    assertEquals(2, FIXTURE[0].getPlayers().size());
+    assertEquals(1, FIXTURE[1].getPlayers().size());
+    assertEquals(1, FIXTURE[2].getPlayers().size());
   }
 
   @Test
+  void get_players_return_the_right_players() {
+    Player[] players = new Player[]{
+      new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+      new Player(new BigDecimal(2), FIXTURE[1], new User("username2", "email2", "password2", new Date(1996, 4, 7), User.Gender.MALE),34, false, 7,7,7),
+      new Player(new BigDecimal(3), FIXTURE[2], new User("username3", "email3", "password3", new Date(1996, 4, 7), User.Gender.MALE),22, false, 7,7,7),
+      new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+    };
+    assertEquals(players[0], FIXTURE[0].getPlayers().get(0));
+    assertEquals(players[3], FIXTURE[0].getPlayers().get(1));
+    assertEquals(players[1], FIXTURE[1].getPlayers().get(0));
+    assertEquals(players[2], FIXTURE[2].getPlayers().get(0));
+  }
+    @Test
   void setPlayers() {
-    // TODO Implement this method
-    fail();
+    Player[] players = new Player[]{
+      new Player(new BigDecimal(5), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+      new Player(new BigDecimal(6), FIXTURE[1], new User("username2", "email2", "password2", new Date(1996, 4, 7), User.Gender.MALE),34, false, 7,7,7),
+      new Player(new BigDecimal(7), FIXTURE[2], new User("username3", "email3", "password3", new Date(1996, 4, 7), User.Gender.MALE),22, false, 7,7,7),
+      new Player(new BigDecimal(8), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+    };
+    ArrayList<Player> newPlayers1 = new ArrayList<Player>();
+    newPlayers1.add(players[0]);
+    newPlayers1.add(players[3]);
+    ArrayList<Player> newPlayers2 = new ArrayList<Player>();
+    newPlayers2.add(players[1]);
+    ArrayList<Player> newPlayers3 = new ArrayList<Player>();
+    newPlayers3.add(players[2]);
+
+    FIXTURE[0].setPlayers(newPlayers1);
+    FIXTURE[1].setPlayers(newPlayers2);
+    FIXTURE[2].setPlayers(newPlayers3);
+    assertEquals(players[0], FIXTURE[0].getPlayers().get(0));
+    assertEquals(players[3], FIXTURE[0].getPlayers().get(1));
+    assertEquals(players[1], FIXTURE[1].getPlayers().get(0));
+    assertEquals(players[2], FIXTURE[2].getPlayers().get(0));
   }
 
   @Test
   void getNbPlayers() {
-    // TODO Implement this method
-    fail();
+    int[] nbPlayers = new int[]{2, 1, 1};
+    for (int i = 0; i < FIXTURE.length; i++) {
+      assertEquals(nbPlayers[i], FIXTURE[i].getNbPlayers());
+    }
   }
 
   @Test
   void addPlayer() {
-    // TODO Implement this method
-    fail();
+    Player player1 = new Player(new BigDecimal(5), FIXTURE[0], new User("username5", "email5", "password5", new Date(1996, 4, 7), User.Gender.MALE),41, true, 7,7,7);
+    Player player2 = new Player(new BigDecimal(6), FIXTURE[0], new User("username6", "email6", "password6", new Date(1996, 4, 7), User.Gender.MALE),41, true, 7,7,7);
+    FIXTURE[0].addPlayer(player1);
+    assertEquals(FIXTURE[0].getPlayers().size(), 3);
+    FIXTURE[0].addPlayer(player2);
+    assertEquals(FIXTURE[0].getPlayers().size(), 4);
+    Player[] expected = new Player[]{
+      new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+      new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+      player1,
+      player2
+    };
+    assertEquals(expected[0], FIXTURE[0].getPlayers().get(0));
+    assertEquals(expected[1], FIXTURE[0].getPlayers().get(1));
+    assertEquals(expected[2], FIXTURE[0].getPlayers().get(2));
+    assertEquals(expected[3], FIXTURE[0].getPlayers().get(3));
   }
 
   @Test
   void getDeck() {
-    // TODO Implement this method
-    fail();
+
   }
 
   @Test
   void sortPlayersByScore() {
-    // TODO Implement this method
-    fail();
+
+    Player[] initial = new Player[]{
+      new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+      new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+    };
+    ArrayList<Player> players = FIXTURE[0].getPlayers();
+    for (int i = 0; i < players.size(); i++) {
+      assertEquals(initial[i], players.get(i));
+    }
+    System.out.println("expected");
+    Player[] expected = new Player[]{
+      new Player(new BigDecimal(4), FIXTURE[0], new User("username4", "email4", "password4", new Date(1996, 4, 7), User.Gender.MALE),68, true, 7,7,7),
+      new Player(new BigDecimal(1), FIXTURE[0], new User("username1", "email1", "password1", new Date(1996, 4, 7), User.Gender.MALE),5, true, 7,7,7),
+    };
+    FIXTURE[0].sortPlayersByScore();
+    players = FIXTURE[0].getPlayers();
+    for (int i = 0; i < players.size(); i++) {
+      System.out.println(i);
+      assertEquals(expected[i], players.get(i));
+    }
   }
 
   @Test
