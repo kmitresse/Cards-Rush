@@ -17,7 +17,7 @@ class DAO_JPA_UserTest {
 
   static EntityManager entityManager;
   static DAO<User> dao;
-  static User[] users;
+  static User[] fixture;
 
   @BeforeAll
   static void setUp() throws DAOException {
@@ -30,7 +30,7 @@ class DAO_JPA_UserTest {
 
   @BeforeEach
   void clean() {
-    users = new User[] {
+    fixture = new User[] {
       new User("username", "email", "password", new Date(), User.Gender.MALE),
       new User("username1", "email1", "password1", new Date(), User.Gender.FEMALE),
     };
@@ -45,7 +45,7 @@ class DAO_JPA_UserTest {
   @Test
   void findById() throws DAOException {
     // Create a new user
-    dao.create(users[0]);
+    dao.create(fixture[0]);
     User user = dao.findAll()[0];
 
     // Find the user by id
@@ -56,57 +56,57 @@ class DAO_JPA_UserTest {
   @Test
   void findByField() throws DAOException {
     // Create users
-    for (User user : users) dao.create(user);
+    for (User user : fixture) dao.create(user);
 
     // Find the user by username
-    User[] usersInDb = dao.findByField("username", users[0].getUsername());
+    User[] usersInDb = dao.findByField("username", fixture[0].getUsername());
     assertEquals(1, usersInDb.length);
 
     // Check if the user is the same
-    assertEquals(users[0].getUsername(), usersInDb[0].getUsername());
-    assertEquals(users[0].getEmail(), usersInDb[0].getEmail());
-    assertEquals(users[0].getPassword(), usersInDb[0].getPassword());
+    assertEquals(fixture[0].getUsername(), usersInDb[0].getUsername());
+    assertEquals(fixture[0].getEmail(), usersInDb[0].getEmail());
+    assertEquals(fixture[0].getPassword(), usersInDb[0].getPassword());
   }
 
   @Test
   void findAll() throws DAOException {
     // Find all users
-    User[] users = dao.findAll();
-    assertEquals(0, users.length);
+    User[] fixture = dao.findAll();
+    assertEquals(0, fixture.length);
 
     // Create a new user
-    for (User user : users) dao.create(user);
+    for (User user : fixture) dao.create(user);
 
     // Find all users
     User[] usersInDb = dao.findAll();
-    assertEquals(users.length, usersInDb.length);
+    assertEquals(fixture.length, usersInDb.length);
   }
 
   @Test
   void create() throws DAOException {
     // Create users
-    for (User user : users) {
+    for (User user : fixture) {
       dao.create(user);
     }
 
     // Check if the user is in the database
     User[] usersInDb = dao.findAll();
-    assertEquals(users.length, usersInDb.length);
+    assertEquals(fixture.length, usersInDb.length);
 
     // Check if the user is the same
-    for (int i = 0; i < users.length; i++) {
-      assertEquals(users[i].getUsername(), usersInDb[i].getUsername());
-      assertEquals(users[i].getEmail(), usersInDb[i].getEmail());
-      assertEquals(users[i].getPassword(), usersInDb[i].getPassword());
-      assertEquals(users[i].getBirth(), usersInDb[i].getBirth());
-      assertEquals(users[i].getGender(), usersInDb[i].getGender());
+    for (int i = 0; i < fixture.length; i++) {
+      assertEquals(fixture[i].getUsername(), usersInDb[i].getUsername());
+      assertEquals(fixture[i].getEmail(), usersInDb[i].getEmail());
+      assertEquals(fixture[i].getPassword(), usersInDb[i].getPassword());
+      assertEquals(fixture[i].getBirth(), usersInDb[i].getBirth());
+      assertEquals(fixture[i].getGender(), usersInDb[i].getGender());
     }
   }
 
   @Test
   void update() throws DAOException {
     // Create a new user
-    dao.create(users[0]);
+    dao.create(fixture[0]);
     User user = dao.findAll()[0];
 
     // Update the user
@@ -124,7 +124,7 @@ class DAO_JPA_UserTest {
   @Test
   void delete() throws DAOException {
     // Create a new user
-    dao.create(users[0]);
+    dao.create(fixture[0]);
     User user = dao.findAll()[0];
 
     // Delete the user
