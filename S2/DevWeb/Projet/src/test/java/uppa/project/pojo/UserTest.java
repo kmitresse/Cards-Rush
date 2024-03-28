@@ -160,7 +160,7 @@ class UserTest {
 
 
   @Test
-  void setBirth() {
+  void test_setBirth() {
     User user = fixture[0];
     assertEquals(new Date(1996 - 1900, Calendar.FEBRUARY, 20), user.getBirth());
 
@@ -170,7 +170,7 @@ class UserTest {
   }
 
   @Test
-  void getGender() {
+  void test_getGender() {
     final HashMap<User, User.Gender> TESTS = new HashMap<>() {{
       put(fixture[0], User.Gender.MALE);
       put(fixture[1], User.Gender.FEMALE);
@@ -192,7 +192,27 @@ class UserTest {
   }
 
   @Test
-  void verifyPassword() {
+  void test_UserGender() {
+
+    // Expect the right number of genders
+    assertEquals(3, User.Gender.values().length);
+
+    // Expect the right name and ordinal for each gender
+    final String[] EXPECTED_NAMES = new String[]{
+      "MALE", "FEMALE", "OTHER"
+    };
+
+    for (int index = 0; index < EXPECTED_NAMES.length; index++) {
+      String expectedName = EXPECTED_NAMES[index];
+      User.Gender currentValue = User.Gender.values()[index];
+
+      assertEquals(index, currentValue.ordinal());     // Ordinal
+      assertEquals(expectedName, currentValue.name()); // Name
+    }
+  }
+
+  @Test
+  void test_verifyPassword() {
     String [] passwords = {"password1", "password2", "password3"};
     User[] users = {
       new User("username1", "email1", "password1", new Date(), User.Gender.MALE),
@@ -327,7 +347,7 @@ class UserTest {
   }
 
   @Test
-  void testToString() {
+  void test_toString() {
     final HashMap<User, String> TESTS = new HashMap<>() {{
       put(new User(new BigDecimal(1), "username1", "email1", "password1",
         new Date(1996-1900, 1, 4), User.Gender.MALE,null),
@@ -342,26 +362,6 @@ class UserTest {
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.toString());
-    }
-  }
-
-  @Test
-  void testGetGender() {
-
-    // Expect the right number of genders
-    assertEquals(3, User.Gender.values().length);
-
-    // Expect the right name and ordinal for each gender
-    final String[] EXPECTED_NAMES = new String[]{
-      "MALE", "FEMALE", "OTHER"
-    };
-
-    for (int index = 0; index < EXPECTED_NAMES.length; index++) {
-      String expectedName = EXPECTED_NAMES[index];
-      User.Gender currentValue = User.Gender.values()[index];
-
-      assertEquals(index, currentValue.ordinal());     // Ordinal
-      assertEquals(expectedName, currentValue.name()); // Name
     }
   }
 }

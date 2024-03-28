@@ -98,7 +98,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void set_user() {
+  void test_setUser() {
   RecoveryPasswordToken token = fixture[0];
   assertEquals(usersFixture[0], token.getUser());
 
@@ -108,7 +108,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void get_expiresAt() {
+  void test_getExpiresAt() {
     final HashMap<RecoveryPasswordToken, Date> TESTS = new HashMap<>() {{
       put(fixture[0], new Date(124, Calendar.MARCH, 28));
       put(fixture[1], new Date(124, Calendar.JULY, 14));
@@ -120,7 +120,7 @@ class RecoveryPasswordTokenTest {
   }
 
   @Test
-  void set_expires_at() {
+  void test_setExpiresAt() {
     RecoveryPasswordToken token = fixture[0];
     assertEquals(new Date(124, Calendar.MARCH, 28), token.getExpiresAt());
     Date newDate = new Date(124, Calendar.FEBRUARY, 3);
