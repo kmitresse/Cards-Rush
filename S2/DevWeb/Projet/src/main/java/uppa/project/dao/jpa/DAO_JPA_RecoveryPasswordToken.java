@@ -37,7 +37,6 @@ public class DAO_JPA_RecoveryPasswordToken extends DAO<RecoveryPasswordToken> {
   @Override
   public RecoveryPasswordToken findById(int id) throws DAOException {
     RecoveryPasswordToken result =  entityManager.find(RecoveryPasswordToken.class, new BigDecimal(id));
-    entityManager.flush();
     return result;
   }
 
@@ -64,15 +63,11 @@ public class DAO_JPA_RecoveryPasswordToken extends DAO<RecoveryPasswordToken> {
 
   @Override
   public void update(RecoveryPasswordToken data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.merge(data);
-    entityManager.getTransaction().commit();
   }
 
   @Override
   public void delete(RecoveryPasswordToken data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.remove(data);
-    entityManager.getTransaction().commit();
   }
 }
