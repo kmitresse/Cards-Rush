@@ -212,6 +212,8 @@ class UserTest {
 
   @Test
   void test_getPlayedGames() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -262,6 +264,8 @@ class UserTest {
 
   @Test
   void test_getNbWin() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -287,6 +291,8 @@ class UserTest {
 
   @Test
   void test_getWinRate() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -318,6 +324,8 @@ class UserTest {
 
   @Test
   void test_getNbClicks() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -343,6 +351,8 @@ class UserTest {
 
   @Test
   void test_getNbRightClicks() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -368,6 +378,8 @@ class UserTest {
 
   @Test
   void test_getRightClickPercentRate() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -393,6 +405,8 @@ class UserTest {
 
   @Test
   void test_getNbRapidClicks() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
@@ -418,6 +432,8 @@ class UserTest {
 
   @Test
   void test_getRapidClickPercentRate() {
+    // TODO: correct this test
+
     ArrayList<Player> players1 = new ArrayList<>();
     ArrayList<Player> players2 = new ArrayList<>();
     ArrayList<Player> players3 = new ArrayList<>();
