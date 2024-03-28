@@ -36,16 +36,15 @@ public class DAO_JPA_Player extends DAO<Player> {
 
   @Override
   public Player findById(int id) throws DAOException {
-    Player result =  entityManager.find(Player.class, new BigDecimal(id));
-    entityManager.flush();
-    return result;
+    return entityManager.find(Player.class, new BigDecimal(id));
   }
 
   @Override
-  public Player[] findByField(String field, String value) throws DAOException {
-    TypedQuery<Player> query = entityManager.createQuery("SELECT p FROM Player p WHERE ?1=?2", Player.class);
-    query.setParameter(1, field);
-    query.setParameter(2, value);
+  public Player[] findByField(String field, Object value) throws DAOException {
+    String sqlQuery = String.format("SELECT p FROM Player p WHERE p.%s = (:val)", field);
+
+    TypedQuery<Player> query = entityManager.createQuery(sqlQuery, Player.class);
+    query.setParameter("val", value);
     List<Player> results = query.getResultList();
     return results.toArray(new Player[0]);
   }
@@ -64,15 +63,11 @@ public class DAO_JPA_Player extends DAO<Player> {
 
   @Override
   public void update(Player data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.merge(data);
-    entityManager.getTransaction().commit();
   }
 
   @Override
   public void delete(Player data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.remove(data);
-    entityManager.getTransaction().commit();
   }
 }

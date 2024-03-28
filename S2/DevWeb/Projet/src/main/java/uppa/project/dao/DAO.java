@@ -78,5 +78,5 @@ public abstract class DAO<D> {
    * @throws DAOException en cas de problème
    * @see D
    */
-  public abstract D[] findByField(String field, String value) throws DAOException;
+  public abstract D[] findByField(String field, Object value) throws DAOException;
 }

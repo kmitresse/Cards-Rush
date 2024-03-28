@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.Game;
@@ -41,16 +42,15 @@ public class DAO_JPA_Game extends DAO<Game> {
 
   @Override
   public Game findById(int id) throws DAOException {
-    Game result = entityManager.find(Game.class, new BigDecimal(id));
-    entityManager.flush();
-    return result;
+    return entityManager.find(Game.class, new BigDecimal(id));
   }
 
   @Override
-  public Game[] findByField(String field, String value) throws DAOException {
-    TypedQuery<Game> query = entityManager.createQuery("SELECT u FROM Game u WHERE ?1=?2", Game.class);
-    query.setParameter(1, field);
-    query.setParameter(2, value);
+  public Game[] findByField(String field, Object value) throws DAOException {
+    String sqlQuery = String.format("SELECT u FROM Game u WHERE u.%s = (:val)", field);
+
+    TypedQuery<Game> query = entityManager.createQuery(sqlQuery, Game.class);
+    query.setParameter("val", value);
     List<Game> results = query.getResultList();
     return results.toArray(new Game[0]);
   }
@@ -69,15 +69,11 @@ public class DAO_JPA_Game extends DAO<Game> {
 
   @Override
   public void update(Game data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.merge(data);
-    entityManager.getTransaction().commit();
   }
 
   @Override
   public void delete(Game data) throws DAOException {
-    entityManager.getTransaction().begin();
     entityManager.remove(data);
-    entityManager.getTransaction().commit();
   }
 }

@@ -36,11 +36,10 @@ public class DAO_JPA_User extends DAO<User> {
 
   @Override
   public User findById(int id) throws DAOException {
-    User result =  entityManager.find(User.class, new BigDecimal(id));
-    return result;
+    return entityManager.find(User.class, new BigDecimal(id));
   }
 
-  public User[] findByField(String field, String value) throws DAOException {
+  public User[] findByField(String field, Object value) throws DAOException {
     String sqlQuery = String.format("SELECT u FROM User u WHERE u.%s = (:val)", field);
 
     TypedQuery<User> query = entityManager.createQuery(sqlQuery, User.class);

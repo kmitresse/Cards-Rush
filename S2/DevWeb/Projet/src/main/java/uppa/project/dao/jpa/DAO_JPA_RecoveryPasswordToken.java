@@ -36,11 +36,10 @@ public class DAO_JPA_RecoveryPasswordToken extends DAO<RecoveryPasswordToken> {
 
   @Override
   public RecoveryPasswordToken findById(int id) throws DAOException {
-    RecoveryPasswordToken result =  entityManager.find(RecoveryPasswordToken.class, new BigDecimal(id));
-    return result;
+    return entityManager.find(RecoveryPasswordToken.class, new BigDecimal(id));
   }
 
-  public RecoveryPasswordToken[] findByField(String field, String value) throws DAOException {
+  public RecoveryPasswordToken[] findByField(String field, Object value) throws DAOException {
     String sqlQuery = String.format("SELECT r FROM RecoveryPasswordToken r WHERE r.%s = (:val)", field);
 
     TypedQuery<RecoveryPasswordToken> query = entityManager.createQuery(sqlQuery, RecoveryPasswordToken.class);
