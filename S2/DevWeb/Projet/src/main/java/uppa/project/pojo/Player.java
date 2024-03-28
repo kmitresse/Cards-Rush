@@ -102,6 +102,9 @@ public class Player implements Serializable {
     this.clickCount = clickCount;
     this.rightClickCount = rightClickCount;
     this.rapidClickCount = rapidClickCount;
+
+    this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
+    this.deck.shuffle();
   }
 
   @Override
@@ -162,7 +165,7 @@ public class Player implements Serializable {
    *
    * @param points les points à ajouter
    */
-  public void updateScore(int points) { this.score += points; }
+  public void addToScore(int points) { this.score += points; }
 
   /**
    * @return si le joueur est gagnant
