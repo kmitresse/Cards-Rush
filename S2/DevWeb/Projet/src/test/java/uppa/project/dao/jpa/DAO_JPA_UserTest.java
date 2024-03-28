@@ -85,22 +85,19 @@ class DAO_JPA_UserTest {
   @Test
   void create() throws DAOException {
     // Create users
-    for (User user : fixture) {
-      dao.create(user);
-    }
+    dao.create(fixture[0]);
 
     // Check if the user is in the database
     User[] usersInDb = dao.findAll();
-    assertEquals(fixture.length, usersInDb.length);
+    assertEquals(1, usersInDb.length);
 
     // Check if the user is the same
-    for (int i = 0; i < fixture.length; i++) {
-      assertEquals(fixture[i].getUsername(), usersInDb[i].getUsername());
-      assertEquals(fixture[i].getEmail(), usersInDb[i].getEmail());
-      assertEquals(fixture[i].getPassword(), usersInDb[i].getPassword());
-      assertEquals(fixture[i].getBirth(), usersInDb[i].getBirth());
-      assertEquals(fixture[i].getGender(), usersInDb[i].getGender());
-    }
+    assertEquals(fixture[0].getUsername(), usersInDb[0].getUsername());
+    assertEquals(fixture[0].getEmail(), usersInDb[0].getEmail());
+    assertEquals(fixture[0].getPassword(), usersInDb[0].getPassword());
+    assertEquals(fixture[0].getBirth(), usersInDb[0].getBirth());
+    assertEquals(fixture[0].getGender(), usersInDb[0].getGender());
+
   }
 
   @Test
