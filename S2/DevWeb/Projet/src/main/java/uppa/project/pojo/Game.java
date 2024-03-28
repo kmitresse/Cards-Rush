@@ -64,6 +64,7 @@ public class Game implements Serializable {
 
   @Transient
   private Deck deck;
+
   /**
    * Constructeur par défaut
    */
@@ -83,6 +84,7 @@ public class Game implements Serializable {
     if (isValidNumberRound(nbRounds, nbColors, nbValuesPerColor)){
       throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
     }
+
     this.difficulty = difficulty;
     this.nbRounds = nbRounds;
     this.nbColors = nbColors;
@@ -106,6 +108,7 @@ public class Game implements Serializable {
     if (isValidNumberRound(nbRounds, nbColors, nbValuesPerColor)){
       throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
     }
+
     this.id = id;
     this.createdAt = createdAt;
     this.difficulty = difficulty;
