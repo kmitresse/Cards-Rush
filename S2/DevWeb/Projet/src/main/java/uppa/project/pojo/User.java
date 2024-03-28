@@ -252,6 +252,15 @@ public class User implements Serializable {
   }
 
   /**
+   * ajoute un partie dans la liste des parties jouées
+   *
+   * @param player la nouvelle partie jouée
+   */
+  public void addPlayedGame(Player player){
+    playedGames.add(player);
+  }
+
+  /**
    * Récupère le nombre de parties jouées
    *
    * @return le nombre de parties jouées

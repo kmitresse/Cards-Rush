@@ -2,13 +2,62 @@ package uppa.project.pojo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
+
+  User[] fixture;
+  static Player[][] playersFixture;
+
+  @BeforeAll
+  static void beforeAll() {
+
+    playersFixture = new Player[][]{
+      {
+        new Player(new BigDecimal(1),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, false, 10, 9, 5)
+      },
+      {
+        new Player(new BigDecimal(2),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, true, 20, 17, 12),
+        new Player(new BigDecimal(3),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, false, 15, 5, 2)
+      },
+      {
+        new Player(new BigDecimal(4),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, true, 5, 3, 1),
+        new Player(new BigDecimal(5),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, true, 16, 16, 10),
+        new Player(new BigDecimal(6),
+          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new User(), 10, true, 17, 11, 4)
+      }
+    };
+  }
+  @BeforeEach
+  void beforeEach() {
+    fixture = new User[]{
+      new User(new BigDecimal(1), "username1", "email1", "password1",
+        new Date(1996 - 1900, Calendar.FEBRUARY, 20), User.Gender.MALE, new ArrayList<>(Arrays.asList(playersFixture[0]))),
+      new User(new BigDecimal(2), "username2", "email2", "password2",
+        new Date(1998 - 1900, Calendar.JUNE, 6), User.Gender.FEMALE, new ArrayList<>(Arrays.asList(playersFixture[1]))),
+      new User(new BigDecimal(3), "username3", "email3", "password3",
+        new Date(1996 - 1900, Calendar.SEPTEMBER, 18), User.Gender.OTHER, new ArrayList<>(Arrays.asList(playersFixture[2]))),
+    };
+  }
 
   @Test
   void test_constructor() {
@@ -21,12 +70,9 @@ class UserTest {
     @Test
   void test_getId() {
     final HashMap<User, BigDecimal> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(1996-1900,2,6), User.Gender.MALE,null), new BigDecimal(1));
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(1996-1900, 2, 6), User.Gender.MALE,null), new BigDecimal(2));
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(1996-1900, 3, 5), User.Gender.MALE,null), new BigDecimal(3));
+      put(fixture[0], new BigDecimal(1));
+      put(fixture[1], new BigDecimal(2));
+      put(fixture[2], new BigDecimal(3));
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getId());
@@ -36,12 +82,9 @@ class UserTest {
   @Test
   void test_getUsername() {
     final HashMap<User, String> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(1996-1900, 1, 4), User.Gender.MALE,null), "username1");
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(1996-1900, 2, 6), User.Gender.MALE,null), "username2");
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(1996-1900, 3, 5), User.Gender.MALE,null), "username3");
+      put(fixture[0], "username1");
+      put(fixture[1], "username2");
+      put(fixture[2], "username3");
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getUsername());
@@ -50,30 +93,20 @@ class UserTest {
 
   @Test
   void test_setUsername() {
-    final HashMap<User, String> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), "username");
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.MALE,null), "username");
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.MALE,null), "username");
-    }};
-    for (User user : TESTS.keySet()) {
-      String expected = TESTS.get(user);
-      user.setUsername("username");
-      assertEquals(expected, user.getUsername());
-    }
+    User user = fixture[0];
+    assertEquals("username1", user.getUsername());
+
+    // Change the username
+    user.setUsername("new-username");
+    assertEquals("new-username", user.getUsername());
   }
 
   @Test
   void test_getEmail() {
     final HashMap<User, String> TESTS = new HashMap<>() {{
-    put(new User(new BigDecimal(1), "username1", "email1", "password1",
-      new Date(), User.Gender.MALE,null), "email1");
-    put(new User(new BigDecimal(2), "username2", "email2", "password2",
-      new Date(), User.Gender.MALE,null), "email2");
-    put(new User(new BigDecimal(3), "username3", "email3", "password3",
-      new Date(), User.Gender.MALE,null), "email3");
+    put(fixture[0], "email1");
+    put(fixture[1], "email2");
+    put(fixture[2], "email3");
   }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getEmail());
@@ -82,30 +115,20 @@ class UserTest {
 
   @Test
   void test_setEmail() {
-    final HashMap<User, String> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), "email");
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.MALE,null), "email");
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.MALE,null), "email");
-    }};
-    for (User user : TESTS.keySet()) {
-      String expected = TESTS.get(user);
-      user.setEmail("email");
-      assertEquals(expected, user.getEmail());
-    }
+    User user = fixture[0];
+    assertEquals("email1", user.getEmail());
+
+    // Change the email
+    user.setEmail("new-email");
+    assertEquals("new-email", user.getEmail());
   }
 
   @Test
   void test_getPassword() {
     final HashMap<User, String> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), "password1");
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.MALE,null), "password2");
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.MALE,null), "password3");
+      put(fixture[0], "password1");
+      put(fixture[1], "password2");
+      put(fixture[2], "password3");
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getPassword());
@@ -115,65 +138,43 @@ class UserTest {
 
   @Test
   void test_setPassword() {
-    String newPassword = User.hashPassword("password");
-    System.out.println(newPassword);
-    final HashMap<User, String> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), newPassword);
-        put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.MALE,null), newPassword);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.MALE,null), newPassword);
-    }};
-    for (User user : TESTS.keySet()) {
-      String expected = TESTS.get(user);
-      user.setPassword("password");
-      assertEquals(expected, user.getPassword());
-    }
+    User user = fixture[0];
+    assertEquals("password1", user.getPassword());
+
+    // Change the password
+    user.setPassword("new-password");
+    assertEquals(User.hashPassword("new-password"), user.getPassword());
   }
 
   @Test
   void test_getBirth() {
     final HashMap<User, Date> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(2000-1900, 5,1), User.Gender.MALE,null), new Date(2000-1900, 5,1));
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(2023-1900, 12,25), User.Gender.MALE,null),new Date(2023-1900, 12,25));
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(2000-1900, 3,03), User.Gender.MALE,null), new Date(2000-1900, 3,03));
+      put(fixture[0], new Date(1996 - 1900, Calendar.FEBRUARY, 20));
+      put(fixture[1], new Date(1998 - 1900, Calendar.JUNE, 6));
+      put(fixture[2], new Date(1996 - 1900, Calendar.SEPTEMBER, 18));
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getBirth());
     }
   }
 
+
   @Test
   void setBirth() {
-    //TODO: DELETE
-    final HashMap<User, Date> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(2000-1900, 5,1), User.Gender.MALE,null), new Date(2000-1900, 1,1));
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(2023-1900, 12,25), User.Gender.MALE,null),new Date(2000-1900, 1,1));
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(2000-1900, 3,03), User.Gender.MALE,null), new Date(2000-1900, 1,1));
-    }};
-    for (User user : TESTS.keySet()) {
-      Date expected = TESTS.get(user);
-      user.setBirth(new Date(2000-1900, 1,1));
-      assertEquals(expected, user.getBirth());
-    }
+    User user = fixture[0];
+    assertEquals(new Date(1996 - 1900, Calendar.FEBRUARY, 20), user.getBirth());
+
+    // Change the birth
+    user.setBirth(new Date(1996 - 1900, Calendar.MARCH, 20));
+    assertEquals(new Date(1996 - 1900, Calendar.MARCH, 20), user.getBirth());
   }
 
   @Test
   void getGender() {
     final HashMap<User, User.Gender> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), User.Gender.MALE);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,null), User.Gender.FEMALE);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,null), User.Gender.OTHER);
+      put(fixture[0], User.Gender.MALE);
+      put(fixture[1], User.Gender.FEMALE);
+      put(fixture[2], User.Gender.OTHER);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getGender());
@@ -182,19 +183,12 @@ class UserTest {
 
   @Test
   void test_setGender() {
-    final HashMap<User, User.Gender> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE,null), User.Gender.OTHER);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,null), User.Gender.OTHER);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,null), User.Gender.OTHER);
-    }};
-    for (User user : TESTS.keySet()) {
-      User.Gender expected = TESTS.get(user);
-      user.setGender(User.Gender.OTHER);
-      assertEquals(expected, user.getGender());
-    }
+    User user = fixture[0];
+    assertEquals(User.Gender.MALE, user.getGender());
+
+    // Change the gender
+    user.setGender(User.Gender.FEMALE);
+    assertEquals(User.Gender.FEMALE, user.getGender());
   }
 
   @Test
@@ -212,25 +206,10 @@ class UserTest {
 
   @Test
   void test_getPlayedGames() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, true, 5,5,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 5,5,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 5,5,5));
-
     final HashMap<User, ArrayList<Player>> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), players1);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), players2);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), players3);
+      put(fixture[0], new ArrayList<>(Arrays.asList(playersFixture[0])));
+      put(fixture[1], new ArrayList<>(Arrays.asList(playersFixture[1])));
+      put(fixture[2], new ArrayList<>(Arrays.asList(playersFixture[2])));
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getPlayedGames());
@@ -239,23 +218,23 @@ class UserTest {
   }
 
   @Test
+  void test_addPlayedGame() {
+    User user = fixture[0];
+    Player player = new Player(new BigDecimal(4),
+      new Game(Game.Difficulty.EASY, 20, 4, 13),
+      new User(), 10, true, 5, 3, 1);
+    user.addPlayedGame(player);
+    ArrayList<Player> expected = new ArrayList<>(Arrays.asList(playersFixture[0]));
+    expected.add(player);
+    assertEquals(expected, user.getPlayedGames());
+  }
+
+  @Test
   void test_getNbPlayedGame() {
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player());
-    players2.add(new Player());
-    players2.add(new Player());
-    players3.add(new Player());
-    players3.add(new Player());
-    players3.add(new Player());
     final HashMap<User, Integer> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 1);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 2);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 3);
+      put(fixture[0], 1);
+      put(fixture[1], 2);
+      put(fixture[2], 3);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getPlayedGames().size());
@@ -264,25 +243,10 @@ class UserTest {
 
   @Test
   void test_getNbWin() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,5,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 5,5,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 5,5,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 5,5,5));
-
     final HashMap<User, Integer> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 0);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 1);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 3);
+      put(fixture[0], 0);
+      put(fixture[1], 1);
+      put(fixture[2], 3);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getNbWin());
@@ -291,31 +255,11 @@ class UserTest {
 
   @Test
   void test_getWinRate() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    ArrayList<Player> players4 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,5,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 5,5,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 5,5,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 5,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 5,5,5));
-    players4.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 5,5,5));
-    players4.add(new Player(new BigDecimal(5), new Game(), new User(), 10, false, 5,5,5));
-    players4.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 5,5,5));
 
     final HashMap<User, Double> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 0.);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE, players2), 50.);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER, players3), 100.);
-      put(new User(new BigDecimal(4), "username4", "email4", "password4",
-        new Date(), User.Gender.OTHER, players4), 66.66);
+      put(fixture[0], 0.0);
+      put(fixture[1], 50.);
+      put(fixture[2], 100.);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getWinRate());
@@ -324,25 +268,10 @@ class UserTest {
 
   @Test
   void test_getNbClicks() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,5,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 6,5,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 7,5,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 8,5,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 9,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 10,5,5));
-
     final HashMap<User, Integer> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 5);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 6+7);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 8+9+10);
+      put(fixture[0], 10);
+      put(fixture[1], 35);
+      put(fixture[2], 38);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getNbClicks());
@@ -351,25 +280,10 @@ class UserTest {
 
   @Test
   void test_getNbRightClicks() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,1,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 6,2,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 7,3,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 8,4,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 9,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 10,6,5));
-
     final HashMap<User, Integer> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 1);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 5);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 15);
+      put(fixture[0], 9);
+      put(fixture[1], 22);
+      put(fixture[2], 30);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getNbRightClicks());
@@ -378,25 +292,10 @@ class UserTest {
 
   @Test
   void test_getRightClickPercentRate() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,1,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 6,2,5));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 7,3,5));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 8,4,5));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 9,5,5));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 10,6,5));
-
     final HashMap<User, Double> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 20.);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 38.46);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 55.55);
+      put(fixture[0], 90.);
+      put(fixture[1], 62.85);
+      put(fixture[2], 78.94);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getRightClickPercentRate());
@@ -405,25 +304,10 @@ class UserTest {
 
   @Test
   void test_getNbRapidClicks() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,1,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 6,2,4));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 7,3,3));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 8,4,2));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 9,5,1));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 10,6,0));
-
     final HashMap<User, Integer> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 5);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 7);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 3);
+      put(fixture[0], 5);
+      put(fixture[1], 14);
+      put(fixture[2], 15);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getNbRapidClicks());
@@ -432,25 +316,10 @@ class UserTest {
 
   @Test
   void test_getRapidClickPercentRate() {
-    // TODO: correct this test
-
-    ArrayList<Player> players1 = new ArrayList<>();
-    ArrayList<Player> players2 = new ArrayList<>();
-    ArrayList<Player> players3 = new ArrayList<>();
-    players1.add(new Player(new BigDecimal(1), new Game(), new User(), 10, false, 5,1,5));
-    players2.add(new Player(new BigDecimal(2), new Game(), new User(), 10, true, 6,2,4));
-    players2.add(new Player(new BigDecimal(3), new Game(), new User(), 10, false, 7,3,3));
-    players3.add(new Player(new BigDecimal(4), new Game(), new User(), 10, true, 8,4,2));
-    players3.add(new Player(new BigDecimal(5), new Game(), new User(), 10, true, 9,5,1));
-    players3.add(new Player(new BigDecimal(6), new Game(), new User(), 10, true, 10,6,0));
-
     final HashMap<User, Double> TESTS = new HashMap<>() {{
-      put(new User(new BigDecimal(1), "username1", "email1", "password1",
-        new Date(), User.Gender.MALE, players1), 100.);
-      put(new User(new BigDecimal(2), "username2", "email2", "password2",
-        new Date(), User.Gender.FEMALE,players2), 53.84);
-      put(new User(new BigDecimal(3), "username3", "email3", "password3",
-        new Date(), User.Gender.OTHER,players3), 11.11);
+      put(fixture[0], 50.);
+      put(fixture[1], 40.);
+      put(fixture[2], 39.47);
     }};
     for (User user : TESTS.keySet()) {
       assertEquals(TESTS.get(user), user.getRapidClickPercentRate());
