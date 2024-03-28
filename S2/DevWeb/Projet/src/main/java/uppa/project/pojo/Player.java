@@ -17,7 +17,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -64,10 +63,12 @@ public class Player implements Serializable {
   /**
    * Constructeur par défaut
    */
-  public Player() {}
+  public Player() {
+  }
 
   /**
    * Constructeur d'un joueur
+   *
    * @param game la partie de jeu
    * @param user l'utilisateur
    */
@@ -85,11 +86,12 @@ public class Player implements Serializable {
 
   /**
    * Constructeur d'un joueur
-   * @param game la partie de jeu
-   * @param user l'utilisateur
-   * @param score le score
-   * @param winner si le joueur est gagnant
-   * @param clickCount le nombre de clics
+   *
+   * @param game            la partie de jeu
+   * @param user            l'utilisateur
+   * @param score           le score
+   * @param winner          si le joueur est gagnant
+   * @param clickCount      le nombre de clics
    * @param rightClickCount le nombre de clics corrects
    * @param rapidClickCount le nombre de clics rapides
    */
@@ -165,7 +167,9 @@ public class Player implements Serializable {
    *
    * @param points les points à ajouter
    */
-  public void addToScore(int points) { this.score += points; }
+  public void addToScore(int points) {
+    this.score += points;
+  }
 
   /**
    * @return si le joueur est gagnant
@@ -271,14 +275,8 @@ public class Player implements Serializable {
   @Override
   public String toString() {
     return String.format("Player{id=%s, game=%s, user=%s, score=%d, winner=%b, clickCount=%d, rightClickCount=%d, rapidClickCount=%d}",
-      id != null ? id.toString() : "null",
-      game != null ? game.toString() : "null",
-      user != null ? user.toString() : "null",
-      score,
-      winner,
-      clickCount,
-      rightClickCount,
-      rapidClickCount);
+      id != null ? id.toString() : "null", game != null ? game.toString() : "null", user != null ? user.toString() : "null", score,
+      winner, clickCount, rightClickCount, rapidClickCount);
   }
 
   @Override
@@ -287,5 +285,12 @@ public class Player implements Serializable {
     if (!(o instanceof Player)) return false;
     Player player = (Player) o;
     return getScore() == player.getScore() && isWinner() == player.isWinner() && getClickCount() == player.getClickCount() && getRightClickCount() == player.getRightClickCount() && getRapidClickCount() == player.getRapidClickCount() && Objects.equals(id, player.id) && Objects.equals(getGame(), player.getGame()) && Objects.equals(getUser(), player.getUser());
+  }
+
+  /**
+   * @return l'identifiant
+   */
+  public BigDecimal getId() {
+    return id;
   }
 }
