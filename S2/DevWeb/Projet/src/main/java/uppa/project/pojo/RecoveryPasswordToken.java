@@ -12,6 +12,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Représentation d'un token de réinitialisation de mot de passe
@@ -129,6 +130,19 @@ public class RecoveryPasswordToken {
    */
   public void setExpiresAt(Date expiresAt) {
     this.expiresAt = expiresAt;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getToken(), getUser(), getExpiresAt());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof RecoveryPasswordToken)) return false;
+    RecoveryPasswordToken that = (RecoveryPasswordToken) o;
+    return Objects.equals(getId(), that.getId()) && Objects.equals(getToken(), that.getToken()) && Objects.equals(getUser(), that.getUser()) && Objects.equals(getExpiresAt(), that.getExpiresAt());
   }
 
   @Override
