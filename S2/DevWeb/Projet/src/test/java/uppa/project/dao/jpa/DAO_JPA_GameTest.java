@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.Game;
-import uppa.project.pojo.Player;
-import uppa.project.pojo.User;
 import uppa.project.provider.EntityManagerProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +37,7 @@ class DAO_JPA_GameTest {
     fixture = new Game[] {
       new Game(
         new BigDecimal(1),
-        new Date(100, 10, 1),
+        new Date(100, Calendar.NOVEMBER, 1),
         Game.Difficulty.EASY,
         4,
         2,
@@ -48,7 +46,7 @@ class DAO_JPA_GameTest {
       ),
       new Game(
         new BigDecimal(2),
-        new Date(100, 12, 1),
+        new Date(100, Calendar.DECEMBER, 1),
         Game.Difficulty.HARD,
         3,
         2,
