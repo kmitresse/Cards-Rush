@@ -91,6 +91,8 @@ public class Game implements Serializable {
     this.nbValuesPerColor = nbValuesPerColor;
     this.deck = new Deck(nbColors, nbValuesPerColor);
     this.deck.shuffle();
+    this.players = new ArrayList<>();
+    this.createdAt = new Date();
   }
 
   /**

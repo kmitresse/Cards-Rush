@@ -91,6 +91,7 @@ public class User implements Serializable {
     this.password = hashPassword(password);
     this.birth = birth;
     this.gender = gender;
+    this.playedGames = new ArrayList<>();
   }
 
   /**
@@ -288,6 +289,7 @@ public class User implements Serializable {
    * @return le pourcentage de victoire
    */
   public double getWinRate(){
+    if (getNbPlayedGame() == 0 || getNbWin() == 0) return 0;
     return (double) Math.abs(getNbWin() * 10000 / getNbPlayedGame()) /100;
   }
 
@@ -323,6 +325,7 @@ public class User implements Serializable {
    * @return le pourcentage de clics réussi
    */
   public double getRightClickPercentRate(){
+    if (getNbClicks() == 0 || getNbRightClicks() == 0) return 0;
     return (double) Math.abs(getNbRightClicks() * 10000 / getNbClicks())/100;
   }
 
@@ -345,11 +348,15 @@ public class User implements Serializable {
    * @return le pourcentage de clics les plus rapides
    */
   public double getRapidClickPercentRate(){
+    if (getNbClicks() == 0 || getNbRapidClicks() == 0) return 0;
     return (double) Math.abs(getNbRapidClicks() * 10000 / getNbClicks())/100;
   }
 
   public boolean isValidBirthDate(Date birthdate){
+    System.out.println(birthdate.toString());
+
     Date currentDate = new Date();
+    System.out.println(currentDate.toString());
     return birthdate.before(currentDate) || birthdate.equals(currentDate);
   }
 
