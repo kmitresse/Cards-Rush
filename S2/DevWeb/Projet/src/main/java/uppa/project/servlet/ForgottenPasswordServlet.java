@@ -6,6 +6,7 @@
 
 package uppa.project.servlet;
 
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,6 +18,7 @@ import javax.mail.Message;
 import uppa.project.Global;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
+import uppa.project.dao.jpa.DAO_JPA_RecoveryPasswordToken;
 import uppa.project.dao.jpa.DAO_JPA_User;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.pojo.RecoveryPasswordToken;
@@ -24,10 +26,12 @@ import uppa.project.pojo.User;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import uppa.project.provider.EntityManagerProvider;
 
 
 @WebServlet(name = "forgottenPasswordServlet", value = "/forgotten-password")
 public class ForgottenPasswordServlet extends HttpServlet {
+  final static EntityManager em = EntityManagerProvider.getInstance();
   public void init() {
   }
 
@@ -53,6 +57,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
 
       RecoveryPasswordToken recoveryPasswordToken = new RecoveryPasswordToken(token, user);
       CreateToken(recoveryPasswordToken);
+
       sendRecoveryEmail(email, token);
       response.sendRedirect(request.getContextPath() + "/forgotten-password?success=200");
     }
@@ -119,10 +124,13 @@ public class ForgottenPasswordServlet extends HttpServlet {
   }
   public static void CreateToken(RecoveryPasswordToken token){
     Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
+    em.getTransaction().begin();
     try {
       DAO<RecoveryPasswordToken> daoJpaRecoveryPasswordToken = jpaDaoFactory.getDAORecoveryPasswordToken();
       daoJpaRecoveryPasswordToken.create(token);
+      em.getTransaction().commit();
     } catch (DAOException e) {
+      em.getTransaction().rollback();
       throw new RuntimeException(e);
     }
   }

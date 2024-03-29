@@ -6,6 +6,7 @@
 
 package uppa.project.servlet;
 
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,10 +20,12 @@ import java.util.Locale;
 import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.DAO_JPA_User;
 import uppa.project.pojo.User;
+import uppa.project.provider.EntityManagerProvider;
 
 @WebServlet(name = "registerServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
 
+  static final EntityManager em = EntityManagerProvider.getInstance();
   public void init() {
   }
 
@@ -60,14 +63,18 @@ public class RegisterServlet extends HttpServlet {
   }
 
   public static void createAccount(String username, String email, String password, Date birth, String gender){
+    em.getTransaction().begin();
     try{
       DAO_JPA_User daoJpaUser = new DAO_JPA_User();
       User user = new User(username, email, password, birth, User.getGender(gender));
       daoJpaUser.create(user);
+      em.getTransaction().commit();
     } catch (DAOException | IllegalArgumentException e) {
+      em.getTransaction().rollback();
       throw new RuntimeException(e);
     }
   }
+
   public void destroy() {
   }
 }
