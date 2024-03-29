@@ -235,6 +235,7 @@ public class Player implements Serializable {
    * @return le pourcentage de clics corrects du joueur sur la partie courante
    */
   public double getRatioRightClick() {
+    if (clickCount == 0 || rightClickCount == 0) return 0;
     return (double) Math.abs(rightClickCount * 10000 / clickCount) / 100;
   }
 
@@ -265,6 +266,7 @@ public class Player implements Serializable {
    * @return le pourcentage de clics rapides du joueur sur la partie courante
    */
   public double getRatioRapidClick() {
+    if (clickCount == 0 || rapidClickCount == 0) return 0;
     return (double) Math.abs(rapidClickCount * 10000 / clickCount) / 100;
   }
 
