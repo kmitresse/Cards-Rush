@@ -16,7 +16,7 @@ class DeckTest {
     new Deck(4, 13);
     new Deck(3, 10);
     new Deck(2, 7);
-    new Deck(1, 1);
+    new Deck(2, 2);
   }
 
   @Test
@@ -65,7 +65,7 @@ class DeckTest {
       put(new Deck(4, 13), 52);
       put(new Deck(3, 11), 33);
       put(new Deck(2, 7), 14);
-      put(new Deck(1, 1), 1);
+      put(new Deck(2, 5), 10);
     }};
     for (Deck deck : TESTS.keySet()) {
       assertEquals(TESTS.get(deck), deck.getCards().size());
@@ -78,7 +78,7 @@ class DeckTest {
       put(new Deck(4, 13), 4);
       put(new Deck(3, 10), 3);
       put(new Deck(2, 7), 2);
-      put(new Deck(1, 1), 1);
+      put(new Deck(2, 2), 2);
     }};
 
     for (Deck deck : TESTS.keySet()) {
@@ -94,7 +94,7 @@ class DeckTest {
       put(new Deck(4, 13), 13);
       put(new Deck(3, 10), 10);
       put(new Deck(2, 7), 7);
-      put(new Deck(1, 1), 1);
+      put(new Deck(2, 2), 2);
     }};
 
     for (Deck deck : TESTS.keySet()) {

@@ -23,26 +23,26 @@ class UserTest {
     playersFixture = new Player[][]{
       {
         new Player(new BigDecimal(1),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 50,20, 4, 13),
           new User(), 10, false, 10, 9, 5)
       },
       {
         new Player(new BigDecimal(2),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 50, 20, 4, 13),
           new User(), 10, true, 20, 17, 12),
         new Player(new BigDecimal(3),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 10, 20, 4, 13),
           new User(), 10, false, 15, 5, 2)
       },
       {
         new Player(new BigDecimal(4),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 50, 20, 4, 13),
           new User(), 10, true, 5, 3, 1),
         new Player(new BigDecimal(5),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 10, 20, 4, 13),
           new User(), 10, true, 16, 16, 10),
         new Player(new BigDecimal(6),
-          new Game(Game.Difficulty.EASY, 20, 4, 13),
+          new Game(Game.Difficulty.EASY, 15, 20, 4, 13),
           new User(), 10, true, 17, 11, 4)
       }
     };
@@ -241,7 +241,7 @@ class UserTest {
   void test_addPlayedGame() {
     User user = fixture[0];
     Player player = new Player(new BigDecimal(4),
-      new Game(Game.Difficulty.EASY, 20, 4, 13),
+      new Game(Game.Difficulty.EASY, 10,20, 4, 13),
       new User(), 10, true, 5, 3, 1);
     user.addPlayedGame(player);
     ArrayList<Player> expected = new ArrayList<>(Arrays.asList(playersFixture[0]));

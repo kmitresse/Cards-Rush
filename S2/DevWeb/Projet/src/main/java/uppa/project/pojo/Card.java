@@ -6,6 +6,8 @@
 
 package uppa.project.pojo;
 
+import jakarta.persistence.Transient;
+
 /**
  * Représentation d'une carte
  *

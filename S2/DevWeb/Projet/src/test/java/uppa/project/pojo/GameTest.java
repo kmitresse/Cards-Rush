@@ -2,8 +2,10 @@ package uppa.project.pojo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,38 +16,42 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GameTest {
 
   Game[] fixture;
+  static Player[][] playersFixture;
+
+  @BeforeAll
+  static void beforeAll(){
+    playersFixture = new Player[][]{
+      {new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 10, 17, 3, 6), new User(), 10, true, 5, 5, 5)},
+      {new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 10, 17, 3, 6), new User(), 15, true, 5, 5, 5),
+       new Player(new BigDecimal(3), new Game(Game.Difficulty.EASY, 10, 17, 3, 6), new User(), 20, true, 5, 5, 5)},
+      {new Player(new BigDecimal(4), new Game(Game.Difficulty.EASY, 15, 17, 3, 6), new User(), 10, true, 5, 5, 5),
+       new Player(new BigDecimal(5), new Game(Game.Difficulty.EASY, 15, 17, 3, 6), new User(), 30, true, 5, 5, 5),
+       new Player(new BigDecimal(6), new Game(Game.Difficulty.EASY, 15, 17, 3, 6), new User(), 20, true, 5, 5, 5)}
+    };
+  }
 
   @BeforeEach
   void beforeEach() {
     fixture = new Game[]{
-      new Game(new BigDecimal(1), new Date(2024 - 1900, 5, 6), Game.Difficulty.EASY, 17, 3, 6, new ArrayList<>() {{
-        add(new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }}),
-      new Game(new BigDecimal(2), new Date(2023 - 1900, 7, 9), Game.Difficulty.HARD, 28, 4, 13, new ArrayList<>() {{
-        add(new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(3), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }}),
-      new Game(new BigDecimal(3), new Date(2022 - 1900, 11, 12), Game.Difficulty.EASY, 16, 2, 9, new ArrayList<>() {{
-        add(new Player(new BigDecimal(4), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(5), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(6), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }}),
+      new Game(new BigDecimal(1), new Date(2024 - 1900, 5, 6), Game.Difficulty.EASY, 50,  17, 3, 6, new ArrayList<>(Arrays.asList(playersFixture[0]))),
+      new Game(new BigDecimal(2), new Date(2023 - 1900, 7, 9), Game.Difficulty.HARD, 10, 28, 4, 13, new ArrayList<>(Arrays.asList(playersFixture[1]))),
+      new Game(new BigDecimal(3), new Date(2022 - 1900, 11, 12), Game.Difficulty.EASY, 15, 16, 2, 9, new ArrayList<>(Arrays.asList(playersFixture[2])))
     };
   }
 
   @Test
   void test_constructor() {
     new Game();
-    new Game(Game.Difficulty.EASY, 17, 3, 6);
-    new Game(new BigDecimal(1), new Date(2023, 12, 25), Game.Difficulty.EASY, 17, 3, 6, new ArrayList<Player>());
-    new Game(new BigDecimal(2), new Date(2024, 3, 26), Game.Difficulty.HARD, 52, 4, 13, new ArrayList<Player>());
+    new Game(Game.Difficulty.EASY, 10, 17, 3, 6);
+    new Game(new BigDecimal(1), new Date(2023, 12, 25), Game.Difficulty.EASY,15, 17, 3, 6, new ArrayList<Player>());
+    new Game(new BigDecimal(2), new Date(2024, 3, 26), Game.Difficulty.HARD, 20, 52, 4, 13, new ArrayList<Player>());
   }
 
   @Test
   void test_constructor_throwIllegalArgumentExceptionOnInvalidValues() {
     int[] INCORRECT_VALUES = {Integer.MIN_VALUE, -2, 0, 14, Integer.MAX_VALUE};
     for (int incorrect_value : INCORRECT_VALUES) {
-      assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 4 * incorrect_value, 4, incorrect_value));
+      assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY,10, 4 * incorrect_value, 4, incorrect_value));
     }
   }
 
@@ -53,16 +59,25 @@ class GameTest {
   void test_constructor_throwIllegalArgumentExceptionOnInvalidColors() {
     int[] INCORRECT_VALUES = {Integer.MIN_VALUE, -9, -2, 0, 5, 8, Integer.MAX_VALUE};
     for (int incorrect_value : INCORRECT_VALUES) {
-      assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 4 * incorrect_value, incorrect_value, 13));
+      assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 10, 4 * incorrect_value, incorrect_value, 13));
     }
   }
 
   @Test
   void test_constructor_throwIllegalArgumentExceptionOnInvalidNbRounds() {
-    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 0, 4, 8));
-    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 33, 4, 8));
-    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, -5, 4, 8));
-    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 13, 2, 6));
+    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 10, 0, 4, 8));
+    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 10, 33, 4, 8));
+    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 10, -5, 4, 8));
+    assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, 10, 13, 2, 6));
+  }
+
+
+  @Test
+  void test_constructor_throwIllegalArgumentExceptionOnInvalidTimers() {
+    int[] INCORRECT_VALUES = {Integer.MIN_VALUE, -9, -2, 0, 5, 61, Integer.MAX_VALUE};
+    for (int incorrect_value : INCORRECT_VALUES) {
+      assertThrows(IllegalArgumentException.class, () -> new Game(Game.Difficulty.EASY, incorrect_value, 13, 2, 6));
+    }
   }
 
   @Test
@@ -111,6 +126,29 @@ class GameTest {
     // Change the difficulty
     game.setDifficulty(Game.Difficulty.HARD);
     assertEquals(Game.Difficulty.HARD, game.getDifficulty());
+  }
+
+  @Test
+  void test_getTimer() {
+    final HashMap<Game, Integer> TESTS = new HashMap<>() {{
+      put(fixture[0], 50);
+      put(fixture[1], 10);
+      put(fixture[2], 15);
+    }};
+
+    for (Game game : TESTS.keySet()) {
+      assertEquals(TESTS.get(game), game.getTimer());
+    }
+  }
+
+  @Test
+  void test_setTimer() {
+    Game game = fixture[0];
+    assertEquals(50, game.getTimer());
+
+    // Change the timer
+    game.setTimer(25);
+    assertEquals(25, game.getTimer());
   }
 
   @Test
@@ -185,18 +223,9 @@ class GameTest {
   @Test
   void test_getPlayers() {
     final HashMap<Game, ArrayList<Player>> TESTS = new HashMap<>() {{
-      put(fixture[0], new ArrayList<>() {{
-        add(new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }});
-      put(fixture[1], new ArrayList<>() {{
-        add(new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(3), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }});
-      put(fixture[2], new ArrayList<>() {{
-        add(new Player(new BigDecimal(4), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(5), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(6), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      }});
+      put(fixture[0], new ArrayList<>(Arrays.asList(playersFixture[0])));
+      put(fixture[1], new ArrayList<>(Arrays.asList(playersFixture[1])));
+      put(fixture[2], new ArrayList<>(Arrays.asList(playersFixture[2])));
     }};
 
     for (Game game : TESTS.keySet()) {
@@ -207,21 +236,11 @@ class GameTest {
   @Test
   void test_setPlayers() {
     Game game = fixture[0];
-    assertEquals(new ArrayList<>() {{
-      add(new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-    }}, game.getPlayers());
+    assertEquals(new ArrayList<>(Arrays.asList(playersFixture[0])), game.getPlayers());
 
     // Add players
-    ArrayList<Player> players = new ArrayList<>() {{
-      add(new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      add(new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      add(new Player(new BigDecimal(3), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      add(new Player(new BigDecimal(4), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      add(new Player(new BigDecimal(5), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-      add(new Player(new BigDecimal(6), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-    }};
-    game.setPlayers(players);
-    assertEquals(players, game.getPlayers());
+    game.setPlayers(new ArrayList<>(Arrays.asList(playersFixture[1])));
+    assertEquals(new ArrayList<>(Arrays.asList(playersFixture[1])), game.getPlayers());
   }
 
   @Test
@@ -240,16 +259,18 @@ class GameTest {
   @Test
   void test_addPlayer() {
     Game game = fixture[0];
-    assertEquals(1, game.getPlayers().size());
+    ArrayList<Player> players = new ArrayList<>(Arrays.asList(playersFixture[0]));
+    assertEquals(players.size(), game.getPlayers().size());
 
-    Player player = new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5);
+    Player player = new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 20, 17, 3, 6), new User(), 10, true, 5, 5, 5);
 
     // Add a player
     game.addPlayer(player);
-    assertEquals(2, game.getPlayers().size());
+    players.add(player);
+    assertEquals(players.size(), game.getPlayers().size());
 
     // Check if the player is the same
-    assertEquals(player, game.getPlayers().get(1));
+    assertEquals(players, game.getPlayers());
   }
 
   @Test
@@ -269,16 +290,16 @@ class GameTest {
   void test_sortPlayersByScore() {
     final HashMap<Game, ArrayList<Player>> TESTS = new HashMap<>() {{
       put(fixture[0], new ArrayList<>() {{
-        add(new Player(new BigDecimal(1), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
+        add(playersFixture[0][0]);
       }});
       put(fixture[1], new ArrayList<>() {{
-        add(new Player(new BigDecimal(2), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(3), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
+        add(playersFixture[1][1]);
+        add(playersFixture[1][0]);
       }});
       put(fixture[2], new ArrayList<>() {{
-        add(new Player(new BigDecimal(4), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(5), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
-        add(new Player(new BigDecimal(6), new Game(Game.Difficulty.EASY, 17, 3, 6), new User(), 10, true, 5, 5, 5));
+        add(playersFixture[2][1]);
+        add(playersFixture[2][2]);
+        add(playersFixture[2][0]);
       }});
     }};
 
@@ -305,3 +326,4 @@ class GameTest {
     }
   }
 }
+

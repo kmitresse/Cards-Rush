@@ -3,6 +3,7 @@ package uppa.project.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,33 +12,51 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
   static Player[] fixture;
+  static Game[] games;
+  static User[] users;
 
+  @BeforeAll
+  static void beforeAll() {
+    games = new Game[]{
+      new Game(new BigDecimal(1), new Date(101, 2, 4), Game.Difficulty.EASY, 50,18,2,10,null),
+      new Game(new BigDecimal(2), new Date(101, 2, 4), Game.Difficulty.EASY, 10,18,4,13,null),
+      new Game(new BigDecimal(3), new Date(101, 2, 4), Game.Difficulty.EASY, 20,18,3,6,null),
+      new Game(new BigDecimal(4), new Date(101, 2, 4), Game.Difficulty.HARD,25,18,3,6,null),
+    };
+
+    users = new User[]{
+      new User("username1", "email1", "password1", new Date(), User.Gender.MALE),
+      new User("username2", "email2", "password2", new Date(), User.Gender.FEMALE),
+      new User("username3", "email3", "password3", new Date(), User.Gender.OTHER),
+      new User("username4", "email4", "password4", new Date(100, 1, 1), User.Gender.OTHER)
+
+    };
+  }
   @BeforeEach
   void beforeEach() {
     fixture = new Player[]{
       new Player(
         new BigDecimal(1),
-        new Game(new BigDecimal(1), new Date(101, 2, 4), Game.Difficulty.EASY,18,2,10,null),
-        new User("username1", "email1", "password1", new Date(), User.Gender.MALE),
+        games[0],
+        users[0],
         10, true, 6,5,5
       ),
       new Player(
         new BigDecimal(2),
-        new Game(new BigDecimal(2), new Date(101, 2, 4), Game.Difficulty.EASY,18,4,13,null),
-        new User("username2", "email2", "password2", new Date(), User.Gender.FEMALE),
+        games[1],
+        users[1],
         20, false, 4,2,1
       ),
       new Player(
         new BigDecimal(3),
-        new Game(new BigDecimal(3), new Date(101, 2, 4), Game.Difficulty.EASY,18,3,6,null),
-        new User("username3", "email3", "password3", new Date(), User.Gender.OTHER),
+        games[2],
+        users[2],
         15, true, 10,5,5
       ),
       new Player(
         new BigDecimal(4),
-        new Game(new BigDecimal(4), new Date(101, 2, 4), Game.Difficulty.HARD,18,3,6,null),
-        new User("username4", "email4", "password4",
-          new Date(100, 1, 1), User.Gender.OTHER),
+        games[3],
+        users[3],
         15, true, 10,5,5
       )
     };
@@ -47,19 +66,13 @@ class PlayerTest {
   @Test
   void test_constructor() {
     new Player();
-    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
-    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
-    new Player(new Game(Game.Difficulty.EASY,4,2,3), new User());
+    new Player(new Game(Game.Difficulty.EASY,25,4,2,3), new User());
+    new Player(new Game(Game.Difficulty.EASY,10,4,2,3), new User());
+    new Player(new Game(Game.Difficulty.EASY,20,4,2,3), new User());
   }
 
   @Test
   void test_getGame() {
-    Game[] games = new Game[]{
-      new Game(new BigDecimal(1), new Date(101, 2, 4), Game.Difficulty.EASY,18,2,10,null),
-      new Game(new BigDecimal(2), new Date(101, 2, 4), Game.Difficulty.EASY,18,4,13,null),
-      new Game(new BigDecimal(3), new Date(101, 2, 4), Game.Difficulty.EASY,18,3,6,null),
-    };
-
     final HashMap<Player, Game> TESTS = new HashMap<>() {{
       put(fixture[0], games[0]);
       put(fixture[1], games[1]);
@@ -77,7 +90,7 @@ class PlayerTest {
     Game game = player.getGame();
 
     // Set a new game
-    Game newGame = new Game(new BigDecimal(4), new Date(), Game.Difficulty.HARD,20,4,5,null);
+    Game newGame = new Game(new BigDecimal(4), new Date(), Game.Difficulty.HARD,10,20,4,5,null);
     player.setGame(newGame);
 
     assertNotEquals(game, player.getGame());

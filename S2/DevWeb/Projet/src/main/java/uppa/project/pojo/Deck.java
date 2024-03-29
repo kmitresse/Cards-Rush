@@ -6,6 +6,7 @@
 
 package uppa.project.pojo;
 
+import jakarta.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,6 +17,14 @@ import java.util.Collections;
  * @author Lucàs Vabre
  */
 public class Deck {
+
+  public static final int NB_COLORS_MIN = 2;
+
+  public static final int NB_COLORS_MAX = Card.Color.values().length;
+
+  public static final int NB_VALUES_PER_COLOR_MIN = 2;
+
+  public static final int NB_VALUES_PER_COLOR_MAX = Card.Value.values().length;
 
   /**
    * Ensemble de cartes du paquet
@@ -54,8 +63,8 @@ public class Deck {
    * @return true si le prédicat est vérifié, false sinon
    */
   public static boolean isDeckValid(int nbColors, int nbValues) {
-    return 1 <= nbColors && nbColors <= Card.Color.values().length
-      && 1 <= nbValues && nbValues <= Card.Value.values().length;
+    return NB_COLORS_MIN <= nbColors && nbColors <= NB_COLORS_MAX
+      && NB_VALUES_PER_COLOR_MIN <= nbValues && nbValues <= NB_VALUES_PER_COLOR_MAX;
   }
 
   /**

@@ -40,13 +40,13 @@ class DAO_JPA_PlayerTest {
     fixture = new Player[] {
       new Player(
         new BigDecimal(1),
-        new Game(new BigDecimal(1), new Date(100, 10, 1), Game.Difficulty.EASY, 4, 2, 4, new ArrayList<>()),
+        new Game(new BigDecimal(1), new Date(100, 10, 1), Game.Difficulty.EASY, 10, 4, 2, 4, new ArrayList<>()),
         new User("user1", "email1", "password1", new Date(100, Calendar.JANUARY, 12), User.Gender.OTHER),
         2, false, 3, 1, 2
       ),
       new Player(
         new BigDecimal(2),
-        new Game(new BigDecimal(1), new Date(100, 10, 1), Game.Difficulty.EASY, 4, 2, 4, new ArrayList<>()),
+        new Game(new BigDecimal(1), new Date(100, 10, 1), Game.Difficulty.EASY, 10, 4, 2, 4, new ArrayList<>()),
         new User("user2", "email2", "password2", new Date(100, Calendar.MARCH, 15), User.Gender.MALE)
         , 3, true, 4, 2, 3
       ),

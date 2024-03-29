@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Représentation d'une partie de jeu
@@ -65,6 +67,18 @@ public class Game implements Serializable {
   @Transient
   private Deck deck;
 
+  @Transient
+  private int timer;
+
+  @Transient
+  public static final int TIMER_MIN = 10;
+
+  @Transient
+  public static final  int TIMER_MAX = 60;
+
+  @Transient
+  public static final int NB_ROUNDS_MIN = 3;
+
   /**
    * Constructeur par défaut
    */
@@ -76,15 +90,18 @@ public class Game implements Serializable {
    *
    * @param difficulty la difficulté de la partie
    * @see Difficulty
+   * @param timer le timer de chaque rounds en seconde
    * @param nbRounds le nombre de tours de la partie
    * @param nbColors le nombre de couleurs présente dans le deck
    * @param nbValuesPerColor le nombre de valeurs par couleur
    */
-  public Game(Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor) {
+  public Game(Difficulty difficulty, int timer, int nbRounds, int nbColors, int nbValuesPerColor) {
     if (isValidNumberRound(nbRounds, nbColors, nbValuesPerColor)){
-      throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
+      throw new IllegalArgumentException("Le nombre de tours doit être compris entre 2 et " + nbColors * nbValuesPerColor);
     }
-
+    if (timer < TIMER_MIN || timer > TIMER_MAX){
+      throw new IllegalArgumentException("Le timer doit être compris entre" + TIMER_MIN + "  et " + TIMER_MAX + " secondes");
+    }
     this.difficulty = difficulty;
     this.nbRounds = nbRounds;
     this.nbColors = nbColors;
@@ -93,6 +110,7 @@ public class Game implements Serializable {
     this.deck.shuffle();
     this.players = new ArrayList<>();
     this.createdAt = new Date();
+    this.timer = timer;
   }
 
   /**
@@ -106,11 +124,13 @@ public class Game implements Serializable {
    * @param nbValuesPerColor le nombre de valeurs par couleur
    * @param players    les joueurs de la partie
    */
-  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, int nbRounds, int nbColors, int nbValuesPerColor, ArrayList<Player> players) {
+  public Game(BigDecimal id, Date createdAt, Difficulty difficulty, int timer ,int nbRounds, int nbColors, int nbValuesPerColor, ArrayList<Player> players) {
     if (isValidNumberRound(nbRounds, nbColors, nbValuesPerColor)){
       throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
     }
-
+    if (timer < TIMER_MIN || timer > TIMER_MAX){
+      throw new IllegalArgumentException("Le timer doit être compris entre" + TIMER_MIN + "  et " + TIMER_MAX + " secondes");
+    }
     this.id = id;
     this.createdAt = createdAt;
     this.difficulty = difficulty;
@@ -119,6 +139,7 @@ public class Game implements Serializable {
     this.nbValuesPerColor = nbValuesPerColor;
     this.players = players;
     this.deck = new Deck(nbColors, nbValuesPerColor);
+    this.timer = timer;
   }
 
   @Override
@@ -166,14 +187,14 @@ public class Game implements Serializable {
    * @param nbRounds le nouveau nombre de tours de la partie
    */
   public void setNbRounds(int nbRounds) {
-    if (nbRounds < 1 || nbRounds > nbColors * nbValuesPerColor){
-      throw new IllegalArgumentException("Le nombre de tours doit être compris entre 1 et " + nbColors * nbValuesPerColor);
+    if (nbRounds < NB_ROUNDS_MIN || nbRounds > nbColors * nbValuesPerColor){
+      throw new IllegalArgumentException("Le nombre de tours doit être compris entre " + NB_ROUNDS_MIN + " et " + nbColors * nbValuesPerColor);
     }
-    if (nbColors < 1 || nbColors > Card.Color.values().length) {
-      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    if (nbColors < Deck.NB_COLORS_MIN || nbColors > Deck.NB_COLORS_MAX) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre" + NB_ROUNDS_MIN + " et " + Deck.NB_COLORS_MAX);
     }
-    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
-      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    if (nbValuesPerColor < Deck.NB_VALUES_PER_COLOR_MIN || nbValuesPerColor > Deck.NB_VALUES_PER_COLOR_MAX) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre " + Deck.NB_VALUES_PER_COLOR_MIN + " et " + Deck.NB_VALUES_PER_COLOR_MAX);
     }
     this.nbRounds = nbRounds;
   }
@@ -189,8 +210,8 @@ public class Game implements Serializable {
    * @param nbColors le nouveau nombre de couleurs présente dans le deck
    */
   public void setNbColors(int nbColors) {
-    if (nbColors < 1 || nbColors > Card.Color.values().length) {
-      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre 1 et " + Card.Color.values().length);
+    if (nbColors < Deck.NB_COLORS_MIN || nbColors > Deck.NB_COLORS_MAX) {
+      throw new IllegalArgumentException("Le nombre de couleurs doit être compris entre " + Deck.NB_COLORS_MIN + " et " + Deck.NB_COLORS_MAX);
     }
     this.nbColors = nbColors;
   }
@@ -206,8 +227,8 @@ public class Game implements Serializable {
    * @param nbValuesPerColor le nouveau nombre de valeurs par couleur
    */
   public void setNbValuesPerColor(int nbValuesPerColor) {
-    if (nbValuesPerColor < 1 || nbValuesPerColor > Card.Value.values().length) {
-      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre 1 et " + Card.Value.values().length);
+    if (nbValuesPerColor < Deck.NB_VALUES_PER_COLOR_MIN || nbValuesPerColor > Deck.NB_VALUES_PER_COLOR_MAX) {
+      throw new IllegalArgumentException("Le nombre de valeurs par couleur doit être compris entre " + Deck.NB_VALUES_PER_COLOR_MIN + " et " + Deck.NB_VALUES_PER_COLOR_MAX);
     }
     this.nbValuesPerColor = nbValuesPerColor;
   }
@@ -244,6 +265,14 @@ public class Game implements Serializable {
     this.players.add(player);
   }
 
+  public int getTimer() {
+    return timer;
+  }
+
+  public void setTimer(int timer) {
+    this.timer = timer;
+  }
+
   public Deck getDeck() {
     return deck;
   }
@@ -264,7 +293,7 @@ public class Game implements Serializable {
   }
 
   public boolean isValidNumberRound(int nbRounds, int nbColors, int nbValuesPerColor){
-    return nbRounds < 1 || nbRounds > nbColors * nbValuesPerColor;
+    return nbRounds < NB_ROUNDS_MIN || nbRounds > nbColors * nbValuesPerColor;
   }
 
   @Override
