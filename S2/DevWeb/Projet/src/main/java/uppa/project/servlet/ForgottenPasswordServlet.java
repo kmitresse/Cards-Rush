@@ -36,7 +36,6 @@ public class ForgottenPasswordServlet extends HttpServlet {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
     request.getRequestDispatcher("/WEB-INF/views/forgotten-password.jsp").forward(request, response);
   }
 
@@ -54,14 +53,11 @@ public class ForgottenPasswordServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/forgotten-password?error=1");
     } else {
       String token = UUID.randomUUID().toString();
-
       RecoveryPasswordToken recoveryPasswordToken = new RecoveryPasswordToken(token, user);
       CreateToken(recoveryPasswordToken);
-
       sendRecoveryEmail(email, token, request);
       response.sendRedirect(request.getContextPath() + "/forgotten-password?success=200");
     }
-
   }
 
   /**

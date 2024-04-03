@@ -18,17 +18,16 @@ public class ResetPasswordServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-    RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
-    if (token == null) {
-      response.sendRedirect(request.getContextPath() + "/forgotten-password?error=invalid-token");
-      return;
-    }
-    if (token.getExpirationDate().compareTo(new java.util.Date()) < 0){
-      response.sendRedirect(request.getContextPath() + "/forgotten-password?error=expired-token");
-      return;
-    }
-    request.getRequestDispatcher("/WEB-INF/views/reset-password.jsp").forward(request, response);
+      RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
+      if (token == null) {
+        response.sendRedirect(request.getContextPath() + "/forgotten-password?error=invalid-token");
+        return;
+      }
+      if (token.getExpirationDate().compareTo(new java.util.Date()) < 0){
+        response.sendRedirect(request.getContextPath() + "/forgotten-password?error=expired-token");
+        return;
+      }
+      request.getRequestDispatcher("/WEB-INF/views/reset-password.jsp").forward(request, response);
     }
 
     /**
