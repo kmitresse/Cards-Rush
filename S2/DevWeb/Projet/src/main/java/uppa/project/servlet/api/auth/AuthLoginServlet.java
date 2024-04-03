@@ -56,7 +56,6 @@ public class AuthLoginServlet extends HttpServlet {
     JsonElement password = jsonBody.get("password");
     if (username == null || password == null) {
       int STATUS = 400;
-
       ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Username and password are required");
       response.setStatus(STATUS);
       out.println(gson.toJson(error));

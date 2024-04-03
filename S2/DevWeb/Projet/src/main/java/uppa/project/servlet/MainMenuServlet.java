@@ -11,9 +11,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import uppa.project.pojo.Game;
 import uppa.project.pojo.Player;
 import uppa.project.pojo.User;
@@ -32,23 +34,26 @@ public class MainMenuServlet extends HttpServlet {
     }
     manageNewGame(request, response, user);
     manageStatistiques(request, response, user);
-    response.sendRedirect(request.getContextPath() + "/main-menu");
+    request.getRequestDispatcher("/WEB-INF/views/main-menu.jsp").forward(request, response);
   }
 
   public void destroy() {
   }
 
-  private void manageMainMenu(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-  }
-
   private void manageNewGame(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
     List<User> connectedUsers = new ArrayList<User>();
-    /*TODO: récuperer la liste des joueurs connectés
-         penser à retirer l'utilisateur principal de la liste*/
+    Set<HttpSession> loginsSessions = (Set<HttpSession>) request.getServletContext().getAttribute("loginSession");
+    if (loginsSessions == null) {
+      throw new RuntimeException("No login sessions found");
+    }
+    for(HttpSession session : loginsSessions) {
+      User connectedUser = (User) session.getAttribute("user");
+      if(session.getServletContext().getContextPath().equals(request.getServletContext().getContextPath()) && connectedUser != null && !connectedUser.equals(sessionUser)) {
+        connectedUsers.add(connectedUser);
+      }
+    }
     connectedUsers.remove(sessionUser);
     request.setAttribute("connectedUsers", connectedUsers);
-    request.getRequestDispatcher("/WEB-INF/views/new-game.jsp").forward(request, response);
   }
 
   private void manageStatistiques(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
