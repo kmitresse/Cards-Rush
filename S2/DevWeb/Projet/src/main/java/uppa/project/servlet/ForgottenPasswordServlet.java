@@ -58,7 +58,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
       RecoveryPasswordToken recoveryPasswordToken = new RecoveryPasswordToken(token, user);
       CreateToken(recoveryPasswordToken);
 
-      sendRecoveryEmail(email, token);
+      sendRecoveryEmail(email, token, request);
       response.sendRedirect(request.getContextPath() + "/forgotten-password?success=200");
     }
 
@@ -70,7 +70,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
    * @param email
    * @param token
    */
-  public void sendRecoveryEmail(String email, String token) {
+  public void sendRecoveryEmail(String email, String token, HttpServletRequest request){
       String host = Global.MAIL_HOST;
       String port = Global.MAIL_PORT;
       String username = Global.MAIL_USERNAME;
@@ -90,7 +90,6 @@ public class ForgottenPasswordServlet extends HttpServlet {
       });
 
       try {
-        String tomcatHost = Global.TOMCAT_PORT;
         // Création du message
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(username));
@@ -98,7 +97,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
         message.setSubject("Réinitialisation de votre mot de passe");
         message.setText("Bonjour,\n\n" +
           "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
-          "Pour cela, veuillez cliquer sur le lien suivant : http://localhost:"+ tomcatHost +"/project_war_exploded/reset-password?token=" + token + "\n\n" +
+          "Pour cela, veuillez cliquer sur le lien suivant :"+ request.getContextPath() +"/project_war_exploded/reset-password?token=" + token + "\n\n" +
           "Cordialement,\n" +
           "L'équipe CardRush");
         // Envoi du message
