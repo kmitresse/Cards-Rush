@@ -63,13 +63,13 @@ public class DAO_JPA_Game extends DAO<Game> {
   }
 
   @Override
-  public void create(Game data) throws DAOException {
-    update(data);
+  public Game create(Game data) throws DAOException {
+    return update(data);
   }
 
   @Override
-  public void update(Game data) throws DAOException {
-    entityManager.merge(data);
+  public Game update(Game data) throws DAOException {
+    return entityManager.merge(data);
   }
 
   @Override

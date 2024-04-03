@@ -7,9 +7,6 @@
 package uppa.project.servlet.api.auth;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,14 +17,16 @@ import java.io.PrintWriter;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
+import uppa.project.listener.SessionServletContextListener;
 import uppa.project.pojo.User;
-import uppa.project.pojo.json.ErrorResponse;
-import uppa.project.pojo.json.LoginRequest;
-import uppa.project.pojo.json.LoginResponse;
-import uppa.project.utils.HttpRequestUtils;
 
 @WebServlet(name = "authLoginServlet", value = "/api/auth/login")
 public class AuthLoginServlet extends HttpServlet {
+
+  private static class JsonRequest {
+    private String username;
+    private String password;
+  }
 
   private final Gson gson = new Gson();
 
@@ -47,41 +46,22 @@ public class AuthLoginServlet extends HttpServlet {
       sb.append(line);
     }
     String requestBody = sb.toString();
-    LoginRequest loginRequest = gson.fromJson(requestBody, LoginRequest.class);
+    JsonRequest jsonRequest = gson.fromJson(requestBody, JsonRequest.class);
 
-    // Check if the username and password are present
-    if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
-      int STATUS = 400;
-      ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Username and password are required");
-      response.setStatus(STATUS);
-      out.println(gson.toJson(error));
-      return;
-    }
+    // Login User
+    User user = loginUser(jsonRequest);
 
-    // Get User from database matching the username and password
-    User user = AuthLoginServlet.loginUser(loginRequest);
-    if (user == null) {
-      int STATUS = 401;
-      ErrorResponse error = new ErrorResponse(STATUS, "Unauthorized", "Invalid username or password");
-
-      response.setStatus(STATUS);
-      out.println(gson.toJson(error));
-      return;
-    }
-
-    // Set the user in the session
+    // Set user in session
     request.getSession().setAttribute("user", user);
+    SessionServletContextListener.addSession(request.getSession());
 
-    // Return the user as JSON
-    LoginResponse loginResponse = new LoginResponse(200, user, request.getContextPath() + "/main-menu");
-    String json = gson.toJson(loginResponse);
-    out.println(json);
+    out.println(gson.toJson(user));
     out.flush();
   }
 
-  private static User loginUser(LoginRequest loginRequest) {
-    String username = loginRequest.getUsername();
-    String password = loginRequest.getPassword();
+  private static User loginUser(JsonRequest jsonRequest) {
+    String username = jsonRequest.username;
+    String password = jsonRequest.password;
 
     Game_JPA_DAO_Factory factory = new Game_JPA_DAO_Factory();
     try {

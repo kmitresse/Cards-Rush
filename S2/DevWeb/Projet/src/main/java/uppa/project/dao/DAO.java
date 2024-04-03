@@ -48,7 +48,7 @@ public abstract class DAO<D> {
    * @throws DAOException en cas de problème
    * @see D
    */
-  public abstract void create(D data) throws DAOException;
+  public abstract D create(D data) throws DAOException;
 
   /**
    * Met à jour le contenu correspondant à l'objet {@link D} sur le support persistant (l'objet
@@ -58,7 +58,7 @@ public abstract class DAO<D> {
    * @throws DAOException en cas de problème
    * @see D
    */
-  public abstract void update(D data) throws DAOException;
+  public abstract D update(D data) throws DAOException;
 
   /**
    * Efface du support persistant le contenu équivalent à l'objet {@link D}

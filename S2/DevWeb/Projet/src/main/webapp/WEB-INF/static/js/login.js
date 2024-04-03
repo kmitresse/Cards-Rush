@@ -7,20 +7,14 @@ loginForm.addEventListener("submit", (event) => {
     const data = {};
     formData.forEach((value, key) => data[key] = value);
 
-    const action = loginForm.getAttribute("action")
-    const method = loginForm.getAttribute("method")
-
-    fetch(action, {
+    fetch(loginForm.getAttribute("action"), {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data),
-        method,
+        method: loginForm.getAttribute("method"),
     })
-        .then(res => console.log(res))
-        //.then(data => {
-            // if (data.status === 200) window.location.href = data.redirect;
-        //})
-        .catch(error => console.error("Error:", error))
-    ;
+        .then(res => res.json())
+        .then(d => window.location.href = "./main-menu")
+        .catch(error => console.error("Error:", error));
 });
 
 

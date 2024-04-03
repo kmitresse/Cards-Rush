@@ -57,13 +57,13 @@ public class DAO_JPA_Player extends DAO<Player> {
   }
 
   @Override
-  public void create(Player data) throws DAOException {
-    update(data);
+  public Player create(Player data) throws DAOException {
+    return update(data);
   }
 
   @Override
-  public void update(Player data) throws DAOException {
-    entityManager.merge(data);
+  public Player update(Player data) throws DAOException {
+    return entityManager.merge(data);
   }
 
   @Override

@@ -56,13 +56,13 @@ public class DAO_JPA_User extends DAO<User> {
   }
 
   @Override
-  public void create(User data) throws DAOException {
-    update(data);
+  public User create(User data) throws DAOException {
+    return update(data);
   }
 
   @Override
-  public void update(User data) throws DAOException {
-    entityManager.merge(data);
+  public User update(User data) throws DAOException {
+    return entityManager.merge(data);
   }
 
   @Override

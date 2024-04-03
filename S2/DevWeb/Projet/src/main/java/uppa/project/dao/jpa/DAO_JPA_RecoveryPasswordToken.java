@@ -56,13 +56,13 @@ public class DAO_JPA_RecoveryPasswordToken extends DAO<RecoveryPasswordToken> {
   }
 
   @Override
-  public void create(RecoveryPasswordToken data) throws DAOException {
-    update(data);
+  public RecoveryPasswordToken create(RecoveryPasswordToken data) throws DAOException {
+    return update(data);
   }
 
   @Override
-  public void update(RecoveryPasswordToken data) throws DAOException {
-    entityManager.merge(data);
+  public RecoveryPasswordToken update(RecoveryPasswordToken data) throws DAOException {
+    return entityManager.merge(data);
   }
 
   @Override

@@ -1,30 +1,21 @@
 const registerForm = document.getElementById("register-form");
 const confirmPassword = document.getElementById("confirmPassword");
 
-registerForm.addEventListener("submit", function (event) {
+registerForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(registerForm);
 
     const data = {};
     formData.forEach((value, key) => data[key] = value);
 
-    const action = loginForm.getAttribute("action")
-    const method = loginForm.getAttribute("method")
-
-
-    fetch("/reset-password", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+    fetch(registerForm.getAttribute("action"), {
+        method: registerForm.getAttribute("method"),
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = "/login";
-        } else {
-            response.json().then(data => {
-                alert(data.message);
-            });
-        }
-    }).catch(error => console.error("Error:", error));
+    })
+        .then(res => res.json())
+        .then(_ => {
+            window.location.href = "./login"
+        })
+        .catch(error => console.error("Error: " + error))
 });

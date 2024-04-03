@@ -14,7 +14,7 @@
     <div class="flex-column register-gap">
       <div>
         <h1>Register</h1>
-        <form id="register-form" action="${pageContext.request.contextPath}/register" method="post">
+        <form id="register-form" action="${pageContext.request.contextPath}/api/auth/register" method="POST">
 
           <label for="email">Email :</label>
           <input type="email" id="email" name="email" required>
