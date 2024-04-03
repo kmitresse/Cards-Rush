@@ -15,11 +15,10 @@ loginForm.addEventListener("submit", (event) => {
         body: JSON.stringify(data),
         method,
     })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
+        .then(res => console.log(res))
+        //.then(data => {
             // if (data.status === 200) window.location.href = data.redirect;
-        })
+        //})
         .catch(error => console.error("Error:", error))
     ;
 });

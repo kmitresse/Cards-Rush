@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import uppa.project.dao.DAO;
@@ -21,6 +22,7 @@ import uppa.project.dao.DAOException;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.pojo.User;
 import uppa.project.pojo.json.ErrorResponse;
+import uppa.project.pojo.json.LoginRequest;
 import uppa.project.pojo.json.LoginResponse;
 import uppa.project.utils.HttpRequestUtils;
 
@@ -37,24 +39,18 @@ public class AuthLoginServlet extends HttpServlet {
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
 
-    // Convert the string to a JSON object
-    JsonObject jsonBody;
-    try {
-      String requestBody = HttpRequestUtils.getRequestBody(request);
-      jsonBody = JsonParser.parseString(requestBody).getAsJsonObject();
-    } catch (Exception e) {
-      int STATUS = 400;
-
-      ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Invalid JSON");
-      response.setStatus(STATUS);
-      out.println(gson.toJson(error));
-      return;
+    // Get the json in the request body
+    StringBuilder sb = new StringBuilder();
+    BufferedReader reader = request.getReader();
+    String line;
+    while((line = reader.readLine()) != null) {
+      sb.append(line);
     }
+    String requestBody = sb.toString();
+    LoginRequest loginRequest = gson.fromJson(requestBody, LoginRequest.class);
 
     // Check if the username and password are present
-    JsonElement username = jsonBody.get("username");
-    JsonElement password = jsonBody.get("password");
-    if (username == null || password == null) {
+    if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
       int STATUS = 400;
       ErrorResponse error = new ErrorResponse(STATUS, "Bad Request", "Username and password are required");
       response.setStatus(STATUS);
@@ -63,7 +59,7 @@ public class AuthLoginServlet extends HttpServlet {
     }
 
     // Get User from database matching the username and password
-    User user = AuthLoginServlet.loginUser(username.getAsString(), password.getAsString());
+    User user = AuthLoginServlet.loginUser(loginRequest);
     if (user == null) {
       int STATUS = 401;
       ErrorResponse error = new ErrorResponse(STATUS, "Unauthorized", "Invalid username or password");
@@ -83,7 +79,10 @@ public class AuthLoginServlet extends HttpServlet {
     out.flush();
   }
 
-  private static User loginUser(String username, String password) {
+  private static User loginUser(LoginRequest loginRequest) {
+    String username = loginRequest.getUsername();
+    String password = loginRequest.getPassword();
+
     Game_JPA_DAO_Factory factory = new Game_JPA_DAO_Factory();
     try {
       DAO<User> userDao = factory.getDAOUser();
