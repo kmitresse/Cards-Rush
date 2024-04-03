@@ -28,12 +28,12 @@ public class MainMenuServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     User user = (User) request.getSession().getAttribute("user");
-    if (user == null) {
-      response.sendRedirect(request.getContextPath() + "/login");
-      return;
-    }
+//    if (user == null) {
+//      response.sendRedirect(request.getContextPath() + "/login");
+//      return;
+//    }
     manageNewGame(request, response, user);
-    manageStatistiques(request, response, user);
+    //manageStatistiques(request, response, user);
     request.getRequestDispatcher("/WEB-INF/views/main-menu.jsp").forward(request, response);
   }
 
@@ -58,10 +58,14 @@ public class MainMenuServlet extends HttpServlet {
 
   private void manageStatistiques(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
     List<Game> games = new ArrayList<Game>();
-    for(Player player : sessionUser.getPlayedGames()) {
-      Game game = player.getGame();
-      game.sortPlayersByScore();
-      games.add(game);
+    System.out.println(sessionUser.toString());
+    System.out.println(sessionUser.getPlayedGames().size());
+    if (sessionUser.getPlayedGames() != null) {
+      for (Player player : sessionUser.getPlayedGames()) {
+        Game game = player.getGame();
+        game.sortPlayersByScore();
+        games.add(game);
+      }
     }
     request.setAttribute("games", games);
   }
