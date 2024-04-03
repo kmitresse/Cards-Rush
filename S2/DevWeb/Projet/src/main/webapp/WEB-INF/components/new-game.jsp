@@ -1,6 +1,8 @@
 <%@ page import="uppa.project.pojo.User" %>
 <%@ page import="uppa.project.pojo.Game" %>
 <%@ page import="uppa.project.pojo.Deck" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: kmitr
@@ -34,8 +36,8 @@
                         <th>Nom d'utilisateur</th>
                         <th>Nombre de partie jouées</th>
                         <th>% Parties Gagnées</th>
-                        <th>% Clicks corrects</th>
-                        <th>% Clicks rapides</th>
+                        <th>% Clics corrects</th>
+                        <th>% Clics rapides</th>
                         <th>Invite</th>
                     </tr>
                     <% for (User user : connectedUsers) { %>
