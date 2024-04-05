@@ -12,13 +12,13 @@
 <style><%@include file="/static/css/navbar.css"%></style>
 <nav>
     <a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/img/CardsRushLogo.png" alt="Logo CardsRush"> </a>
-    <%  if (currentPage.equals("register") || currentPage.equals("forgotten-password") || currentPage.equals("reset-password")){ %>
+    <%  if (currentPage.equals("register") || currentPage.equals("forgotten-password") || currentPage.equals("reset-password"))  { %>
     <a class="button" href="${pageContext.request.contextPath}/login">Se connecter</a>
     <% }
         if (currentPage.equals("login") || currentPage.equals("forgotten-password") || currentPage.equals("reset-password")) { %>
      <a class="button" href="${pageContext.request.contextPath}/register">S'inscrire</a>
     <% } else if (currentPage.equals("main-menu")){ %>
-        <div class="content">
+        <div class="nav-content">
             <% User user = (User) request.getAttribute("user"); %>
             <p class="user">
                 <%= user != null ? user.getUsername() : "anonyme"%> <br/>
