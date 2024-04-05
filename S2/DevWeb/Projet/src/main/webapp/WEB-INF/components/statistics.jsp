@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="uppa.project.pojo.Player" %>
 <%@ page import="java.util.Date" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 
 
 <%--TODO: adapter les deux lignes suivante pour ne pas vérifier la valeur nulle--%>

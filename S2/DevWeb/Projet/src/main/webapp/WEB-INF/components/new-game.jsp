@@ -1,7 +1,7 @@
-s<%@ page import="uppa.project.pojo.User" %>
+<%@ page import="uppa.project.pojo.User" %>
 <%@ page import="uppa.project.pojo.Game" %>
 <%@ page import="uppa.project.pojo.Deck" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 
 <div id="newGameModal" class="modal-wrapper" style="display: none">
     <div class="modal">
