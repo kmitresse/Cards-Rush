@@ -14,6 +14,7 @@
     <script src="${pageContext.request.contextPath}/static/js/forgotten-password.js" defer></script>
 </head>
 <body>
+    <%@include file="../components/navbar.jsp"%>
     <main>
         <h1>Mot de passe oublié</h1>
         <p>Entrer votre email pour recevoir un lien de récupération</p>

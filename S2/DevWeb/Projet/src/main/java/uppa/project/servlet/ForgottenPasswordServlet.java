@@ -36,6 +36,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    request.setAttribute("current", "forgotten-password");
     request.getRequestDispatcher("/WEB-INF/views/forgotten-password.jsp").forward(request, response);
   }
 

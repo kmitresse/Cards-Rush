@@ -32,6 +32,7 @@ public class MainMenuServlet extends HttpServlet {
 //      response.sendRedirect(request.getContextPath() + "/login");
 //      return;
 //    }
+    request.setAttribute("current", "main-menu");
     manageNewGame(request, response, user);
     //manageStatistiques(request, response, user);
     request.getRequestDispatcher("/WEB-INF/views/main-menu.jsp").forward(request, response);

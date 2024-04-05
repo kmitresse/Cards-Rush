@@ -11,6 +11,7 @@
     <script src="${pageContext.request.contextPath}/static/js/reset-password.js" defer></script>
 </head>
 <body>
+    <%@include file="../components/navbar.jsp"%>
     <main>
         <jsp:include page="../components/navbar.jsp"/>
         <h1>Récupération du mot de passe</h1>

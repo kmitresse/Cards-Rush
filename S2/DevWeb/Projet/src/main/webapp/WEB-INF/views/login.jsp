@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-
+<%@include file="../components/navbar.jsp"%>
 <main>
     <section id="title">Cards Rush</section>
     <section id="form">

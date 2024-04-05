@@ -7,7 +7,7 @@
   <script src="${pageContext.request.contextPath}/static/js/register.js" defer></script>
 </head>
 <body>
-
+<%@include file="../components/navbar.jsp"%>
 <main>
   <section id="title">Inscription</section>
   <section id="form">

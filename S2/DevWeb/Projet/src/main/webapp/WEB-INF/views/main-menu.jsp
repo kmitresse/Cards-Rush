@@ -8,11 +8,11 @@
 <%--  <link href="${pageContext.request.contextPath}/static/css/main-menu.css" rel="stylesheet">--%>
   <script src="${pageContext.request.contextPath}/static/js/modal.js" defer></script>
   <script src="${pageContext.request.contextPath}/static/js/new-game.js" defer></script>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
+<%@include file="../components/navbar.jsp"%>
   <main>
-    <jsp:include page="../components/navbar.jsp"/>
     <section id="main">
       <h1 id="Title">Titre du jeu</h1>
       <div class="main-button">
@@ -20,8 +20,8 @@
         <button class="modal-toggle" data-target="#statisticsModal" >Statistiques</button>
       </div>
     </section>
+    <%@include file="../components/new-game.jsp"%>
+    <%@include file="../components/statistics.jsp"%>
   </main>
-  <%@include file="../components/new-game.jsp"%>
-  <%@include file="../components/statistics.jsp"%>
 </body>
 </html>

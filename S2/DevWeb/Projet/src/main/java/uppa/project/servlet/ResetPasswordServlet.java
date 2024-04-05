@@ -27,6 +27,7 @@ public class ResetPasswordServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/forgotten-password?error=expired-token");
         return;
       }
+      request.setAttribute("current", "reset-password");
       request.getRequestDispatcher("/WEB-INF/views/reset-password.jsp").forward(request, response);
     }
 

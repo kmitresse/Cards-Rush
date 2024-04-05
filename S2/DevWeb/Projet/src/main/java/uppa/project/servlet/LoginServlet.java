@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/main-menu");
       return;
     }
-
+    request.setAttribute("current", "login");
     request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
   }
 
