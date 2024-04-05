@@ -15,12 +15,11 @@
       <div class="main-button">
         <button class="modal-toggle" data-target="#newGameModal" >Nouvelle Partie</button>
         <button class="modal-toggle" data-target="#statisticsModal" >Statistiques</button>
-        <%@include file="../components/new-game.jsp"%>
-        <%@include file="../components/statistics.jsp"%>
       </div>
     </section>
-
   </main>
+  <%@include file="../components/new-game.jsp"%>
+  <%@include file="../components/statistics.jsp"%>
 </body>
 <script defer type="text/javascript"><%@include file="../static/js/modal.js"%></script>
 <script defer type="text/javascript"><%@include file="../static/js/new-game.js"%></script>

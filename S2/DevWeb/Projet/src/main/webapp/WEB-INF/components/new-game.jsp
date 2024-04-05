@@ -27,7 +27,7 @@
                     <label for="nbValues">Nb valeurs par couleurs</label>
                     <input type="range" id="nbValues" name="nbValues" min="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_VALUES_PER_COLOR_MAX %>" value="<%= Deck.NB_VALUES_PER_COLOR_MAX %>">
                     <label for="nbRounds">Nombre de tours</label>
-                    <input type="number" id="nbRounds" name="nbRounds" min="<%= Game.NB_ROUNDS_MIN %>" max="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>" value="Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX">
+                    <input type="number" id="nbRounds" name="nbRounds" min="<%= Game.NB_ROUNDS_MIN %>" max="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>" value="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>">
                 </form>
             </div>
             <div id="players-selection">
