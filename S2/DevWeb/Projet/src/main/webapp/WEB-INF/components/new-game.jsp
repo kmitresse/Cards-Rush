@@ -1,15 +1,7 @@
-<%@ page import="uppa.project.pojo.User" %>
+s<%@ page import="uppa.project.pojo.User" %>
 <%@ page import="uppa.project.pojo.Game" %>
 <%@ page import="uppa.project.pojo.Deck" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<%--
-  Created by IntelliJ IDEA.
-  User: kmitr
-  Date: 19/03/2024
-  Time: 15:47
-  To change this template use File | Settings | File Templates.
---%>
 
 <div id="newGameModal" class="modal-wrapper" style="display: none">
     <div class="modal">

@@ -38,43 +38,6 @@ public class RegisterServlet extends HttpServlet {
     request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
   }
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String username = request.getParameter("username");
-    String email = request.getParameter("email");
-    String birthdate = request.getParameter("birthdate");
-    System.out.println(birthdate);
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    Date birth;
-    try {
-      birth = formatter.parse(birthdate);
-    } catch (ParseException e) {
-      throw new RuntimeException(e);
-    }
-    System.out.println("birth: " + birth);
-    String gender = request.getParameter("gender");
-    String password = request.getParameter("password");
-    String confirmPassword = request.getParameter("confirmPassword");
-    if (!password.equals(confirmPassword)) {
-      response.sendRedirect(request.getContextPath() + "/register?error=matching-password");
-      return;
-    }
-    createAccount(username, email, password, birth, gender);
-    response.sendRedirect(request.getContextPath() + "/login?success=account-created");
-  }
-
-  public static void createAccount(String username, String email, String password, Date birth, String gender){
-    em.getTransaction().begin();
-    try{
-      DAO_JPA_User daoJpaUser = new DAO_JPA_User();
-      User user = new User(username, email, password, birth, User.getGender(gender));
-      daoJpaUser.create(user);
-      em.getTransaction().commit();
-    } catch (DAOException | IllegalArgumentException e) {
-      em.getTransaction().rollback();
-      throw new RuntimeException(e);
-    }
-  }
-
   public void destroy() {
   }
 }

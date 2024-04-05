@@ -9,6 +9,9 @@
 <html>
 <head>
     <title>Forgotten Password</title>
+    <meta charset="UTF-8">
+<%--    <link href="${pageContext.request.contextPath}/static/css/forgotten-password.css" rel="stylesheet">--%>
+    <script src="${pageContext.request.contextPath}/static/js/forgotten-password.js" defer></script>
 </head>
 <body>
     <main>
@@ -26,5 +29,4 @@
         <%}%>
     </main>
 </body>
-<script defer type="module"><%@include file="../static/js/forgotten-password.js"%></script>
 </html>

@@ -5,6 +5,9 @@
 <html>
 <head>
   <title>Cards Rush</title>
+<%--  <link href="${pageContext.request.contextPath}/static/css/main-menu.css" rel="stylesheet">--%>
+  <script src="${pageContext.request.contextPath}/static/js/modal.js" defer></script>
+  <script src="${pageContext.request.contextPath}/static/js/new-game.js" defer></script>
   <meta charset="utf-8">
 </head>
 <body>
@@ -21,6 +24,4 @@
   <%@include file="../components/new-game.jsp"%>
   <%@include file="../components/statistics.jsp"%>
 </body>
-<script defer type="text/javascript"><%@include file="../static/js/modal.js"%></script>
-<script defer type="text/javascript"><%@include file="../static/js/new-game.js"%></script>
 </html>

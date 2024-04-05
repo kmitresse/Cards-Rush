@@ -5,13 +5,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%--
-  Created by IntelliJ IDEA.
-  User: kmitr
-  Date: 26/03/2024
-  Time: 11:05
-  To change this template use File | Settings | File Templates.
---%>
+
 <%--TODO: adapter les deux lignes suivante pour ne pas vérifier la valeur nulle--%>
 <% User user = (User) session.getAttribute("user") != null ? (User) session.getAttribute("user") : new User("toto", "toto@gmail.com", "totopassword", new Date(), User.Gender.MALE); %>
 <% ArrayList<Game> games = (ArrayList<Game>) request.getAttribute("games") != null ? (ArrayList<Game>) request.getAttribute("games") : new ArrayList<Game>() ; %>

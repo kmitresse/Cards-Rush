@@ -3,7 +3,8 @@
 <html>
 <head>
   <title>Register</title>
-  <style><%@include file="../static/css/login.css"%></style>
+  <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
+  <script src="${pageContext.request.contextPath}/static/js/register.js" defer></script>
 </head>
 <body>
 
@@ -51,5 +52,4 @@
 </main>
 
 </body>
-<script defer type="module"><%@include file="../static/js/register.js"%></script>
 </html>

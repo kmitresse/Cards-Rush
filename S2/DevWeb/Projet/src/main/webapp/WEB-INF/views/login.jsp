@@ -3,7 +3,8 @@
 <html>
 <head>
     <title> Cards Rush - Connexion</title>
-    <style><%@include file="../static/css/login.css" %></style>
+    <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/static/js/login.js" defer></script>
     <meta charset="utf-8">
 </head>
 <body>
@@ -35,8 +36,5 @@
         </div>
     </section>
 </main>
-
-<script defer type="module"><%@include file="../static/js/login.js" %></script>
-
 </body>
 </html>
