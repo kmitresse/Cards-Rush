@@ -13,16 +13,18 @@
 <nav>
     <a href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/static/img/CardsRushLogo.png" alt="Logo CardsRush"> </a>
     <%  if (currentPage == "register" || currentPage == "forgotten-password" || currentPage == "reset-password"){ %>
-    <button><a href="${pageContext.request.contextPath}/login">Se connecter</a></button>
+    <a class="button" href="${pageContext.request.contextPath}/login">Se connecter</a>
     <% }
         if (currentPage == "login" || currentPage == "forgotten-password" || currentPage == "reset-password") { %>
-    <button> <a href="${pageContext.request.contextPath}/register">S'inscrire</a></button>
+     <a class="button" href="${pageContext.request.contextPath}/register">S'inscrire</a>
     <% } else if (currentPage == "main-menu"){ %>
-        <% User user = (User) request.getAttribute("user"); %>
-        <p>
-            pseudo: <%= user != null ? user.getUsername() : "anonyme"%> <br/>
-            nombre de victoires: <%= user != null ? user.getNbWin() : "0" %>
-        </p>
-        <button><a href="${pageContext.request.contextPath}/logout">Se déconnecter</a></button>
+        <div class="content">
+            <% User user = (User) request.getAttribute("user"); %>
+            <p class="user">
+                <%= user != null ? user.getUsername() : "anonyme"%> <br/>
+                <%= user != null ? user.getNbWin() : "0" %> victoires
+            </p>
+            <a class="button" href="${pageContext.request.contextPath}/logout">Se déconnecter</a>
+        </div>
     <% } %>
 </nav>

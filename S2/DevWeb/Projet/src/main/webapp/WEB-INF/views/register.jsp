@@ -3,18 +3,16 @@
 <html>
 <head>
   <title>Register</title>
+  <link href="${pageContext.request.contextPath}/static/css/global.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/static/css/login.css" rel="stylesheet">
   <script src="${pageContext.request.contextPath}/static/js/register.js" defer></script>
 </head>
 <body>
 <%@include file="../components/navbar.jsp"%>
 <main>
-  <section id="title">Inscription</section>
-  <section id="form">
-    <div class="border-left"></div>
     <div class="flex-column register-gap">
       <div>
-        <h1>Register</h1>
+        <h1>S'inscrire</h1>
         <form id="register-form" action="${pageContext.request.contextPath}/api/auth/register" method="POST">
 
           <label for="email">Email :</label>
@@ -26,7 +24,7 @@
           <label for="password">Mot de passe :</label>
           <input type="password" id="password" name="password" required>
 
-          <label for="confirmPassword">Confirmez le mot de pass :</label>
+          <label for="confirmPassword">Confirmez le mot de passe :</label>
           <input type="password" id="confirmPassword" name="confirmPassword" required>
 
           <label for="birthdate">Date de naissance :</label>
@@ -40,7 +38,7 @@
             <option value="OTHER">Autre</option>
           </select>
 
-          <input id="register-submit" type="submit" value="Register">
+          <input class="button" id="register-submit" type="submit" value="Register">
         </form>
       </div>
       <div>
@@ -48,7 +46,6 @@
         <p>Déjà un compte ? <a href="${pageContext.request.contextPath}/login">Se connecter</a></p>
       </div>
     </div>
-  </section>
 </main>
 
 </body>

@@ -1,17 +1,5 @@
-body {
-    font-family: sans-serif;
-    padding: 30px;
-}
-
-.demo-description {
-    max-width: 460px;
-    margin: 0 auto;
-    line-height: 1.5;
-}
-
 .modal-toggle {
     cursor: pointer;
-    color: #268bd2;
 }
 
 .modal-wrapper {

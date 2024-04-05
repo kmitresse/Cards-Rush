@@ -1,5 +1,15 @@
 nav {
     display: flex;
-    justify-content: right;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 10px;
+}
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+p.user{
+    padding:10px;
 }

@@ -1,0 +1,39 @@
+:root {
+    --color-red-800: #991B1B;
+    --color-rose-700: #BE123C;
+    --sizes-button-input-nav-larger-padding-v: 12px;
+    --sizes-button-input-nav-larger-padding-h: 32px;
+    --sizes-button-input-nav-larger-gap: 12px;
+    --Button-Border-radius: 8px;
+    --Button-Light-Default-Border: rgba(255, 255, 255, 0.00);
+    --Button-Light-Default-Background: rgba(255, 255, 255, 0.30);
+}
+
+html{
+    height: 100%;
+    width: 100%;
+}
+
+
+body {
+    width: 100%;
+    height: 832px;
+    flex-shrink: 0;
+    background: url("../img/Home.svg") lightgray 50% / cover no-repeat;
+    opacity: 0.6;
+    color: #FFF;
+}
+
+a.button, input.button button.button{
+    display: flex;
+    padding: var(--sizes-button-input-nav-larger-padding-v) var(--sizes-button-input-nav-larger-padding-h);
+    justify-content: center;
+    align-items: center;
+    gap: var(--sizes-button-input-nav-larger-gap);
+    border-radius: var(--Button-Border-radius);
+    border: 1px solid var(--Button-Light-Default-Border);
+    background: var(--Button-Light-Default-Background);
+    color: #FFF;
+    text-decoration: none;
+    height: fit-content;
+}
