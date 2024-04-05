@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import uppa.project.listener.SessionServletContextListener;
 
 @WebServlet(name = "logoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
@@ -24,6 +25,7 @@ public class LogoutServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     if (request.getSession().getAttribute("user") != null) {
+      SessionServletContextListener.removeSession(request.getSession());
       request.getSession().removeAttribute("user");
     }
 
