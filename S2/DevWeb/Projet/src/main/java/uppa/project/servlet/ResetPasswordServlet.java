@@ -40,6 +40,7 @@ public class ResetPasswordServlet extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       RecoveryPasswordToken recoveryPasswordToken = findRecoveryToken(request.getParameter("token"));
+
       User user = recoveryPasswordToken.getUser();
       String newPassword = request.getParameter("newPassword");
       String confirmPassword = request.getParameter("confirmPassword");

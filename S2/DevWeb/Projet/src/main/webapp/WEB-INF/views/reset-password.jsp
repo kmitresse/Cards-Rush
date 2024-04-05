@@ -1,7 +1,3 @@
-<%@ page import="uppa.project.dao.jpa.DAO_JPA_RecoveryPasswordToken" %>
-<%@ page import="uppa.project.pojo.RecoveryPasswordToken" %>
-<%@ page import="uppa.project.dao.DAOException" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

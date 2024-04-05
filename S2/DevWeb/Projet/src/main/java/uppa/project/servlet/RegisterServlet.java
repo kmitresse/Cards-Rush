@@ -13,13 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import uppa.project.dao.DAOException;
-import uppa.project.dao.jpa.DAO_JPA_User;
-import uppa.project.pojo.User;
 import uppa.project.provider.EntityManagerProvider;
 
 @WebServlet(name = "registerServlet", value = "/register")

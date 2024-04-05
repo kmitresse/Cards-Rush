@@ -66,5 +66,5 @@ input {
 
 a {
     color: #ffffff;
-    bold: true;
+    font-weight: bold;
 }

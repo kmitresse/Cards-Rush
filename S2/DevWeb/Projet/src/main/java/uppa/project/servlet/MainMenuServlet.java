@@ -42,7 +42,7 @@ public class MainMenuServlet extends HttpServlet {
   }
 
   private void manageNewGame(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
-    List<User> connectedUsers = new ArrayList<User>();
+    List<User> connectedUsers = new ArrayList<>();
     Set<HttpSession> loginsSessions = (Set<HttpSession>) request.getServletContext().getAttribute("loginSession");
     if (loginsSessions == null) {
       throw new RuntimeException("No login sessions found");

@@ -8,8 +8,10 @@
     right: 0;
     bottom: 0;
     left: 0;
-
-    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    border: 1px solid rgba(208, 73, 73, 0.83);
+    background: rgba(208, 73, 73, 0.38);
+    backdrop-filter: blur(14.399999618530273px);
     display: none;
 
     -webkit-transition: opacity 0.2s ease-in;

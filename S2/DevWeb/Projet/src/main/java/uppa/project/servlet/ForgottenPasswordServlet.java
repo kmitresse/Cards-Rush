@@ -18,7 +18,6 @@ import javax.mail.Message;
 import uppa.project.Global;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
-import uppa.project.dao.jpa.DAO_JPA_RecoveryPasswordToken;
 import uppa.project.dao.jpa.DAO_JPA_User;
 import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.pojo.RecoveryPasswordToken;
