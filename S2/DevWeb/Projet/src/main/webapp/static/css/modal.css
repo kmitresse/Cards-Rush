@@ -1,62 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
 .modal-toggle {
     cursor: pointer;
 }
 
 .modal-wrapper {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 20px;
-    border: 1px solid rgba(208, 73, 73, 0.83);
-    background: rgba(208, 73, 73, 0.38);
-    backdrop-filter: blur(14.399999618530273px);
+    top: 100px;
+    right: 90px;
+    bottom: 146px;
+    left: 90px;
+    background: rgba(255, 255, 255, 0.31);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.2px);
+    -webkit-backdrop-filter: blur(12.2px);
+    border: 1px solid rgba(255, 255, 255, 0.63);
     display: none;
-
     -webkit-transition: opacity 0.2s ease-in;
     -moz-transition: opacity 0.2s ease-in;
     transition: opacity 0.2s ease-in;
-
     pointer-events: auto;
 }
 
 .modal-wrapper > div {
-    width: 460px;
-    height: 40%;
-    position: absolute;
+    width: 95%;
+    height: 95%;
+    position: relative;
 
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 
-    margin: auto;
+    margin: 50px 15px;
 
     vertical-align: middle;
     padding: 20px;
     border-radius: 6px;
-    background: #fff;
-
-    display: none;
 }
+
+.modal-content {
+    display: flex;
+    flex-direction: row;
+    gap : 20px;
+    border: 1px solid rgba(0, 0, 0, 0.83);
+}
+
+#settings {
+    border-right: 1px solid rgba(0, 0, 0, 0.83);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
 
 .close {
-    background: #606061;
-    color: #ffffff;
-    line-height: 25px;
+    background: var(--Button-Light-Default-Background);
+    color: #FFFFFF;
+    line-height: 30px;
     position: absolute;
-    right: -12px;
+    right: 20px;
     text-align: center;
     top: -10px;
-    width: 24px;
+    width: 30px;
     text-decoration: none;
     font-weight: bold;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-}
-
-.close:hover {
-    background: #00d9ff;
+    -webkit-border-radius: 33px;
+    -moz-border-radius: 33px;
+    border-radius: 33px;
+    font-size: xx-large;
 }

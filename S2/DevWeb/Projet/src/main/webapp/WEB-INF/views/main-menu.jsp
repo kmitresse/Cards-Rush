@@ -7,6 +7,7 @@
   <title>Cards Rush</title>
   <link href="${pageContext.request.contextPath}/static/css/global.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/static/css/main-menu.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/static/css/new-game.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/static/css/modal.css" rel="stylesheet">
   <script src="${pageContext.request.contextPath}/static/js/modal.js" defer></script>
   <script src="${pageContext.request.contextPath}/static/js/new-game.js" defer></script>

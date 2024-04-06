@@ -11,7 +11,7 @@
 <% ArrayList<Game> games = (ArrayList<Game>) request.getAttribute("games") != null ? (ArrayList<Game>) request.getAttribute("games") : new ArrayList<>() ; %>
 <div id="statisticsModal" class="modal-wrapper" style="display: none">
     <div class="modal">
-        <a href="#close" title="Close" class="close">&times;</a>
+        <a href="#" title="Close" class="close">&times;</a>
         <div class="modal-header">
             <h2>Statistiques</h2>
         </div>
@@ -25,24 +25,24 @@
                     </tr>
                     <tr>
                         <th>Nombre de parties gagnées:</th>
-                        <td><%= user.getNbWin() %>, <%= user.getWinRate()%></td>
+                        <td><%= user.getNbWin() %>, <%= user.getWinRate()%>%</td>
                     </tr>
                     <tr>
-                        <th>Nombre de clicks total:</th>
+                        <th>Nombre de clics total:</th>
                         <td><%= user.getNbClicks() %></td>
                     </tr>
                     <tr>
-                        <th>Nombre de clicks corrects:</th>
-                        <td><%= user.getNbRightClicks() %>, <%= user.getRightClickPercentRate()%></td>
+                        <th>Nombre de clics corrects:</th>
+                        <td><%= user.getNbRightClicks() %>, <%= user.getRightClickPercentRate()%>%</td>
                     </tr>
                     <tr>
-                        <th>Nombre de clicks rapides:</th>
-                        <td><%= user.getNbRapidClicks() %>, <%= user.getRapidClickPercentRate()%></td>
+                        <th>Nombre de clics rapides:</th>
+                        <td><%= user.getNbRapidClicks() %>, <%= user.getRapidClickPercentRate()%>%</td>
                     </tr>
                 </table>
             </div>
             <div id="game-selection">
-                //listes de game dont chacune est un onglet déroulante des joueurs
+<%--            listes de game dont chacune est un onglet déroulante des joueurs--%>
                 <h2>Statistiques par jeu</h2>
                 <table>
                     <tr>
@@ -69,9 +69,9 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Score</th>
-                                <th>Nombre de click</th>
-                                <th>Nombre de click corrects</th>
-                                <th>Nombre de click rapides</th>
+                                <th>Nombre de clic</th>
+                                <th>Nombre de clic corrects</th>
+                                <th>Nombre de clic rapides</th>
                             </tr>
                             <%
                                 for (Player player : game.getPlayers()) {
@@ -80,8 +80,8 @@
                                 <td><%= player.getUser().getUsername() %></td>
                                 <td><%= player.getScore() %></td>
                                 <td><%= player.getClickCount() %></td>
-                                <td><%= player.getRightClickCount() %>, <%= player.getRatioRightClick() %></td>
-                                <td><%= player.getRapidClickCount() %>, <%= player.getRatioRapidClick() %></td>
+                                <td><%= player.getRightClickCount() %>, <%= player.getRatioRightClick() %>%</td>
+                                <td><%= player.getRapidClickCount() %>, <%= player.getRatioRapidClick() %>%</td>
                             </tr>
                             <% } %>
                         </table>

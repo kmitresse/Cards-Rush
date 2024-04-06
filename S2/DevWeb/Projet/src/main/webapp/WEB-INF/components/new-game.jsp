@@ -5,13 +5,20 @@
 
 <div id="newGameModal" class="modal-wrapper" style="display: none">
     <div class="modal">
-        <a href="#close" title="Close" class="close">&times;</a>
+        <a href="#" title="Close" class="close">&times;</a>
         <div class="modal-header">
             <h2>Nouvelle Partie</h2>
         </div>
         <div class="modal-content">
             <div id="settings">
                 <form>
+                    <label>Difficulté</label>
+                    <div class="difficulty-radio">
+                        <input type="radio" name="difficulty" value="easy" id="easy" checked="checked" />
+                        <label for="easy">Facile</label>
+                        <input type="radio" name="difficulty" value="hard" id="hard" />
+                        <label for="hard">Difficile</label>
+                    </div>
                     <label for="timer">Timer</label>
                     <input type="number" id="timer" name="timer" min="<%= Game.TIMER_MIN %>" max="<%= Game.TIMER_MAX %>" value="<%= Game.TIMER_MIN %>">
                     <label for="nbColors">Nb couleurs</label>

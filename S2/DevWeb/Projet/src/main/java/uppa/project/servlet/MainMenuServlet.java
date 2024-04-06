@@ -34,7 +34,7 @@ public class MainMenuServlet extends HttpServlet {
 //    }
     request.setAttribute("current", "main-menu");
     manageNewGame(request, response, user);
-    //manageStatistiques(request, response, user);
+    manageStatistiques(request, response, user);
     request.getRequestDispatcher("/WEB-INF/views/main-menu.jsp").forward(request, response);
   }
 
@@ -60,9 +60,7 @@ public class MainMenuServlet extends HttpServlet {
 
   private void manageStatistiques(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
     List<Game> games = new ArrayList<Game>();
-    System.out.println(sessionUser.toString());
-    System.out.println(sessionUser.getPlayedGames().size());
-    if (sessionUser.getPlayedGames() != null) {
+    if (sessionUser != null && sessionUser.getPlayedGames() != null) {
       for (Player player : sessionUser.getPlayedGames()) {
         Game game = player.getGame();
         game.sortPlayersByScore();
