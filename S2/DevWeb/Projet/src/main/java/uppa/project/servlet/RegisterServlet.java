@@ -18,7 +18,6 @@ import uppa.project.provider.EntityManagerProvider;
 @WebServlet(name = "registerServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
 
-  static final EntityManager em = EntityManagerProvider.getInstance();
   public void init() {
   }
 
