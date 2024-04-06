@@ -19,7 +19,7 @@
      <a class="button" href="${pageContext.request.contextPath}/register">S'inscrire</a>
     <% } else if (currentPage.equals("main-menu")){ %>
         <div class="nav-content">
-            <% User user = (User) request.getAttribute("user"); %>
+            <% User user = (User) session.getAttribute("user"); %>
             <p class="user">
                 <%= user != null ? user.getUsername() : "anonyme"%> <br/>
                 <%= user != null ? user.getNbWin() : "0" %> victoires
