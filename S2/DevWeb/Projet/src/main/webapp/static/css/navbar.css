@@ -8,8 +8,13 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 40px;
+    align-items: center;
 }
 
-p.user{
+p.user {
     padding:10px;
+}
+
+a {
+    align-self: center;
 }
