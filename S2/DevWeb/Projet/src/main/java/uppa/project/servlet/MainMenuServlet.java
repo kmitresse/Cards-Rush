@@ -59,7 +59,7 @@ public class MainMenuServlet extends HttpServlet {
   }
 
   private void manageStatistiques(HttpServletRequest request, HttpServletResponse response, User sessionUser) throws IOException, ServletException {
-    List<Game> games = new ArrayList<Game>();
+    List<Game> games = new ArrayList<>();
     if (sessionUser != null && sessionUser.getPlayedGames() != null) {
       for (Player player : sessionUser.getPlayedGames()) {
         Game game = player.getGame();
