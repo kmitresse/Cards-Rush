@@ -5,6 +5,7 @@
 <html>
 <head>
   <title>Cards Rush</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
   <link href="${pageContext.request.contextPath}/static/css/global.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/static/css/main-menu.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/static/css/new-game.css" rel="stylesheet">

@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>Card Rush</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
     <link href="${pageContext.request.contextPath}/static/css/global.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/index.css" rel="stylesheet">
     <meta charset="utf-8">
