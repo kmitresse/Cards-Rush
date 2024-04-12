@@ -8,12 +8,16 @@ loginForm.addEventListener("submit", (event) => {
     formData.forEach((value, key) => data[key] = value);
 
     fetch(loginForm.getAttribute("action"), {
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data),
-        method: loginForm.getAttribute("method"),
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify(data), method: loginForm.getAttribute("method"),
     })
-        .then(res => res.json())
-        .then(d => window.location.href = "./main-menu")
+        .then(res => {
+            if (res.ok) {
+                window.location.href = "./main-menu";
+            }
+            else {
+                // TODO Display red inputs
+            }
+        })
         .catch(error => console.error("Error:", error));
 });
 
