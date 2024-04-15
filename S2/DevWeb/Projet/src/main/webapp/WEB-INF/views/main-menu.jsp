@@ -13,6 +13,7 @@
   <script src="${pageContext.request.contextPath}/static/js/modal.js" defer></script>
   <script src="${pageContext.request.contextPath}/static/js/new-game.js" defer></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script defer src="${pageContext.request.contextPath}/static/js/main-menu.js"></script>
 </head>
 <body>
 <%@include file="../components/navbar.jsp"%>

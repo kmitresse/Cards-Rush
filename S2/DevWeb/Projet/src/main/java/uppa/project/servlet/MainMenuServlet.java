@@ -49,7 +49,6 @@ public class MainMenuServlet extends HttpServlet {
     }
     for(HttpSession session : loginsSessions) {
       User connectedUser = (User) session.getAttribute("user");
-      System.out.println(connectedUser.toString());
       if(session.getServletContext().getContextPath().equals(request.getServletContext().getContextPath()) && connectedUser != null && !connectedUser.equals(sessionUser)) {
         connectedUsers.add(connectedUser);
       }

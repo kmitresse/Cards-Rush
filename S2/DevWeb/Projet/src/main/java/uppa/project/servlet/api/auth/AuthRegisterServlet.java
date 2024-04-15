@@ -18,7 +18,6 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Locale;
 import uppa.project.dao.DAO;
 import uppa.project.dao.DAOException;
 import uppa.project.pojo.User;

@@ -10,14 +10,9 @@ loginForm.addEventListener("submit", (event) => {
     fetch(loginForm.getAttribute("action"), {
         headers: {"Content-Type": "application/json"}, body: JSON.stringify(data), method: loginForm.getAttribute("method"),
     })
-        .then(res => {
-            if (res.ok) {
-                window.location.href = "./main-menu";
-            }
-            else {
-                // TODO Display red inputs
-            }
-        })
+        .then(res => res.json())
+        .then(user => sessionStorage.setItem("user", JSON.stringify(user)))
+        .then(() => window.location.href = "./main-menu")
         .catch(error => console.error("Error:", error));
 });
 

@@ -6,14 +6,12 @@
 
 package uppa.project.servlet;
 
-import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import uppa.project.provider.EntityManagerProvider;
 
 @WebServlet(name = "registerServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
