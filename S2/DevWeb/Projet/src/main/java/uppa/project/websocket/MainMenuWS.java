@@ -46,6 +46,9 @@ public class MainMenuWS {
   public void onClose(Session session) {
     System.out.println("Connexion WebSocket fermée : " + session.getId());
     connections.remove(session);
+
+    // Update connected users list
+    broadcastConnectedUsers();
   }
 
   @OnError
