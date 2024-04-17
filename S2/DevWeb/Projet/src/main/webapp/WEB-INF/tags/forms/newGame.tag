@@ -1,8 +1,10 @@
+<%@ tag import="uppa.project.database.pojo.Deck" %>
+<%@ tag import="uppa.project.database.pojo.Game" %>
 <%@tag description="form/newGame" pageEncoding="UTF-8" %>
 
 <form id="newGame-form" action="${pageContext.request.contextPath}/main-menu" method="post">
 
-    <h2 class="title is-5">Paramètre Général</h2>
+    <h2 class="title is-5">Paramètres Généraux</h2>
 
     <div class="field">
         <label class="label">Difficulté</label>
@@ -24,34 +26,38 @@
 
     <hr/>
 
-    <h2 class="title is-5">Paramètre des Manches</h2>
+    <h2 class="title is-5">Paramètres des Manches</h2>
 
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label">Nombre de manche</label>
+                <label class="label" for="nbRounds">Nombre de manche</label>
+                <input class="input" type="number" id="nbRounds" name="nbRounds" value="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>" min="<%= Deck.NB_COLORS_MIN * Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>">
             </div>
         </div>
         <div class="column">
             <div class="field">
-                <label class="label">Durée d'une manche</label>
+                <label class="label" for="timer">Durée d'une manche</label>
+                <input class="input" type="number" id="timer" name="timer" value="<%= Game.TIMER_MIN %>" min="<%= Game.TIMER_MIN %>" max="<%= Game.TIMER_MAX %>">
             </div>
         </div>
     </div>
 
     <hr/>
 
-    <h2 class="title is-5">Paramètre du Deck</h2>
+    <h2 class="title is-5">Paramètres du Deck</h2>
 
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label">Nombre de valeur par deck</label>
+                <label class="label" for="nbValues">Nombre de valeur</label>
+                <input class="input is-static" type="range" id="nbValues" name="nbValues" value="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" min="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_VALUES_PER_COLOR_MAX %>">
             </div>
         </div>
         <div class="column">
             <div class="field">
-                <label class="label">Nombre de couleur par deck</label>
+                <label class="label" for="nbColors">Nombre de couleur</label>
+                <input class="input is-static" type="range" id="nbColors" name="nbColors" value="<%= Deck.NB_COLORS_MIN %>" min="<%= Deck.NB_COLORS_MIN %>" max="<%= Deck.NB_COLORS_MAX %>">
             </div>
         </div>
     </div>
@@ -106,7 +112,27 @@
 </style>
 
 <script defer type="module">
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
+  const nbColorsElement = document.getElementById("nbColors");
+  const nbValuesElement = document.getElementById("nbValues");
+  const nbRoundsElement = document.getElementById("nbRounds")
+
+  /**
+   * Mise à jour du nombre de rounds max en fonction du nombre de couleurs et de valeurs séléctionnés
+   */
+  function updateOnChange() {
+    nbRoundsElement.max = nbColorsElement.value * nbValuesElement.value;
+
+    nbRoundsElement.value =
+      (nbRoundsElement.value > nbRoundsElement.max)
+        ? nbRoundsElement.max
+        : nbRoundsElement.value
+    ;
+  }
+
+  nbColorsElement.addEventListener("change", updateOnChange);
+  nbValuesElement.addEventListener("change", updateOnChange);
+
+  const radioButtons = document.querySelectorAll('input[type="radio"]');
 
     // if radio is checked, add class 'is-primary' to the parent label
     radioButtons.forEach(radio => {
@@ -118,4 +144,3 @@
         });
     });
 </script>
-
