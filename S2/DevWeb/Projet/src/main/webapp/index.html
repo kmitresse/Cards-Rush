@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <title>Card Rush</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bulma-primary-h: 0;
+            --bulma-primary-s: 70%;
+            --bulma-primary-l: 35%;
+        }
+
+        .hero {
+            background: url("/project_war_exploded/static/img/Home.svg") lightgray 50% / cover no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/project_war_exploded/">
+            <img src="/project_war_exploded/static/img/CardsRushLogoBlack.svg" height="260">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarMenu" class="navbar-menu">
+
+        <div class="navbar-end">
+
+            <div class="navbar-item">
+                <a href="/project_war_exploded/register" class="is-fullwidth button is-primary has-text-white">Inscription</a>
+            </div>
+            <div class="navbar-item">
+                <a href="/project_war_exploded/login" class="is-fullwidth button is-light">Connexion</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<script type="module" defer>
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+        });
+    });
+</script>
+
+
+<section class="hero is-primary is-fullheight-with-navbar">
+    <div class="hero-body">
+        <div class="container">
+            <p class="title is-2 mb-4 has-text-white">Plongez dans l'excitation de CardRush!</p>
+            <p style="max-width: 30em;" class="mb-6 subtitle has-text-white ">Défiez votre réactivité et dominez le jeu avec des amis dans cette course effrénée aux cartes ! Rejoignez maintenant pour vivre l'adrénaline.</p>
+
+            <div class="buttons">
+                <a class="button is-light is-primary is-large" href="/project_war_exploded/register">S'inscrire</a>
+                <a class="button is-primary is-large has-text-white" href="/project_war_exploded/login">Se connecter</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Cards Rush</strong> par Kevin Mitressé & Lucàs Vabre. UPPA M1-TI 2024
+        </p>
+    </div>
+</footer>
+</body>
+</html>

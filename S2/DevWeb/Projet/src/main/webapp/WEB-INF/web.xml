@@ -27,6 +27,7 @@
   </filter>
   <filter-mapping>
     <filter-name>AlreadyLoggedFilter</filter-name>
+    <url-pattern>/index.html</url-pattern>
     <url-pattern>/login</url-pattern>
     <url-pattern>/register</url-pattern>
     <url-pattern>/forgotten-password</url-pattern>
