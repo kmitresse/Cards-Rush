@@ -50,14 +50,22 @@
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label" for="nbValues">Nombre de valeur</label>
-                <input class="input is-static" type="range" id="nbValues" name="nbValues" value="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" min="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_VALUES_PER_COLOR_MAX %>">
-            </div>
+                <label class="label" for="nbValues">Nombre de valeur <span id="tootltip-values"> <%= Deck.NB_VALUES_PER_COLOR_MAX %></span> </label>
+                <div class="range-field">
+                    <div class="value left"><%= Deck.NB_VALUES_PER_COLOR_MIN %></div>
+                    <input type="range" id="nbValues" name="nbValues" value="<%= Deck.NB_VALUES_PER_COLOR_MAX %>" min="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_VALUES_PER_COLOR_MAX %>">
+                    <div class="value right"><%= Deck.NB_VALUES_PER_COLOR_MAX %></div>
+                </div>
+                </div>
         </div>
         <div class="column">
             <div class="field">
-                <label class="label" for="nbColors">Nombre de couleur</label>
-                <input class="input is-static" type="range" id="nbColors" name="nbColors" value="<%= Deck.NB_COLORS_MIN %>" min="<%= Deck.NB_COLORS_MIN %>" max="<%= Deck.NB_COLORS_MAX %>">
+                <label class="label" for="nbColors">Nombre de couleur <span id="tootltip-colors"> <%= Deck.NB_COLORS_MAX %></span> </label>
+                <div class="range-field">
+                    <div class="value left"><%= Deck.NB_COLORS_MIN %></div>
+                    <input type="range" id="nbColors" name="nbColors" value="<%= Deck.NB_COLORS_MAX %>" min="<%= Deck.NB_COLORS_MIN %>" max="<%= Deck.NB_COLORS_MAX %>">
+                    <div class="value right"><%= Deck.NB_COLORS_MAX %></div>
+                </div>
             </div>
         </div>
     </div>
@@ -109,12 +117,96 @@
             transform: translateX(5px);
         }
     }
+
+    .range-field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: relative;
+        gap: 5px;
+    }
+    .range-field .value {
+
+        font-size: 18px;
+        color: #045fa4;
+        font-weight: 600;
+    }
+    .left {
+        left: 0px;
+    }
+    .right {
+        right: 0px;
+    }
+    .field input {
+        flex: 1 1 auto;
+    }
+
+    .sliderValue {
+        position: relative;
+        width: 100%;
+    }
+
+    .sliderValue span {
+        position: absolute;
+        height: 45px;
+        width: 45px;
+        transform: translateX(-70%) scale(0);
+        font-weight: 500;
+        top: -40px;
+        line-height: 55px;
+        z-index: 2;
+        color: #fff;
+        transform-origin: bottom;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .sliderValue span:after {
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 100%;
+        background: #045fa4;
+        border: 3px solid #fff;
+        z-index: -1;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        border-bottom-left-radius: 50%;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+    }
+
+    .sliderValue span.show {
+        transform: translateX(-70%) scale(1);
+    }
 </style>
 
 <script defer type="module">
   const nbColorsElement = document.getElementById("nbColors");
+  const nbColorsInputValue=document.querySelector("span[id='tootltip-colors']");
   const nbValuesElement = document.getElementById("nbValues");
+  const nbValueInputValue=document.querySelector("span[id='tootltip-values']");
   const nbRoundsElement = document.getElementById("nbRounds")
+
+  /**
+   * Mise à jour de la valeur du slider
+   */
+    nbColorsElement.addEventListener("input", () => {
+        nbColorsInputValue.textContent = nbColorsElement.value;
+        nbColorsInputValue.style.left = 0.5 * (nbColorsElement.value) + "%";
+    });
+
+
+      nbValuesElement.addEventListener("input", () => {
+        nbValueInputValue.textContent = nbValuesElement.value;
+        nbValueInputValue.style.left = 0.5 * (nbValuesElement.value) + "%";
+      });
+
+  // nbValueInputValue.style.left = 0.5 * (nbValuesElement.value) + "%";
+  // nbValueInputValue.style.left = 0.5 * (nbValuesElement.value) + "%";
+
 
   /**
    * Mise à jour du nombre de rounds max en fonction du nombre de couleurs et de valeurs séléctionnés
