@@ -125,6 +125,26 @@ public class User implements Serializable {
     this.nbRapidClicks = 0;
     this.rapidClickPercentRate = 0;
   }
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames) {
+    if (!isValidBirthDate(birth)){
+      throw new IllegalArgumentException("La date de naissance n'est pas valide");
+    }
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.birth = birth;
+    this.gender = gender;
+    this.playedGames = playedGames;
+    this.nbPlayedGame = playedGames.size();
+    this.nbWin = getNbWin();
+    this.winRate = getWinRate();
+    this.nbClicks = getNbClicks();
+    this.nbRightClicks = getNbRightClicks();
+    this.rightClickPercentRate = getRightClickPercentRate();
+    this.nbRapidClicks = getNbRapidClicks();
+    this.rapidClickPercentRate = getRapidClickPercentRate();
+  }
 
   /**
    * Constructeur d'un utilisateur
