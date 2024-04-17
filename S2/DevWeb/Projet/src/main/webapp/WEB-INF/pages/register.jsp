@@ -6,7 +6,7 @@
 <layout:base>
   <jsp:attribute name="title">Cards Rush - Inscription</jsp:attribute>
   <jsp:body>
-    <div class="hero is-light is-fullheight-with-navbar">
+    <div class="hero is-light is-fullheight">
       <div class="hero-body">
         <div class="container">
           <div class="columns is-centered">

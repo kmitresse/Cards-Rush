@@ -20,6 +20,10 @@
             --bulma-primary-s: 70%;
             --bulma-primary-l: 35%;
         }
+
+        .hero {
+            background: url("${pageContext.request.contextPath}/static/img/Home.svg") lightgray 50% / cover no-repeat;
+        }
     </style>
 
     <jsp:invoke fragment="head"/>
