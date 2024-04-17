@@ -1,13 +1,13 @@
-<%@ page import="uppa.project.pojo.User" %>
-<%@ page import="uppa.project.pojo.Game" %>
+<%@ page import="uppa.project.database.pojo.User" %>
+<%@ page import="uppa.project.database.pojo.Game" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="uppa.project.pojo.Player" %>
+<%@ page import="uppa.project.database.pojo.Player" %>
 <%@ page import="java.util.Date" %>
 <%@ page pageEncoding="UTF-8" %>
 
 
 <%--TODO: adapter les deux lignes suivante pour ne pas vérifier la valeur nulle--%>
-<% User user = (User) session.getAttribute("user") != null ? (User) session.getAttribute("user") : new User("toto", "toto@gmail.com", "totopassword", new Date(), User.Gender.MALE); %>
+<% User user = session.getAttribute("user") != null ? (User) session.getAttribute("user") : new User("toto", "toto@gmail.com", "totopassword", new Date(), User.Gender.MALE); %>
 <% ArrayList<Game> games = (ArrayList<Game>) request.getAttribute("games") != null ? (ArrayList<Game>) request.getAttribute("games") : new ArrayList<>() ; %>
 <div id="statisticsModal" class="modal-wrapper" style="display: none">
     <div class="modal">

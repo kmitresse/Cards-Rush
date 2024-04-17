@@ -1,4 +1,4 @@
-<%@ page import="uppa.project.pojo.User" %>
+<%@ page import="uppa.project.database.pojo.User" %>
 <%@ page pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.

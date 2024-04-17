@@ -3,6 +3,7 @@ package uppa.project.provider;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import uppa.project.database.dao.EntityManagerProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -5,10 +5,10 @@
              version="3.0">
 
   <persistence-unit name="prod">
-    <class>uppa.project.pojo.User</class>
-    <class>uppa.project.pojo.Game</class>
-    <class>uppa.project.pojo.Player</class>
-    <class>uppa.project.pojo.RecoveryPasswordToken</class>
+    <class>uppa.project.database.pojo.User</class>
+    <class>uppa.project.database.pojo.Game</class>
+    <class>uppa.project.database.pojo.Player</class>
+    <class>uppa.project.database.pojo.RecoveryPasswordToken</class>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_prod?useSSL=false&amp;allowPublicKeyRetrieval=true"/>
@@ -19,10 +19,10 @@
   </persistence-unit>
 
   <persistence-unit name="test">
-    <class>uppa.project.pojo.User</class>
-    <class>uppa.project.pojo.Game</class>
-    <class>uppa.project.pojo.Player</class>
-    <class>uppa.project.pojo.RecoveryPasswordToken</class>
+    <class>uppa.project.database.pojo.User</class>
+    <class>uppa.project.database.pojo.Game</class>
+    <class>uppa.project.database.pojo.Player</class>
+    <class>uppa.project.database.pojo.RecoveryPasswordToken</class>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_test?useSSL=false&amp;allowPublicKeyRetrieval=true"/>

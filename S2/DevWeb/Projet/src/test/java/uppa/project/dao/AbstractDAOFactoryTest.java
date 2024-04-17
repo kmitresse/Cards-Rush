@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Objects;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
-import uppa.project.provider.EntityManagerProvider;
+import uppa.project.database.dao.AbstractDAOFactory;
+import uppa.project.database.dao.PersistenceKind;
+import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
+import uppa.project.database.dao.EntityManagerProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
 class AbstractDAOFactoryTest {

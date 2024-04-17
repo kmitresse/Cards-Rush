@@ -8,4 +8,27 @@
       uppa.project.listener.SessionServletContextListener
     </listener-class>
   </listener>
+  
+  <filter>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>uppa.project.web.filter.AuthenticationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/main-menu</url-pattern>
+    <url-pattern>/profile</url-pattern>
+    <url-pattern>/game</url-pattern>
+    <url-pattern>/logout</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>AlreadyLoggedFilter</filter-name>
+    <filter-class>uppa.project.web.filter.AlreadyLoggedFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AlreadyLoggedFilter</filter-name>
+    <url-pattern>/login</url-pattern>
+    <url-pattern>/register</url-pattern>
+    <url-pattern>/forgotten-password</url-pattern>
+  </filter-mapping>
 </web-app>

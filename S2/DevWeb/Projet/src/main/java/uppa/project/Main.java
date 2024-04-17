@@ -1,12 +1,8 @@
 package uppa.project;
 
-import java.util.Calendar;
-import uppa.project.dao.DAO;
-import uppa.project.dao.DAOException;
-import uppa.project.dao.jpa.Game_JPA_DAO_Factory;
-import uppa.project.pojo.Card;
-import uppa.project.pojo.Deck;
-import uppa.project.pojo.User;
+import uppa.project.database.dao.DAOException;
+import uppa.project.database.pojo.Card;
+import uppa.project.database.pojo.Deck;
 
 public class Main {
 

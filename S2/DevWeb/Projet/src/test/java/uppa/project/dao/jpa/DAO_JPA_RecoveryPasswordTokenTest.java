@@ -8,11 +8,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uppa.project.dao.DAO;
-import uppa.project.dao.DAOException;
-import uppa.project.pojo.RecoveryPasswordToken;
-import uppa.project.pojo.User;
-import uppa.project.provider.EntityManagerProvider;
+import uppa.project.database.dao.DAO;
+import uppa.project.database.dao.DAOException;
+import uppa.project.database.dao.jpa.DAO_JPA_RecoveryPasswordToken;
+import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
+import uppa.project.database.pojo.RecoveryPasswordToken;
+import uppa.project.database.pojo.User;
+import uppa.project.database.dao.EntityManagerProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
 

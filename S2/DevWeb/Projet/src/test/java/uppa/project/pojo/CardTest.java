@@ -2,6 +2,7 @@ package uppa.project.pojo;
 
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
+import uppa.project.database.pojo.Card;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

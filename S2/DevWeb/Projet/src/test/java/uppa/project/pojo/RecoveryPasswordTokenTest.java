@@ -7,6 +7,8 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uppa.project.database.pojo.RecoveryPasswordToken;
+import uppa.project.database.pojo.User;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
