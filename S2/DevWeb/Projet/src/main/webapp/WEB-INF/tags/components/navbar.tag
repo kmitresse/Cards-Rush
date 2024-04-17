@@ -22,10 +22,10 @@
 
                     <%if (session.getAttribute("user") != null) {%>
 <%--                    TODO: Profil de l'utilisateur--%>
-                        <a href="${pageContext.request.contextPath}/profile" class="button is-primary"><strong>Profil</strong></a>
+                        <a href="${pageContext.request.contextPath}/profile" class="button is-primary has-text-white"><strong>Profil</strong></a>
                         <a href="${pageContext.request.contextPath}/logout" class="button is-danger is-light">Déconnexion</a>
                     <% } else {%>
-                        <a href="${pageContext.request.contextPath}/register" class="button is-primary"><strong>Inscription</strong></a>
+                        <a href="${pageContext.request.contextPath}/register" class="button is-primary has-text-white"><strong>Inscription</strong></a>
                         <a href="${pageContext.request.contextPath}/login" class="button is-light">Connexion</a>
                     <% } %>
                 </div>

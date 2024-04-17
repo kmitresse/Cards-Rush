@@ -6,7 +6,7 @@
 <layout:base>
     <jsp:attribute name="title">Menu principal</jsp:attribute>
     <jsp:body>
-        <div class="hero is-light is-fullheight-with-navbar">
+        <div class="hero is-primary is-fullheight-with-navbar">
             <div class="hero-body">
                 <div class="container">
                     <div class="columns is-centered">
@@ -16,7 +16,7 @@
 
                                 </jsp:attribute>
                                 <jsp:attribute name="card_content">
-<%--                                    <form:newGame/>--%>
+                                    <form:newGame/>
                                 </jsp:attribute>
                             </component:card>
                         </div>

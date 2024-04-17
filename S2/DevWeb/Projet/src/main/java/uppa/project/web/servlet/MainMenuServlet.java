@@ -28,10 +28,7 @@ public class MainMenuServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     User user = (User) request.getSession().getAttribute("user");
-//    if (user == null) {
-//      response.sendRedirect(request.getContextPath() + "/login");
-//      return;
-//    }
+
     request.setAttribute("current", "main-menu");
     manageNewGame(request, response, user);
     manageStatistics(request, response, user);

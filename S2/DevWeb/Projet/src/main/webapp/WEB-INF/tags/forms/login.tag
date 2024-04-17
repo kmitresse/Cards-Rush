@@ -11,7 +11,7 @@
     </div>
     <p class="content has-text-right"><a href="${pageContext.request.contextPath}/forgotten-password" class="link">Mot de passe oublié ?</a>
     </p>
-    <input type="submit" class="button is-primary is-fullwidth" value="Connexion">
+    <input type="submit" class="button is-primary has-text-white is-fullwidth" value="Connexion">
     <hr/>
     <p class="content has-text-centered"><a href="${pageContext.request.contextPath}/register">S'inscrire</a></p>
 

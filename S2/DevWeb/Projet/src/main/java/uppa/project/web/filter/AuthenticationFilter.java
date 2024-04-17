@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ public class AuthenticationFilter  implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
-    HttpSession session = httpRequest.getSession(false);
+    HttpSession session = httpRequest.getSession(true);
 
     // Vérifier si l'utilisateur est connecté en vérifiant la présence d'une session
     boolean isLoggedIn = (session != null && session.getAttribute("user") != null);

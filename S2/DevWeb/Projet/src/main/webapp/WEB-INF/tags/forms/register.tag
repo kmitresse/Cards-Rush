@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <input type="submit" class="button is-primary is-fullwidth" value="S'inscrire">
+    <input type="submit" class="button has-text-white is-primary is-fullwidth" value="S'inscrire">
     <hr/>
     <p class="content has-text-centered">Déjà inscrit ? <a href="${pageContext.request.contextPath}/login">Se connecter</a></p>
 </form>
