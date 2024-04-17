@@ -8,7 +8,7 @@
 
     <div class="field">
         <label class="label" for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="john.doe@mail.com" class="input is-fullwidth" required>
+        <input id="email" name="email" type="email" placeholder="johndoe@exemple.com" class="input is-fullwidth" required>
     </div>
 
     <div class="field">
