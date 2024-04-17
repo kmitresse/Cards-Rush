@@ -12,6 +12,10 @@
             <thead>
                 <tr>
                     <th>Utilisateur</th>
+                    <th>Nombre parties jouées</th>
+                    <th>Nombre de victoires</th>
+                    <th>Clics corrects</th>
+                    <th>Clics rapides</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -61,11 +65,19 @@
             const trElement = document.createElement('tr');
             const tdElement = [
                 document.createElement('td'),
+                document.createElement('td'),
+                document.createElement('td'),
+                document.createElement('td'),
+                document.createElement('td'),
                 document.createElement('td')
             ];
             const buttonElement = document.createElement('button');
 
             tdElement[0].textContent = user.username;
+            tdElement[1].textContent = user.nbPlayedGames;
+            tdElement[2].textContent = user.WinRate + '%';
+            tdElement[3].textContent = user.rightClickPercentRate + '%';
+            tdElement[4].textContent = user.rapidClickPercentRate + '%';
 
             // If it's not the current user, we can display the button
             if (user.id !== <%= user.getId() %>) {
@@ -75,9 +87,13 @@
                 // TODO Ajouter l'événement click
             }
 
-            tdElement[1].appendChild(buttonElement);
+            tdElement[5].appendChild(buttonElement);
             trElement.appendChild(tdElement[0]);
             trElement.appendChild(tdElement[1]);
+            trElement.appendChild(tdElement[2]);
+            trElement.appendChild(tdElement[3]);
+            trElement.appendChild(tdElement[4]);
+            trElement.appendChild(tdElement[5]);
 
             tbodyElement.appendChild(trElement);
         });

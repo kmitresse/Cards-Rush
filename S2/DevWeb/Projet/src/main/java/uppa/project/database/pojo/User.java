@@ -19,6 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
@@ -65,6 +66,30 @@ public class User implements Serializable {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private ArrayList<RecoveryPasswordToken> recoveryPasswordTokens;
 
+  @Transient
+  private int nbPlayedGame;
+
+  @Transient
+  private int nbWin;
+
+  @Transient
+  private double winRate;
+
+  @Transient
+  private int nbClicks;
+
+  @Transient
+  private int nbRightClicks;
+
+  @Transient
+  private double rightClickPercentRate;
+
+  @Transient
+  private int nbRapidClicks;
+
+  @Transient
+  private double rapidClickPercentRate;
+
   /**
    * Constructeur par défaut
    */
@@ -90,6 +115,15 @@ public class User implements Serializable {
     this.birth = birth;
     this.gender = gender;
     this.playedGames = new ArrayList<>();
+    this.recoveryPasswordTokens = new ArrayList<>();
+    this.nbPlayedGame = 0;
+    this.nbWin = 0;
+    this.winRate = 0;
+    this.nbClicks = 0;
+    this.nbRightClicks = 0;
+    this.rightClickPercentRate = 0;
+    this.nbRapidClicks = 0;
+    this.rapidClickPercentRate = 0;
   }
 
   /**
@@ -102,7 +136,7 @@ public class User implements Serializable {
    * @param birth    la date de naissance
    * @param gender   le genre
    */
-  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames) {
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames, ArrayList<RecoveryPasswordToken> recoveryPasswordToken) {
     if (!isValidBirthDate(birth)){
       throw new IllegalArgumentException("La date de naissance n'est pas valide");
     }
@@ -113,6 +147,15 @@ public class User implements Serializable {
     this.birth = birth;
     this.gender = gender;
     this.playedGames = playedGames;
+    this.recoveryPasswordTokens = recoveryPasswordToken;
+    this.nbPlayedGame = playedGames.size();
+    this.nbWin = getNbWin();
+    this.winRate = getWinRate();
+    this.nbClicks = getNbClicks();
+    this.nbRightClicks = getNbRightClicks();
+    this.rightClickPercentRate = getRightClickPercentRate();
+    this.nbRapidClicks = getNbRapidClicks();
+    this.rapidClickPercentRate = getRapidClickPercentRate();
   }
 
   /**
