@@ -10,15 +10,3 @@ services:
       - "3306:3306"
     expose:
       - "3306"
-
-  maildev:
-    image: maildev/maildev
-    environment:
-      - TZ=Asia/Shanghai
-    ports:
-      - "1080:1080"
-      - "1025:1025"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1m"
