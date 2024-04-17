@@ -5,7 +5,7 @@
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 
 <!DOCTYPE html>
-<html>
+<html class="has-navbar-fixed-top">
 <head>
     <title><jsp:invoke fragment="title"/></title>
 
