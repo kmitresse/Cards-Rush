@@ -31,7 +31,7 @@
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label" for="nbRounds">Nombre de manche</label>
+                <label class="label" for="nbRounds">Nombre de manches</label>
                 <input class="input" type="number" id="nbRounds" name="nbRounds" value="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>" min="<%= Deck.NB_COLORS_MIN * Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_COLORS_MAX * Deck.NB_VALUES_PER_COLOR_MAX %>">
             </div>
         </div>
@@ -50,7 +50,7 @@
     <div class="columns">
         <div class="column">
             <div class="field">
-                <label class="label" for="nbValues">Nombre de valeur <span id="tootltip-values"> <%= Deck.NB_VALUES_PER_COLOR_MAX %></span> </label>
+                <label class="label" for="nbValues">Nombre de valeurs <span id="tootltip-values"> <%= Deck.NB_VALUES_PER_COLOR_MAX %></span> </label>
                 <div class="range-field">
                     <div class="value left"><%= Deck.NB_VALUES_PER_COLOR_MIN %></div>
                     <input type="range" id="nbValues" name="nbValues" value="<%= Deck.NB_VALUES_PER_COLOR_MAX %>" min="<%= Deck.NB_VALUES_PER_COLOR_MIN %>" max="<%= Deck.NB_VALUES_PER_COLOR_MAX %>">
@@ -60,7 +60,7 @@
         </div>
         <div class="column">
             <div class="field">
-                <label class="label" for="nbColors">Nombre de couleur <span id="tootltip-colors"> <%= Deck.NB_COLORS_MAX %></span> </label>
+                <label class="label" for="nbColors">Nombre de couleurs <span id="tootltip-colors"> <%= Deck.NB_COLORS_MAX %></span> </label>
                 <div class="range-field">
                     <div class="value left"><%= Deck.NB_COLORS_MIN %></div>
                     <input type="range" id="nbColors" name="nbColors" value="<%= Deck.NB_COLORS_MAX %>" min="<%= Deck.NB_COLORS_MIN %>" max="<%= Deck.NB_COLORS_MAX %>">

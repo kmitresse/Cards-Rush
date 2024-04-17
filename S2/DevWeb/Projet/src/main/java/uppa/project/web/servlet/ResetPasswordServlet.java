@@ -26,11 +26,11 @@ public class ResetPasswordServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
       if (token == null) {
-        request.getRequestDispatcher("/WEB-INF/pages/invalid-token-password.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/errors/invalid-token-password.jsp").forward(request, response);
         return;
       }
       if (token.getExpirationDate().compareTo(new java.util.Date()) < 0){
-        request.getRequestDispatcher("/WEB-INF/pages/expired-token-password.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/errors/expired-token-password.jsp").forward(request, response);
         return;
       }
       request.setAttribute("current", "reset-password");

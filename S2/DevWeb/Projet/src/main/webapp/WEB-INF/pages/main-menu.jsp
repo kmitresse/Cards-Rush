@@ -20,7 +20,7 @@
                                 </jsp:attribute>
                             </component:card>
                         </div>
-                        <div class="column is-5-tablet is-5-desktop is-5-widescreen">
+                        <div class="column is-6-tablet is-6-desktop is-6-widescreen">
                             <component:connectedUserList/>
                         </div>
                     </div>

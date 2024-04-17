@@ -12,10 +12,10 @@
             <thead>
                 <tr>
                     <th>Utilisateur</th>
-                    <th>Nombre parties jouées</th>
-                    <th>Nombre de victoires</th>
-                    <th>Clics corrects</th>
-                    <th>Clics rapides</th>
+                    <th>Nombre de parties</th>
+                    <th>Victoires (%)</th>
+                    <th>Clics corrects (%)</th>
+                    <th>Clics rapides (%)</th>
                     <th>Action</th>
                 </tr>
             </thead>
