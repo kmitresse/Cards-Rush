@@ -1,4 +1,6 @@
-<%@tag description="Base page layout" pageEncoding="UTF-8" %>
+<%@tag description="layout/base" pageEncoding="UTF-8" %>
+<%@tag import="uppa.project.Global" %>
+
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="head" fragment="true" %>
 
@@ -7,7 +9,7 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
 <head>
-    <title><jsp:invoke fragment="title"/></title>
+    <title>${Global.APP_NAME} | <jsp:invoke fragment="title"/></title>
     <link rel="icon" type="image/svg" href="${pageContext.request.contextPath}/static/icon.svg">
 
     <meta charset="UTF-8">

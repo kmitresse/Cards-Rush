@@ -4,7 +4,7 @@
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
 <layout:base>
-    <jsp:attribute name="title">CardRush - Mot de passe oublié</jsp:attribute>
+    <jsp:attribute name="title">Mot de passe oublié</jsp:attribute>
     <jsp:body>
         <div class="hero is-light is-fullheight-with-navbar">
             <div class="hero-body">

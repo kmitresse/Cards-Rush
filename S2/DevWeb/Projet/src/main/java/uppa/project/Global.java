@@ -2,6 +2,7 @@ package uppa.project;
 
 public final class Global {
 
+  public static final String APP_NAME = "Cards Rush";
   public static final String PERSISTENCE_UNIT_NAME = "prod";
   public static final String PERSISTENCE_UNIT_NAME_TEST = "test";
   public static final String TOMCAT_PORT = "8088";

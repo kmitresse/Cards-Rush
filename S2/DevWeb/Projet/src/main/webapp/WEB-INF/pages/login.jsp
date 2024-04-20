@@ -4,7 +4,7 @@
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
 <layout:base>
-    <jsp:attribute name="title">Cards Rush - Connexion</jsp:attribute>
+    <jsp:attribute name="title">Connexion</jsp:attribute>
     <jsp:body>
         <div class="hero is-primary is-fullheight-with-navbar">
             <div class="hero-body">

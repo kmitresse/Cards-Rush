@@ -2,7 +2,7 @@
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 <layout:base>
-    <jsp:attribute name="title">Cards Rush - Récuperation mot de passe</jsp:attribute>
+    <jsp:attribute name="title">Récuperation mot de passe</jsp:attribute>
     <jsp:body>
         <div class="hero is-light is-fullheight-with-navbar">
             <div class="hero-body">
