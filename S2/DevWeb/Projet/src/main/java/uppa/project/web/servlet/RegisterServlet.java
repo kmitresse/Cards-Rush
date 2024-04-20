@@ -51,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
         "Register success"
       );
     } else {
-      httpResponse = new HttpResponse(HttpResponseCode.UNAUTHORIZED, registerBean.getErrorMessage());
+      httpResponse = registerBean.getError();
     }
 
     out.println(gson.toJson(httpResponse));

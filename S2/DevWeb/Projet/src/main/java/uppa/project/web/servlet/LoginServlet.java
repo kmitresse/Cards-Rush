@@ -46,10 +46,8 @@ public class LoginServlet extends HttpServlet {
 
       httpResponse = new HttpResponse(HttpResponseCode.OK, "Login success");
     } else {
-      httpResponse = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "<strong>Erreur de connexion:</strong> Le nom d'utilisateur ou le " +
-        "mot de passe est incorrect.");
+      httpResponse = loginBean.getError();
     }
-
     out.println(gson.toJson(httpResponse));
     out.flush();
   }
