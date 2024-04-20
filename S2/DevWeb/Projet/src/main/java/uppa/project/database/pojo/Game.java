@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -60,7 +61,7 @@ public class Game implements Serializable {
   private int nbValuesPerColor;
 
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private ArrayList<Player> players;
+  private List<Player> players;
 
   @Transient
   private Deck deck;
@@ -234,7 +235,7 @@ public class Game implements Serializable {
   /**
    * @return les joueurs de la partie
    */
-  public ArrayList<Player> getPlayers() {
+  public List<Player> getPlayers() {
     return players;
   }
 

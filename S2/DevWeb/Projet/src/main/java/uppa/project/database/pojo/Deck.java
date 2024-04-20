@@ -8,6 +8,7 @@ package uppa.project.database.pojo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Représentation d'un paquet de cartes
@@ -29,7 +30,7 @@ public class Deck {
    * Ensemble de cartes du paquet
    * @see Card
    */
-  private ArrayList<Card> cards;
+  private final List<Card> cards;
 
   /**
    * Constructeur par défaut
@@ -69,7 +70,7 @@ public class Deck {
   /**
    * @return l'ensemble de cartes du paquet
    */
-  public ArrayList<Card> getCards() {
+  public List<Card> getCards() {
     return cards;
   }
 

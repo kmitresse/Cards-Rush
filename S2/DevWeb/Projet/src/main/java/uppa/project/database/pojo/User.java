@@ -26,6 +26,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -61,10 +62,10 @@ public class User implements Serializable {
   private Gender gender;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private ArrayList<Player> playedGames;
+  private List<Player> playedGames;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private ArrayList<RecoveryPasswordToken> recoveryPasswordTokens;
+  private List<RecoveryPasswordToken> recoveryPasswordTokens;
 
   @Transient
   private int nbPlayedGame;
@@ -310,12 +311,12 @@ public class User implements Serializable {
    *
    * @return  la liste des parties jouées
    */
-  public ArrayList<Player> getPlayedGames() {
+  public List<Player> getPlayedGames() {
     return playedGames;
   }
 
   /**
-   * ajoute un partie dans la liste des parties jouées
+   * Ajoute une partie dans la liste des parties jouées
    *
    * @param player la nouvelle partie jouée
    */
