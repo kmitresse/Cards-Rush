@@ -1,32 +1,26 @@
-<%@ tag import="com.google.gson.Gson" %>
-<%@ tag import="uppa.project.database.pojo.User" %>
-<%@tag description="component/connectedUserList" pageEncoding="UTF-8" %>
+<%@tag description="component/connected-user-list" pageEncoding="UTF-8" %>
+
+<%@tag import="com.google.gson.Gson" %>
+<%@tag import="uppa.project.database.pojo.User" %>
+
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 
-<component:card>
-    <jsp:attribute name="card_head">
-        <div class="card-header-title">Utilisateurs connectés</div>
-    </jsp:attribute>
-    <jsp:attribute name="card_content">
-        <table id="connectedUserList" class="table is-fullwidth">
-            <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Nombre de parties</th>
-                    <th>Victoires (%)</th>
-                    <th>Clics corrects (%)</th>
-                    <th>Clics rapides (%)</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </jsp:attribute>
-</component:card>
+<table id="connected-user-list" class="table is-fullwidth">
+    <thead>
+    <tr>
+        <th>Utilisateur</th>
+        <th>Nombre de parties</th>
+        <th>Victoires (%)</th>
+        <th>Clics corrects (%)</th>
+        <th>Clics rapides (%)</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
 <script defer type="module">
-    const tbodyElement = document.querySelector('#connectedUserList tbody');
+    const tbodyElement = document.querySelector('#connected-user-list tbody');
 
     // effacer ce qu'il y a apres /project_war_exploded
     const url = new URL(window.location.href);
@@ -57,7 +51,7 @@
     }
 
     websocket.onclose = () => {}
-    websocket.onerror = (error) => {}
+    websocket.onerror = (error) => console.error(error);
 
     function updateUserList(users) {
         tbodyElement.innerHTML = '';

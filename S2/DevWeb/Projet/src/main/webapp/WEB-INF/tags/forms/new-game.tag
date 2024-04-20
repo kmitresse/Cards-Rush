@@ -1,8 +1,8 @@
 <%@ tag import="uppa.project.database.pojo.Deck" %>
 <%@ tag import="uppa.project.database.pojo.Game" %>
-<%@tag description="form/newGame" pageEncoding="UTF-8" %>
+<%@tag description="form/new-game" pageEncoding="UTF-8" %>
 
-<form id="newGame-form" action="${pageContext.request.contextPath}/main-menu" method="post">
+<form id="new-game-form" action="${pageContext.request.contextPath}/main-menu" method="post">
 
     <h2 class="title is-5">Paramètres Généraux</h2>
 
@@ -76,57 +76,6 @@
         display: none;
     }
 
-    .notification {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        margin: 1em !important;
-
-        transform: translateY(100%);
-        opacity: 0;
-        animation: toast 5s ease forwards;
-    }
-
-    @keyframes toast {
-        0% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-        5% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        95% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-    }
-
-    @keyframes shake {
-        0%, 100% {
-            transform: translateX(0);
-        }
-        10%, 30%, 50%, 70%, 90% {
-            transform: translateX(-5px);
-        }
-        20%, 40%, 60%, 80% {
-            transform: translateX(5px);
-        }
-    }
-
-    .range-field {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        position: relative;
-        gap: 5px;
-    }
     .range-field .value {
 
         font-size: 18px;
@@ -134,10 +83,10 @@
         font-weight: 600;
     }
     .left {
-        left: 0px;
+        left: 0;
     }
     .right {
-        right: 0px;
+        right: 0;
     }
     .field input {
         flex: 1 1 auto;
