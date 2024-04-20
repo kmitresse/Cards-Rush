@@ -3,26 +3,17 @@
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
-<%@attribute name="message" fragment="true" %>
+<%@attribute name="message"%>
 
-<layout:base>
-    <jsp:attribute name="title">Cards Rush - Erreur</jsp:attribute>
-    <jsp:body>
-        <div class="hero is-primary is-fullheight-with-navbar">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="columns is-centered">
-                        <div class="column is-5-tablet is-5-desktop is-5-widescreen">
-                            <div class="box">
-                                <h1 class="title has-text-centered">
-                                    <jsp:invoke fragment="message"/>
-                                </h1>
-                                <jsp:doBody/>
-                            </div>
-                        </div>
-                    </div>
+<layout:base title="Erreur">
+    <component:hero>
+        <div class="columns is-centered">
+            <div class="column is-5-tablet is-5-desktop is-5-widescreen">
+                <div class="box">
+                    <h1 class="title has-text-centered">${message}</h1>
+                    <jsp:doBody/>
                 </div>
             </div>
         </div>
-    </jsp:body>
+    </component:hero>
 </layout:base>

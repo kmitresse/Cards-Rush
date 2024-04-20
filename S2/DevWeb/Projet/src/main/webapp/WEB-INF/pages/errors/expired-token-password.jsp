@@ -3,9 +3,8 @@
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
-<layout:error>
-    <jsp:attribute name="message">Token expiré</jsp:attribute>
-    <jsp:body>
-        <a href="login" class="button is-primary is-fullwidth has-text-white">Retour à la page de connexion</a>
-    </jsp:body>
+<layout:error message="Token expiré">
+    <a href="login" class="button is-primary is-fullwidth has-text-white">
+        Retour à la page de connexion
+    </a>
 </layout:error>

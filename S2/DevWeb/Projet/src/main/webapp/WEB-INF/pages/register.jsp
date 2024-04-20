@@ -3,22 +3,19 @@
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
-<layout:base>
-  <jsp:attribute name="title">Inscription</jsp:attribute>
-  <jsp:body>
-    <div class="hero is-light is-fullheight-with-navbar">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-centered">
+<layout:form title="Inscription">
+    <component:hero>
+        <div class="columns is-centered">
             <div class="column is-5-tablet is-5-desktop is-5-widescreen">
-              <div class="box">
-                <h1 class="title has-text-centered">S'inscrire</h1>
-                <form:register/>
-              </div>
+                <div class="box">
+                    <h1 class="title has-text-centered">S'inscrire</h1>
+                    <form:register/>
+                    <hr/>
+                    <p class="content has-text-centered">
+                        Déjà inscrit ? <a href="${pageContext.request.contextPath}/login">Se connecter</a>
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </jsp:body>
-</layout:base>
+    </component:hero>
+</layout:form>
