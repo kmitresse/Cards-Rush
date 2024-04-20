@@ -22,10 +22,20 @@
                 User user = (User) session.getAttribute("user");
             %>
             <div class="navbar-item">
-                <a href="${pageContext.request.contextPath}/profile" class="is-fullwidth button is-light"><%= user.getUsername() %></a>
+                <a href="${pageContext.request.contextPath}/profile" class="is-fullwidth button is-light">
+                    <span class="icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span><%= user.getUsername() %></span>
+                </a>
             </div>
             <div class="navbar-item">
-                <a href="${pageContext.request.contextPath}/logout" class="is-fullwidth button is-light is-danger">Déconnexion</a>
+                <a href="${pageContext.request.contextPath}/logout" class="is-fullwidth button is-light is-danger">
+                    <span class="icon">
+                        <i class="fa-solid fa-door-open"></i>
+                    </span>
+                    <span>Déconnexion</span>
+                </a>
             </div>
 
             <% } else {%>
@@ -33,7 +43,12 @@
                 <a href="${pageContext.request.contextPath}/register" class="is-fullwidth button is-primary has-text-white">Inscription</a>
             </div>
             <div class="navbar-item">
-                <a href="${pageContext.request.contextPath}/login" class="is-fullwidth button is-light">Connexion</a>
+                <a href="${pageContext.request.contextPath}/login" class="is-fullwidth button is-light">
+                    <span class="icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </span>
+                    <span>Connexion</span>
+                </a>
             </div>
             <% } %>
         </div>

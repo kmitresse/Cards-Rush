@@ -1,88 +1,47 @@
 <%@tag description="form/login" pageEncoding="UTF-8" %>
 
 <form id="login-form" action="${pageContext.request.contextPath}/login" method="post">
-    <div class="field"> <!-- Field Username -->
-        <label class="label" for="username">Nom d'utilisateur</label>
-        <input id="username" placeholder="John Doe" class="input is-fullwidth" required/>
-    </div>
-    <div class="field"> <!-- Field Password -->
-        <label class="label" for="password">Mot de passe</label>
-        <input id="password" class="input is-fullwidth" type="password" required/>
-    </div>
-    <p class="content has-text-right"><a href="${pageContext.request.contextPath}/forgotten-password" class="link">Mot de passe oublié ?</a>
-    </p>
-    <input type="submit" class="button is-primary has-text-white is-fullwidth" value="Connexion">
-    <hr/>
-    <p class="content has-text-centered"><a href="${pageContext.request.contextPath}/register">S'inscrire</a></p>
 
+    <!-- Field Username -->
+    <div class="field">
+        <label class="label" for="username">Nom d'utilisateur</label>
+        <div class="control has-icons-left">
+            <input id="username" name="username" placeholder="John Doe" type="text" class="input is-fullwidth" required/>
+            <span class="icon is-left">
+                <i class="fas fa-user"></i>
+            </span>
+        </div>
+    </div>
+
+    <!-- Field Password -->
+    <div class="field">
+        <label class="label" for="password">Mot de passe</label>
+        <div class="control has-icons-left">
+            <input id="password" name="password" placeholder="Mot de passe" class="input is-fullwidth" type="password" required/>
+            <span class="icon is-left">
+                <i class="fas fa-lock"></i>
+            </span>
+        </div>
+    </div>
+
+    <p class="content has-text-right">
+        <a href="${pageContext.request.contextPath}/forgotten-password" class="link">Mot de passe oublié ?</a>
+    </p>
+
+    <input type="submit" class="button is-primary has-text-white is-fullwidth" value="Connexion">
 </form>
 
-<style>
-    .notification {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        margin: 1em !important;
-
-        transform: translateY(100%);
-        opacity: 0;
-        animation: toast 5s ease forwards;
-    }
-
-    @keyframes toast {
-        0% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-        5% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        95% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-    }
-
-    @keyframes shake {
-        0%, 100% {
-            transform: translateX(0);
-        }
-        10%, 30%, 50%, 70%, 90% {
-            transform: translateX(-5px);
-        }
-        20%, 40%, 60%, 80% {
-            transform: translateX(5px);
-        }
-    }
-</style>
-
 <script defer type="module">
-    const loginForm = document.querySelector("form#login-form");
+    const form = document.querySelector("form#login-form");
+    const inputs = form.querySelectorAll("input[type='text'], input[type='password']");
 
-    // Form fields
-    const usernameInput = document.querySelector("input#username");
-    const passwordInput = document.querySelector("input#password");
-
-    // Add event listener to the form submission
-    loginForm.addEventListener("submit", onSubmit)
-
-    /**
-     * Handle the form submission with Ajax request
-     * @param event {Event} - Event of the form submission
-     */
-    function onSubmit(event) {
+    form.addEventListener("submit", event => {
         event.preventDefault();
 
-        const {action, method} = loginForm;
+        const {action, method} = form;
 
         const url = new URL(action);
-        url.searchParams.append("username", usernameInput.value);
-        url.searchParams.append("password", passwordInput.value);
+        inputs.forEach(input => url.searchParams.append(input.getAttribute("name"), input.value));
 
         fetch(url, {headers: {"Content-Type": "application/json"}, method})
             .then(res => res.json())
@@ -90,34 +49,42 @@
                 if (data.code !== 200) throw new Error(data.message);
             })
             .then(() => window.location.href = "${pageContext.request.contextPath}/main-menu")
-            .catch(onError);
-    }
+            .catch((error) => {
+                console.log(error)
 
-    /**
-     * Handle the error of the form submission
-     * @param error {Error} - Error of the form submission
-     */
-    function onError(error) {
-        console.error("Error:", error)
+                // Input animation
+                inputs.forEach(input => {
+                    input.classList.add("is-danger");
+                    input.style.animation = "shake 0.5s ease-in-out"
+                });
 
-        // Input fields in red
-        usernameInput.classList.add("is-danger");
-        passwordInput.classList.add("is-danger");
+                // Notification
+                const notification = document.createElement("div");
+                notification.classList.add("notification", "is-danger");
 
-        // Shake the inputs
-        usernameInput.style.animation = "shake 0.5s ease-in-out";
-        passwordInput.style.animation = "shake 0.5s ease-in-out";
+                const notificationTitle = document.createElement("p");
+                notificationTitle.classList.add("title", "is-6");
+                notificationTitle.innerHTML = "Erreur";
 
-        // Notification
-        const notification = document.createElement("div");
-        notification.classList.add("notification", "is-danger");
-        notification.innerHTML = error.message;
-        document.body.appendChild(notification);
-        setTimeout(() => notification.remove(), 5010);
-    }
+                const notificationIcon = document.createElement("span");
+                notificationIcon.classList.add("icon");
+                notificationIcon.innerHTML = "<i class='fas fa-exclamation-triangle'></i>";
 
-    // Remove the shake animation at the end of animation
-    usernameInput.addEventListener("animationend", () => usernameInput.style.animation = "");
-    passwordInput.addEventListener("animationend", () => passwordInput.style.animation = "");
+                const notificationMessage = document.createElement("p");
+                notificationMessage.classList.add("subtitle", "is-6");
+                notificationMessage.innerHTML = error.message;
+
+                notificationTitle.appendChild(notificationIcon);
+                notification.appendChild(notificationTitle);
+                notification.appendChild(notificationMessage);
+                document.body.appendChild(notification);
+
+                // Remove notification and animation after 5s
+                setTimeout(() => notification.remove(), 5010);
+            });
+    });
+
+    // On animation end, remove class and animation
+    inputs.forEach(input => input.addEventListener("animationend", () => input.style.animation = ""));
 </script>
 

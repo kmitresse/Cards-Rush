@@ -3,22 +3,34 @@
 <form id="register-form" action="${pageContext.request.contextPath}/register" method="post">
     <div class="field">
         <label class="label" for="username">Nom d'utilisateur</label>
-        <input id="username" name="username" placeholder="John Doe" type="text" class="input is-fullwidth" required>
+        <div class="control has-icons-left">
+            <input id="username" name="username" placeholder="John Doe" type="text" class="input is-fullwidth" required>
+            <span class="icon is-left"><i class="fas fa-user"></i></span>
+        </div>
     </div>
 
     <div class="field">
         <label class="label" for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="johndoe@exemple.com" class="input is-fullwidth" required>
+        <div class="control has-icons-left">
+            <input id="email" name="email" type="email" placeholder="johndoe@exemple.com" class="input is-fullwidth" required>
+            <span class="icon is-left"><i class="fas fa-envelope"></i></span>
+        </div>
     </div>
 
     <div class="field">
         <label class="label" for="password">Mot de passe</label>
-        <input id="password" name="password" type="password" class="input is-fullwidth" required>
+        <div class="control has-icons-left">
+            <input id="password" name="password" placeholder="Mot de passe" type="password" class="input is-fullwidth" required>
+            <span class="icon is-left"><i class="fas fa-lock"></i></span>
+        </div>
     </div>
 
     <div class="field">
         <label class="label" for="repassword">Confirmez le mot de passe</label>
-        <input id="repassword" name="repassword" type="password" class="input is-fullwidth" required>
+        <div class="control has-icons-left">
+            <input id="repassword" name="repassword" placeholder="Répétez le mot de passe" type="password" class="input is-fullwidth" required>
+            <span class="icon is-left"><i class="fas fa-lock"></i></span>
+        </div>
     </div>
 
     <div class="field">
@@ -28,65 +40,27 @@
 
     <div class="field">
         <label class="label" for="gender">Genre</label>
-        <div class="select is-fullwidth">
-            <select name="gender" id="gender" required>
-                <option selected value="">--Choisissez une option--</option>
-                <option value="MALE">Homme</option>
-                <option value="FEMALE">Femme</option>
-                <option value="OTHER">Autre</option>
-            </select>
+        <div class="control has-icons-left">
+            <div class="select is-fullwidth">
+                <select name="gender" id="gender" required>
+                    <option selected value="">- Choisissez une option -</option>
+                    <option value="MALE">Homme</option>
+                    <option value="FEMALE">Femme</option>
+                    <option value="OTHER">Autre</option>
+                </select>
+            </div>
+            <span class="icon is-left"><i class="fa-solid fa-venus-mars"></i></span>
         </div>
     </div>
 
     <input type="submit" class="button has-text-white is-primary is-fullwidth" value="S'inscrire">
-    <hr/>
-    <p class="content has-text-centered">Déjà inscrit ? <a href="${pageContext.request.contextPath}/login">Se connecter</a></p>
 </form>
-
-<style>
-    .notification {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        margin: 1em !important;
-        max-width: 40em;
-
-        transform: translateY(100%);
-        opacity: 0;
-        animation: toast 5s ease forwards;
-    }
-
-    @keyframes toast {
-        0% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-        5% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        95% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(100%);
-        }
-    }
-</style>
 
 <script defer type="module">
     const registerForm = document.querySelector("form#register-form");
 
     // Form fields
-    const usernameInput = document.querySelector("input#username");
-    const emailInput = document.querySelector("input#email");
-    const passwordInput = document.querySelector("input#password");
-    const repasswordInput = document.querySelector("input#repassword");
-    const birthInput = document.querySelector("input#birth");
-    const genderInput = document.querySelector("select#gender");
-    const submitButton = document.querySelector("input[type=submit]");
+    const inputs = registerForm.querySelectorAll("input, select");
 
     // Add event listener to the form submission
     registerForm.addEventListener("submit", onSubmit)
@@ -98,8 +72,11 @@
     function onSubmit(event) {
         event.preventDefault();
 
+        const password = registerForm.querySelector("input[name='password']");
+        const repassword = registerForm.querySelector("input[name='repassword']");
+
         // Check if the password and the confirmation password are the same
-        if (passwordInput.value !== repasswordInput.value) {
+        if (password.value !== repassword.value) {
             onError(new Error("Les mots de passe ne correspondent pas"));
             return;
         }
@@ -107,13 +84,8 @@
         const {action, method} = registerForm;
 
         const url = new URL(action);
-        url.searchParams.append("username", usernameInput.value);
-        url.searchParams.append("email", emailInput.value);
-        url.searchParams.append("password", passwordInput.value);
-        url.searchParams.append("birth", birthInput.value);
-        url.searchParams.append("gender", genderInput.value);
+        inputs.forEach(input => url.searchParams.append(input.name, input.value));
 
-        submitButton.classList.add("is-loading");
         fetch(url, {headers: {"Content-Type": "application/json"}, method})
             .then(res => res.json())
             .then(data => {
@@ -121,7 +93,6 @@
             })
             .then(() => window.location.href = "${pageContext.request.contextPath}/login")
             .catch(onError)
-            .finally(() => submitButton.classList.remove("is-loading"));
     }
 
     /**
@@ -132,18 +103,29 @@
         console.error("Error:", error)
 
         // Input fields in red
-        usernameInput.classList.add("is-danger");
-        emailInput.classList.add("is-danger");
-        passwordInput.classList.add("is-danger");
-        repasswordInput.classList.add("is-danger");
-        birthInput.classList.add("is-danger");
-        genderInput.classList.add("is-danger");
+        inputs.forEach(input => input.classList.add("is-danger"));
 
         // Notification
         const notification = document.createElement("div");
         notification.classList.add("notification", "is-danger");
-        notification.innerHTML = error.message;
+
+        const notificationTitle = document.createElement("p");
+        notificationTitle.classList.add("title", "is-6");
+        notificationTitle.innerHTML = "Erreur";
+
+        const notificationIcon = document.createElement("span");
+        notificationIcon.classList.add("icon");
+        notificationIcon.innerHTML = "<i class='fas fa-exclamation-triangle'></i>";
+
+        const notificationMessage = document.createElement("p");
+        notificationMessage.classList.add("subtitle", "is-6");
+        notificationMessage.innerHTML = error.message;
+
+        notificationTitle.appendChild(notificationIcon);
+        notification.appendChild(notificationTitle);
+        notification.appendChild(notificationMessage);
         document.body.appendChild(notification);
+
         setTimeout(() => notification.remove(), 5010);
     }
 </script>
