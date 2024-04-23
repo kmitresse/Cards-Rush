@@ -3,9 +3,21 @@
 
 <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
+        <% if (session.getAttribute("user") != null) { %>
+
+        <a class="navbar-item" href="${pageContext.request.contextPath}/lobby">
+            <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260">
+        </a>
+
+        <% } else { %>
+
         <a class="navbar-item" href="${pageContext.request.contextPath}/">
             <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260">
         </a>
+
+        <% } %>
+
+
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
             <span aria-hidden="true"></span>
