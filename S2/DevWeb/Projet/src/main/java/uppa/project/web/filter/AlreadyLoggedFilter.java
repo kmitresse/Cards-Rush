@@ -25,7 +25,7 @@ public class AlreadyLoggedFilter implements Filter {
       chain.doFilter(request, response);
     } else {
       // Sinon, rediriger vers la page du menu principal
-      httpResponse.sendRedirect(httpRequest.getContextPath() + "/main-menu");
+      httpResponse.sendRedirect(httpRequest.getContextPath() + "/lobby");
     }
   }
 }
