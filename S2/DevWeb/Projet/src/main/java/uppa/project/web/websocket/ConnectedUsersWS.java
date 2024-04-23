@@ -16,7 +16,7 @@ import uppa.project.json.websocket.Message;
 @ServerEndpoint(value = "/ws/connected-users")
 public class ConnectedUsersWS {
 
-  private static final HashMap<Session, User> connections = new HashMap<>();
+  public static final HashMap<Session, User> connections = new HashMap<>();
 
   @OnOpen
   public void onOpen(Session session) {}
