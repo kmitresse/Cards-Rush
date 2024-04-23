@@ -5,45 +5,50 @@ import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
-import jakarta.websocket.RemoteEndpoint;
 import jakarta.websocket.Session;
+import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import uppa.project.database.dao.DAO;
+import uppa.project.database.dao.DAOException;
+import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.User;
 import uppa.project.json.websocket.Message;
 
-@ServerEndpoint(value = "/ws/connected-users")
+@ServerEndpoint(value = "/ws/users/{user_id}")
 public class ConnectedUsersWS {
 
-  public static final HashMap<Session, User> connections = new HashMap<>();
+  public static final HashMap<Session, User> users = new HashMap<>();
+  private static final Gson gson = new Gson();
 
   @OnOpen
-  public void onOpen(Session session) {}
+  public void onOpen(Session session, @PathParam("user_id") String userId) throws DAOException {
+    Message message;
+    final DAO<User> userDAO = new Game_JPA_DAO_Factory().getDAOUser();
 
-  private void broadcastConnectedUsers() {
-    Gson gson = new Gson();
-    User[] connectedUsers = connections.values().toArray(new User[0]);
+    int id = Integer.parseInt(userId);
+    User user = userDAO.findById(id);
 
-    Message websocketObject = new Message("userList", gson.toJson(connectedUsers));
-    String message = gson.toJson(websocketObject);
+    // Send the new user to all connected users
+    message = new Message("addUser", gson.toJson(new SimpleUser(user)));
+    broadcast(message.toJson());
 
-    for (Session session : connections.keySet()) {
-      RemoteEndpoint.Basic remote = session.getBasicRemote();
-      try {
-        remote.sendText(message);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+    // Send all connected users to the new user
+    users.put(session, user);
+    ArrayList<SimpleUser> connectedUsers = new ArrayList<>();
+    for (User u : users.values()) connectedUsers.add(new SimpleUser(u));
+    message = new Message("init", gson.toJson(connectedUsers));
+    session.getAsyncRemote().sendText(message.toJson());
   }
 
   @OnClose
   public void onClose(Session session) {
-    connections.remove(session);
+    users.remove(session);
 
-    // Update connected users list
-    broadcastConnectedUsers();
+    Message message = new Message("removeUser", gson.toJson(new SimpleUser(users.get(session))));
+    broadcast(message.toJson());
   }
 
   @OnError
@@ -53,13 +58,26 @@ public class ConnectedUsersWS {
 
   @OnMessage
   public void onMessage(String message, Session session) {
-    Gson gson = new Gson();
-    Message websocketMessage = gson.fromJson(message, Message.class);
+    // Do nothing
+  }
 
-    if (websocketMessage.getType().equals("linkUserSession")) {
-      User user = gson.fromJson(websocketMessage.getData(), User.class);
-      connections.put(session, user);
-      broadcastConnectedUsers();
+  private static void broadcast(String message) {
+    for (Session session : users.keySet()) {
+      try {
+        session.getBasicRemote().sendText(message);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private static class SimpleUser {
+    public int id;
+    public String username;
+
+    public SimpleUser(User user) {
+      this.id = user.getId().intValue();
+      this.username = user.getUsername();
     }
   }
 }

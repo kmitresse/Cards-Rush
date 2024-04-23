@@ -1,95 +1,63 @@
+<jsp:useBean id="user" scope="session" type="uppa.project.database.pojo.User"/>
 <%@tag description="component/connected-user-list" pageEncoding="UTF-8" %>
 
 <%@tag import="com.google.gson.Gson" %>
-<%@tag import="uppa.project.database.pojo.User" %>
 
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
+
+<%@attribute name="anonymous"%>
 
 <table id="connected-user-list" class="table is-fullwidth">
     <thead>
     <tr>
         <th>Utilisateur</th>
-<%--        <th>Nombre de parties</th>--%>
-<%--        <th>Victoires (%)</th>--%>
-<%--        <th>Clics corrects (%)</th>--%>
-<%--        <th>Clics rapides (%)</th>--%>
-<%--        <th>Action</th>--%>
     </tr>
     </thead>
     <tbody></tbody>
 </table>
 
 <script defer type="module">
-    const tbodyElement = document.querySelector('#connected-user-list tbody');
+    import WebsocketToolkit from "${pageContext.request.contextPath}/static/js/WebsocketToolkit.js";
 
-    // effacer ce qu'il y a apres /project_war_exploded
-    const url = new URL(window.location.href);
-    url.pathname = "${pageContext.request.contextPath}/ws/connected-users";
-    url.protocol = "ws:"
+    let users = [];
+    function updateUsers() {
+        const table = document.querySelector('#connected-user-list tbody');
 
-    const websocket = new WebSocket(url);
+        // Clear the table
+        table.innerHTML = '';
 
-    <%
-    Gson gson = new Gson();
-    User user = (User) request.getSession().getAttribute("user");
-    %>
-    websocket.onopen = () => {
-        const linkUserSession = {
-            type: 'linkUserSession',
-            data: JSON.stringify(<%= gson.toJson(user) %>)
-        }
-        websocket.send(JSON.stringify(linkUserSession));
-    }
-
-    websocket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-
-        if (data.type === 'userList') {
-            const users = JSON.parse(data.data);
-            updateUserList(users);
-        }
-    }
-
-    websocket.onclose = () => {}
-    websocket.onerror = (error) => console.error(error);
-
-    function updateUserList(users) {
-        tbodyElement.innerHTML = '';
+        // Add the users to the table
         users.forEach(user => {
-            const trElement = document.createElement('tr');
-            const tdElement = [
-                document.createElement('td'),
-                // document.createElement('td'),
-                // document.createElement('td'),
-                // document.createElement('td'),
-                // document.createElement('td'),
-                // document.createElement('td')
-            ];
-            // const buttonElement = document.createElement('button');
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
 
-            tdElement[0].textContent = user.username;
-            // tdElement[1].textContent = user.nbPlayedGames;
-            // tdElement[2].textContent = user.WinRate + '%';
-            // tdElement[3].textContent = user.rightClickPercentRate + '%';
-            // tdElement[4].textContent = user.rapidClickPercentRate + '%';
+            td.dataset.id = user.id;
+            td.textContent = user.username;
 
-            // If it's not the current user, we can display the button
-            <%--if (user.id !== <%= user.getId() %>) {--%>
-            <%--    buttonElement.classList.add('button', 'is-light');--%>
-            <%--    buttonElement.textContent = 'Inviter';--%>
-
-            <%--    // TODO Ajouter l'événement click--%>
-            <%--}--%>
-
-            // tdElement[5].appendChild(buttonElement);
-            trElement.appendChild(tdElement[0]);
-            // trElement.appendChild(tdElement[1]);
-            // trElement.appendChild(tdElement[2]);
-            // trElement.appendChild(tdElement[3]);
-            // trElement.appendChild(tdElement[4]);
-            // trElement.appendChild(tdElement[5]);
-
-            tbodyElement.appendChild(trElement);
+            tr.appendChild(td);
+            table.appendChild(tr);
         });
     }
+
+    // Create a new WebSocket
+    const url = new URL(window.location.href);
+    url.pathname = "${pageContext.request.contextPath}/ws/users/${user.id}";
+    url.protocol = "ws:"
+
+    const ws = new WebsocketToolkit(url);
+    ws.onOpen(() => console.log("Connected to the server"));
+    ws.onMessage("init", (data) => {
+        users = data;
+        updateUsers();
+    });
+    ws.onMessage("addUser", (data) => {
+        users.push(data);
+        updateUsers();
+    });
+    ws.onMessage("removeUser", (data) => {
+        users = users.filter(user => user.id !== data.id);
+        updateUsers();
+    });
+    ws.onError((error) => console.error(error));
+    ws.onClose(() => console.log("Disconnected from the server"));
 </script>

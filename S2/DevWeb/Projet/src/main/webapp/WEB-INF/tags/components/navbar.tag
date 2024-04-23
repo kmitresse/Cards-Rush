@@ -6,13 +6,13 @@
         <% if (session.getAttribute("user") != null) { %>
 
         <a class="navbar-item" href="${pageContext.request.contextPath}/lobby">
-            <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260">
+            <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260" alt="Logo">
         </a>
 
         <% } else { %>
 
         <a class="navbar-item" href="${pageContext.request.contextPath}/">
-            <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260">
+            <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260" alt="Logo">
         </a>
 
         <% } %>

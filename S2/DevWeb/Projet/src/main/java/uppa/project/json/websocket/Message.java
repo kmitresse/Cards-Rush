@@ -1,6 +1,10 @@
 package uppa.project.json.websocket;
 
+import com.google.gson.Gson;
+
 public class Message {
+  private final static Gson gson = new Gson();
+
   private final String type;
   private final String data;
 
@@ -15,6 +19,10 @@ public class Message {
 
   public String getData() {
     return data;
+  }
+
+  public String toJson() {
+    return gson.toJson(this);
   }
 
   @Override
