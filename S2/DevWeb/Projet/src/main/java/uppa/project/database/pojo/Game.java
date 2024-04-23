@@ -82,6 +82,8 @@ public class Game implements Serializable {
    * Constructeur par défaut
    */
   public Game() {
+    this.createdAt = new Date();
+    this.players = new ArrayList<>();
   }
 
   /**
@@ -89,7 +91,7 @@ public class Game implements Serializable {
    *
    * @param difficulty la difficulté de la partie
    * @see Difficulty
-   * @param timer le timer de chaque rounds en seconde
+   * @param timer le timer de chaque round en seconde
    * @param nbRounds le nombre de tours de la partie
    * @param nbColors le nombre de couleurs présente dans le deck
    * @param nbValuesPerColor le nombre de valeurs par couleur
