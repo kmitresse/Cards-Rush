@@ -48,7 +48,7 @@
             .then(data => {
                 if (data.code !== 200) throw new Error(data.message);
             })
-            .then(() => window.location.href = "${pageContext.request.contextPath}/main-menu")
+            .then(() => window.location.href = "${pageContext.request.contextPath}/lobby")
             .catch((error) => {
                 console.log(error)
 
