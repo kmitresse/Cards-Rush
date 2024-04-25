@@ -5,8 +5,6 @@
 
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 
-<%@attribute name="anonymous"%>
-
 <table id="connected-user-list" class="table is-fullwidth">
     <thead>
     <tr>
@@ -58,6 +56,12 @@
         users = users.filter(user => user.id !== data.id);
         updateUsers();
     });
+    ws.onMessage("invite", (data) => {
+        const {from, to, game_id} = data;
+        if (confirm(from.username + " vous a invité à rejoindre sa partie")) {
+            window.location.href = "${pageContext.request.contextPath}/game?id=" + game_id;
+        }
+    })
     ws.onError((error) => console.error(error));
     ws.onClose(() => console.log("Disconnected from the server"));
 </script>

@@ -33,7 +33,6 @@ public class LoginBean implements Serializable {
     try {
       DAO<User> userDao = factory.getDAOUser();
       User[] user = userDao.findByField("username", username);
-      System.out.println(user.length);
 
       for (User u : user) {
         if (u.getUsername().equals(username) && u.verifyPassword(password)) {
