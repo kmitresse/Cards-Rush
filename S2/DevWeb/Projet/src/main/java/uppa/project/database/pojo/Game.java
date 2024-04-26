@@ -293,6 +293,24 @@ public class Game implements Serializable {
     }
   }
 
+  /**
+   * Récupère le gagnant de la partie
+   *
+   * @return le nom du gagnant
+   */
+  public String getWinner(){
+    sortPlayersByScore();
+    return players.get(0).getUser().getUsername();
+  }
+
+  /**
+   * Vérifie si le nombre de tours est valide
+   *
+   * @param nbRounds le nombre de tours
+   * @param nbColors le nombre de couleurs
+   * @param nbValuesPerColor le nombre de valeurs par couleur
+   * @return true si le nombre de tours est valide, false sinon
+   */
   public boolean isValidNumberRound(int nbRounds, int nbColors, int nbValuesPerColor){
     return nbRounds < NB_ROUNDS_MIN || nbRounds > nbColors * nbValuesPerColor;
   }
