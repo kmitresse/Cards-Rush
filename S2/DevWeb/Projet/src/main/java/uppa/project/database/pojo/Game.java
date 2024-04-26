@@ -42,6 +42,9 @@ public class Game implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private BigDecimal id;
 
+  @Transient
+  private int currentRound = 0;
+
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "created_at")
   private Date createdAt;
@@ -77,6 +80,9 @@ public class Game implements Serializable {
 
   @Transient
   public static final int NB_ROUNDS_MIN = 3;
+
+  @Transient
+  private GameState gameState = GameState.WAITING;
 
   /**
    * Constructeur par défaut
@@ -275,6 +281,10 @@ public class Game implements Serializable {
   }
 
   public Deck getDeck() {
+    if (deck == null) {
+      deck = new Deck(nbColors, nbValuesPerColor);
+      deck.shuffle();
+    }
     return deck;
   }
 
@@ -339,5 +349,26 @@ public class Game implements Serializable {
    * Difficulté possible d'une partie
    */
   public enum Difficulty {EASY, HARD}
+
+  public enum GameState {WAITING, STARTED, FINISHED}
+
+  public GameState getGameState() {
+    return gameState;
+  }
+
+  public void setGameState(GameState gameState) {
+    this.gameState = gameState;
+  }
+
+  public int getCurrentRound() {
+    return currentRound;
+  }
+
+  public boolean nextRound() {
+    currentRound++;
+
+    if (currentRound > nbRounds) gameState = GameState.FINISHED;
+    return (currentRound > nbRounds);
+  }
 }
 

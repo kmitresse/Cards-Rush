@@ -15,9 +15,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.websocket.Session;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import uppa.project.json.websocket.ClickChoice;
 
 /**
  * Représentation d'un joueur
@@ -60,10 +62,29 @@ public class Player implements Serializable {
   @Transient
   private Deck deck;
 
+  @Transient
+  private Session session = null;
+
+  @Transient
+  private ClickChoice currentClick = null;
+
   /**
    * Constructeur par défaut
    */
   public Player() {
+  }
+
+  public Player(Game game, User user, Session session) {
+    this.game = game;
+    this.user = user;
+    this.session = session;
+    this.score = 0;
+    this.winner = false;
+    this.clickCount = 0;
+    this.rightClickCount = 0;
+    this.rapidClickCount = 0;
+    this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
+    this.deck.shuffle();
   }
 
   /**
@@ -294,5 +315,17 @@ public class Player implements Serializable {
    */
   public BigDecimal getId() {
     return id;
+  }
+
+  public Session getSession() {
+    return session;
+  }
+
+  public ClickChoice getCurrentClick() {
+    return currentClick;
+  }
+
+  public void setCurrentClick(ClickChoice currentClick) {
+    this.currentClick = currentClick;
   }
 }

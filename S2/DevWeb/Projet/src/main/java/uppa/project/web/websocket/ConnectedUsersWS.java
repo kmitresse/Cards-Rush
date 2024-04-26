@@ -16,6 +16,8 @@ import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.User;
 import uppa.project.json.websocket.Message;
+import uppa.project.json.websocket.SimpleInvitation;
+import uppa.project.json.websocket.SimpleUser;
 
 @ServerEndpoint(value = "/ws/users/{user_id}")
 public class ConnectedUsersWS {
@@ -99,7 +101,7 @@ public class ConnectedUsersWS {
 
       // Find session of the user who receive
       for (Session s : users.keySet()) {
-        if (users.get(s).getId().intValue() == invitation.to.id) {
+        if (users.get(s).getId().intValue() == invitation.getTo().getId()) {
           try {
             s.getBasicRemote().sendText(message.toJson());
           } catch (IOException e) {
@@ -108,31 +110,6 @@ public class ConnectedUsersWS {
           break;
         }
       }
-    }
-  }
-
-  private static class SimpleInvitation {
-
-    public SimpleUser from;
-
-    public SimpleUser to;
-
-    public int game_id;
-
-    public SimpleInvitation(SimpleUser from, SimpleUser to, int game_id) {
-      this.from = from;
-      this.to = to;
-      this.game_id = game_id;
-    }
-  }
-
-  private static class SimpleUser {
-    public int id;
-    public String username;
-
-    public SimpleUser(User user) {
-      this.id = user.getId().intValue();
-      this.username = user.getUsername();
     }
   }
 }

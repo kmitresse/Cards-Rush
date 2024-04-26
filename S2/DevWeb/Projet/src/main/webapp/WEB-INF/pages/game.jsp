@@ -5,12 +5,22 @@
 <layout:base>
 
     <component:hero>
-        <div class="columns">
+
+        <div class="columns" id="gameWaiting">
             <div class="column">
                 <component:card title="Liste des joueurs dans la partie">
                     <jsp:attribute name="footer">
                         <a data-target="#user-list-modal" class="card-footer-item modal-trigger">Ajouter</a>
+                        <a id="start-game-button" class="is-primary card-footer-item">Démarrer</a>
                     </jsp:attribute>
+                    <jsp:body>
+                        <table id="playerList" class="table is-fullwidth">
+                            <thead>
+                            <tr><td>Joueur</td></tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </jsp:body>
                 </component:card>
             </div>
             <div class="column">
@@ -23,6 +33,23 @@
                     <p><strong>Valeurs par couleur:</strong> ${game.nbValuesPerColor}</p>
                     <p><strong>Nombre de couleurs:</strong> ${game.nbColors}</p>
                 </component:card>
+            </div>
+        </div>
+        <div id="gameStarted" style="display:none;">
+            <div class="columns" id="otherCards"></div>
+            <div class="columns">
+                <div class="column" id="deck"></div>
+                <div class="column" id="choice">
+                    <button class="button" data-value="COLOR_VALUE">Même couleur et valeur</button>
+                    <button class="button" data-value="VALUE">Même valeur</button>
+                    <button class="button" data-value="COLOR">Même couleur</button>
+                    <button class="button" data-value="NONE">Aucun</button>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column" id="myCard">
+
+                </div>
             </div>
         </div>
     </component:hero>
@@ -152,6 +179,161 @@
             })
             ws.onError((error) => console.error(error));
             ws.onClose(() => console.log("Disconnected from the server"));
+    </script>
+
+    <script type="module" defer>
+        import WebsocketToolkit from "${pageContext.request.contextPath}/static/js/WebsocketToolkit.js";
+
+        const url = new URL(window.location.href);
+        url.pathname = "${pageContext.request.contextPath}/ws/game/${game.id}";
+        url.protocol = "ws:";
+        url.searchParams.delete("id");
+
+        const wsgame = new WebsocketToolkit(url);
+        wsgame.onOpen(() => {
+            console.log("Connected to the server (GameWS)")
+
+            const message = {
+                type: "connection",
+                data: JSON.stringify({
+                    id: ${user.id},
+                    username: "${user.username}"
+                })
+            }
+
+            wsgame.ws.send(JSON.stringify(message))
+        });
+        wsgame.onMessage("updatePlayerList", (data) => {
+            players = data;
+            updatePlayerList();
+        });
+        wsgame.onMessage("start", (game) => {
+            currentGame = game;
+
+            document.querySelector('#gameWaiting').style.display = 'none';
+            document.querySelector('#gameStarted').style.display = 'block';
+
+            const deck = document.querySelector('#deck');
+            const choice = document.querySelector('#choice');
+            const myCard = document.querySelector('#myCard');
+            const otherCards = document.querySelector('#otherCards');
+
+            // Choices
+            choice.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const message = {
+                        type: "click",
+                        data: button.dataset.value
+                    }
+                    wsgame.ws.send(JSON.stringify(message));
+
+                    // Disable buttons
+                    choice.querySelectorAll('button').forEach(button => button.disabled = true);
+                });
+            });
+
+            // Show other player cards
+            game.players
+                .filter(p => p.user.id !== ${user.id})
+                .forEach(p => {
+                    // Create column in OtherCards
+                    const column = document.createElement('div');
+                    column.classList.add('column');
+                    column.id = 'otherCards-' + p.id;
+
+                    const cardValue = document.createElement('p');
+                    cardValue.textContent = p.currentCard.color + " " + p.currentCard.value;
+
+                    column.appendChild(cardValue);
+                    otherCards.appendChild(column);
+            });
+
+            // Show my card
+            const myCardValue = document.createElement('p');
+            const me = game.players.find(p => p.user.id === ${user.id});
+            myCardValue.textContent = me.currentCard.color + " " + me.currentCard.value;
+
+            myCard.appendChild(myCardValue);
+
+            // Show deck
+            const deckValue = document.createElement('p');
+            deckValue.textContent = game.currentCard.color + " " + game.currentCard.value;
+            deck.appendChild(deckValue);
+        })
+        wsgame.onMessage("updatePlayer", (player) => {
+
+        })
+        wsgame.onMessage("end", (game) => {
+            currentGame = game;
+
+            document.querySelector('#gameWaiting').style.display = 'block';
+            document.querySelector('#gameStarted').style.display = 'none';
+        })
+        wsgame.onMessage("nextRound", (game) => {
+            currentGame = game;
+
+            const deck = document.querySelector('#deck');
+            const choice = document.querySelector('#choice');
+            const myCard = document.querySelector('#myCard');
+            const otherCards = document.querySelector('#otherCards');
+
+            choice.querySelectorAll('button').forEach(button => button.disabled = false);
+
+            // Show other player cards
+            game.players
+                .filter(p => p.user.id !== ${user.id})
+                .forEach(p => {
+                    const column = document.querySelector('#otherCards-' + p.id);
+                    column.innerHTML = '';
+
+                    const cardValue = document.createElement('p');
+                    cardValue.textContent = p.currentCard.color + " " + p.currentCard.value;
+
+                    column.appendChild(cardValue);
+                });
+
+            // Show my card
+            const myCardValue = document.querySelector('#myCard p');
+            const me = game.players.find(p => p.user.id === ${user.id});
+            myCardValue.textContent = me.currentCard.color + " " + me.currentCard.value;
+
+            // Show deck
+            const deckValue = document.querySelector('#deck p');
+            deckValue.textContent = game.currentCard.color + " " + game.currentCard.value;
+        })
+        wsgame.onError((error) => console.error(error));
+        wsgame.onClose(() => {
+            console.log("Disconnected from the server (GameWS)")
+        });
+
+        // Game
+        let currentGame;
+
+        // Player List
+        let players = [];
+        const playerList = document.querySelector('#playerList tbody');
+
+        function updatePlayerList() {
+            playerList.innerHTML = '';
+            players.forEach(player => {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.textContent = player.user.username;
+                tr.appendChild(td);
+                playerList.appendChild(tr);
+            });
+        }
+
+        // Start Game Button
+        document.querySelector('#start-game-button').addEventListener('click', () => {
+            if (players.length < 2 || players.length > 4) {
+                alert("Il faut entre 2 et 4 joueurs pour démarrer la partie");
+                return;
+            }
+
+            const message = {type: "start", data: ""}
+            wsgame.ws.send(JSON.stringify(message));
+        });
     </script>
 
 </layout:base>
