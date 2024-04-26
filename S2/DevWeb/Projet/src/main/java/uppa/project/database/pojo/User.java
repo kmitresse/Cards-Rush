@@ -416,10 +416,7 @@ public class User implements Serializable {
   }
 
   public boolean isValidBirthDate(Date birthdate){
-    System.out.println(birthdate.toString());
-
     Date currentDate = new Date();
-    System.out.println(currentDate.toString());
     return birthdate.before(currentDate) || birthdate.equals(currentDate);
   }
 

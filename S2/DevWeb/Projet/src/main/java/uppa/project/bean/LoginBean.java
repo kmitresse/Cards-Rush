@@ -40,7 +40,6 @@ public class LoginBean implements Serializable {
           return true;
         }
       }
-
     } catch (DAOException e) {
       error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR,"Une erreur est survenue (DB_CONNECTION_ERROR:001)");
       return false;
