@@ -46,19 +46,6 @@
     <h2 class="title is-5">Paramètres du Deck</h2>
     <div class="columns">
         <div class="column field">
-            <label class="label" for="nbValues">
-                Nombre de valeurs: <span class="tag is-medium is-light is-primary" id="tooltip-values">${Deck.NB_VALUES_PER_COLOR_MAX}</span>
-            </label>
-            <div class="control is-flex is-1">
-                <span class="mr-1 tag"><strong>${Deck.NB_VALUES_PER_COLOR_MIN}</strong></span>
-                <input type="range" required id="nbValues" name="nbValues" class="is-flex-grow-1" data-tooltip="#tooltip-values"
-                       value="${Deck.NB_VALUES_PER_COLOR_MAX}"
-                       min="${Deck.NB_VALUES_PER_COLOR_MIN}"
-                       max="${Deck.NB_VALUES_PER_COLOR_MAX}">
-                <span class="ml-1 tag"><strong>${Deck.NB_VALUES_PER_COLOR_MAX}</strong></span>
-            </div>
-        </div>
-        <div class="column field">
             <label class="label" for="nbColors">
                 Nombre de couleurs: <span class="tag is-medium is-light is-primary" id="tooltip-colors">${Deck.NB_COLORS_MAX}</span>
             </label>
@@ -69,6 +56,19 @@
                        min="${Deck.NB_COLORS_MIN}"
                        max="${Deck.NB_COLORS_MAX}">
                 <span class="ml-1 tag"><strong>${Deck.NB_COLORS_MAX}</strong></span>
+            </div>
+        </div>
+        <div class="column field">
+            <label class="label" for="nbValues">
+                Nombre de valeurs: <span class="tag is-medium is-light is-primary" id="tooltip-values">${Deck.NB_VALUES_PER_COLOR_MAX}</span>
+            </label>
+            <div class="control is-flex is-1">
+                <span class="mr-1 tag"><strong>${Deck.NB_VALUES_PER_COLOR_MIN}</strong></span>
+                <input type="range" required id="nbValues" name="nbValues" class="is-flex-grow-1" data-tooltip="#tooltip-values"
+                       value="${Deck.NB_VALUES_PER_COLOR_MAX}"
+                       min="${Deck.NB_VALUES_PER_COLOR_MIN}"
+                       max="${Deck.NB_VALUES_PER_COLOR_MAX}">
+                <span class="ml-1 tag"><strong>${Deck.NB_VALUES_PER_COLOR_MAX}</strong></span>
             </div>
         </div>
     </div>
@@ -88,11 +88,18 @@
 </style>
 
 <script defer type="module">
+    const nbRound = document.querySelector("input[name='nbRounds']");
+    const nbValues = document.querySelector("input[name='nbValues']");
+    const nbColors = document.querySelector("input[name='nbColors']");
     // Range inputs
     const rangeInputs = document.querySelectorAll("input[type='range']");
     rangeInputs.forEach(input => {
         const tooltip = document.querySelector(input.dataset.tooltip);
-        input.addEventListener("input", () => tooltip.innerHTML = input.value);
+        input.addEventListener("input", () => {
+          tooltip.innerHTML = input.value
+          nbRound.max = nbValues.value * nbColors.value;
+          nbRound.value = nbRound.value > nbRound.max ? nbRound.max : nbRound.value;
+        });
     });
 
     // Radio buttons
