@@ -30,23 +30,3 @@
         </div>
     </component:hero>
 </layout:base>
-<script defer type="text/javascript">
-    const gameList = document.getElementById('game-list');
-    console.log("gameList", gameList)
-    ${user.playedGames}.forEach((player) => {
-      console.log("player", player)
-        gameListTr = document.createElement('tr');
-        gameListTdDate = document.createElement('td');
-        gameListTdDate.innerHTML = player.game.createdAt;
-        gameListTdScore = document.createElement('td');
-        gameListTdScore.innerHTML = player.score;
-        gameListTdWinner = document.createElement('td');
-        gameListTdWinner.innerHTML = player.game.winner;
-        gameListTdLink = document.createElement('td');
-        gameListTdLink.innerHTML = `<a href="/game/${player.game.id}">Voir</a>`;
-        gameListTr.appendChild(gameListTdDate);
-        gameListTr.appendChild(gameListTdScore);
-        gameListTr.appendChild(gameListTdWinner);
-        gameListTr.appendChild(gameListTdLink);
-    })
-</script>
