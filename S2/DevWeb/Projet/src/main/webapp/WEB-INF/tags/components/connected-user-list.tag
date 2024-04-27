@@ -8,7 +8,9 @@
 <table id="connected-user-list" class="table is-fullwidth">
     <thead>
     <tr>
-        <th>Utilisateur</th>
+        <th>Nom d'utilisateur</th>
+        <th>Nombre de parties jouées</th>
+        <th>Nombre de victoires</th>
     </tr>
     </thead>
     <tbody></tbody>
@@ -26,14 +28,22 @@
 
         // Add the users to the table
         users.forEach(user => {
-            const tr = document.createElement('tr');
-            const td = document.createElement('td');
+          const tr = document.createElement('tr');
+          const tdUsername = document.createElement('td');
+          tdUsername.dataset.id = user.id;
+          tdUsername.textContent = user.username;
+          const tdNbGames = document.createElement('td');
+          tdNbGames.dataset.id = user.id;
+          tdNbGames.textContent = user.nbPlayedGames;
+          const tdNbWin = document.createElement('td');
+          tdNbWin.dataset.id = user.id;
+          tdNbWin.textContent = user.nbWin;
 
-            td.dataset.id = user.id;
-            td.textContent = user.username;
 
-            tr.appendChild(td);
-            table.appendChild(tr);
+          tr.appendChild(tdUsername);
+          tr.appendChild(tdNbGames);
+          tr.appendChild(tdNbWin);
+          table.appendChild(tr);
         });
     }
 
