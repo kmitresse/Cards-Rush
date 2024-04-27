@@ -152,7 +152,7 @@
 
 
                     $tdUsername.textContent = user.username;
-                    $tdNbPlayedGame.textContent = user.nbPlayedGame;
+                    $tdNbPlayedGame.textContent = user.nbPlayedGames;
                     $tdNbWins.textContent = user.nbWin;
                     $tdRightClick.textContent = user.rigthClickPercentRate + "%";
                     $tdRapidClick.textContent = user.rapidClickPercentRate + "%";
