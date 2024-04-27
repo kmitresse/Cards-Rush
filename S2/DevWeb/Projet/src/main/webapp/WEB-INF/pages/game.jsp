@@ -30,8 +30,8 @@
                     <p><strong>Créé le:</strong> ${game.createdAt.toLocaleString()}</p>
                     <p><strong>Difficulté:</strong> ${game.difficulty}</p>
                     <p><strong>Nombre de tours:</strong> ${game.nbRounds}</p>
-                    <p><strong>Valeurs par couleur:</strong> ${game.nbValuesPerColor}</p>
                     <p><strong>Nombre de couleurs:</strong> ${game.nbColors}</p>
+                    <p><strong>Valeurs par couleur:</strong> ${game.nbValuesPerColor}</p>
                 </component:card>
             </div>
         </div>
