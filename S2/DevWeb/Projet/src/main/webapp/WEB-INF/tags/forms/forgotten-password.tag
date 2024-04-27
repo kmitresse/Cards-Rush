@@ -60,8 +60,24 @@
     // Notification
     const notification = document.createElement("div");
     notification.classList.add("notification", "is-danger");
-    notification.innerHTML = error.message;
+
+    const notificationTitle = document.createElement("p");
+    notificationTitle.classList.add("title", "is-6");
+    notificationTitle.innerHTML = "Erreur";
+
+    const notificationIcon = document.createElement("span");
+    notificationIcon.classList.add("icon");
+    notificationIcon.innerHTML = "<i class='fas fa-exclamation-triangle'></i>";
+
+    const notificationMessage = document.createElement("p");
+    notificationMessage.classList.add("subtitle", "is-6");
+    notificationMessage.innerHTML = error.message;
+
+    notificationTitle.appendChild(notificationIcon);
+    notification.appendChild(notificationTitle);
+    notification.appendChild(notificationMessage);
     document.body.appendChild(notification);
+
     setTimeout(() => notification.remove(), 5010);
   }
 

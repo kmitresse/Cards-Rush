@@ -60,7 +60,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
     if (forgottenPasswordBean.validate(uri)) {
       httpResponse = new HttpResponse(HttpResponseCode.OK, "Mail sent");
     } else {
-      httpResponse = new HttpResponse(HttpResponseCode.NOT_FOUND, "<strong>Erreur:</strong> L'email renseigné est inconnu de nos services.");
+      httpResponse = new HttpResponse(HttpResponseCode.NOT_FOUND, "L'email renseigné est inconnu de nos services.");
     }
 
     out.println(gson.toJson(httpResponse));
