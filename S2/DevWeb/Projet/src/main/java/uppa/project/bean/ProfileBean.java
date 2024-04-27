@@ -15,7 +15,6 @@ public class ProfileBean {
   private String email;
   private String oldPassword;
   private String password;
-  private String oldGender;
   private String gender;
   private User user;
   private HttpResponse error;
@@ -34,32 +33,44 @@ public class ProfileBean {
   public boolean validate() {
     EntityManager entityManager = EntityManagerProvider.getInstance();
     entityManager.getTransaction().begin();
-    try{
-      DAO<User> userDAO = new Game_JPA_DAO_Factory().getDAOUser();
+    DAO<User> userDAO;
+    try {
+       userDAO= new Game_JPA_DAO_Factory().getDAOUser();
       //Check if the user is valid
       user = userDAO.findById(Integer.parseInt(id));
       if (user == null) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Utilisateur non trouvé");
+        entityManager.getTransaction().rollback();
         return false;
       }
       //Check if the email is not already taken
       User[] users = userDAO.findByField("email", email);
       if (!oldEmail.equals(email) && users.length > 0) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Cet email est déjà utilisé");
+        entityManager.getTransaction().rollback();
         return false;
       }
-      //Check if the old password is correct
-      if (!oldPassword.equals("") && user.verifyPassword(oldPassword) == false) {
+      //Check if the oldPassword is correct
+      if(!oldPassword.equals("") && !user.verifyPassword(oldPassword)) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ancien mot de passe incorrect");
+        entityManager.getTransaction().rollback();
         return false;
       }
-      //Update the user
-      user.setEmail(email);
+    } catch (DAOException e) {
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:002)");
+      entityManager.getTransaction().rollback();
+      return false;
+    }
+    //Update the user
+    user.setEmail(email);
+    if (!password.equals("")) {
       user.setPassword(password);
-      user.setGender(User.Gender.valueOf(gender));
-      userDAO.update(user);
-      entityManager.getTransaction().commit();
-      return true;
+    }
+    user.setGender(User.Gender.valueOf(gender));
+    try {
+    userDAO.update(user);
+    entityManager.getTransaction().commit();
+    return true;
     } catch (DAOException e) {
       error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:002)");
       entityManager.getTransaction().rollback();

@@ -11,22 +11,27 @@
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
 <layout:base title="Profil">
-    <component:hero>
-        <div class="columns is-centered">
-            <div class="column is-5-tablet is-5-desktop is-5-widescreen">
-                <component:card title="Profil">
-                    <fieldset>
-                        <form:profile/>
-                    </fieldset>
+    <jsp:attribute name="head">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/form.css"/>
+    </jsp:attribute>
+    <jsp:body>
+        <component:hero>
+            <div class="columns is-centered">
+                <div class="column is-5-tablet is-5-desktop is-5-widescreen">
+                    <component:card title="Profil">
+                        <fieldset>
+                            <form:profile/>
+                        </fieldset>
 
-                </component:card>
-            </div>
+                    </component:card>
+                </div>
 
-            <div class="column is-5-tablet is-5-desktop is-5-widescreen">
-                <component:card title="Statistiques">
-                    <component:statistics/>
-                </component:card>
+                <div class="column is-5-tablet is-5-desktop is-5-widescreen">
+                    <component:card title="Statistiques">
+                        <component:statistics/>
+                    </component:card>
+                </div>
             </div>
-        </div>
-    </component:hero>
+        </component:hero>
+    </jsp:body>
 </layout:base>

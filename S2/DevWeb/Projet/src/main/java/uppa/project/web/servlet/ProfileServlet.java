@@ -44,6 +44,7 @@ public class ProfileServlet extends HttpServlet {
       .setId(request.getParameter("id"))
       .setOldEmail(request.getParameter("oldEmail"))
       .setEmail(request.getParameter("email"))
+      .setOldPassword(request.getParameter("oldPassword"))
       .setPassword(request.getParameter("password"))
       .setGender(request.getParameter("gender"))
       ;

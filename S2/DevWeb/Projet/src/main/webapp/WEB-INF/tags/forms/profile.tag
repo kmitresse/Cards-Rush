@@ -105,19 +105,10 @@
       const password = profileForm.querySelector("input[name='password']");
       const repassword = profileForm.querySelector("input[name='repeat-password']");
       // Check if the password and the confirmation password are the same
-      if (oldPassword.value !== "") {
-        if("${User.hashPassword(oldPassword.value)}" !== "${user.password}"){
-          onError(new Error("L'ancien mot de passe ne corresponds pas"));
-          return;
-        }
-        if(password.value !== repassword.value) {
-          onError(new Error("Les mots de passe ne correspondent pas"));
-          return;
-        }
+      if (oldPassword.value !== "" && password.value !== repassword.value) {
+        onError(new Error("Les mots de passe ne correspondent pas"));
+        return;
       }
-      else {
-        password.value = "${user.password}";
-      };
 
       const {action, method} = profileForm;
 
@@ -144,7 +135,7 @@
      * @param error {Error} - Error of the form submission
      */
     function onError(error) {
-      console.log("Error:", error)
+      console.log(error)
 
       // Input fields in red
       inputs.forEach(input => input.classList.add("is-danger"));
@@ -169,7 +160,7 @@
       notification.appendChild(notificationTitle);
       notification.appendChild(notificationMessage);
       document.body.appendChild(notification);
-
+      console.log("je suis bien dans la fonction mais la notification ne s'affiche pas")
       setTimeout(() => notification.remove(), 5010);
     }
 
@@ -177,7 +168,7 @@
      * Handle the success of the form submission
      */
     function onSuccess() {
-      console.log("Succes:", "Modifications effectuées avec succès")
+      console.log("Succès:", "Modifications effectuées avec succès")
 
       // Notification
       const notification = document.createElement("div");
@@ -189,7 +180,7 @@
 
       const notificationIcon = document.createElement("span");
       notificationIcon.classList.add("icon");
-      notificationIcon.innerHTML = "<i class='fas fa-exclamation-triangle'></i>";
+      notificationIcon.innerHTML = "<i class='fa-solid fa-check'></i>";
 
       const notificationMessage = document.createElement("p");
       notificationMessage.classList.add("subtitle", "is-6");
@@ -199,6 +190,7 @@
       notification.appendChild(notificationTitle);
       notification.appendChild(notificationMessage);
       document.body.appendChild(notification);
+      console.log("je suis bien dans la fonction mais la notification ne s'affiche pas")
 
       setTimeout(() => notification.remove(), 5010);
     }
