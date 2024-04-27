@@ -102,7 +102,7 @@ public class ForgottenPasswordBean implements Serializable {
         "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
         "Pour cela, veuillez cliquer sur le lien suivant :"+ requestPath +"/reset-password?token=" + token + "\n\n" +
         "Ce lien est valable 10 minutes.\n" +
-        "Si vous n'êtes pas à l'origine de cette demande, ne prenez pas compte de mail.\n\n" +
+        "Si vous n'êtes pas à l'origine de cette demande, ne prenez pas compte de ce mail.\n\n" +
         "Cordialement,\n" +
         "L'équipe CardRush" +
         "\n\n\n\n" +
