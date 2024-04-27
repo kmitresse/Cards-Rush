@@ -161,7 +161,10 @@
       notification.appendChild(notificationMessage);
       document.body.appendChild(notification);
       console.log("je suis bien dans la fonction mais la notification ne s'affiche pas")
-      setTimeout(() => notification.remove(), 5010);
+      setTimeout(() => {
+        notification.remove()
+        inputs.forEach(input => input.classList.remove("is-danger"));
+      }, 5010);
     }
 
     /**
