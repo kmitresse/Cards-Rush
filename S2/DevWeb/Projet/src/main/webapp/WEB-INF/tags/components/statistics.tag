@@ -41,8 +41,7 @@
         <th></th>
     </tr>
     </thead>
-    <tbody id="game-list">
-
+    <tbody>
     <% for (int i = 0; i < user.getPlayedGames().size(); i++) {
         Player player = user.getPlayedGames().get(i);
     %>
@@ -50,15 +49,8 @@
             <td><%= player.getGame().getCreatedAt().toLocaleString() %></td>
             <td><%= player.getScore() %></td>
             <td><%= player.getGame().getWinner() %></td>
-            <td><a href="/game/<%= player.getGame().getId() %>">Voir</a></td>
+            <td><a href="${pageContext.request.contextPath}/game-statistics?id=<%= player.getGame().getId() %>">Voir</a></td>
         </tr>
     <% } %>
-<%--    <c:forEach var="player" items="${user.playedGames}">--%>
-<%--        <tr>--%>
-<%--            <td>${player.game.createdAt}</td>--%>
-<%--            <td>${player.score}</td>--%>
-<%--            <td>${player.game.winner}</td>--%>
-<%--            <td><a href="/game/${player.game.id}">Voir</a></td>--%>
-<%--        </tr>--%>
     </tbody>
 </table>

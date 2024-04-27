@@ -18,6 +18,7 @@
 <!--    <url-pattern>/main-menu</url-pattern>-->
     <url-pattern>/lobby</url-pattern>
     <url-pattern>/profile</url-pattern>
+    <url-pattern>/game-statistics</url-pattern>
     <url-pattern>/new</url-pattern>
     <url-pattern>/join</url-pattern>
     <url-pattern>/game</url-pattern>
