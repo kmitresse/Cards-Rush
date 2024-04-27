@@ -14,13 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import uppa.project.bean.ProfileBean;
-import uppa.project.bean.RegisterBean;
-import uppa.project.database.pojo.Game;
-import uppa.project.database.pojo.Player;
-import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
 

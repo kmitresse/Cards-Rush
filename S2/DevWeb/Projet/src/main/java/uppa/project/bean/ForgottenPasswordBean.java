@@ -1,6 +1,5 @@
 package uppa.project.bean;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.UUID;
@@ -30,8 +29,8 @@ public class ForgottenPasswordBean implements Serializable {
   public ForgottenPasswordBean() {
   }
 
-  public ForgottenPasswordBean(String username, String password) {
-    this.email = username;
+  public ForgottenPasswordBean(String email) {
+    this.email = email;
   }
 
   public boolean validate(String requestPath) {
@@ -71,8 +70,8 @@ public class ForgottenPasswordBean implements Serializable {
   /**
    * Envoi d'un e-mail de réinitialisation de mot de passe
    *
-   * @param email
-   * @param token
+   * @param email l'adresse e-mail du destinataire
+   * @param token le token de réinitialisation
    */
   public void sendRecoveryEmail(String email, String token, String requestPath){
     String host = Global.MAIL_HOST;

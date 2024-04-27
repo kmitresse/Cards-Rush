@@ -1,5 +1,4 @@
 <%@ tag import="uppa.project.database.pojo.Player" %>
-<%@ tag import="java.util.Calendar" %>
 <%@ tag import="uppa.project.database.pojo.Game" %>
 <%@tag description="component/statistics" pageEncoding="UTF-8" %>
 <jsp:useBean id="game" class="uppa.project.database.pojo.Game" scope="request"/>

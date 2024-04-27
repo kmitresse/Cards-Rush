@@ -51,7 +51,7 @@ public class ProfileBean {
         return false;
       }
       //Check if the oldPassword is correct
-      if(!oldPassword.equals("") && !user.verifyPassword(oldPassword)) {
+      if(!oldPassword.isEmpty() && !user.verifyPassword(oldPassword)) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ancien mot de passe incorrect");
         entityManager.getTransaction().rollback();
         return false;
@@ -63,7 +63,7 @@ public class ProfileBean {
     }
     //Update the user
     user.setEmail(email);
-    if (!password.equals("")) {
+    if (!password.isEmpty()) {
       user.setPassword(password);
     }
     user.setGender(User.Gender.valueOf(gender));

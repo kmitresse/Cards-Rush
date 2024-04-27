@@ -1,10 +1,4 @@
-<%@ page import="uppa.project.database.pojo.Player" %>
-<%@ page import="uppa.project.database.pojo.Game" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%--<%@ taglib uri = "https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api" prefix = "c" %>--%>
-
-
 
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
