@@ -102,8 +102,16 @@ public class ForgottenPasswordBean implements Serializable {
       message.setText("Bonjour,\n\n" +
         "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
         "Pour cela, veuillez cliquer sur le lien suivant :"+ requestPath +"/reset-password?token=" + token + "\n\n" +
+        "Ce lien est valable 10 minutes.\n" +
+        "Si vous n'êtes pas à l'origine de cette demande, ne prenez pas compte de mail.\n\n" +
         "Cordialement,\n" +
-        "L'équipe CardRush");
+        "L'équipe CardRush" +
+        "\n\n\n\n" +
+        "Ce message est généré automatiquement, merci de ne pas y répondre.\n" +
+        "CardRush est la propriété de CardRush Corporation, 2024. Tous droits réservés.\n" +
+        "CardRush Corporation, 2024, 1 rue de la programmation web, 64000 Pau, France\n" +
+        "Société fictive créée dans le cadre d'un projet universitaire. Auteurs du projet: MITRESSÉ Kevin & VABRE Lucàs "
+      );
       // Envoi du message
       Transport.send(message);
 
