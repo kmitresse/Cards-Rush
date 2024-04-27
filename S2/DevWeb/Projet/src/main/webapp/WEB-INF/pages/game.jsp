@@ -67,6 +67,10 @@
                     <thead>
                     <tr>
                         <th>Utilisateur</th>
+                        <th>Nombre de parties jouées</th>
+                        <th>Nombre de victoires</th>
+                        <th>Clics corrects</th>
+                        <th>Clics rapides</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -120,6 +124,10 @@
             users.forEach(user => {
                 const $tr = document.createElement('tr');
                 const $tdUsername = document.createElement('td');
+                const $tdNbPlayedGame = document.createElement('td');
+                const $tdNbWins = document.createElement('td');
+                const $tdRightClick = document.createElement('td');
+                const $tdRapidClick = document.createElement('td');
                 const $tdAction = document.createElement('td');
                 const $button = document.createElement('button');
 
@@ -144,9 +152,17 @@
 
 
                     $tdUsername.textContent = user.username;
+                    $tdNbPlayedGame.textContent = user.nbPlayedGame;
+                    $tdNbWins.textContent = user.nbWin;
+                    $tdRightClick.textContent = user.rigthClickPercentRate + "%";
+                    $tdRapidClick.textContent = user.rapidClickPercentRate + "%";
                     $tdAction.appendChild($button);
 
                     $tr.appendChild($tdUsername);
+                    $tr.appendChild($tdNbPlayedGame);
+                    $tr.appendChild($tdNbWins);
+                    $tr.appendChild($tdRightClick);
+                    $tr.appendChild($tdRapidClick);
                     $tr.appendChild($tdAction);
 
                     $tbody.appendChild($tr);

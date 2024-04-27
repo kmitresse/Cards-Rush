@@ -27,6 +27,6 @@ public class GameStatistics extends HttpServlet {
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);
     } catch (Exception e) {
       request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
-    } ;
+    }
   }
 }
