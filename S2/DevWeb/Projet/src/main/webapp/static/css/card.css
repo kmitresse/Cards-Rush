@@ -1,0 +1,157 @@
+body {
+    background: gray;
+}
+
+.card-play {
+    position: relative;
+    aspect-ratio: 2/3;
+    width: 246px;
+    /*height: 340px;*/
+    background: #F8FAFC;
+    border-radius: 20px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-play::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    aspect-ratio: 1/1;
+    width: 65px;
+}
+
+.card-play::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    aspect-ratio: 1/1;
+    width: 65px;
+    transform: rotate(180deg);
+}
+
+/* Colors */
+
+.spades {
+    background-image: url("../img/color/spade.svg");
+}
+
+.heart {
+    background-image: url("../img/color/heart.svg");
+}
+
+.diamonds {
+    background-image: url("../img/color/diamond.svg");
+}
+
+.clubs {
+    background-image: url("../img/color/club.svg");
+}
+
+/* Values */
+.red_ace::before, .red_ace::after {
+    background-image: url("../img/value/red_ace.svg");
+}
+
+.black_ace::before, .black_ace::after {
+    background-image: url("../img/value/black_ace.svg");
+}
+
+.red_two::before, .red_two::after {
+    background-image: url("../img/value/red_two.svg");
+}
+
+.black_two::before, .black_two::after {
+    background-image: url("../img/value/black_two.svg");
+}
+
+.red_three::before, .red_three::after {
+    background-image: url("../img/value/red_three.svg");
+}
+
+.black_three::before, .black_three::after {
+    background-image: url("../img/value/black_three.svg");
+}
+
+.red_four::before, .red_four::after {
+    background-image: url("../img/value/red_four.svg");
+}
+
+.black_four::before, .black_four::after {
+    background-image: url("../img/value/black_four.svg");
+}
+
+.red_five::before, .red_five::after {
+    background-image: url("../img/value/red_five.svg");
+}
+
+.black_five::before, .black_five::after {
+    background-image: url("../img/value/black_five.svg");
+}
+
+.red_six::before, .red_six::after {
+    background-image: url("../img/value/red_six.svg");
+}
+
+.black_six::before, .black_six::after {
+    background-image: url("../img/value/black_six.svg");
+}
+
+.red_seven::before, .red_seven::after {
+    background-image: url("../img/value/red_seven.svg");
+}
+
+.black_seven::before, .black_seven::after {
+    background-image: url("../img/value/black_seven.svg");
+}
+
+.red_eight::before, .red_eight::after {
+    background-image: url("../img/value/red_eight.svg");
+}
+
+.black_eight::before, .black_eight::after {
+    background-image: url("../img/value/black_eight.svg");
+}
+
+.red_nine::before, .red_nine::after {
+    background-image: url("../img/value/red_nine.svg");
+}
+
+.black_nine::before, .black_nine::after {
+    background-image: url("../img/value/black_nine.svg");
+}
+
+.red_ten::before, .red_ten::after {
+    background-image: url("../img/value/red_ten.svg");
+}
+
+.black_ten::before, .black_ten::after {
+    background-image: url("../img/value/black_ten.svg");
+}
+
+.red_jack::before, .red_jack::after {
+    background-image: url("../img/value/red_jack.svg");
+}
+
+.black_jack::before, .black_jack::after {
+    background-image: url("../img/value/black_jack.svg");
+}
+
+.red_queen::before, .red_queen::after {
+    background-image: url("../img/value/red_queen.svg");
+}
+
+.black_queen::before, .black_queen::after {
+    background-image: url("../img/value/black_queen.svg");
+}
+
+.red_king::before, .red_king::after {
+    background-image: url("../img/value/red_king.svg");
+}
+
+.black_king::before, .black_king::after {
+    background-image: url("../img/value/black_king.svg");
+}
