@@ -368,7 +368,7 @@ public class Game implements Serializable {
     currentRound++;
 
     if (currentRound > nbRounds) gameState = GameState.FINISHED;
-    return (currentRound > nbRounds);
+    return gameState != GameState.FINISHED;
   }
 }
 
