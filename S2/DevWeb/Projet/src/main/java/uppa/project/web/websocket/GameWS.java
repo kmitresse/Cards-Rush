@@ -233,7 +233,11 @@ public class GameWS {
 
           em.getTransaction().begin();
           em.persist(game);
-          for (Player p : games.get(game)) em.persist(p);
+          for (Player p : games.get(game)){
+            game.addPlayer(p);
+            p.getUser().addPlayedGame(p);
+          }
+          em.persist(game);
           em.getTransaction().commit();
         }
       }

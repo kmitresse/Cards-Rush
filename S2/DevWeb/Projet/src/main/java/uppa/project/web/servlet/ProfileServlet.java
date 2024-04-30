@@ -30,11 +30,11 @@ public class ProfileServlet extends HttpServlet {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    User user = (User) request.getSession().getAttribute("user");
+    User usersession = (User) request.getSession().getAttribute("user");
     DAO<User> userDAO = null;
     try {
       userDAO = new Game_JPA_DAO_Factory().getDAOUser();
-      user = userDAO.findById(user.getId().intValue());
+      User user = userDAO.findById(usersession.getId().intValue());
       for(Player p : user.getPlayedGames()){
         System.out.println("Partie jouée le " + p.getGame().getCreatedAt().toLocaleString());
       }
