@@ -42,7 +42,6 @@
     <tbody>
     <% for (int i = 0; i < user.getPlayedGames().size(); i++) {
         Player player = user.getPlayedGames().get(i);
-        System.out.println(player.toString());
     %>
         <tr>
             <td><%= player.getGame().getCreatedAt().toLocaleString() %></td>

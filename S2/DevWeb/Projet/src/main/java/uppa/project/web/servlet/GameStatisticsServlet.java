@@ -22,15 +22,12 @@ public class GameStatisticsServlet extends HttpServlet {
     try {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
       game = gameDAO.findById(Integer.parseInt(request.getParameter("id")));
-      for(Player p : game.getPlayers()) {
-        System.out.println(p.toString());
-      }
       request.removeAttribute("id");
       game.sortPlayersByScoreAndRapidity();
       request.setAttribute("game", game);
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);
     } catch (Exception e) {
-      request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+      response.sendRedirect(request.getContextPath() + "/profile");
     }
   }
 }

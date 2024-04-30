@@ -15,6 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import uppa.project.bean.ProfileBean;
+import uppa.project.database.dao.DAO;
+import uppa.project.database.dao.DAOException;
+import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
+import uppa.project.database.pojo.Player;
+import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
 
@@ -25,8 +30,22 @@ public class ProfileServlet extends HttpServlet {
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    User user = (User) request.getSession().getAttribute("user");
+    DAO<User> userDAO = null;
+    try {
+      userDAO = new Game_JPA_DAO_Factory().getDAOUser();
+      user = userDAO.findById(user.getId().intValue());
+      for(Player p : user.getPlayedGames()){
+        System.out.println("Partie jouée le " + p.getGame().getCreatedAt().toLocaleString());
+      }
+      request.getSession().setAttribute("user", user);
 //    request.setAttribute("current", "profile");
-    request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+    } catch (DAOException e) {
+      System.out.println(e);
+      response.sendRedirect(request.getContextPath() + "/lobby");
+    }
+
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
