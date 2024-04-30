@@ -151,10 +151,10 @@ public class GameWS {
           }
         }
       } else {
-        int nbSameCard = countSameCard(gameCard, game.getPlayers(), game.getCurrentRound());
-        int nbSameColor = countSameColor(gameCard, game.getPlayers(), game.getCurrentRound());
-        int nbSameValue = countSameValue(gameCard, game.getPlayers(), game.getCurrentRound());
-        int nbNone = countNone(gameCard, game.getPlayers(), game.getCurrentRound());
+        int nbSameCard = countSameCard(gameCard, games.get(game), game.getCurrentRound());
+        int nbSameColor = countSameColor(gameCard, games.get(game), game.getCurrentRound());
+        int nbSameValue = countSameValue(gameCard, games.get(game), game.getCurrentRound());
+        int nbNone = countNone(gameCard, games.get(game), game.getCurrentRound());
         switch (choice) {
           case COLOR_VALUE -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
