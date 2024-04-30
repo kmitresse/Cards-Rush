@@ -16,6 +16,7 @@ import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.EntityManagerProvider;
 import uppa.project.database.dao.jpa.DAO_JPA_User;
+import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Card;
 import uppa.project.database.pojo.Game;
 import uppa.project.database.pojo.Player;
@@ -225,20 +226,16 @@ public class GameWS {
         } else {
           theoricWinner.setWinner();
 
-          // Broadcast the end of the game
-          broadcast(new Message("end", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
-
-
-          EntityManager em = EntityManagerProvider.getInstance();
+          EntityManager em = EntityManagerProvider.getFactory().createEntityManager();
+          DAO<Player> playerDAO = new Game_JPA_DAO_Factory().getDAOPlayer();
 
           em.getTransaction().begin();
-          em.persist(game);
-          for (Player p : games.get(game)){
-            game.addPlayer(p);
-            p.getUser().addPlayedGame(p);
-          }
-          em.persist(game);
+          for (Player p : games.get(game)) playerDAO.create(p);
           em.getTransaction().commit();
+          em.close();
+
+          // Broadcast the end of the game
+          broadcast(new Message("end", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
         }
       }
     }
