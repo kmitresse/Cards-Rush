@@ -43,7 +43,7 @@ mvn install
 ````
 
 ## Lancement du projet
-Depuis IntelliJ, ouvrir l'onglet file > project structure et ajouter les artefacts suivants :
+Depuis IntelliJ, ouvrir l'onglet `file > project structure` et ajouter les artefacts suivants :
 - project: war
 - project: war exploded
 

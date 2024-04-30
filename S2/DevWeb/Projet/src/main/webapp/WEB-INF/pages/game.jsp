@@ -22,7 +22,9 @@
                         <jsp:body>
                             <table id="playerList" class="table is-fullwidth">
                                 <thead>
-                                <tr><td>Joueur</td></tr>
+                                <tr>
+                                    <td>Joueur</td>
+                                </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
@@ -182,7 +184,7 @@
             url.searchParams.delete("id")
 
             const ws = new WebsocketToolkit(url);
-            ws.onOpen(() => console.log("Connected to the server"));
+            ws.onOpen(_ => console.log("Connected to the server"));
             ws.onMessage("init", (data) => {
                 users = data;
                 updateUsers();
@@ -205,12 +207,23 @@
 
         <script type="module" defer>
             import WebsocketToolkit from "${pageContext.request.contextPath}/static/js/WebsocketToolkit.js";
+            import PlayerHand from "${pageContext.request.contextPath}/static/js/PlayerHand.js"
+            import Card from "${pageContext.request.contextPath}/static/js/Card.js"
 
-            const getCardColorValue = (color) => {
-                return (color === "DIAMONDS" || color === "HEART")
-                    ? "red" : "black"
-                    ;
-            }
+            const choice = document.querySelector('#choice');
+
+            choice.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const message = {
+                        type: "click",
+                        data: button.dataset.value
+                    }
+                    wsgame.ws.send(JSON.stringify(message));
+
+                    // Disable buttons
+                    choice.querySelectorAll('button').forEach(button => button.disabled = true);
+                });
+            });
 
             const url = new URL(window.location.href);
             url.pathname = "${pageContext.request.contextPath}/ws/game/${game.id}";
@@ -241,99 +254,89 @@
                 document.querySelector('#gameWaiting').style.display = 'none';
                 document.querySelector('#gameStarted').style.display = 'block';
 
-                const deck = document.querySelector('#deck');
-                const choice = document.querySelector('#choice');
-                const myCard = document.querySelector('#myCard');
-                const otherCards = document.querySelector('#otherCards');
+                const deck = document.querySelector('#deck'); // Column
+                const myCard = document.querySelector('#myCard'); // Column
+                const otherCards = document.querySelector('#otherCards'); // Columns
 
-                // Choices
-                choice.querySelectorAll('button').forEach(button => {
-                    button.addEventListener('click', () => {
-                        const message = {
-                            type: "click",
-                            data: button.dataset.value
-                        }
-                        wsgame.ws.send(JSON.stringify(message));
-
-                        // Disable buttons
-                        choice.querySelectorAll('button').forEach(button => button.disabled = true);
-                    });
-                });
+                // Reset content
+                deck.innerHTML = "";
+                myCard.innerHTML = "";
+                otherCards.innerHTML = "";
 
                 // Show other player cards
                 game.players
                     .filter(p => p.user.id !== ${user.id})
                     .forEach(p => {
-                        // Create column in OtherCards
-                        const column = document.createElement('div');
-                        column.classList.add('column');
-                        column.id = 'otherCards-' + p.id;
-
-                        const cardValue = document.createElement('p');
-                        cardValue.textContent = p.currentCard.color + " " + p.currentCard.value;
-
-                        column.appendChild(cardValue);
-                        otherCards.appendChild(column);
+                        const playerHand = new PlayerHand(p);
+                        otherCards.innerHTML += playerHand.render({
+                            textPosition: PlayerHand.TextPosition.TOP,
+                            className: "column"
+                        });
                     });
 
                 // Show my card
-                const myCardValue = document.createElement('p');
                 const me = game.players.find(p => p.user.id === ${user.id});
-                myCardValue.textContent = me.currentCard.color + " " + me.currentCard.value;
 
-                myCard.appendChild(myCardValue);
+                const playerHand = new PlayerHand(me);
+                myCard.innerHTML += playerHand.render({
+                    textPosition: PlayerHand.TextPosition.BOTTOM,
+                    className: "column"
+                });
 
                 // Show deck
-                const deckValue = document.createElement('div');
-                deckValue.classList.add("card-play", game.currentCard.color.toLowerCase(), getCardColorValue(game.currentCard.color) + "_" +game.currentCard.value.toLowerCase());
-                deck.appendChild(deckValue);
+                const deckCard = new Card(game.currentCard.color, game.currentCard.value);
+                deck.innerHTML = deckCard.render();
             })
-            wsgame.onMessage("updatePlayer", (player) => {
-
+            wsgame.onMessage("updatePlayer", (p) => {
+                document.querySelector(".player-" + p.user.id + " .card-play").style.boxShadow = "inset 0px 0px 30px 10px orange";
             })
             wsgame.onMessage("end", (game) => {
-                currentGame = game;
-
-                document.querySelector('#gameWaiting').style.display = 'block';
-                document.querySelector('#gameStarted').style.display = 'none';
+                window.location.href = "${pageContext.request.contextPath}/game-statistics?id=${game.id}&endGame=true";
             })
             wsgame.onMessage("nextRound", (game) => {
                 currentGame = game;
 
-                const deck = document.querySelector('#deck');
-                const choice = document.querySelector('#choice');
-                const myCard = document.querySelector('#myCard');
-                const otherCards = document.querySelector('#otherCards');
+                document.querySelector('#gameWaiting').style.display = 'none';
+                document.querySelector('#gameStarted').style.display = 'block';
 
+                const deck = document.querySelector('#deck'); // Column
+                const choice = document.querySelector('#choice');
+                const myCard = document.querySelector('#myCard'); // Column
+                const otherCards = document.querySelector('#otherCards'); // Columns
+
+                // Reset content
+                deck.innerHTML = "";
+                myCard.innerHTML = "";
+                otherCards.innerHTML = "";
                 choice.querySelectorAll('button').forEach(button => button.disabled = false);
 
                 // Show other player cards
                 game.players
                     .filter(p => p.user.id !== ${user.id})
                     .forEach(p => {
-                        const column = document.querySelector('#otherCards-' + p.id);
-                        column.innerHTML = '';
-
-                        // TODO Update card
-                        // const cardValue = document.createElement('p');
-                        // cardValue.textContent = p.currentCard.color + " " + p.currentCard.value;
-
-                        column.appendChild(cardValue);
+                        const playerHand = new PlayerHand(p);
+                        otherCards.innerHTML += playerHand.render({
+                            textPosition: PlayerHand.TextPosition.TOP,
+                            className: "column"
+                        });
                     });
 
                 // Show my card
-                const myCardValue = document.querySelector('#myCard p');
                 const me = game.players.find(p => p.user.id === ${user.id});
-                myCardValue.textContent = me.currentCard.color + " " + me.currentCard.value;
+
+                const playerHand = new PlayerHand(me);
+                myCard.innerHTML += playerHand.render({
+                    textPosition: PlayerHand.TextPosition.BOTTOM,
+                    className: "column"
+                });
 
                 // Show deck
-                const deckValue = document.querySelector('#deck p');
-                deckValue.textContent = game.currentCard.color + " " + game.currentCard.value;
+                const deckCard = new Card(game.currentCard.color, game.currentCard.value);
+                deck.innerHTML = deckCard.render();
             })
-            wsgame.onError((error) => console.error(error));
-            wsgame.onClose(() => {
-                console.log("Disconnected from the server (GameWS)")
-            });
+
+            // Close handling
+            wsgame.onClose(() => console.log("Disconnected from the server (GameWS)"));
 
             // Game
             let currentGame;

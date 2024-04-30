@@ -291,16 +291,13 @@ public class Game implements Serializable {
   /**
    * Tri des joueurs de la partie par score
    */
-  public void sortPlayersByScore() {
-    for (int i = 0; i < players.size(); i++) {
-      for (int j = i + 1; j < players.size(); j++) {
-        if (players.get(i).getScore() < players.get(j).getScore()) {
-          Player temp = players.get(i);
-          players.set(i, players.get(j));
-          players.set(j, temp);
-        }
+  public void sortPlayersByScoreAndRapidity() {
+    players.sort((p1, p2) -> {
+      if (p1.getScore() == p2.getScore()) {
+        return p2.getRapidClickCount() - p1.getRapidClickCount();
       }
-    }
+      return p2.getScore() - p1.getScore();
+    });
   }
 
   /**

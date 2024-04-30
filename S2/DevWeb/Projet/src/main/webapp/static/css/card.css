@@ -5,31 +5,31 @@ body {
 .card-play {
     position: relative;
     aspect-ratio: 2/3;
-    width: 246px;
-    /*height: 340px;*/
+    width: 150px;
     background: #F8FAFC;
     border-radius: 20px;
 
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 60%;
+}
+
+.card-play::before, .card-play::after {
+    content: "";
+    position: absolute;
+    aspect-ratio: 1/1;
+    width: 25%;
+    background-size: contain;
 }
 
 .card-play::before {
-    content: "";
-    position: absolute;
     top: 10px;
     left: 10px;
-    aspect-ratio: 1/1;
-    width: 65px;
 }
 
 .card-play::after {
-    content: "";
-    position: absolute;
     bottom: 10px;
     right: 10px;
-    aspect-ratio: 1/1;
-    width: 65px;
     transform: rotate(180deg);
 }
 

@@ -29,10 +29,8 @@ import uppa.project.utils.GameProvider;
 @ServerEndpoint(value = "/ws/game/{game_id}")
 public class GameWS {
 
-  Gson gson = new Gson();
-
   private static final HashMap<Game, ArrayList<Player>> games = new HashMap<>();
-
+  Gson gson = new Gson();
   private Game game;
   private Player player;
 
@@ -79,11 +77,13 @@ public class GameWS {
       // Broadcast the new player
       broadcast(new Message("updatePlayerList", gson.toJson(simplePlayerList)).toJson());
     }
+
     if (message.getType().equals("start")) {
       game.setGameState(Game.GameState.STARTED);
       broadcast(new Message("start", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
       // TODO Start Timer
     }
+
     if (message.getType().equals("click")) {
       ClickChoice choice = gson.fromJson(message.getData(), ClickChoice.class);
 
@@ -150,10 +150,10 @@ public class GameWS {
       }
 
       // Broadcast the player choice with score
-
       broadcast(new Message("updatePlayer", gson.toJson(new SimplePlayer(player))).toJson());
 
       System.out.println(gameClickCount + " / " + games.get(game).size());
+
 
       // If all players have clicked
       if (gameClickCount >= games.get(game).size()) {
@@ -161,23 +161,34 @@ public class GameWS {
         // Reset the current click for all players
         for (Player p : games.get(game)) p.setCurrentClick(null);
 
+        List<Player> players = games.get(game);
+        players.sort((p1, p2) -> {
+          if (p1.getScore() == p2.getScore()) {
+            return p2.getRapidClickCount() - p1.getRapidClickCount();
+          }
+          return p2.getScore() - p1.getScore();
+        });
+
+        Player theoricWinner = players.get(0);
+        Player second = players.get(1);
+
         // Check if the game is over
-        if (game.nextRound()) { // TODO: if score is the same add a round
+        if (game.nextRound() || (second.getScore() == theoricWinner.getScore() && second.getRapidClickCount() == theoricWinner.getRapidClickCount())) {
           broadcast(new Message("nextRound", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
           // TODO Start Timer
         } else {
-          // TODO: determine the winner
+          theoricWinner.setWinner();
 
           // Broadcast the end of the game
           broadcast(new Message("end", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
 
-          // TODO: persist the game in the database
-//          EntityManager em = EntityManagerProvider.getInstance();
-//          game.setPlayers(games.get(game));
-//
-//          em.getTransaction().begin();
-//          em.persist(game);
-//          em.getTransaction().commit();
+
+          EntityManager em = EntityManagerProvider.getInstance();
+
+          em.getTransaction().begin();
+          em.persist(game);
+          for (Player p : games.get(game)) em.persist(p);
+          em.getTransaction().commit();
         }
       }
     }

@@ -309,7 +309,7 @@ class GameTest {
 
     for (Game game : TESTS.keySet()) {
       ArrayList<Player> expected = TESTS.get(game);
-      game.sortPlayersByScore();
+      game.sortPlayersByScoreAndRapidity();
       assertEquals(expected, game.getPlayers());
     }
   }

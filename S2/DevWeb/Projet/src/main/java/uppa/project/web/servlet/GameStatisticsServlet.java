@@ -9,9 +9,10 @@ import java.io.IOException;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Game;
+import uppa.project.database.pojo.Player;
 
 @WebServlet(name = "game-statistics", value = "/game-statistics")
-public class GameStatistics extends HttpServlet {
+public class GameStatisticsServlet extends HttpServlet {
 
   public void init() {
   }
@@ -22,7 +23,7 @@ public class GameStatistics extends HttpServlet {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
       game = gameDAO.findById(Integer.parseInt(request.getParameter("id")));
       request.removeAttribute("id");
-      game.sortPlayersByScore();
+      game.sortPlayersByScoreAndRapidity();
       request.setAttribute("game", game);
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);
     } catch (Exception e) {
