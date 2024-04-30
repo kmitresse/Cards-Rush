@@ -126,7 +126,7 @@ public class User implements Serializable {
     this.nbRapidClicks = 0;
     this.rapidClickPercentRate = 0;
   }
-  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames) {
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, List<Player> playedGames) {
     if (!isValidBirthDate(birth)){
       throw new IllegalArgumentException("La date de naissance n'est pas valide");
     }
@@ -157,7 +157,7 @@ public class User implements Serializable {
    * @param birth    la date de naissance
    * @param gender   le genre
    */
-  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, ArrayList<Player> playedGames, ArrayList<RecoveryPasswordToken> recoveryPasswordToken) {
+  public User(BigDecimal id, String username, String email, String password, Date birth, Gender gender, List<Player> playedGames, List<RecoveryPasswordToken> recoveryPasswordToken) {
     if (!isValidBirthDate(birth)){
       throw new IllegalArgumentException("La date de naissance n'est pas valide");
     }

@@ -252,7 +252,7 @@ public class Game implements Serializable {
    *
    * @param players les nouveaux joueurs
    */
-  public void setPlayers(ArrayList<Player> players) {
+  public void setPlayers(List<Player> players) {
     this.players = players;
   }
 
