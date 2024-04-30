@@ -1,15 +1,29 @@
 <%@ tag import="uppa.project.database.pojo.Player" %>
 <%@ tag import="uppa.project.database.pojo.Game" %>
+<%@ tag import="java.util.List" %>
+<%@ tag import="java.util.ArrayList" %>
+<%@ tag import="java.text.SimpleDateFormat" %>
+<%@ tag import="java.util.Date" %>
 <%@tag description="component/statistics" pageEncoding="UTF-8" %>
-<jsp:useBean id="game" class="uppa.project.database.pojo.Game" scope="request"/>
+
+<%
+    // Get game from request
+    Game game = (Game) request.getAttribute("game");
+    ArrayList<Player> players = (ArrayList<Player>) request.getAttribute("players");
+%>
+
+<%--<jsp:useBean id="game" class="uppa.project.database.pojo.Game" scope="request"/>--%>
 <h4 class="title is-6">Information sur la partie</h4>
 <div class="level">
     <div class="level-item has-text-centered has-text-on-top">
         <div>
-            <% String date = game.getCreatedAt().toLocaleString();
-                System.out.println(date);
-               String day = date.substring(0,8) + date.substring(10,12);
-               String hour = date.substring(14,16) + "h" + date.substring(17,19);
+            <% Date date = game.getCreatedAt();
+
+                SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
+
+               String day = sdfDay.format(date);
+               String hour = sdfHour.format(date);
             %>
             <p class="heading">Date de jeu</p>
             <p class="title"><%= day %></p>
@@ -20,34 +34,34 @@
         <div>
             <p class="heading">Difficulté</p>
             <% if (game.getDifficulty().equals(Game.Difficulty.EASY)){%>
-            <p class="title">Facile</p>
+                <p class="title">Facile</p>
             <% } else {%>
-            <p class="title">Difficile</p>
+                <p class="title">Difficile</p>
             <% } %>
         </div>
     </div>
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Nombre de rounds</p>
-            <p class="title">${game.nbRounds}</p>
+            <p class="title"><%= game.getNbRounds() %></p>
         </div>
     </div>
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Nombre de couleurs</p>
-            <p class="title">${game.nbColors}</p>
+            <p class="title"><%= game.getNbColors()%></p>
         </div>
     </div>
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Nombre de valeurs</p>
-            <p class="title">${game.nbValuesPerColor}</p>
+            <p class="title"><%= game.getNbValuesPerColor()%></p>
         </div>
     </div>
     <div class="level-item has-text-centered">
         <div>
             <p class="heading">Nombre de joueurs</p>
-            <p class="title">${game.nbPlayers}</p>
+            <p class="title"><%= game.getNbPlayers()%></p>
         </div>
     </div>
 </div>
@@ -64,14 +78,17 @@
     </tr>
     </thead>
     <tbody id="game-list">
-
-    <% for (Player player : game.getPlayers()) { %>
+    <%
+        for (Player player : players) { %>
         <tr>
             <td><%= player.getUser().getUsername() %></td>
             <td><%= player.getScore() %></td>
             <td><%= player.getRightClickCount() %>  (<%= player.getRatioRightClick() %>%)</td>
             <td><%= player.getRapidClickCount() %> (<%= player.getRatioRapidClick()%>%)</td>
-            <td><% if (player.getUser().getUsername().equals(game.getWinner().getUser().getUsername())){ %> <i class="fa-solid fa-crown" style="color: #FFD43B;"></i> <% } %></td>
+            <td>
+                <% if (player.getUser().getUsername().equals(game.getWinner().getUser().getUsername())){ %>
+                    <i class="fa-solid fa-crown" style="color: #FFD43B;"></i>
+                <% } %></td>
         </tr>
     <% } %>
     </tbody>
