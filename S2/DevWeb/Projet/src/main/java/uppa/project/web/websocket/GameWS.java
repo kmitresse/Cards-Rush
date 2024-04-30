@@ -11,6 +11,7 @@ import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.EntityManagerProvider;
@@ -106,45 +107,90 @@ public class GameWS {
       if (gameClickCount == 1) player.incrementRapidClickCount();
 
       // Check if the player has clicked on the right card
-      switch (choice) {
-        case COLOR_VALUE -> {
-          if (gameCard.getColor().equals(playerCard.getColor()) && gameCard.getValue() == playerCard.getValue()) {
-            player.incrementRightClickCount();
-            player.setScore(playerScore + 2);
-          } else {
-            player.setScore(playerScore - 1);
-          }
-        }
-        case COLOR -> {
-          if (gameCard.getColor().equals(playerCard.getColor())) {
-            if (gameCard.getValue() != playerCard.getValue()) {
+      if (game.getDifficulty().equals(Game.Difficulty.EASY)) {
+        switch (choice) {
+          case COLOR_VALUE -> {
+            if (gameCard.equals(playerCard)) {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
-              player.setScore(playerScore + 1);
+              player.setScore(playerScore - 1);
             }
-          } else {
-            player.setScore(playerScore - 1);
           }
-        }
-        case VALUE -> {
-          if(gameCard.getValue() == playerCard.getValue()) {
-            if (!gameCard.getColor().equals(playerCard.getColor())) {
+          case COLOR -> {
+            if (gameCard.getColor().equals(playerCard.getColor())) {
+              if (gameCard.getValue() != playerCard.getValue()) {
+                player.incrementRightClickCount();
+                player.setScore(playerScore + 2);
+              } else {
+                player.setScore(playerScore + 1);
+              }
+            } else {
+              player.setScore(playerScore - 1);
+            }
+          }
+          case VALUE -> {
+            if (gameCard.getValue() == playerCard.getValue()) {
+              if (!gameCard.getColor().equals(playerCard.getColor())) {
+                player.incrementRightClickCount();
+                player.setScore(playerScore + 2);
+              } else {
+                player.setScore(playerScore + 1);
+              }
+            } else {
+              player.setScore(playerScore - 1);
+            }
+          }
+          case NONE -> {
+            if (!gameCard.getColor().equals(playerCard.getColor()) && gameCard.getValue() != playerCard.getValue()) {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
-              player.setScore(playerScore + 1);
+              player.setScore(playerScore - 1);
             }
-          } else {
-            player.setScore(playerScore - 1);
           }
         }
-        case NONE -> {
-          if (!gameCard.getColor().equals(playerCard.getColor()) && gameCard.getValue() != playerCard.getValue()) {
-            player.incrementRightClickCount();
-            player.setScore(playerScore + 2);
-          } else {
-            player.setScore(playerScore - 1);
+      } else {
+        int nbSameCard = countSameCard(gameCard, game.getPlayers(), game.getCurrentRound());
+        int nbSameColor = countSameColor(gameCard, game.getPlayers(), game.getCurrentRound());
+        int nbSameValue = countSameValue(gameCard, game.getPlayers(), game.getCurrentRound());
+        int nbNone = countNone(gameCard, game.getPlayers(), game.getCurrentRound());
+        switch (choice) {
+          case COLOR_VALUE -> {
+            if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              player.incrementRightClickCount();
+              player.setScore(playerScore + 2);
+            } else {
+              player.setScore(playerScore - 1);
+            }
+          }
+          case COLOR -> {
+            if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              player.setScore(playerScore + 1);
+            } else if ((nbSameColor > nbSameCard) && (nbSameColor >= nbSameValue) && (nbSameColor >= nbNone)) {
+              player.incrementRightClickCount();
+              player.setScore(playerScore + 2);
+            } else {
+              player.setScore(playerScore - 1);
+            }
+          }
+          case VALUE -> {
+            if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              player.setScore(playerScore + 1);
+            } else if ((nbSameValue > nbSameCard) && (nbSameValue > nbSameColor) && (nbSameValue >= nbNone)) {
+              player.incrementRightClickCount();
+              player.setScore(playerScore + 2);
+            } else {
+              player.setScore(playerScore - 1);
+            }
+          }
+          case NONE -> {
+            if ((nbNone > nbSameCard) && (nbNone >= nbSameColor) && (nbNone > nbSameValue)){
+              player.incrementRightClickCount();
+              player.setScore(playerScore + 2);
+            } else {
+              player.setScore(playerScore - 1);
+            }
           }
         }
       }
@@ -192,6 +238,78 @@ public class GameWS {
         }
       }
     }
+  }
+
+  /**
+   * Retourne le nombre de joueurs avec une carte identique à celle du plateau
+   * @param gameCard carte du plateau
+   * @param players liste des joueurs
+   * @param currentRound manche courante
+   * @return nombre de cartes identiques à celle du plateau
+   */
+  private int countSameCard(Card gameCard, List<Player> players, int currentRound) {
+    int counter = 0;
+    for (Player player : players) {
+      Card card = player.getDeck().getCards().get(currentRound);
+      if (gameCard.equals(card)) {
+        counter ++;
+      }
+    }
+    return counter;
+  }
+
+  /**
+   * Retourne le nombre de joueurs avec une carte avec seulement la couleur correspondante à celle du plateau
+   * @param gameCard
+   * @param players
+   * @param currentRound
+   * @return nombre de couleurs identiques à celle du plateau
+   */
+  private int countSameColor(Card gameCard, List<Player> players, int currentRound) {
+    int counter = 0;
+    for (Player player : players) {
+      Card card = player.getDeck().getCards().get(currentRound);
+      if (gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
+        counter ++;
+      }
+    }
+    return counter;
+  }
+
+  /**
+   * Retourne le nombre de joueurs avec une carte avec seulement la valeur correspondante à celle du plateau
+   * @param gameCard carte du plateau
+   * @param players liste des joueurs
+   * @param currentRound manche courante
+   * @return nombre de valeurs identiques à celle du plateau
+   */
+  private int countSameValue(Card gameCard, List<Player> players, int currentRound) {
+    int counter = 0;
+    for (Player player : players) {
+      Card card = player.getDeck().getCards().get(currentRound);
+      if (gameCard.getValue().equals(card.getValue()) && !gameCard.getColor().equals(card.getColor())) {
+        counter ++;
+      }
+    }
+    return counter;
+  }
+
+  /**
+   * Retourne le nombre de joueurs avec une carte totalement différente de celle du plateau
+   * @param gameCard
+   * @param players
+   * @param currentRound
+   * @return nombre de cartes totalement différentes de celle du plateau
+   */
+  private int countNone(Card gameCard, List<Player> players, int currentRound) {
+    int counter = 0;
+    for (Player player : players) {
+      Card card = player.getDeck().getCards().get(currentRound);
+      if (!gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
+        counter ++;
+      }
+    }
+    return counter;
   }
 
   private void broadcast(String message) {

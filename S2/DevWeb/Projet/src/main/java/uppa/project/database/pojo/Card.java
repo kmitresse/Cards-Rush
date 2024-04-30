@@ -74,4 +74,11 @@ public class Card {
       ", value=" + value +
       '}';
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Card card)) return false;
+    return getColor() == card.getColor() && getValue() == card.getValue();
+  }
 }

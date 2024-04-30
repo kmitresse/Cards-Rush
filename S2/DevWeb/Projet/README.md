@@ -50,6 +50,8 @@ Depuis IntelliJ, ouvrir l'onglet `file > project structure` et ajouter les artef
 ![Onglet project_structure.png](readmeTools/project_structure.png)
 
 Nous utilisons tomcat pour lancer notre projet. 
+
 Sur IntelliJ, vous pouvez ajouter une configuration Tomcat depuis l'onglet "edit run configurations", puis en cliquant sur le bouton "+" en haut à gauche de la fenêtre de lancement. 
+
 Editez la configuration comme suit (le port utilisé pour Tomcat conseillé est 8080, mais vous pouvez le changer si vous le souhaitez ou s'il est déjà utilisé par un autre service sur votre machine) :
 ![Configuration Tomcat.png](readmeTools/tomcat_configuration.png)

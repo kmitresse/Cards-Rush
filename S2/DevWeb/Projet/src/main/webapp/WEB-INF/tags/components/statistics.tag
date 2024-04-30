@@ -29,8 +29,6 @@
     </div>
 </div>
 
-<%-- TODO: Si le temps nous le permet, mettre en place un système de pagination --%>
-
 <h4 class="title is-4">Parties jouées </h4>
 <table class="table is-fullwidth">
     <thead>
@@ -44,11 +42,12 @@
     <tbody>
     <% for (int i = 0; i < user.getPlayedGames().size(); i++) {
         Player player = user.getPlayedGames().get(i);
+        System.out.println(player.toString());
     %>
         <tr>
             <td><%= player.getGame().getCreatedAt().toLocaleString() %></td>
             <td><%= player.getScore() %></td>
-            <td><%= player.getGame().getWinner() %></td>
+            <td><%= player.getGame().getWinner().getUser().getUsername() %></td>
             <td><a href="${pageContext.request.contextPath}/game-statistics?id=<%= player.getGame().getId() %>">Voir</a></td>
         </tr>
     <% } %>

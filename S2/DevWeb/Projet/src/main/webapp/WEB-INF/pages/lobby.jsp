@@ -10,7 +10,7 @@
                 <component:card title="Menu principal">
                     <ul>
                         <li><a href="${pageContext.request.contextPath}/new">Nouvelle partie</a></li>
-<%--                        <li><a href="${pageContext.request.contextPath}/join">Rejoindre une partie</a></li>--%>
+                        <li><a href="${pageContext.request.contextPath}/rules">Règles du jeu</a></li>
                     </ul>
                 </component:card>
             </div>

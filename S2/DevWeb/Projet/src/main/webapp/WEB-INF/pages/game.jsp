@@ -46,18 +46,19 @@
             <div id="gameStarted" style="display:none;">
                 <div class="columns" id="otherCards"></div>
                 <div class="columns">
-                    <div class="column" id="deck"></div>
-                    <div class="column" id="choice">
-                        <button class="button" data-value="COLOR_VALUE">Même couleur et valeur</button>
-                        <button class="button" data-value="VALUE">Même valeur</button>
-                        <button class="button" data-value="COLOR">Même couleur</button>
-                        <button class="button" data-value="NONE">Aucun</button>
+                    <div class="column is-flex is-flex-direction-column is-align-items-center" id="deck"></div>
+                    <div class="column is-one-quarter is-justify-content-center" id="choice"
+                         style="position: absolute; right: 0; z-index: 9999">
+                        <div class="buttons is-flex-direction-column">
+                            <p id="round"></p>
+                            <button class="button is-fullwidth" data-value="COLOR_VALUE">Même couleur et valeur</button>
+                            <button class="button is-fullwidth" data-value="COLOR">Même couleur</button>
+                            <button class="button is-fullwidth" data-value="VALUE">Même valeur</button>
+                            <button class="button is-fullwidth" data-value="NONE">Aucun</button>
+                        </div>
                     </div>
                 </div>
-                <div class="columns">
-                    <div class="column" id="myCard">
-
-                    </div>
+                <div class="columns is-centered" id="myCard">
                 </div>
             </div>
         </component:hero>

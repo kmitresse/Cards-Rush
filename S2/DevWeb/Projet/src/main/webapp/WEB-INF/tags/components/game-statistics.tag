@@ -71,7 +71,7 @@
             <td><%= player.getScore() %></td>
             <td><%= player.getRightClickCount() %>  (<%= player.getRatioRightClick() %>%)</td>
             <td><%= player.getRapidClickCount() %> (<%= player.getRatioRapidClick()%>%)</td>
-            <td><% if (player.getUser().getUsername().equals(game.getWinner())){ %> <i class="fa-solid fa-crown" style="color: #FFD43B;"></i> <% } %></td>
+            <td><% if (player.getUser().getUsername().equals(game.getWinner().getUser().getUsername())){ %> <i class="fa-solid fa-crown" style="color: #FFD43B;"></i> <% } %></td>
         </tr>
     <% } %>
     </tbody>
@@ -79,10 +79,19 @@
 
 
 <div class="navbar-item">
+    <% if (request.getParameter("endGame") != null){ %>
+    <a href="${pageContext.request.contextPath}/lobby" class="button is-light is-right">
+                    <span class="icon">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+        <span>Retour</span>
+    </a>
+    <% } else {%>
     <a href="${pageContext.request.contextPath}/profile" class="button is-light is-right">
                     <span class="icon">
                         <i class="fa-solid fa-arrow-left"></i>
                     </span>
         <span>Retour</span>
     </a>
+    <%}%>
 </div>

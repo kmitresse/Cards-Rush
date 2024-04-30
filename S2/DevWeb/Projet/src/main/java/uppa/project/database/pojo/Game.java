@@ -289,7 +289,7 @@ public class Game implements Serializable {
   }
 
   /**
-   * Tri des joueurs de la partie par score
+   * Tri des joueurs de la partie par score puis par rapidité
    */
   public void sortPlayersByScoreAndRapidity() {
     players.sort((p1, p2) -> {
@@ -305,9 +305,9 @@ public class Game implements Serializable {
    *
    * @return le nom du gagnant
    */
-  public String getWinner(){
-    sortPlayersByScore();
-    return players.get(0).getUser().getUsername();
+  public Player getWinner(){
+    this.sortPlayersByScoreAndRapidity();
+    return players.get(0);
   }
 
   /**
