@@ -19,7 +19,5 @@
     <div class="card-content">
         <jsp:doBody/>
     </div>
-    <div class="card-footer">
-        <jsp:invoke fragment="footer"/>
-    </div>
+    <jsp:invoke fragment="footer"/>
 </div>

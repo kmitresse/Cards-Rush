@@ -14,10 +14,12 @@
             <div class="columns" id="gameWaiting">
                 <div class="column">
                     <component:card title="Liste des joueurs dans la partie">
-                    <jsp:attribute name="footer">
-                        <a data-target="#user-list-modal" class="card-footer-item modal-trigger">Ajouter</a>
-                        <a id="start-game-button" class="is-primary card-footer-item">Démarrer</a>
-                    </jsp:attribute>
+                        <jsp:attribute name="footer">
+                            <div class="card-footer">
+                                <a data-target="#user-list-modal" class="card-footer-item modal-trigger">Ajouter</a>
+                                <a id="start-game-button" class="is-primary card-footer-item">Démarrer</a>
+                            </div>
+                        </jsp:attribute>
                         <jsp:body>
                             <table id="playerList" class="table is-fullwidth">
                                 <thead>

@@ -77,8 +77,14 @@
     </div>
 
     <div class="field">
-        <div class="buttons is-right">
-            <input type="submit" id="modify" class="button is-primary is-outlined" value="Modifier">
+        <div class="buttons is-justify-content-space-between">
+            <a href="${pageContext.request.contextPath}/lobby" class="button is-light is-right">
+                    <span class="icon">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+            <span>Retour</span>
+            </a>
+            <input type="submit" id="modify" class="button is-primary is-light" value="Modifier">
         </div>
     </div>
 </form>
