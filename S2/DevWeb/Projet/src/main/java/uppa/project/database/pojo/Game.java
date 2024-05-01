@@ -151,7 +151,7 @@ public class Game implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, createdAt, players);
+    return Objects.hash(id, createdAt);
   }
 
   /**

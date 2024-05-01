@@ -12,6 +12,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import uppa.project.bean.PlayerBean;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.EntityManagerProvider;
@@ -227,10 +228,12 @@ public class GameWS {
           theoricWinner.setWinner();
 
           EntityManager em = EntityManagerProvider.getFactory().createEntityManager();
-          DAO<Player> playerDAO = new Game_JPA_DAO_Factory().getDAOPlayer();
-
           em.getTransaction().begin();
-          for (Player p : games.get(game)) playerDAO.create(p);
+          for (Player p : games.get(game)) {
+            PlayerBean playerBean = new PlayerBean(p);
+            if (playerBean.validate()) System.out.println("Player "+p.getUser().getUsername()+" sauvegardé en base de données");
+            else System.out.println("");
+          };
           em.getTransaction().commit();
           em.close();
 
