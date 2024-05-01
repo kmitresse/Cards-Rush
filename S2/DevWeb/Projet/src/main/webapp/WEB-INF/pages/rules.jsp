@@ -26,7 +26,7 @@
                             <li>Les cartes comparées ont la même valeur mais pas la même couleur</li>
                             <li>Les cartes comparées sont totalement différentes</li>
                         </ul>
-                        <h2 class="title is-5">Modes de difficultés</h2>
+                        <h2>Modes de difficultés</h2>
                         <p>Deux modes de difficultés s'offrent à vous :</p>
                         <ul>
                             <li><p>Le mode <span class="tag is-light is-medium is-primary">facile</span>: Vous ne devez effectuer des
@@ -38,9 +38,15 @@
                                     La réponse à selectionner est "Même valeur".
                                 </p>
                             </li>
-                            <li><p>Le mode <span class="tag is-light is-medium is-primary">difficile</span>: Vous devez effectuer des
-                                comparaisons avec les mains de chaque joueur et opter pour la réponse correspondant aux plus grand nombre
-                                de joueur</p>
+                            <li><p>
+                                    Le mode <span class="tag is-light is-medium is-primary">difficile</span>: Vous devez effectuer des
+                                    comparaisons avec les mains de chaque joueur et opter pour la réponse correspondant aux plus grand nombre
+                                    de joueur.<br>
+                                Attention : Une priorité est définie pour les réponses: </p>
+                                   <p class="has-text-weight-bold is-centered"> "Même carte" > "Même Couleur" > "Même Valeur" > "Aucun"</p>
+                                <p>
+                                    Si deux réponses sont possibles car elles représentent le même nombre de joueurs, la réponse la plus prioritaire est définie comme correcte.
+                                </p>
                                 <p>
                                     Exemple: (4 joueurs) <br>
                                     Joueur 1 : 4 de pique <br>
@@ -51,7 +57,7 @@
                                     La réponse à selectionner est "Même couleur" car elle représente 2 joueurs sur les 4.
                                 </p></li>
                         </ul>
-                        <h2 >Gestion des scores</h2>
+                        <h2>Gestion des scores</h2>
                         <p>Les scores sont définits comme suit:</p>
                         <ul>
                             <li>Bonne réponse : <span class="tag is-success">+2pts</span></li>
@@ -61,7 +67,7 @@
                             <li>Aucune réponse : <span class="tag is-light">+0pt</span></li>
                             <li>Mauvaise réponse : <span class="tag is-danger">-1pt</span></li>
                         </ul>
-                        <h2 class="title is-5">Vainqueur de la partie</h2>
+                        <h2>Vainqueur de la partie</h2>
                         <p>Le vainqueur d'une partie est celui qui aura accumulé le plus de points, en cas d'égalité, le joueur le plus rapide est déclaré vainqueur.<br>
                             Si l'égalité subsiste, des manches supplémentaires départagerons les joueurs.</p>
                         <h3 class="is-justify-content-centered"> Alors affûtez votre agilité et visez
