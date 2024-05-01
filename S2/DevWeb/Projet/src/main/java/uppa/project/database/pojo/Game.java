@@ -73,7 +73,7 @@ public class Game implements Serializable {
   private int timer;
 
   @Transient
-  public static final int TIMER_MIN = 10;
+  public static final int TIMER_MIN = 5;
 
   @Transient
   public static final  int TIMER_MAX = 60;
