@@ -50,7 +50,7 @@
                     <div class="column is-one-quarter is-justify-content-center" id="choice"
                          style="position: absolute; right: 0; z-index: 9999">
                         <div class="buttons is-flex-direction-column">
-                            <p id="round"></p>
+                            <p id="round" class="title has-text-white"></p>
                             <button class="button is-fullwidth" data-value="COLOR_VALUE">Même couleur et valeur</button>
                             <button class="button is-fullwidth" data-value="COLOR">Même couleur</button>
                             <button class="button is-fullwidth" data-value="VALUE">Même valeur</button>
@@ -258,11 +258,16 @@
                 const deck = document.querySelector('#deck'); // Column
                 const myCard = document.querySelector('#myCard'); // Column
                 const otherCards = document.querySelector('#otherCards'); // Columns
+                const round = document.querySelector('#round');
 
                 // Reset content
                 deck.innerHTML = "";
                 myCard.innerHTML = "";
                 otherCards.innerHTML = "";
+                round.innerText = "";
+
+                // Show current round
+                round.innerText = "Manche " + (currentGame.currentRound+1)
 
                 // Show other player cards
                 game.players
@@ -304,12 +309,18 @@
                 const choice = document.querySelector('#choice');
                 const myCard = document.querySelector('#myCard'); // Column
                 const otherCards = document.querySelector('#otherCards'); // Columns
+                const round = document.querySelector('#round');
+
 
                 // Reset content
                 deck.innerHTML = "";
                 myCard.innerHTML = "";
                 otherCards.innerHTML = "";
+                round.innerText = "";
                 choice.querySelectorAll('button').forEach(button => button.disabled = false);
+
+                // Show the current round
+                round.innerText = "Manche " + (currentGame.currentRound + 1)
 
                 // Show other player cards
                 game.players

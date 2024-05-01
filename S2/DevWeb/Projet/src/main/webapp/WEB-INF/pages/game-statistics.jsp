@@ -7,7 +7,7 @@
 <layout:base title="Profil">
     <component:hero>
         <div class="columns is-centered">
-            <div class="column is-9-tablet is-9-desktop is-9-widescreen">
+            <div class="column is-11-tablet is-11-desktop is-11-widescreen">
                 <component:card title="Statistiques de la partie">
                     <component:game-statistics/>
                 </component:card>

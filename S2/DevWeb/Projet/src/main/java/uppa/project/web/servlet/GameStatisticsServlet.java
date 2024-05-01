@@ -26,12 +26,6 @@ public class GameStatisticsServlet extends HttpServlet {
       ArrayList<Player> players = new ArrayList<>();
       for (Player player : game.getPlayers()) players.add(player);
       request.setAttribute("players", players);
-
-      System.out.println("GameStatisticsServlet.doGet() : game = " + game);
-      System.out.println("GameStatisticsServlet.doGet() : players = " + players);
-
-//      request.removeAttribute("id");
-//      game.sortPlayersByScoreAndRapidity();
       request.setAttribute("game", game);
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);
     } catch (Exception e) {
