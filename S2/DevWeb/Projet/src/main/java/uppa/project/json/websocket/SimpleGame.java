@@ -16,7 +16,7 @@ public class SimpleGame {
     this.id = game.getId().intValue();
     this.players = new ArrayList<>();
     for (Player p : playerArrayList) players.add(new SimplePlayer(p, game.getCurrentRound()));
-    this.currentCard = game.getDeck().getCards().get(game.getCurrentRound());
+    this.currentCard = game.getDeck().getCards().get(game.getCurrentRound() % game.getDeck().getCards().size());
     this.currentRound  = game.getCurrentRound();
   }
 

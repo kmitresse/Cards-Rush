@@ -21,7 +21,7 @@ public class SimplePlayer {
     this.rightClickCount = player.getRightClickCount();
     this.rapidClickCount = player.getRapidClickCount();
 
-    this.currentCard = player.getDeck().getCards().get(currentRound);
+    this.currentCard = player.getDeck().getCards().get(currentRound % player.getDeck().getCards().size());
   }
 
   public SimplePlayer(Player player) {

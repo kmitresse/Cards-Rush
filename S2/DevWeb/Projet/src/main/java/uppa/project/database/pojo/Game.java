@@ -69,7 +69,7 @@ public class Game implements Serializable {
   @Transient
   private Deck deck;
 
-  @Transient
+  @Column(name = "timer")
   private int timer;
 
   @Transient
@@ -90,6 +90,7 @@ public class Game implements Serializable {
   public Game() {
     this.createdAt = new Date();
     this.players = new ArrayList<>();
+    this.timer = 0;
   }
 
   /**

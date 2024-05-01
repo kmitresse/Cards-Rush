@@ -4,5 +4,6 @@ public enum ClickChoice {
   COLOR_VALUE,
   COLOR,
   VALUE,
-  NONE
+  NONE,
+  TIMER_END
 }

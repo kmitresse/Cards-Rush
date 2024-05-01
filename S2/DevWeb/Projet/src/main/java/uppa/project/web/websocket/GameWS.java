@@ -12,6 +12,8 @@ import jakarta.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import uppa.project.bean.PlayerBean;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
@@ -27,19 +29,20 @@ import uppa.project.json.websocket.Message;
 import uppa.project.json.websocket.SimpleGame;
 import uppa.project.json.websocket.SimplePlayer;
 import uppa.project.json.websocket.SimpleUser;
-import uppa.project.utils.GameProvider;
 
 @ServerEndpoint(value = "/ws/game/{game_id}")
 public class GameWS {
 
   private static final HashMap<Game, ArrayList<Player>> games = new HashMap<>();
+  private static final HashMap<Game, Timer> timers = new HashMap<>();
   Gson gson = new Gson();
   private Game game;
   private Player player;
 
   @OnOpen
   public void onOpen(Session session, @PathParam("game_id") String gameId) throws DAOException {
-    this.game = GameProvider.getGame(Integer.parseInt(gameId));
+    DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
+    this.game = gameDAO.findById(Integer.parseInt(gameId));
     if (!games.containsKey(game)) games.put(game, new ArrayList<>());
   }
 
@@ -84,7 +87,18 @@ public class GameWS {
     if (message.getType().equals("start")) {
       game.setGameState(Game.GameState.STARTED);
       broadcast(new Message("start", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
-      // TODO Start Timer
+
+      // TODO Start the timer
+      Timer timer = new Timer();
+      timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+          // Broadcast the end of the game
+          broadcast(new Message("timerEnd", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
+          timer.cancel();
+        }
+      }, game.getTimer() * 1000L);
+      timers.put(game, timer);
     }
 
     if (message.getType().equals("click")) {
@@ -151,6 +165,7 @@ public class GameWS {
               player.setScore(playerScore - 1);
             }
           }
+          case TIMER_END -> {}
         }
       } else {
         int nbSameCard = countSameCard(gameCard, games.get(game), game.getCurrentRound());
@@ -187,13 +202,14 @@ public class GameWS {
             }
           }
           case NONE -> {
-            if ((nbNone > nbSameCard) && (nbNone >= nbSameColor) && (nbNone > nbSameValue)){
+            if ((nbNone > nbSameCard) && (nbNone >= nbSameColor) && (nbNone > nbSameValue)) {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
               player.setScore(playerScore - 1);
             }
           }
+          case TIMER_END -> {}
         }
       }
 
@@ -205,6 +221,8 @@ public class GameWS {
 
       // If all players have clicked
       if (gameClickCount >= games.get(game).size()) {
+        // Stop the timer if it's running
+        timers.get(game).cancel();
 
         // Reset the current click for all players
         for (Player p : games.get(game)) p.setCurrentClick(null);
@@ -223,7 +241,16 @@ public class GameWS {
         // Check if the game is over
         if (game.nextRound() || (second.getScore() == theoricWinner.getScore() && second.getRapidClickCount() == theoricWinner.getRapidClickCount())) {
           broadcast(new Message("nextRound", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
-          // TODO Start Timer
+          Timer timer = new Timer();
+          timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+              // Broadcast the end of the game
+              broadcast(new Message("timerEnd", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
+              timer.cancel();
+            }
+          }, game.getTimer() * 1000L);
+          timers.put(game, timer);
         } else {
           theoricWinner.setWinner();
 
@@ -231,11 +258,10 @@ public class GameWS {
           em.getTransaction().begin();
           for (Player p : games.get(game)) {
             PlayerBean playerBean = new PlayerBean(p);
-            if (playerBean.validate()) System.out.println("Player "+p.getUser().getUsername()+" sauvegardé en base de données");
-            else System.out.println("");
-          };
+            if (playerBean.validate()) System.out.println("Player " + p.getUser().getUsername() + " sauvegardé en base de données");
+            else System.out.println();
+          }
           em.getTransaction().commit();
-          em.close();
 
           // Broadcast the end of the game
           broadcast(new Message("end", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
@@ -246,8 +272,9 @@ public class GameWS {
 
   /**
    * Retourne le nombre de joueurs avec une carte identique à celle du plateau
-   * @param gameCard carte du plateau
-   * @param players liste des joueurs
+   *
+   * @param gameCard     carte du plateau
+   * @param players      liste des joueurs
    * @param currentRound manche courante
    * @return nombre de cartes identiques à celle du plateau
    */
@@ -256,7 +283,7 @@ public class GameWS {
     for (Player player : players) {
       Card card = player.getDeck().getCards().get(currentRound);
       if (gameCard.equals(card)) {
-        counter ++;
+        counter++;
       }
     }
     return counter;
@@ -264,6 +291,7 @@ public class GameWS {
 
   /**
    * Retourne le nombre de joueurs avec une carte avec seulement la couleur correspondante à celle du plateau
+   *
    * @param gameCard
    * @param players
    * @param currentRound
@@ -274,7 +302,7 @@ public class GameWS {
     for (Player player : players) {
       Card card = player.getDeck().getCards().get(currentRound);
       if (gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
-        counter ++;
+        counter++;
       }
     }
     return counter;
@@ -282,8 +310,9 @@ public class GameWS {
 
   /**
    * Retourne le nombre de joueurs avec une carte avec seulement la valeur correspondante à celle du plateau
-   * @param gameCard carte du plateau
-   * @param players liste des joueurs
+   *
+   * @param gameCard     carte du plateau
+   * @param players      liste des joueurs
    * @param currentRound manche courante
    * @return nombre de valeurs identiques à celle du plateau
    */
@@ -292,7 +321,7 @@ public class GameWS {
     for (Player player : players) {
       Card card = player.getDeck().getCards().get(currentRound);
       if (gameCard.getValue().equals(card.getValue()) && !gameCard.getColor().equals(card.getColor())) {
-        counter ++;
+        counter++;
       }
     }
     return counter;
@@ -300,6 +329,7 @@ public class GameWS {
 
   /**
    * Retourne le nombre de joueurs avec une carte totalement différente de celle du plateau
+   *
    * @param gameCard
    * @param players
    * @param currentRound
@@ -310,7 +340,7 @@ public class GameWS {
     for (Player player : players) {
       Card card = player.getDeck().getCards().get(currentRound);
       if (!gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
-        counter ++;
+        counter++;
       }
     }
     return counter;

@@ -51,6 +51,7 @@
                          style="position: absolute; right: 0; z-index: 9999">
                         <div class="buttons is-flex-direction-column">
                             <p id="round" class="title has-text-white"></p>
+                            <p id="timer" class="subtitle has-text-white"></p>
                             <button class="button is-fullwidth" data-value="COLOR_VALUE">Même couleur et valeur</button>
                             <button class="button is-fullwidth" data-value="COLOR">Même couleur</button>
                             <button class="button is-fullwidth" data-value="VALUE">Même valeur</button>
@@ -212,6 +213,22 @@
             import Card from "${pageContext.request.contextPath}/static/js/Card.js"
 
             const choice = document.querySelector('#choice');
+            let havePlayed = false;
+
+            const timer = ${game.timer};
+            let remainingTime = timer;
+            let timerInterval;
+
+            // Display timer
+            document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+
+            const interval = () => {
+                remainingTime--;
+
+                document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+
+                if (remainingTime <= 0) clearInterval(timerInterval);
+            }
 
             choice.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', () => {
@@ -220,6 +237,8 @@
                         data: button.dataset.value
                     }
                     wsgame.ws.send(JSON.stringify(message));
+
+                    havePlayed = true;
 
                     // Disable buttons
                     choice.querySelectorAll('button').forEach(button => button.disabled = true);
@@ -255,6 +274,8 @@
                 document.querySelector('#gameWaiting').style.display = 'none';
                 document.querySelector('#gameStarted').style.display = 'block';
 
+                timerInterval = setInterval(interval, 1000);
+
                 const deck = document.querySelector('#deck'); // Column
                 const myCard = document.querySelector('#myCard'); // Column
                 const otherCards = document.querySelector('#otherCards'); // Columns
@@ -267,7 +288,7 @@
                 round.innerText = "";
 
                 // Show current round
-                round.innerText = "Manche " + (currentGame.currentRound+1)
+                round.innerText = "Manche " + (currentGame.currentRound + 1)
 
                 // Show other player cards
                 game.players
@@ -296,9 +317,16 @@
             wsgame.onMessage("updatePlayer", (p) => {
                 document.querySelector(".player-" + p.user.id + " .card-play").style.boxShadow = "inset 0px 0px 30px 10px orange";
             })
-            wsgame.onMessage("end", (game) => {
-                window.location.href = "${pageContext.request.contextPath}/game-statistics?id=${game.id}&endGame=true";
+            wsgame.onMessage("timerEnd", (game) => {
+                if (!havePlayed) {
+                    const message = {
+                        type: "click",
+                        data: "TIMER_END"
+                    }
+                    wsgame.ws.send(JSON.stringify(message));
+                }
             })
+
             wsgame.onMessage("nextRound", (game) => {
                 currentGame = game;
 
@@ -311,12 +339,17 @@
                 const otherCards = document.querySelector('#otherCards'); // Columns
                 const round = document.querySelector('#round');
 
+                clearInterval(timerInterval);
+                remainingTime = timer;
+                document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+                timerInterval = setInterval(interval, 1000);
 
                 // Reset content
                 deck.innerHTML = "";
                 myCard.innerHTML = "";
                 otherCards.innerHTML = "";
                 round.innerText = "";
+                havePlayed = false;
                 choice.querySelectorAll('button').forEach(button => button.disabled = false);
 
                 // Show the current round
@@ -345,6 +378,11 @@
                 // Show deck
                 const deckCard = new Card(game.currentCard.color, game.currentCard.value);
                 deck.innerHTML = deckCard.render();
+            })
+
+            wsgame.onMessage("end", (game) => {
+                clearInterval(timerInterval);
+                window.location.href = "${pageContext.request.contextPath}/game-statistics?id=${game.id}&endGame=true";
             })
 
             // Close handling

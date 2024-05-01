@@ -4,31 +4,32 @@ USE ${database};
 -- Table: User
 CREATE TABLE IF NOT EXISTS `user`
 (
-    id         INT          NOT NULL AUTO_INCREMENT,
-    username   VARCHAR(255) NOT NULL UNIQUE,
-    email      VARCHAR(255) NOT NULL UNIQUE,
-    password   VARCHAR(255) NOT NULL,
-    gender     VARCHAR(255) NOT NULL,
-    birth      DATE         NOT NULL,
+    id       INT          NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email    VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    gender   VARCHAR(255) NOT NULL,
+    birth    DATE         NOT NULL,
     PRIMARY KEY (id)
 );
 
 -- Table: Game
 CREATE TABLE IF NOT EXISTS game
 (
-    id         INT          NOT NULL AUTO_INCREMENT,
-    difficulty VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    nb_rounds  INT          NOT NULL,
-    nb_colors  INT          NOT NULL,
-    nb_values_per_color INT NOT NULL,
+    id                  INT          NOT NULL AUTO_INCREMENT,
+    difficulty          VARCHAR(255) NOT NULL,
+    created_at          TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    nb_rounds           INT          NOT NULL,
+    nb_colors           INT          NOT NULL,
+    nb_values_per_color INT          NOT NULL,
+    timer               INT          NOT NULL,
     PRIMARY KEY (id)
 );
 
 -- Table: Player
 CREATE TABLE IF NOT EXISTS player
 (
-    id                INT     NOT NULL  AUTO_INCREMENT,
+    id                INT     NOT NULL AUTO_INCREMENT,
 
     game_id           INT     NOT NULL,
     user_id           INT     NOT NULL,
@@ -47,10 +48,10 @@ CREATE TABLE IF NOT EXISTS player
 -- Table: RecoveryPasswordToken
 CREATE TABLE IF NOT EXISTS recovery_password_token
 (
-    id INT NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    token VARCHAR(255) NOT NULL,
-    expires_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id         INT          NOT NULL AUTO_INCREMENT,
+    user_id    INT          NOT NULL,
+    token      VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES `user` (id)
 );
