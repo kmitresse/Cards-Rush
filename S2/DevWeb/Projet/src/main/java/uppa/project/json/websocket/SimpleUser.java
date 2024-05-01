@@ -8,6 +8,8 @@ public class SimpleUser {
 
   private final int nbPlayedGames;
   private final int nbWin;
+  private final double winRate;
+  private final double scoreRate;
   private final double rigthClickPercentRate;
   private final double rapidClickPercentRate;
 
@@ -16,6 +18,8 @@ public class SimpleUser {
     this.username = user.getUsername();
     this.nbPlayedGames = user.getNbPlayedGame();
     this.nbWin = user.getNbWin();
+    this.winRate = user.getWinRate();
+    this.scoreRate = user.getScoreRate();
     this.rigthClickPercentRate = user.getRightClickPercentRate();
     this.rapidClickPercentRate = user.getRapidClickPercentRate();
   }
@@ -34,6 +38,14 @@ public class SimpleUser {
 
   public int getNbWin() {
     return nbWin;
+  }
+
+  public double getWinRate() {
+    return winRate;
+  }
+
+  public double getScoreRate() {
+    return scoreRate;
   }
 
   public double getRigthClickPercentRate() {

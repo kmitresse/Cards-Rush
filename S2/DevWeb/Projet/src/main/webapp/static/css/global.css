@@ -2,8 +2,15 @@
     --bulma-primary-h: 0;
     --bulma-primary-s: 70%;
     --bulma-primary-l: 35%;
+    --modal-content-width: 50rem;
 }
 
 .hero {
     background: url("../img/Home.svg") lightgray 50% / cover no-repeat;
+}
+
+@media screen and (min-width: 769px) {
+    .modal-card, .modal-content {
+        width: var(--modal-content-width) !important;
+    }
 }

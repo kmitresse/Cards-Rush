@@ -193,6 +193,12 @@ public class Player implements Serializable {
   }
 
   /**
+   * @return le score maximum possible
+   */
+  public int getScoreMax(){
+    return game.getNbRounds() * 3; // 2 points par bonne réponse + 1 point pour le clic rapide
+  }
+  /**
    * @return si le joueur est gagnant
    */
   public boolean isWinner() {
@@ -328,4 +334,6 @@ public class Player implements Serializable {
   public void setCurrentClick(ClickChoice currentClick) {
     this.currentClick = currentClick;
   }
+
+
 }

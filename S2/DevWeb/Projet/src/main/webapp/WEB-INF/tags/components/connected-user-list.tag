@@ -11,6 +11,7 @@
         <th>Nom d'utilisateur</th>
         <th>Nombre de parties jouées</th>
         <th>Nombre de victoires</th>
+        <th>Score moyen</th>
     </tr>
     </thead>
     <tbody></tbody>
@@ -37,12 +38,16 @@
           tdNbGames.textContent = user.nbPlayedGames;
           const tdNbWin = document.createElement('td');
           tdNbWin.dataset.id = user.id;
-          tdNbWin.textContent = user.nbWin;
+          tdNbWin.textContent = user.nbWin + " (" + user.winRate + "%)";
+          const tdScoreRate = document.createElement('td');
+          tdScoreRate.dataset.id = user.id;
+          tdScoreRate.textContent = user.scoreRate + "%";
 
 
           tr.appendChild(tdUsername);
           tr.appendChild(tdNbGames);
           tr.appendChild(tdNbWin);
+          tr.appendChild(tdScoreRate);
           table.appendChild(tr);
         });
     }

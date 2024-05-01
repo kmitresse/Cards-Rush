@@ -119,7 +119,10 @@ public class GameWS {
       player.incrementClickCount();
 
       // Compteur de clics rapides
-      if (gameClickCount == 1) player.incrementRapidClickCount();
+      if (gameClickCount == 1) {
+        player.incrementRapidClickCount();
+        player.addToScore(1);
+      };
 
       // Vérifier le choix du joueur et attribuer les points
       if (game.getDifficulty().equals(Game.Difficulty.EASY)) {

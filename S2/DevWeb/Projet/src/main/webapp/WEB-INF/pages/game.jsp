@@ -68,7 +68,7 @@
         <!-- Liste des utilisateurs dans le lobby -->
         <div id="user-list-modal" class="modal">
             <div class="modal-background"></div>
-            <div class="modal-card">
+            <div class="modal-card modal-">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Liste des utilisateurs connectés</p>
                     <button class="delete" aria-label="close"></button>
@@ -80,6 +80,7 @@
                             <th>Utilisateur</th>
                             <th>Nombre de parties jouées</th>
                             <th>Nombre de victoires</th>
+                            <th>Score moyen</th>
                             <th>Clics corrects</th>
                             <th>Clics rapides</th>
                             <th>Action</th>
@@ -91,7 +92,7 @@
                     </table>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-primary is-light">Fermer</button>
+                    <button class="button is-light">Fermer</button>
                 </footer>
             </div>
         </div>
@@ -136,6 +137,7 @@
                     const $tdUsername = document.createElement('td');
                     const $tdNbPlayedGame = document.createElement('td');
                     const $tdNbWins = document.createElement('td');
+                    const $tdScore = document.createElement('td');
                     const $tdRightClick = document.createElement('td');
                     const $tdRapidClick = document.createElement('td');
                     const $tdAction = document.createElement('td');
@@ -164,6 +166,7 @@
                     $tdUsername.textContent = user.username;
                     $tdNbPlayedGame.textContent = user.nbPlayedGames;
                     $tdNbWins.textContent = user.nbWin;
+                    $tdScore.textContent = user.scoreRate + "%";
                     $tdRightClick.textContent = user.rigthClickPercentRate + "%";
                     $tdRapidClick.textContent = user.rapidClickPercentRate + "%";
                     $tdAction.appendChild($button);
@@ -171,6 +174,7 @@
                     $tr.appendChild($tdUsername);
                     $tr.appendChild($tdNbPlayedGame);
                     $tr.appendChild($tdNbWins);
+                    $tr.appendChild($tdScore);
                     $tr.appendChild($tdRightClick);
                     $tr.appendChild($tdRapidClick);
                     $tr.appendChild($tdAction);
