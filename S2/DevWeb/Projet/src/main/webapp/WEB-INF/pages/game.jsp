@@ -1,4 +1,3 @@
-<%@ page import="uppa.project.database.pojo.Card" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>

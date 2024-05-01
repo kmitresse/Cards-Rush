@@ -88,6 +88,7 @@
     const passwordFields = profileForm.querySelectorAll("div#old-password-field, div#password-field, div#repeat-password-field");
     const inputs = profileForm.querySelectorAll("input[type='text'], input[type='password']");
 
+    // Afficher les champs de mot de passe si le lien est cliqué
     changePassword.addEventListener("click", (e) => {
         e.preventDefault();
         passwordFields.forEach(field => {
@@ -130,10 +131,6 @@
         .catch(onError)
     }
 
-    /**
-     * Handle the error of the form submission
-     * @param error {Error} - Error of the form submission
-     */
     function onError(error) {
       console.log(error)
 
@@ -167,9 +164,6 @@
       }, 5010);
     }
 
-    /**
-     * Handle the success of the form submission
-     */
     function onSuccess() {
       console.log("Succès:", "Modifications effectuées avec succès")
 

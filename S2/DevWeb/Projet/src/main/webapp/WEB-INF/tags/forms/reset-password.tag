@@ -26,19 +26,12 @@
     const submitButton = document.querySelector("input[type=submit]");
     const inputs = resetPasswordForm.querySelectorAll("input[type='text'], input[type='password']");
 
-
-    // Form fields
     const tokenInput = document.querySelector("input#token");
     const passwordInput = document.querySelector("input#password");
     const repasswordInput = document.querySelector("input#repassword");
 
-    // Add event listener to the form submission
     resetPasswordForm.addEventListener("submit", onSubmit)
 
-    /**
-     * Handle the form submission with Ajax request
-     * @param event {Event} - Event of the form submission
-     */
     function onSubmit(event) {
         event.preventDefault();
 
@@ -65,14 +58,9 @@
             .finally(() => submitButton.classList.remove("is-loading"));
     }
 
-    /**
-     * Handle the error of the form submission
-     * @param error {Error} - Error of the form submission
-     */
     function onError(error) {
       console.error("Error:", error)
 
-      // Input fields in red
       inputs.forEach(input => {
         input.classList.add("is-danger");
         input.style.animation = "shake 0.5s ease-in-out"

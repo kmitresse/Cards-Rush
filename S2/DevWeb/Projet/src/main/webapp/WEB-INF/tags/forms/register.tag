@@ -59,16 +59,11 @@
 <script defer type="module">
     const registerForm = document.querySelector("form#register-form");
 
-    // Form fields
     const inputs = registerForm.querySelectorAll("input, select");
 
-    // Add event listener to the form submission
     registerForm.addEventListener("submit", onSubmit)
 
-    /**
-     * Handle the form submission with Ajax request
-     * @param event {Event} - Event of the form submission
-     */
+
     function onSubmit(event) {
         event.preventDefault();
 
@@ -95,10 +90,7 @@
             .catch(onError)
     }
 
-    /**
-     * Handle the error of the form submission
-     * @param error {Error} - Error of the form submission
-     */
+
     function onError(error) {
         console.error("Error:", error)
 

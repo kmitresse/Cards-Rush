@@ -1,18 +1,15 @@
 <%@ tag import="uppa.project.database.pojo.Player" %>
 <%@ tag import="uppa.project.database.pojo.Game" %>
-<%@ tag import="java.util.List" %>
 <%@ tag import="java.util.ArrayList" %>
 <%@ tag import="java.text.SimpleDateFormat" %>
 <%@ tag import="java.util.Date" %>
 <%@tag description="component/statistics" pageEncoding="UTF-8" %>
 
 <%
-    // Get game from request
     Game game = (Game) request.getAttribute("game");
     ArrayList<Player> players = (ArrayList<Player>) request.getAttribute("players");
 %>
 
-<%--<jsp:useBean id="game" class="uppa.project.database.pojo.Game" scope="request"/>--%>
 <h4 class="title is-6">Information sur la partie</h4>
 <div class="level">
     <div class="level-item has-text-centered has-text-on-top">

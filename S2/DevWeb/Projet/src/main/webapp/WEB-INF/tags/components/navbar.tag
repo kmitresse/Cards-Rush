@@ -17,8 +17,6 @@
 
         <% } %>
 
-
-
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -68,21 +66,20 @@
 </nav>
 
 <script type="module" defer>
-    // Get all "navbar-burger" elements
+    // Récupération de tous les éléments de classe "navbar-burger"
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-    // Add a click event on each of them
+    // Ajout d'un enventListener sur chaque élément
     $navbarBurgers.forEach(el => {
         el.addEventListener('click', () => {
 
-            // Get the target from the "data-target" attribute
+            // Récupere la valeur de l'attribut "data-target"
             const target = el.dataset.target;
             const $target = document.getElementById(target);
 
-            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            // Ajoute ou supprime la classe "is-active" sur les éléments
             el.classList.toggle('is-active');
             $target.classList.toggle('is-active');
-
         });
     });
 </script>

@@ -2,7 +2,6 @@
 
 <form id="login-form" action="${pageContext.request.contextPath}/login" method="post">
 
-    <!-- Field Username -->
     <div class="field">
         <label class="label" for="username">Nom d'utilisateur</label>
         <div class="control has-icons-left">
@@ -13,7 +12,6 @@
         </div>
     </div>
 
-    <!-- Field Password -->
     <div class="field">
         <label class="label" for="password">Mot de passe</label>
         <div class="control has-icons-left">
@@ -52,7 +50,7 @@
             .catch((error) => {
                 console.log(error)
 
-                // Input animation
+                // Animations des champs
                 inputs.forEach(input => {
                     input.classList.add("is-danger");
                     input.style.animation = "shake 0.5s ease-in-out"
@@ -79,12 +77,12 @@
                 notification.appendChild(notificationMessage);
                 document.body.appendChild(notification);
 
-                // Remove notification and animation after 5s
+                // Retirer la notification et les animations après 5 secondes
                 setTimeout(() => notification.remove(), 5010);
             });
     });
 
-    // On animation end, remove class and animation
+    // Retirer les animations des champs après la fin de l'animation
     inputs.forEach(input => input.addEventListener("animationend", () => input.style.animation = ""));
 </script>
 

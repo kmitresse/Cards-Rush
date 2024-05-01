@@ -91,7 +91,6 @@
     const nbRound = document.querySelector("input[name='nbRounds']");
     const nbValues = document.querySelector("input[name='nbValues']");
     const nbColors = document.querySelector("input[name='nbColors']");
-    // Range inputs
     const rangeInputs = document.querySelectorAll("input[type='range']");
     rangeInputs.forEach(input => {
         const tooltip = document.querySelector(input.dataset.tooltip);
@@ -104,7 +103,6 @@
         });
     });
 
-    // Radio buttons
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(radio => {
         radio.addEventListener('change', () => {
@@ -113,7 +111,6 @@
         });
     });
 
-    // Form submission
     const form = document.getElementById('new-game-form');
 
     form.addEventListener('submit', evt => {
@@ -132,7 +129,7 @@
             .then(data => {
                 if (data.code !== 200) throw new Error(data.message);
 
-                // Redirect to game page
+                // Redirection vers la page de jeu
                 window.location.href = "${pageContext.request.contextPath}/game?id=" + data.message;
             })
             .catch((error) => {
@@ -159,7 +156,7 @@
                 notification.appendChild(notificationMessage);
                 document.body.appendChild(notification);
 
-                // Remove notification and animation after 5s
+                // Retrait de la notification et des animations après 5 secondes
                 setTimeout(() => notification.remove(), 5010);
             });
     });

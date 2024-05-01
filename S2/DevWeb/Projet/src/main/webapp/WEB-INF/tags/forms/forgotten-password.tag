@@ -1,7 +1,7 @@
 <%@tag description="form/forgotten-password" pageEncoding="UTF-8" %>
 
 <form id="forgotten-password-form" action="${pageContext.request.contextPath}/forgotten-password" method="post">
-    <div class="field"> <!-- Field Username -->
+    <div class="field">
         <label class="label" for="email">Email</label>
         <div class="control has-icons-left">
             <input id="email" placeholder="johndoe@exemple.com" class="input is-fullwidth" required/>
@@ -17,15 +17,15 @@
 <script defer type="module">
   const forgottenPasswordForm = document.querySelector("form#forgotten-password-form");
 
-  // Form fields
+  // Champ email
   const emailInput = document.querySelector("input#email");
 
-  // Add event listener to the form submission
+  // Ajout de l'écouteur d'événement sur la soumission du formulaire
   forgottenPasswordForm.addEventListener("submit", onSubmit)
 
   /**
-   * Handle the form submission with Ajax request
-   * @param event {Event} - Event of the form submission
+   * Gestion de la soumission du formulaire
+   * @param event {Event} - Événement de soumission du formulaire
    */
   function onSubmit(event) {
     event.preventDefault();
@@ -45,8 +45,8 @@
   }
 
   /**
-   * Handle the error of the form submission
-   * @param error {Error} - Error of the form submission
+   * Gestion des erreurs lors de la soumission du formulaire
+   * @param error {Error} - Erreur survenue lors de la soumission du formulaire
    */
   function onError(error) {
     console.error("Error:", error)
@@ -81,7 +81,7 @@
     setTimeout(() => notification.remove(), 5010);
   }
 
-  // Remove the shake animation at the end of animation
+  // Retrait des animations sur le champ email
   emailInput.addEventListener("animationend", () => emailInput.style.animation = "");
 </script>
 
