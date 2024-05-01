@@ -18,13 +18,21 @@ public class GameStatisticsServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page de statistiques de jeu
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     Game game;
     try {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
       game = gameDAO.findById(Integer.parseInt(request.getParameter("id")));
       ArrayList<Player> players = new ArrayList<>();
-      for (Player player : game.getPlayers()) players.add(player);
+      players.addAll(game.getPlayers());
       request.setAttribute("players", players);
       request.setAttribute("game", game);
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);

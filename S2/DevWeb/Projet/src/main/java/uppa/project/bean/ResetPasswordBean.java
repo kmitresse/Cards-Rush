@@ -1,10 +1,8 @@
 package uppa.project.bean;
 
 import jakarta.persistence.EntityManager;
+import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.EntityManagerProvider;
@@ -14,6 +12,7 @@ import uppa.project.database.pojo.User;
 
 public class ResetPasswordBean implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private String token;
@@ -23,11 +22,11 @@ public class ResetPasswordBean implements Serializable {
   public ResetPasswordBean() {
   }
 
-  public ResetPasswordBean(String token, String password) {
-    this.token = token;
-    this.password = password;
-  }
-
+  /**
+   * Validation des paramètres de la requête & gestion de la réinitialisation du mot de passe
+   *
+   * @return true si le token est valide, false sinon
+   */
   public boolean validate() {
     Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
     DAO<User> userDAO;
@@ -66,16 +65,30 @@ public class ResetPasswordBean implements Serializable {
     return true;
   }
 
+  /**
+   *
+   * @param token le token de réinitialisation de mot de passe
+   * @return this
+   */
   public ResetPasswordBean setToken(String token) {
     this.token = token;
     return this;
   }
 
+  /**
+   *
+   * @param password le nouveau mot de passe
+   * @return this
+   */
   public ResetPasswordBean setPassword(String password) {
     this.password = password;
     return this;
   }
 
+  /**
+   *
+   * @return le message d'erreur
+   */
   public String getErrorMessage() {
     return errorMessage;
   }

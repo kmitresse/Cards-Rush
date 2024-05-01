@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
-import uppa.project.database.dao.jpa.DAO_JPA_Game;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Game;
 
@@ -24,6 +23,14 @@ public class GameServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page de jeu
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     try {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();

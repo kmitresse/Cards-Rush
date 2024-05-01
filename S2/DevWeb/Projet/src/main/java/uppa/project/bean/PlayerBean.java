@@ -1,3 +1,8 @@
+/*
+ * PlayerBean.java, 1/05/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
 package uppa.project.bean;
 
 import jakarta.persistence.EntityManager;
@@ -14,6 +19,11 @@ public class PlayerBean {
     this.player = player;
   }
 
+  /**
+   * Gestion des joueurs de la parties
+   *
+   * @return true si tous les joueurs sont gérés, false sinon
+   */
   public boolean validate(){
     EntityManager em = EntityManagerProvider.getInstance();
     em.getTransaction().begin();

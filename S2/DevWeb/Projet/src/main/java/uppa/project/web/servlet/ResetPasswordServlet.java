@@ -8,13 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import uppa.project.bean.RegisterBean;
 import uppa.project.bean.ResetPasswordBean;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.jpa.DAO_JPA_RecoveryPasswordToken;
-import uppa.project.database.dao.jpa.DAO_JPA_User;
 import uppa.project.database.pojo.RecoveryPasswordToken;
-import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
 
@@ -23,6 +20,14 @@ public class ResetPasswordServlet extends HttpServlet {
     public void init() {
     }
 
+    /**
+     * Affichage de la page de réinitialisation de mot de passe
+     *
+     * @param request la requête
+     * @param response la réponse
+     * @throws IOException si une erreur d'entrée/sortie survient
+     * @throws ServletException si une erreur de servlet survient
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
       RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
       if (token == null) {
@@ -40,9 +45,9 @@ public class ResetPasswordServlet extends HttpServlet {
     /**
      * Gestion de la réinitialisation de mot de passe
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request la requête
+     * @param response la réponse
+     * @throws IOException si une erreur d'entrée/sortie survient
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
       response.setContentType("application/json");
@@ -69,6 +74,12 @@ public class ResetPasswordServlet extends HttpServlet {
       out.flush();
     }
 
+    /**
+     * Recherche d'un token de réinitialisation de mot de passe
+     *
+     * @param token le token
+     * @return le token de réinitialisation de mot de passe
+     */
     public static RecoveryPasswordToken findRecoveryToken(String token) {
       try {
         DAO_JPA_RecoveryPasswordToken daoJpaRecoveryPasswordToken = new DAO_JPA_RecoveryPasswordToken();

@@ -32,6 +32,14 @@ public class ForgottenPasswordServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page de réinitialisation de mot de passe
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     request.setAttribute("current", "forgotten-password");
     request.getRequestDispatcher("/WEB-INF/pages/forgotten-password.jsp").forward(request, response);
@@ -40,9 +48,9 @@ public class ForgottenPasswordServlet extends HttpServlet {
   /**
    * Gestion de la réinitialisation de mot de passe
    *
-   * @param request
-   * @param response
-   * @throws IOException
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
@@ -67,18 +75,11 @@ public class ForgottenPasswordServlet extends HttpServlet {
     out.flush();
   }
 
-  public static User getUserByEmail(String email){
-      try {
-        DAO_JPA_User daoJpaUser = new DAO_JPA_User();
-        User[] users = daoJpaUser.findByField("email", email);
-        if (users.length == 0) {
-          return null;
-        }
-        return users[0];
-      } catch (DAOException e) {
-        throw new RuntimeException(e);
-      }
-  }
+  /**
+   * Création d'un token de réinitialisation de mot de passe
+   *
+   * @param token le token
+   */
   public static void CreateToken(RecoveryPasswordToken token){
     Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
     em.getTransaction().begin();

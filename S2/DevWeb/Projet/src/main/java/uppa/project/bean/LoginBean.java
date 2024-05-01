@@ -1,5 +1,12 @@
+/*
+ * LoginBean.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.bean;
 
+import java.io.Serial;
 import java.io.Serializable;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
@@ -10,22 +17,20 @@ import uppa.project.json.HttpResponseCode;
 
 public class LoginBean implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
-
   private String username;
   private String password;
   private User user;
-
   private HttpResponse error;
-
   public LoginBean() {
   }
 
-  public LoginBean(String username, String password) {
-    this.username = username;
-    this.password = password;
-  }
-
+  /**
+   * Validation des paramètres de la requête
+   *
+   * @return true si le nom d'utilisateur et le mot de passe sont valides, false sinon
+   */
   public boolean validate() {
 
     Game_JPA_DAO_Factory factory = new Game_JPA_DAO_Factory();
@@ -49,20 +54,38 @@ public class LoginBean implements Serializable {
     return false;
   }
 
+  /**
+   *
+   * @param username le nom d'utilisateur supposé de l'utilisateur qui souhaite se connecter
+   * @return l'entité
+   */
   public LoginBean setUsername(String username) {
     this.username = username;
     return this;
   }
 
+  /**
+   *
+   * @param password le mot de passe supposé de l'utilisateur qui souhaite se connecter
+   * @return l'entité
+   */
   public LoginBean setPassword(String password) {
     this.password = password;
     return this;
   }
 
+  /**
+   *
+   * @return l'utilisateur connecté
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   *
+   * @return l'erreur
+   */
   public HttpResponse getError() {
     return error;
   }

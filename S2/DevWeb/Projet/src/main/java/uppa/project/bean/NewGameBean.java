@@ -1,6 +1,12 @@
+/*
+ * NewGameBean.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
 package uppa.project.bean;
 
 import jakarta.persistence.EntityManager;
+import java.io.Serial;
 import java.io.Serializable;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
@@ -12,6 +18,7 @@ import uppa.project.json.HttpResponseCode;
 
 public class NewGameBean implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private String difficulty;
@@ -27,6 +34,11 @@ public class NewGameBean implements Serializable {
   public NewGameBean() {
   }
 
+  /**
+   * Validation des paramètres de la requête
+   *
+   * @return true si les paramètres sont valides, false sinon
+   */
   public boolean validate() {
     EntityManager entityManager = EntityManagerProvider.getInstance();
 
@@ -55,35 +67,68 @@ public class NewGameBean implements Serializable {
     return false;
   }
 
+  /**
+   *
+   * @param difficulty la difficulté de la partie
+   * @return l'entité
+   */
   public NewGameBean setDifficulty(String difficulty) {
     this.difficulty = difficulty;
     return this;
   }
 
+  /**
+   *
+   * @param nbRounds le nombre de tours de la partie
+   * @return l'entité
+   */
   public NewGameBean setNbRounds(String nbRounds) {
     this.nbRounds = nbRounds;
     return this;
   }
 
+  /**
+   *
+   * @param timer le temps de jeu de la partie
+   * @return l'entité
+   */
   public NewGameBean setTimer(String timer) {
     this.timer = timer;
     return this;
   }
 
+  /**
+   *
+   * @param nbValues le nombre de valeurs de la partie
+   * @return l'entité
+   */
   public NewGameBean setNbValues(String nbValues) {
     this.nbValues = nbValues;
     return this;
   }
 
+  /**
+   *
+   * @param nbColors le nombre de couleurs de la partie
+   * @return l'entité
+   */
   public NewGameBean setNbColors(String nbColors) {
     this.nbColors = nbColors;
     return this;
   }
 
+  /**
+   *
+   * @return la partie créée
+   */
   public Game getGame() {
     return game;
   }
 
+  /**
+   *
+   * @return l'erreur
+   */
   public HttpResponse getError() {
     return error;
   }

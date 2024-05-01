@@ -1,6 +1,7 @@
 package uppa.project.bean;
 
 import jakarta.persistence.EntityManager;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,6 +16,7 @@ import uppa.project.json.HttpResponseCode;
 
 public class RegisterBean implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private String username;
@@ -28,14 +30,11 @@ public class RegisterBean implements Serializable {
   public RegisterBean() {
   }
 
-  public RegisterBean(String username, String email, String password, String birth, String gender) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.birth = birth;
-    this.gender = gender;
-  }
-
+  /**
+   * Validation des paramètres de la requête & création d'un nouvel utilisateur
+   *
+   * @return true si les paramètres sont valides, false sinon
+   */
   public boolean validate() {
     Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
     DAO<User> userDAO;
@@ -100,31 +99,60 @@ public class RegisterBean implements Serializable {
     return false;
   }
 
+  /**
+   *
+   * @param username le nom d'utilisateur
+   * @return l'entité
+   */
   public RegisterBean setUsername(String username) {
     this.username = username;
     return this;
   }
 
+  /**
+   *
+   * @param password le mot de passe
+   * @return l'entité
+   */
   public RegisterBean setPassword(String password) {
     this.password = password;
     return this;
   }
 
+  /**
+   *
+   * @param email l'adresse e-mail
+   * @return l'entité
+   */
   public RegisterBean setEmail(String email) {
     this.email = email;
     return this;
   }
 
+  /**
+   *
+   * @param birth la date de naissance
+   * @return l'entité
+   */
   public RegisterBean setBirth(String birth) {
     this.birth = birth;
     return this;
   }
 
+  /**
+   *
+   * @param gender le genre de l'utilisateur
+   * @return l'entité
+   */
   public RegisterBean setGender(String gender) {
     this.gender = gender;
     return this;
   }
 
+  /**
+   *
+   * @return l'erreur
+   */
   public HttpResponse getError() {
     return error;
   }

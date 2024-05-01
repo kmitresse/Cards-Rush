@@ -29,9 +29,17 @@ public class ProfileServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page de profil
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     User usersession = (User) request.getSession().getAttribute("user");
-    DAO<User> userDAO = null;
+    DAO<User> userDAO;
     try {
       userDAO = new Game_JPA_DAO_Factory().getDAOUser();
       User user = userDAO.findById(usersession.getId().intValue());
@@ -39,15 +47,21 @@ public class ProfileServlet extends HttpServlet {
         System.out.println("Partie jouée le " + p.getGame().getCreatedAt().toLocaleString());
       }
       request.getSession().setAttribute("user", user);
-//    request.setAttribute("current", "profile");
       request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
     } catch (DAOException e) {
-      System.out.println(e);
+      System.out.println(e.getMessage());
       response.sendRedirect(request.getContextPath() + "/lobby");
     }
 
   }
 
+  /**
+   * Gestion de la modification de profil
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");

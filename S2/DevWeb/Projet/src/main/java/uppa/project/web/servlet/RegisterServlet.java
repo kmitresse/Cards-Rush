@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import uppa.project.bean.LoginBean;
 import uppa.project.bean.RegisterBean;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
@@ -25,11 +24,26 @@ public class RegisterServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page d'inscription
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     request.setAttribute("current", "register");
     request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
   }
 
+  /**
+   * Gestion de l'inscription
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");

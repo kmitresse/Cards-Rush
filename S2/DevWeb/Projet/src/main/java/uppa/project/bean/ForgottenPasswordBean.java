@@ -1,5 +1,12 @@
+/*
+ * ForgottenPasswordBeen.java, 20/03/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
+
 package uppa.project.bean;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.UUID;
@@ -22,6 +29,7 @@ import static uppa.project.web.servlet.ForgottenPasswordServlet.CreateToken;
 
 public class ForgottenPasswordBean implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private String email;
@@ -29,10 +37,12 @@ public class ForgottenPasswordBean implements Serializable {
   public ForgottenPasswordBean() {
   }
 
-  public ForgottenPasswordBean(String email) {
-    this.email = email;
-  }
-
+  /**
+   * Validation des paramètres de la requête & gestion de la création du token de réinitialisation de mot de passe
+   *
+   * @param requestPath le chemin de la requête
+   * @return true si l'adresse e-mail est valide, false sinon
+   */
   public boolean validate(String requestPath) {
     Game_JPA_DAO_Factory factory = new Game_JPA_DAO_Factory();
 
@@ -53,12 +63,22 @@ public class ForgottenPasswordBean implements Serializable {
     return false;
   }
 
-
+  /**
+   *
+   * @param email l'adresse e-mail supposée de l'utilisateur ayant oublié son mot de passe.
+   * @return this
+   */
   public ForgottenPasswordBean setEmail(String email) {
     this.email = email;
     return this;
   }
 
+  /**
+   * Création et envoi d'un token de réinitialisation de mot de passe
+   *
+   * @param user l'utilisateur ayant oublié son mot de passe
+   * @param requestPath le chemin de la requête
+   */
   private void sendTokenEmail(User user, String requestPath) {
 
       String token = UUID.randomUUID().toString();

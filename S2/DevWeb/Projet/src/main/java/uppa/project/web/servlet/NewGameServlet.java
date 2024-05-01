@@ -25,10 +25,25 @@ public class NewGameServlet extends HttpServlet {
   public void init() {
   }
 
+  /**
+   * Affichage de la page de création de partie
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   * @throws ServletException si une erreur de servlet survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     request.getRequestDispatcher("/WEB-INF/pages/new-game.jsp").forward(request, response);
   }
 
+  /**
+   * Création d'une nouvelle partie
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     Gson gson = new Gson();
 

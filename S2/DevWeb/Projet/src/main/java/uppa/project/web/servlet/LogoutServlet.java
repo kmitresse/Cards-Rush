@@ -6,24 +6,26 @@
 
 package uppa.project.web.servlet;
 
-import com.google.gson.Gson;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import uppa.project.listener.SessionServletContextListener;
 
 @WebServlet(name = "logoutServlet", value = "/logout")
 public class LogoutServlet extends HttpServlet {
 
-  private final Gson gson = new Gson();
-
   public void init() {
   }
 
+  /**
+   * Déconnexion de l'utilisateur
+   *
+   * @param request la requête
+   * @param response la réponse
+   * @throws IOException si une erreur d'entrée/sortie survient
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    SessionServletContextListener.removeSession(request.getSession());
     request.getSession().removeAttribute("user");
     response.sendRedirect(request.getContextPath() + "/login");
   }

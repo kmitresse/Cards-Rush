@@ -1,3 +1,8 @@
+/*
+ * ProfileBean.java, 01/05/2024
+ * UPPA M1 TI 2023-2024
+ * Pas de copyright, aucun droits
+ */
 package uppa.project.bean;
 
 import jakarta.persistence.EntityManager;
@@ -21,15 +26,11 @@ public class ProfileBean {
 
   public ProfileBean() {}
 
-  public ProfileBean(String username,String oldEmail, String email, String oldPassword, String password, String gender) {
-    this.id = username;
-    this.oldEmail = oldEmail;
-    this.email = email;
-    this.oldPassword = oldPassword;
-    this.password = password;
-    this.gender = gender;
-  }
-
+/**
+   * Validation des paramètres de la requête & mise à jour des informations de l'utilisateur
+   *
+   * @return true si les paramètres sont valides, false sinon
+   */
   public boolean validate() {
     EntityManager entityManager = EntityManagerProvider.getInstance();
     entityManager.getTransaction().begin();
@@ -78,39 +79,78 @@ public class ProfileBean {
     }
   }
 
+  /**
+   *
+   * @param id l'identifiant de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   *
+   * @param email l'adresse e-mail actuelle de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setOldEmail(String email) {
     this.oldEmail = email;
     return this;
   }
+
+  /**
+   *
+   * @param email la nouvelle adresse e-mail de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setEmail(String email) {
     this.email = email;
     return this;
   }
 
+  /**
+   *
+   * @param oldPassword l'ancien mot de passe de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setOldPassword(String oldPassword) {
     this.oldPassword = oldPassword;
     return this;
   }
 
+  /**
+   *
+   * @param password le nouveau mot de passe de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setPassword(String password) {
     this.password = password;
     return this;
   }
 
+  /**
+   *
+   * @param gender le genre de l'utilisateur
+   * @return l'entité
+   */
   public ProfileBean setGender(String gender) {
     this.gender = gender;
     return this;
   }
 
+  /**
+   *
+   * @return l'erreur
+   */
   public HttpResponse getError() {
     return error;
   }
 
+  /**
+   *
+   * @return l'utilisateur
+   */
   public User getUser() {
     return user;
   }
