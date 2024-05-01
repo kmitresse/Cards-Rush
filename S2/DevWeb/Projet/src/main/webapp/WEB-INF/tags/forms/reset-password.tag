@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <input type="submit" class="button is-primary is-fullwidth" value="Envoyer">
+    <input type="submit" class="button is-primary has-text-white is-fullwidth" value="Envoyer">
 </form>
 
 <script defer type="module">
