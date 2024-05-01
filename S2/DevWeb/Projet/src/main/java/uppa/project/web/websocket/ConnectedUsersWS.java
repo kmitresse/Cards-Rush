@@ -99,7 +99,7 @@ public class ConnectedUsersWS {
     if (message.getType().equals("invite")) {
       SimpleInvitation invitation = gson.fromJson(message.getData(), SimpleInvitation.class);
 
-      // Find session of the user who receive
+      // Récupérer la session de l'utilisateur invité
       for (Session s : users.keySet()) {
         if (users.get(s).getId().intValue() == invitation.getTo().getId()) {
           try {

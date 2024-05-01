@@ -15,7 +15,7 @@ import uppa.project.database.pojo.Player;
 public class PlayerBean {
   private Player player;
 
-  public PlayerBean(Player player){
+  public PlayerBean(Player player) {
     this.player = player;
   }
 
@@ -24,12 +24,11 @@ public class PlayerBean {
    *
    * @return true si tous les joueurs sont gérés, false sinon
    */
-  public boolean validate(){
+  public boolean validate() {
     EntityManager em = EntityManagerProvider.getInstance();
     em.getTransaction().begin();
-    try{
-      DAO<Player> playerDAO = new Game_JPA_DAO_Factory().getDAOPlayer();
-      Player dbPlayer = new Player(player.getGame(),player.getUser());
+    try {
+      Player dbPlayer = new Player(player.getGame(), player.getUser());
       dbPlayer.setScore(player.getScore());
       if (player.isWinner()) dbPlayer.setWinner();
       dbPlayer.setClickCount(player.getClickCount());
@@ -39,8 +38,7 @@ public class PlayerBean {
       player.getUser().addPlayedGame(dbPlayer);
       em.getTransaction().commit();
       return true;
-    } catch (DAOException e) {
-      System.out.println("Player :" + this.player.getUser().getUsername() +"n'a pas pu être enregistré en base de données");
+    } catch (Exception e) {
       em.getTransaction().rollback();
       return false;
     }

@@ -63,7 +63,6 @@ public class ForgottenPasswordServlet extends HttpServlet {
     Gson gson = new Gson();
     HttpResponse httpResponse;
     String url = request.getRequestURL().toString();
-    //retirer le dernier segment de l'url pour avoir le contextPath
     String uri = url.substring(0, url.lastIndexOf("/"));
     if (forgottenPasswordBean.validate(uri)) {
       httpResponse = new HttpResponse(HttpResponseCode.OK, "Mail sent");

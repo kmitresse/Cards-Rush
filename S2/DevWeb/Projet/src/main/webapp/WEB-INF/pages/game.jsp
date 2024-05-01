@@ -97,7 +97,6 @@
 
         <jsp:useBean id="user" scope="session" type="uppa.project.database.pojo.User"/>
         <script defer type="module">
-            // Modal
 
             // Modal
             document.querySelectorAll('.modal-trigger').forEach(($el) => {

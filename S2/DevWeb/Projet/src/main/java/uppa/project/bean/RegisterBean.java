@@ -39,18 +39,18 @@ public class RegisterBean implements Serializable {
     Game_JPA_DAO_Factory jpaDaoFactory = new Game_JPA_DAO_Factory();
     DAO<User> userDAO;
 
-    // Check if the user is valid
+    // Vérification de l'unicité du nom d'utilisateur et de l'adresse e-mail
     try {
       userDAO = jpaDaoFactory.getDAOUser();
 
-      // Check if the username is already taken
+      // Vérification de l'unicité du nom d'utilisateur
       User[] users = userDAO.findByField("username", username);
       if (users.length > 0) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ce nom d'utilisateur est déjà pris");
         return false;
       }
 
-      // Check if the email is already taken
+      // Vérification de l'unicité de l'adresse e-mail
       users = userDAO.findByField("email", email);
       if (users.length > 0) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Cet email est déjà utilisé");
@@ -61,7 +61,7 @@ public class RegisterBean implements Serializable {
       return false;
     }
 
-    // Create a new User
+    // Creation de l'utilisateur
     User user = new User();
     user.setUsername(username);
     user.setPassword(password);
@@ -73,7 +73,7 @@ public class RegisterBean implements Serializable {
       return false;
     }
 
-    // convert the birthdate from String as YYYY-MM-DD to Date object
+    // Convertion de la date de naissance de String au format YYYY-MM-DD en objet Date
     try {
       LocalDate localDate = LocalDate.parse(birth);
       ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -84,7 +84,7 @@ public class RegisterBean implements Serializable {
       return false;
     }
 
-    // Send the user to the database
+    // Sauvegarde de l'utilisateur en base de données
     EntityManager entityManager = EntityManagerProvider.getInstance();
     entityManager.getTransaction().begin();
     try {

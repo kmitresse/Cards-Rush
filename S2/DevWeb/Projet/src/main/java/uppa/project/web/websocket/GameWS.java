@@ -80,7 +80,7 @@ public class GameWS {
       ArrayList<SimplePlayer> simplePlayerList = new ArrayList<>();
       for (Player p : games.get(game)) simplePlayerList.add(new SimplePlayer(p));
 
-      // Broadcast the new player
+      // Diffusion de la nouvelle liste de joueurs
       broadcast(new Message("updatePlayerList", gson.toJson(simplePlayerList)).toJson());
     }
 
@@ -88,12 +88,11 @@ public class GameWS {
       game.setGameState(Game.GameState.STARTED);
       broadcast(new Message("start", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
 
-      // TODO Start the timer
       Timer timer = new Timer();
       timer.schedule(new TimerTask() {
         @Override
         public void run() {
-          // Broadcast the end of the game
+          // Fin du timer
           broadcast(new Message("timerEnd", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
           timer.cancel();
         }
@@ -110,19 +109,19 @@ public class GameWS {
 
       player.setCurrentClick(choice);
 
-      // get the number of players who clicked
+      // Récupérer le nombre de joueurs ayant cliqué
       int gameClickCount = 0;
       for (Player player : games.get(game)) {
         if (player.getCurrentClick() != null) gameClickCount++;
       }
 
-      // Click count
+      // Compteur de clics
       player.incrementClickCount();
 
-      // Right click count
+      // Compteur de clics rapides
       if (gameClickCount == 1) player.incrementRapidClickCount();
 
-      // Check if the player has clicked on the right card
+      // Vérifier le choix du joueur et attribuer les points
       if (game.getDifficulty().equals(Game.Difficulty.EASY)) {
         switch (choice) {
           case COLOR_VALUE -> {
@@ -213,18 +212,18 @@ public class GameWS {
         }
       }
 
-      // Broadcast the player choice with score
+      // Diffuser le score du joueur
       broadcast(new Message("updatePlayer", gson.toJson(new SimplePlayer(player))).toJson());
 
       System.out.println(gameClickCount + " / " + games.get(game).size());
 
 
-      // If all players have clicked
+      // Si tous les joueurs ont cliqué
       if (gameClickCount >= games.get(game).size()) {
-        // Stop the timer if it's running
+        // Stopper le timer
         timers.get(game).cancel();
 
-        // Reset the current click for all players
+        // Réinitialiser les clics courrants
         for (Player p : games.get(game)) p.setCurrentClick(null);
 
         List<Player> players = games.get(game);
@@ -238,14 +237,14 @@ public class GameWS {
         Player theoricWinner = players.get(0);
         Player second = players.get(1);
 
-        // Check if the game is over
+        // Vérifier si la partie est terminée
         if (game.nextRound() || (second.getScore() == theoricWinner.getScore() && second.getRapidClickCount() == theoricWinner.getRapidClickCount())) {
           broadcast(new Message("nextRound", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
           Timer timer = new Timer();
           timer.schedule(new TimerTask() {
             @Override
             public void run() {
-              // Broadcast the end of the game
+              // Diffuser la fin du timer
               broadcast(new Message("timerEnd", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
               timer.cancel();
             }
@@ -263,7 +262,7 @@ public class GameWS {
           }
           em.getTransaction().commit();
 
-          // Broadcast the end of the game
+          // Diffusion de la fin de la partie
           broadcast(new Message("end", gson.toJson(new SimpleGame(game, games.get(game)))).toJson());
         }
       }

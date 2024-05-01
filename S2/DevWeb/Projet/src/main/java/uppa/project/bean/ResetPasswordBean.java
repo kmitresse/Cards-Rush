@@ -32,14 +32,14 @@ public class ResetPasswordBean implements Serializable {
     DAO<User> userDAO;
     DAO<RecoveryPasswordToken> recoveryPasswordTokenDAO;
 
-    // Check if the user is valid
+    // Vérification du lien entre le token et un utilisateur
     EntityManager entityManager = EntityManagerProvider.getInstance();
     entityManager.getTransaction().begin();
     try {
       userDAO = jpaDaoFactory.getDAOUser();
       recoveryPasswordTokenDAO = jpaDaoFactory.getDAORecoveryPasswordToken();
 
-      // Check if the token is valid
+      // Vériier l'existence du token
       RecoveryPasswordToken[] tokens = recoveryPasswordTokenDAO.findByField("token", token);
       if (tokens.length == 0) {
         errorMessage = "Ce token n'est pas valide";
@@ -47,7 +47,7 @@ public class ResetPasswordBean implements Serializable {
       }
       RecoveryPasswordToken token = tokens[0];
 
-      //Recuperer l'utilisateur associé au token
+      // Récupéreration de l'utilisateur associé au token
       User user = token.getUser();
       if (user == null) {
         errorMessage = "Erreur: Aucun utilisateur associé à ce token";

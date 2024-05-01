@@ -37,21 +37,21 @@ public class ProfileBean {
     DAO<User> userDAO;
     try {
        userDAO= new Game_JPA_DAO_Factory().getDAOUser();
-      //Check if the user is valid
+      // Vérification de l'existence de l'utilisateur
       user = userDAO.findById(Integer.parseInt(id));
       if (user == null) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Utilisateur non trouvé");
         entityManager.getTransaction().rollback();
         return false;
       }
-      //Check if the email is not already taken
+      // Vérification de l'unicité de l'adresse e-mail
       User[] users = userDAO.findByField("email", email);
       if (!oldEmail.equals(email) && users.length > 0) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Cet email est déjà utilisé");
         entityManager.getTransaction().rollback();
         return false;
       }
-      //Check if the oldPassword is correct
+      // Verification de l'ancien mot de passe
       if(!oldPassword.isEmpty() && !user.verifyPassword(oldPassword)) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ancien mot de passe incorrect");
         entityManager.getTransaction().rollback();
@@ -62,7 +62,7 @@ public class ProfileBean {
       entityManager.getTransaction().rollback();
       return false;
     }
-    //Update the user
+    // Mise à jour des informations de l'utilisateur
     user.setEmail(email);
     if (!password.isEmpty()) {
       user.setPassword(password);

@@ -31,8 +31,7 @@ public class GameStatisticsServlet extends HttpServlet {
     try {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
       game = gameDAO.findById(Integer.parseInt(request.getParameter("id")));
-      ArrayList<Player> players = new ArrayList<>();
-      players.addAll(game.getPlayers());
+      ArrayList<Player> players = new ArrayList<>(game.getPlayers());
       request.setAttribute("players", players);
       request.setAttribute("game", game);
       request.getRequestDispatcher("/WEB-INF/pages/game-statistics.jsp").forward(request, response);
