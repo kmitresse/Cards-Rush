@@ -98,7 +98,6 @@
     changePassword.addEventListener("click", (e) => {
         e.preventDefault();
         passwordFields.forEach(field => {
-          console.log(field)
             field.style.display = "block";
         });
     });
@@ -122,7 +121,6 @@
       const url = new URL(action);
       const formData = new FormData(profileForm);
       for (const [key, value] of formData.entries()) {
-        console.log(key, value);
         url.searchParams.append(key, value);
       }
       url.searchParams.append("id", ${user.id})
@@ -130,7 +128,6 @@
       fetch(url, {headers: {"Content-Type": "application/json"}, method})
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           if (data.code !== 200) throw new Error(data.message);
           onSuccess()
         })
@@ -163,7 +160,6 @@
       notification.appendChild(notificationTitle);
       notification.appendChild(notificationMessage);
       document.body.appendChild(notification);
-      console.log("je suis bien dans la fonction mais la notification ne s'affiche pas")
       setTimeout(() => {
         notification.remove()
         inputs.forEach(input => input.classList.remove("is-danger"));
@@ -193,7 +189,6 @@
       notification.appendChild(notificationTitle);
       notification.appendChild(notificationMessage);
       document.body.appendChild(notification);
-      console.log("je suis bien dans la fonction mais la notification ne s'affiche pas")
 
       setTimeout(() => notification.remove(), 5010);
     }

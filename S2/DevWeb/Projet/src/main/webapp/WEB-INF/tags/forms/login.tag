@@ -48,8 +48,6 @@
             })
             .then(() => window.location.href = "${pageContext.request.contextPath}/lobby")
             .catch((error) => {
-                console.log(error)
-
                 // Animations des champs
                 inputs.forEach(input => {
                     input.classList.add("is-danger");

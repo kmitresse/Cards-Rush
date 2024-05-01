@@ -44,7 +44,6 @@ public class ProfileServlet extends HttpServlet {
       userDAO = new Game_JPA_DAO_Factory().getDAOUser();
       User user = userDAO.findById(usersession.getId().intValue());
       for(Player p : user.getPlayedGames()){
-        System.out.println("Partie jouée le " + p.getGame().getCreatedAt().toLocaleString());
       }
       request.getSession().setAttribute("user", user);
       request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);

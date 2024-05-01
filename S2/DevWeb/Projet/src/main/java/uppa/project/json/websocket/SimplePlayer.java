@@ -10,6 +10,7 @@ public class SimplePlayer {
   private final boolean winner;
   private final int clickCount;
   private final int rightClickCount;
+  private final int partialRightClickCount;
   private final int rapidClickCount;
   private final Card currentCard;
 
@@ -20,8 +21,8 @@ public class SimplePlayer {
     this.clickCount = player.getClickCount();
     this.rightClickCount = player.getRightClickCount();
     this.rapidClickCount = player.getRapidClickCount();
-
-    this.currentCard = player.getDeck().getCards().get(currentRound % player.getDeck().getCards().size());
+    this.partialRightClickCount = player.getPartialRightClickCount();
+    this.currentCard = player.getDeck().getCards().get((partialRightClickCount+rightClickCount) % player.getDeck().getCards().size());
   }
 
   public SimplePlayer(Player player) {
@@ -30,6 +31,7 @@ public class SimplePlayer {
     this.winner = player.isWinner();
     this.clickCount = player.getClickCount();
     this.rightClickCount = player.getRightClickCount();
+    this.partialRightClickCount = player.getPartialRightClickCount();
     this.rapidClickCount = player.getRapidClickCount();
     this.currentCard = null;
   }
@@ -52,6 +54,10 @@ public class SimplePlayer {
 
   public int getClickCount() {
     return clickCount;
+  }
+
+  public int getPartialRightClickCount() {
+    return partialRightClickCount;
   }
 
   public int getRightClickCount() {

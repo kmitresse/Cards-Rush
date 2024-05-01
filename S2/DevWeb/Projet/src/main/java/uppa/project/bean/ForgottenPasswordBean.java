@@ -134,7 +134,6 @@ public class ForgottenPasswordBean implements Serializable {
       // Envoi du message
       Transport.send(message);
 
-      System.out.println("E-mail envoyé avec succès à : " + email);
     } catch (MessagingException e) {
       throw new RuntimeException("Erreur lors de l'envoi de l'e-mail", e);
     }

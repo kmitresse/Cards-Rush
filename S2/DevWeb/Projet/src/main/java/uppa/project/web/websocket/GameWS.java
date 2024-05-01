@@ -119,7 +119,7 @@ public class GameWS {
       player.incrementClickCount();
 
       // Compteur de clics rapides
-      if (gameClickCount == 1) {
+      if (gameClickCount == 1 && choice != ClickChoice.TIMER_END) {
         player.incrementRapidClickCount();
         player.addToScore(1);
       };
@@ -141,6 +141,7 @@ public class GameWS {
                 player.incrementRightClickCount();
                 player.setScore(playerScore + 2);
               } else {
+                player.incrementPartialRightClickCount();
                 player.setScore(playerScore + 1);
               }
             } else {
@@ -153,6 +154,7 @@ public class GameWS {
                 player.incrementRightClickCount();
                 player.setScore(playerScore + 2);
               } else {
+                player.incrementPartialRightClickCount();
                 player.setScore(playerScore + 1);
               }
             } else {
@@ -180,11 +182,13 @@ public class GameWS {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
+
               player.setScore(playerScore - 1);
             }
           }
           case COLOR -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              player.incrementPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameColor > nbSameCard) && (nbSameColor >= nbSameValue) && (nbSameColor >= nbNone)) {
               player.incrementRightClickCount();
@@ -195,6 +199,7 @@ public class GameWS {
           }
           case VALUE -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              player.incrementPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameValue > nbSameCard) && (nbSameValue > nbSameColor) && (nbSameValue >= nbNone)) {
               player.incrementRightClickCount();
@@ -217,9 +222,6 @@ public class GameWS {
 
       // Diffuser le score du joueur
       broadcast(new Message("updatePlayer", gson.toJson(new SimplePlayer(player))).toJson());
-
-      System.out.println(gameClickCount + " / " + games.get(game).size());
-
 
       // Si tous les joueurs ont cliqué
       if (gameClickCount >= games.get(game).size()) {
@@ -261,7 +263,6 @@ public class GameWS {
           for (Player p : games.get(game)) {
             PlayerBean playerBean = new PlayerBean(p);
             if (playerBean.validate()) System.out.println("Player " + p.getUser().getUsername() + " sauvegardé en base de données");
-            else System.out.println();
           }
           em.getTransaction().commit();
 

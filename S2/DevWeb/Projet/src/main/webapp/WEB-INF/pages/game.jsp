@@ -53,7 +53,7 @@
                         <div class="buttons is-flex-direction-column">
                             <p id="round" class="title has-text-white"></p>
                             <p id="timer" class="subtitle has-text-white"></p>
-                            <button class="button is-fullwidth" data-value="COLOR_VALUE">Même couleur et valeur</button>
+                            <button class="button is-fullwidth" data-value="COLOR_VALUE">Même carte</button>
                             <button class="button is-fullwidth" data-value="COLOR">Même couleur</button>
                             <button class="button is-fullwidth" data-value="VALUE">Même valeur</button>
                             <button class="button is-fullwidth" data-value="NONE">Aucun</button>

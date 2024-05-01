@@ -56,6 +56,9 @@ public class Player implements Serializable {
   @Column(name = "right_click_count")
   private int rightClickCount;
 
+  @Transient
+  private int partialRightClickCount;
+
   @Column(name = "rapid_click_count")
   private int rapidClickCount;
 
@@ -67,6 +70,7 @@ public class Player implements Serializable {
 
   @Transient
   private ClickChoice currentClick = null;
+
 
   /**
    * Constructeur par défaut
@@ -85,6 +89,7 @@ public class Player implements Serializable {
     this.rapidClickCount = 0;
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
+    this.partialRightClickCount = 0;
   }
 
   /**
@@ -103,6 +108,7 @@ public class Player implements Serializable {
     this.rapidClickCount = 0;
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
+    this.partialRightClickCount = 0;
   }
 
   /**
@@ -125,6 +131,7 @@ public class Player implements Serializable {
     this.clickCount = clickCount;
     this.rightClickCount = rightClickCount;
     this.rapidClickCount = rapidClickCount;
+    this.partialRightClickCount = 0;
 
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
@@ -271,6 +278,20 @@ public class Player implements Serializable {
    */
   public int getRapidClickCount() {
     return rapidClickCount;
+  }
+
+  /**
+   * @return le nombre de clics partiels corrects
+   */
+  public int getPartialRightClickCount() {
+    return partialRightClickCount;
+  }
+
+  /**
+   * Incrémente de 1 le nombre de clics partielement corrects
+   */
+  public void incrementPartialRightClickCount() {
+    partialRightClickCount++;
   }
 
   /**

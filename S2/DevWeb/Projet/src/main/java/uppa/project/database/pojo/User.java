@@ -351,7 +351,6 @@ public class User implements Serializable {
     int maxScore = 0;
     int totalScore = 0;
     for (Player p : playedGames) {
-      System.out.println("Score max : " + p.getScoreMax() + " Score : " + p.getScore());
       maxScore += p.getScoreMax();
       totalScore += p.getScore();
     }

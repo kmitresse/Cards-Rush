@@ -10,6 +10,7 @@ public class SimpleUser {
   private final int nbWin;
   private final double winRate;
   private final double scoreRate;
+
   private final double rigthClickPercentRate;
   private final double rapidClickPercentRate;
 

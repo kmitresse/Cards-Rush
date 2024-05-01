@@ -13,24 +13,24 @@
                             <img class="py-5" src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg"/>
                         </div>
                         <p>
-                            Card Rush est un jeu de rapidité multijoueur en ligne.<br>
-                            Chaque joueur possède un jeu de carte identique mélangé aléatoirement. Au centre du plateau un jeu de carte
+                            Card Rush est un jeu de rapidité multijoueurs en ligne.<br>
+                            Chaque joueur possède un jeu de cartes identique mais mélangé aléatoirement. Au centre du plateau un jeu de carte
                             similaire.<br>
                             Votre objectif si vous l'acceptez, identifier les similitudes entre votre main et celle du plateau le plus
                             rapidement possible.
-                            Plusieurs choix sont possibles:
+                            Plusieurs choix sont possibles :
                         </p>
                         <ul>
                             <li>Les cartes comparées sont identiques</li>
-                            <li>Les cartes comparées ont la même couleur mais pas la même valeur</li>
-                            <li>Les cartes comparées ont la même valeur mais pas la même couleur</li>
+                            <li>Les cartes comparées ont la même couleur, mais pas la même valeur</li>
+                            <li>Les cartes comparées ont la même valeur, mais pas la même couleur</li>
                             <li>Les cartes comparées sont totalement différentes</li>
                         </ul>
                         <h2>Modes de difficultés</h2>
                         <p>Deux modes de difficultés s'offrent à vous :</p>
                         <ul>
-                            <li><p>Le mode <span class="tag is-light is-medium is-primary">facile</span>: Vous ne devez effectuer des
-                                comparaisons uniquement entre voter main et celle du plateau.</p>
+                            <li><p>Le mode <span class="tag is-light is-medium is-primary">facile</span>: Vous ne devez uniquement effectuer des
+                                comparaisons entre votre main et celle du plateau.</p>
                                 <p>
                                     Exemple : <br>
                                     Vous : 4 de pique <br>
@@ -40,10 +40,10 @@
                             </li>
                             <li><p>
                                     Le mode <span class="tag is-light is-medium is-primary">difficile</span>: Vous devez effectuer des
-                                    comparaisons avec les mains de chaque joueur et opter pour la réponse correspondant aux plus grand nombre
-                                    de joueur.<br>
+                                    comparaisons entre le plateau et les mains de chaque joueur (vous compris) et opter pour la réponse correspondant aux plus grand nombre
+                                    de joueurs.<br>
                                 Attention : Une priorité est définie pour les réponses: </p>
-                                   <p class="has-text-weight-bold is-centered"> "Même carte" > "Même Couleur" > "Même Valeur" > "Aucun"</p>
+                                   <p class="has-text-weight-bold is-centered"> "Même carte" > "Même couleur" > "Même valeur" > "Aucun"</p>
                                 <p>
                                     Si deux réponses sont possibles car elles représentent le même nombre de joueurs, la réponse la plus prioritaire est définie comme correcte.
                                 </p>
@@ -66,6 +66,7 @@
                             </li>
                             <li>Aucune réponse : <span class="tag is-light">+0pt</span></li>
                             <li>Mauvaise réponse : <span class="tag is-danger">-1pt</span></li>
+                            <li>Bonus de rapidité : <span class="tag is-success">+1pt</span></li>
                         </ul>
                         <h2>Vainqueur de la partie</h2>
                         <p>Le vainqueur d'une partie est celui qui aura accumulé le plus de points, en cas d'égalité, le joueur le plus rapide est déclaré vainqueur.<br>

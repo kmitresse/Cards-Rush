@@ -98,8 +98,6 @@
           tooltip.innerHTML = input.value
           nbRound.max = nbValues.value * nbColors.value;
           nbRound.value = parseInt(nbRound.value) > parseInt(nbRound.max) ? nbRound.max : nbRoundtmp;
-          console.log("newValue : " + nbRound.value)
-
         });
     });
 
