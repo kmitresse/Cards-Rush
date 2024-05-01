@@ -27,7 +27,6 @@ public class PlayerBean {
       dbPlayer.setRightClickCount(player.getRightClickCount());
       player.getGame().addPlayer(dbPlayer);
       player.getUser().addPlayedGame(dbPlayer);
-      playerDAO.create(dbPlayer);
       em.getTransaction().commit();
       return true;
     } catch (DAOException e) {
