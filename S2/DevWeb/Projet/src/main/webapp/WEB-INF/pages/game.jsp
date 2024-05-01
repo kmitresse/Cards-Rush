@@ -91,7 +91,7 @@
                     </table>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-success">Fermer</button>
+                    <button class="button is-primary is-light">Fermer</button>
                 </footer>
             </div>
         </div>
@@ -141,7 +141,7 @@
                     const $tdAction = document.createElement('td');
                     const $button = document.createElement('button');
 
-                    $button.classList.add('button', 'is-success');
+                    $button.classList.add('button', 'is-primary', 'is-light');
                     $button.textContent = 'Inviter';
                     $button.addEventListener('click', () => {
                         const data = {
