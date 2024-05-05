@@ -7,6 +7,7 @@
 <layout:base title="Profil">
     <jsp:attribute name="head">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/form.css"/>
+        <script defer type="module" src="${pageContext.request.contextPath}/static/js/form/profile.js"></script>
     </jsp:attribute>
     <jsp:body>
         <component:hero>

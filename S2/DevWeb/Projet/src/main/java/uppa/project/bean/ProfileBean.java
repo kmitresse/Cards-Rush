@@ -15,7 +15,7 @@ import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
 
 public class ProfileBean {
-  private String id;
+  private String username;
   private String oldEmail;
   private String email;
   private String oldPassword;
@@ -38,7 +38,7 @@ public class ProfileBean {
     try {
        userDAO= new Game_JPA_DAO_Factory().getDAOUser();
       // Vérification de l'existence de l'utilisateur
-      user = userDAO.findById(Integer.parseInt(id));
+      user = (userDAO.findByField("username",username).length == 0 ? null : userDAO.findByField("username",username)[0]);
       if (user == null) {
         error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Utilisateur non trouvé");
         entityManager.getTransaction().rollback();
@@ -81,11 +81,11 @@ public class ProfileBean {
 
   /**
    *
-   * @param id l'identifiant de l'utilisateur
+   * @param username le pseudo de l'utilisateur
    * @return l'entité
    */
-  public ProfileBean setId(String id) {
-    this.id = id;
+  public ProfileBean setUsername(String username) {
+    this.username = username;
     return this;
   }
 

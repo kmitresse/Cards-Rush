@@ -67,7 +67,7 @@ public class ProfileServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     ProfileBean profileBean = new ProfileBean()
-      .setId(request.getParameter("id"))
+      .setUsername(request.getParameter("username"))
       .setOldEmail(request.getParameter("oldEmail"))
       .setEmail(request.getParameter("email"))
       .setOldPassword(request.getParameter("oldPassword"))

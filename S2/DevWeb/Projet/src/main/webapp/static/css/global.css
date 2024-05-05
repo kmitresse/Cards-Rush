@@ -9,6 +9,10 @@
     background: url("../img/Home.svg") lightgray 50% / cover no-repeat;
 }
 
+label.radio.button > input[type="radio"] {
+    display: none;
+}
+
 @media screen and (min-width: 769px) {
     .modal-card, .modal-content {
         width: var(--modal-content-width) !important;

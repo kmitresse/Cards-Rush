@@ -4,14 +4,19 @@
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 
 <layout:form title="Mot de passe oublié">
-    <component:hero>
-        <div class="columns is-centered">
-            <div class="column is-5-tablet is-5-desktop is-5-widescreen">
-                <div class="box">
-                    <h1 class="title has-text-centered">Mot de passe oublié ?</h1>
-                    <form:forgotten-password/>
+    <jsp:attribute name="script">
+        <script defer type="module" src="${pageContext.request.contextPath}/static/js/form/forgotten-password.js"></script>
+    </jsp:attribute>
+    <jsp:body>
+        <component:hero>
+            <div class="columns is-centered">
+                <div class="column is-5-tablet is-5-desktop is-5-widescreen">
+                    <div class="box">
+                        <h1 class="title has-text-centered">Mot de passe oublié ?</h1>
+                        <form:forgotten-password/>
+                    </div>
                 </div>
             </div>
-        </div>
-    </component:hero>
+        </component:hero>
+    </jsp:body>
 </layout:form>
