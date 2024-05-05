@@ -118,10 +118,10 @@ public class GameWS {
       // Compteur de clics
       player.incrementClickCount();
 
+      boolean isRapid = false;
       // Compteur de clics rapides
       if (gameClickCount == 1 && choice != ClickChoice.TIMER_END) {
-        player.incrementRapidClickCount();
-        player.addToScore(1);
+        isRapid = true;
       };
 
       // Vérifier le choix du joueur et attribuer les points
@@ -129,17 +129,30 @@ public class GameWS {
         switch (choice) {
           case COLOR_VALUE -> {
             if (gameCard.equals(playerCard)) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.setScore(playerScore - 1);
             }
           }
           case COLOR -> {
             if (gameCard.getColor().equals(playerCard.getColor())) {
               if (gameCard.getValue() != playerCard.getValue()) {
+                if (isRapid) {
+                  player.incrementRapidClickCount();
+                  playerScore++;
+                }
                 player.incrementRightClickCount();
                 player.setScore(playerScore + 2);
+
               } else {
                 player.incrementPartialRightClickCount();
                 player.setScore(playerScore + 1);
@@ -151,6 +164,10 @@ public class GameWS {
           case VALUE -> {
             if (gameCard.getValue() == playerCard.getValue()) {
               if (!gameCard.getColor().equals(playerCard.getColor())) {
+                if (isRapid) {
+                  player.incrementRapidClickCount();
+                  playerScore++;
+                }
                 player.incrementRightClickCount();
                 player.setScore(playerScore + 2);
               } else {
@@ -163,6 +180,10 @@ public class GameWS {
           }
           case NONE -> {
             if (!gameCard.getColor().equals(playerCard.getColor()) && gameCard.getValue() != playerCard.getValue()) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
@@ -179,6 +200,10 @@ public class GameWS {
         switch (choice) {
           case COLOR_VALUE -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
@@ -191,6 +216,10 @@ public class GameWS {
               player.incrementPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameColor > nbSameCard) && (nbSameColor >= nbSameValue) && (nbSameColor >= nbNone)) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
@@ -202,6 +231,10 @@ public class GameWS {
               player.incrementPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameValue > nbSameCard) && (nbSameValue > nbSameColor) && (nbSameValue >= nbNone)) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
@@ -210,6 +243,10 @@ public class GameWS {
           }
           case NONE -> {
             if ((nbNone > nbSameCard) && (nbNone >= nbSameColor) && (nbNone > nbSameValue)) {
+              if (isRapid) {
+                player.incrementRapidClickCount();
+                playerScore++;
+              }
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
