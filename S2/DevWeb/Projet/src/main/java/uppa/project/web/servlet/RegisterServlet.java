@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import uppa.project.bean.RegisterBean;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "registerServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
@@ -33,6 +34,10 @@ public class RegisterServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.setAttribute("current", "register");
     request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
   }
