@@ -9,6 +9,7 @@ import uppa.project.database.dao.EntityManagerProvider;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.RecoveryPasswordToken;
 import uppa.project.database.pojo.User;
+import uppa.project.web.translation.Translator;
 
 public class ResetPasswordBean implements Serializable {
 
@@ -18,6 +19,7 @@ public class ResetPasswordBean implements Serializable {
   private String token;
   private String password;
   private String errorMessage;
+  private Translator translator;
 
   public ResetPasswordBean() {
   }
@@ -82,6 +84,16 @@ public class ResetPasswordBean implements Serializable {
    */
   public ResetPasswordBean setPassword(String password) {
     this.password = password;
+    return this;
+  }
+
+  /**
+   *
+   * @param translator le traducteur
+   * @return this
+   */
+  public ResetPasswordBean setTranslator(Translator translator) {
+    this.translator = translator;
     return this;
   }
 

@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
-<%@taglib prefix="form" tagdir="/WEB-INF/tags/forms" %>
 <% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
 <layout:error message="${translator.translate('invalid_token')}">

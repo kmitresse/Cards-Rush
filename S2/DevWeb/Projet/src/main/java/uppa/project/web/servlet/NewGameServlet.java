@@ -18,6 +18,7 @@ import uppa.project.bean.NewGameBean;
 import uppa.project.database.pojo.Game;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "newGameServlet", value = "/new")
 public class NewGameServlet extends HttpServlet {
@@ -34,6 +35,10 @@ public class NewGameServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.getRequestDispatcher("/WEB-INF/pages/new-game.jsp").forward(request, response);
   }
 
@@ -44,7 +49,7 @@ public class NewGameServlet extends HttpServlet {
    * @param response la réponse
    * @throws IOException si une erreur d'entrée/sortie survient
    */
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Gson gson = new Gson();
 
     response.setContentType("application/json");

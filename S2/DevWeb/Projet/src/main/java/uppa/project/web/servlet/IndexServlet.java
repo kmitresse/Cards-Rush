@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "indexServlet", value = "/index")
 public class IndexServlet extends HttpServlet {
@@ -28,6 +29,10 @@ public class IndexServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.setAttribute("current", "index");
     request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
   }

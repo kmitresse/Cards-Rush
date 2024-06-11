@@ -1,5 +1,7 @@
 export function onError(error, inputs) {
   // Animations des champs
+  const languageSelector = document.getElementById('language-select');
+
   inputs.forEach(input => {
     input.classList.add("is-danger");
     input.style.animation = "shake 0.5s ease-in-out"
@@ -11,7 +13,11 @@ export function onError(error, inputs) {
 
   const notificationTitle = document.createElement("p");
   notificationTitle.classList.add("title", "is-6");
-  notificationTitle.innerHTML = "Erreur";
+  if (languageSelector.value === "EN") {
+    notificationTitle.innerHTML = "Error";
+  } else {
+    notificationTitle.innerHTML = "Erreur";
+  }
 
   const notificationIcon = document.createElement("span");
   notificationIcon.classList.add("icon");
@@ -32,4 +38,4 @@ export function onError(error, inputs) {
     inputs.forEach(input => input.classList.remove("is-danger"));
   }, 5010);
   inputs.forEach(input => input.addEventListener("animationend", () => input.style.animation = ""));
-};
+}

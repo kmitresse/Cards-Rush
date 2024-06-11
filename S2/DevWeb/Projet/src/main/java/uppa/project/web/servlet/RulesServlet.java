@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "rulesServlet", value = "/rules")
 public class RulesServlet extends HttpServlet {
@@ -21,6 +22,10 @@ public class RulesServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.getRequestDispatcher("/WEB-INF/pages/rules.jsp").forward(request, response);
   }
   public void destroy() {

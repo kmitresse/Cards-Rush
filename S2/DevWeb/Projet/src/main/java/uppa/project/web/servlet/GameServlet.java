@@ -16,6 +16,7 @@ import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Game;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "gameServlet", value = "/game")
 public class GameServlet extends HttpServlet {
@@ -32,6 +33,10 @@ public class GameServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     try {
       DAO<Game> gameDAO = new Game_JPA_DAO_Factory().getDAOGame();
       Game game = gameDAO.findById(Integer.parseInt(request.getParameter("id")));

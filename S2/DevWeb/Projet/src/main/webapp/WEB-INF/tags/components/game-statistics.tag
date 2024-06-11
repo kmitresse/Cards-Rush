@@ -1,3 +1,5 @@
+<%@ tag import="uppa.project.web.translation.Translator" %>
+<% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 <%@ tag import="uppa.project.database.pojo.Player" %>
 <%@ tag import="uppa.project.database.pojo.Game" %>
 <%@ tag import="java.util.ArrayList" %>

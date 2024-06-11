@@ -15,6 +15,7 @@ import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Game;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 public class NewGameBean implements Serializable {
 
@@ -26,6 +27,7 @@ public class NewGameBean implements Serializable {
   private String timer;
   private String nbValues;
   private String nbColors;
+  private Translator translator;
 
   private Game game;
 
@@ -59,10 +61,10 @@ public class NewGameBean implements Serializable {
       entityManager.getTransaction().commit();
       return true;
     } catch (NumberFormatException e) {
-      error = new HttpResponse(HttpResponseCode.BAD_REQUEST, "Les valeurs entrées ne sont pas valides");
+      error = new HttpResponse(HttpResponseCode.BAD_REQUEST, translator.translate("newGame_invalid_param_values"));
     } catch (DAOException e) {
       entityManager.getTransaction().rollback();
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR,  "Erreur lors de la création de la partie");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR,  translator.translate("newGame_error_creation"));
     }
     return false;
   }
@@ -117,6 +119,15 @@ public class NewGameBean implements Serializable {
     return this;
   }
 
+  /**
+   *
+   * @param translator le traducteur
+   * @return l'entité
+   */
+  public NewGameBean setTranslator(Translator translator) {
+    this.translator = translator;
+    return this;
+  }
   /**
    *
    * @return la partie créée

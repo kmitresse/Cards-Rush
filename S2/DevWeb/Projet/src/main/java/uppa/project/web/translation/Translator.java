@@ -13,7 +13,7 @@ public class Translator {
 
   private final String language;
 
-  private JsonParser parser;
+  private final JsonParser parser;
 
   private JsonObject translations;
 

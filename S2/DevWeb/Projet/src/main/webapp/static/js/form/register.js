@@ -1,4 +1,5 @@
 import {onError} from "../notification/error.js";
+const languageSelector = document.getElementById('language-select');
 
 const registerForm = document.querySelector("form#register-form");
 
@@ -14,7 +15,11 @@ function onSubmit(event) {
 
   // Check if the password and the confirmation password are the same
   if (password.value !== repassword.value) {
-    onError( new Error("Les mots de passe ne correspondent pas"),[password, repassword]);
+    if (languageSelector.value === "EN") {
+      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
+      return;
+    }
+    onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
     return;
   }
 

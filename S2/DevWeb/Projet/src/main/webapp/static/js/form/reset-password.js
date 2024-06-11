@@ -1,4 +1,5 @@
 import {onError} from "../notification/error.js";
+const languageSelector = document.getElementById('language-select');
 
 const resetPasswordForm = document.querySelector("form#reset-password-form");
 const submitButton = document.querySelector("input[type=submit]");
@@ -15,7 +16,11 @@ function onSubmit(event) {
 
   // Check if the password and the confirmation password are the same
   if (passwordInput.value !== repasswordInput.value) {
-    onError(new Error("Les mots de passe ne correspondent pas"), inputs);
+    if (languageSelector.value === "EN") {
+      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
+      return;
+    }
+    onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
     return;
   }
 

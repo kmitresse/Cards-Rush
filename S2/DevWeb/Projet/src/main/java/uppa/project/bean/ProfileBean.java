@@ -13,6 +13,7 @@ import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 public class ProfileBean {
   private String username;
@@ -23,6 +24,7 @@ public class ProfileBean {
   private String gender;
   private User user;
   private HttpResponse error;
+  private Translator translator;
 
   public ProfileBean() {}
 
@@ -40,25 +42,25 @@ public class ProfileBean {
       // Vérification de l'existence de l'utilisateur
       user = (userDAO.findByField("username",username).length == 0 ? null : userDAO.findByField("username",username)[0]);
       if (user == null) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Utilisateur non trouvé");
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("profile_error_username_unknown"));
         entityManager.getTransaction().rollback();
         return false;
       }
       // Vérification de l'unicité de l'adresse e-mail
       User[] users = userDAO.findByField("email", email);
       if (!oldEmail.equals(email) && users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Cet email est déjà utilisé");
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("profile_error_email"));
         entityManager.getTransaction().rollback();
         return false;
       }
       // Verification de l'ancien mot de passe
       if(!oldPassword.isEmpty() && !user.verifyPassword(oldPassword)) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ancien mot de passe incorrect");
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("profile_error_old_password"));
         entityManager.getTransaction().rollback();
         return false;
       }
     } catch (DAOException e) {
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:002)");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, translator.translate("internal_error_2"));
       entityManager.getTransaction().rollback();
       return false;
     }
@@ -73,7 +75,7 @@ public class ProfileBean {
     entityManager.getTransaction().commit();
     return true;
     } catch (DAOException e) {
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:002)");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, translator.translate("internal_error_2"));
       entityManager.getTransaction().rollback();
       return false;
     }
@@ -136,6 +138,16 @@ public class ProfileBean {
    */
   public ProfileBean setGender(String gender) {
     this.gender = gender;
+    return this;
+  }
+
+  /**
+   *
+   * @param translator le traducteur
+   * @return l'entité
+   */
+  public ProfileBean setTranslator(Translator translator) {
+    this.translator = translator;
     return this;
   }
 

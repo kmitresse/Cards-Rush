@@ -22,6 +22,7 @@ import uppa.project.database.pojo.Player;
 import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "profileServlet", value = "/profile")
 public class ProfileServlet extends HttpServlet {
@@ -38,13 +39,15 @@ public class ProfileServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     User usersession = (User) request.getSession().getAttribute("user");
     DAO<User> userDAO;
     try {
       userDAO = new Game_JPA_DAO_Factory().getDAOUser();
       User user = userDAO.findById(usersession.getId().intValue());
-      for(Player p : user.getPlayedGames()){
-      }
       request.getSession().setAttribute("user", user);
       request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
     } catch (DAOException e) {

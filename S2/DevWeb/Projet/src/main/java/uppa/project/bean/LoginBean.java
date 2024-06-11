@@ -14,6 +14,7 @@ import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 public class LoginBean implements Serializable {
 
@@ -23,6 +24,7 @@ public class LoginBean implements Serializable {
   private String password;
   private User user;
   private HttpResponse error;
+  private Translator translator;
   public LoginBean() {
   }
 
@@ -46,11 +48,11 @@ public class LoginBean implements Serializable {
         }
       }
     } catch (DAOException e) {
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR,"Une erreur est survenue (DB_CONNECTION_ERROR:001)");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR,translator.translate("internal_error_1"));
       return false;
     }
 
-    error = new HttpResponse(HttpResponseCode.NOT_FOUND,"Le nom d'utilisateur ou le mot de passe est incorrect.");
+    error = new HttpResponse(HttpResponseCode.NOT_FOUND, translator.translate("login_error"));
     return false;
   }
 
@@ -71,6 +73,16 @@ public class LoginBean implements Serializable {
    */
   public LoginBean setPassword(String password) {
     this.password = password;
+    return this;
+  }
+
+  /**
+   *
+   * @param translator le traducteur
+   * @return l'entité
+   */
+  public LoginBean setTranslator(Translator translator) {
+    this.translator = translator;
     return this;
   }
 

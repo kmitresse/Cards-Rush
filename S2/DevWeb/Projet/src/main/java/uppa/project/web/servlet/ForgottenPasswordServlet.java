@@ -18,10 +18,8 @@ import java.io.PrintWriter;
 import uppa.project.bean.ForgottenPasswordBean;
 import uppa.project.database.dao.DAO;
 import uppa.project.database.dao.DAOException;
-import uppa.project.database.dao.jpa.DAO_JPA_User;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.RecoveryPasswordToken;
-import uppa.project.database.pojo.User;
 import uppa.project.database.dao.EntityManagerProvider;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
@@ -58,6 +56,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
    * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Translator translator = (Translator) request.getSession().getAttribute("translator");
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
@@ -73,7 +72,7 @@ public class ForgottenPasswordServlet extends HttpServlet {
     if (forgottenPasswordBean.validate(uri)) {
       httpResponse = new HttpResponse(HttpResponseCode.OK, "Mail sent");
     } else {
-      httpResponse = new HttpResponse(HttpResponseCode.NOT_FOUND, "L'email renseigné est inconnu de nos services.");
+      httpResponse = new HttpResponse(HttpResponseCode.NOT_FOUND, translator.translate("forgotten_error_email"));
     }
 
     out.println(gson.toJson(httpResponse));

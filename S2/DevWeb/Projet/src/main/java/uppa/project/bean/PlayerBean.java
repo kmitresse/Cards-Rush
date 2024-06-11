@@ -11,6 +11,7 @@ import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.EntityManagerProvider;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.Player;
+import uppa.project.web.translation.Translator;
 
 public class PlayerBean {
   private Player player;
@@ -18,6 +19,7 @@ public class PlayerBean {
   public PlayerBean(Player player) {
     this.player = player;
   }
+
 
   /**
    * Gestion des joueurs de la parties

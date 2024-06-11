@@ -77,6 +77,11 @@ public class ForgottenPasswordBean implements Serializable {
     return this;
   }
 
+  /**
+   *
+   * @param translator le traducteur
+   * @return this
+   */
   public ForgottenPasswordBean setTranslator(Translator translator) {
     this.translator = translator;
     return this;

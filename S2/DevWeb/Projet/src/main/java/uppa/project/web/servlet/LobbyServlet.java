@@ -19,6 +19,7 @@ import java.util.Set;
 import uppa.project.database.pojo.Game;
 import uppa.project.database.pojo.Player;
 import uppa.project.database.pojo.User;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "lobbyServlet", value = "/lobby")
 public class LobbyServlet extends HttpServlet {
@@ -35,6 +36,10 @@ public class LobbyServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.getRequestDispatcher("/WEB-INF/pages/lobby.jsp").forward(request, response);
   }
 

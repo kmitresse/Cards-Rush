@@ -1,4 +1,9 @@
 export class Success {
+  static successLabels = {
+    EN: "Success",
+    FR: "Succès",
+  }
+
   static successKeys = {
     FORGOTTEN_PASSWORD: "forgotten-password",
     RESET_PASSWORD: "reset-password",
@@ -7,13 +12,22 @@ export class Success {
   }
 
   static successValues = {
-    FORGOTTEN_PASSWORD: "Un email vous a été envoyé pour réinitialiser votre mot de passe",
-    RESET_PASSWORD: "Mot de passe récupéré avec succès",
-    UPDATE_PROFILE: "Profil modifié avec succès",
-    CREATE_ACCOUNT: "Compte créé avec succès",
+    EN: {
+      FORGOTTEN_PASSWORD: "An email has been sent to you to reset your password",
+      RESET_PASSWORD: "Password successfully recovered",
+      UPDATE_PROFILE: "Profile successfully modified",
+      CREATE_ACCOUNT: "Account successfully created",
+    },
+    FR: {
+      FORGOTTEN_PASSWORD: "Un email vous a été envoyé pour réinitialiser votre mot de passe",
+      RESET_PASSWORD: "Mot de passe récupéré avec succès",
+      UPDATE_PROFILE: "Profil modifié avec succès",
+      CREATE_ACCOUNT: "Compte créé avec succès",
+    }
   }
 }
-export function onSuccess(message) {
+
+export function onSuccess(title, message) {
   console.log("Succès:", "Modifications effectuées avec succès")
 
   // Notification
@@ -40,18 +54,36 @@ export function onSuccess(message) {
   setTimeout(() => notification.remove(), 5010);
 }
 
-export function verifSuccess(){
+export function verifSuccess() {
+  const languageSelector = document.getElementById('language-select');
+
   const url = new URL(window.location.href);
-  if (url.searchParams.get("success")!=undefined && url.searchParams.get("success") === Success.successKeys.FORGOTTEN_PASSWORD) {
-    onSuccess(Success.successValues.FORGOTTEN_PASSWORD)
+  if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.FORGOTTEN_PASSWORD) {
+    if (languageSelector.value === "EN") {
+      onSuccess(Success.successLabels.EN, Success.successValues.EN.FORGOTTEN_PASSWORD)
+    } else {
+      onSuccess(Success.successLabels.FR, Success.successValues.FR.FORGOTTEN_PASSWORD)
+    }
   }
-  if (url.searchParams.get("success")!=undefined && url.searchParams.get("success") === Success.successKeys.RESET_PASSWORD) {
-    onSuccess(Success.successValues.RESET_PASSWORD)
-  }
-  if (url.searchParams.get("success")!=undefined && url.searchParams.get("success") === Success.successKeys.CREATE_ACCOUNT) {
-    onSuccess(Success.successValues.CREATE_ACCOUNT)
-  }
-  if (url.searchParams.get("success")!=undefined && url.searchParams.get("success") === Success.successKeys.UPDATE_PROFILE) {
-    onSuccess(Success.successValues.UPDATE_PROFILE)
+  if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.RESET_PASSWORD) {
+    if (languageSelector.value === "EN") {
+      onSuccess(Success.successLabels.EN, Success.successValues.EN.RESET_PASSWORD)
+    } else {
+      onSuccess(Success.successLabels.FR, Success.successValues.FR.RESET_PASSWORD)
+    }
+    if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.CREATE_ACCOUNT) {
+      if (languageSelector.value === "EN") {
+        onSuccess(Success.successLabels.EN, Success.successValues.EN.CREATE_ACCOUNT)
+      } else {
+        onSuccess(Success.successLabels.FR, Success.successValues.FR.CREATE_ACCOUNT)
+      }
+    }
+    if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.UPDATE_PROFILE) {
+      if (languageSelector.value === "EN") {
+        onSuccess(Success.successLabels.EN, Success.successValues.EN.UPDATE_PROFILE)
+      } else {
+        onSuccess(Success.successLabels.FR, Success.successValues.FR.UPDATE_PROFILE)
+      }
+    }
   }
 }

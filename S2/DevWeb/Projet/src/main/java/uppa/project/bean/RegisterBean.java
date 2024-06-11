@@ -13,6 +13,7 @@ import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 public class RegisterBean implements Serializable {
 
@@ -26,6 +27,7 @@ public class RegisterBean implements Serializable {
   private String gender;
 
   private HttpResponse error;
+  private Translator translator;
 
   public RegisterBean() {
   }
@@ -46,18 +48,18 @@ public class RegisterBean implements Serializable {
       // Vérification de l'unicité du nom d'utilisateur
       User[] users = userDAO.findByField("username", username);
       if (users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Ce nom d'utilisateur est déjà pris");
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_username"));
         return false;
       }
 
       // Vérification de l'unicité de l'adresse e-mail
       users = userDAO.findByField("email", email);
       if (users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Cet email est déjà utilisé");
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_email"));
         return false;
       }
     } catch (DAOException e) {
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:001)");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, translator.translate("internal_error_1"));
       return false;
     }
 
@@ -69,7 +71,7 @@ public class RegisterBean implements Serializable {
     try {
       user.setGender(User.Gender.valueOf(gender));
     } catch (IllegalArgumentException e) {
-      error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "Le genre n'est pas valide");
+      error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_gender"));
       return false;
     }
 
@@ -80,7 +82,7 @@ public class RegisterBean implements Serializable {
       Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
       user.setBirth(date);
     } catch (Exception e) {
-      error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, "La date de naissance n'est pas valide");
+      error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_birthdate"));
       return false;
     }
 
@@ -93,7 +95,7 @@ public class RegisterBean implements Serializable {
       entityManager.getTransaction().commit();
       return true;
     } catch (DAOException e) {
-      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, "Une erreur est survenue (DB_CONNECTION_ERROR:002)");
+      error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, translator.translate("internal_error_2"));
       entityManager.getTransaction().rollback();
     }
     return false;
@@ -146,6 +148,16 @@ public class RegisterBean implements Serializable {
    */
   public RegisterBean setGender(String gender) {
     this.gender = gender;
+    return this;
+  }
+
+  /**
+   *
+   * @param translator le traducteur
+   * @return l'entité
+   */
+  public RegisterBean setTranslator(Translator translator) {
+    this.translator = translator;
     return this;
   }
 

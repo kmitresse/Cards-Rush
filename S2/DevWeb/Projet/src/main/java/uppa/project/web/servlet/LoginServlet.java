@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
    * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Translator translator = (Translator) request.getSession().getAttribute("translator");
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
@@ -57,6 +58,7 @@ public class LoginServlet extends HttpServlet {
     LoginBean loginBean = new LoginBean()
       .setUsername(request.getParameter("username"))
       .setPassword(request.getParameter("password"))
+      .setTranslator(translator)
     ;
 
     Gson gson = new Gson();

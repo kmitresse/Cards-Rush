@@ -1,13 +1,13 @@
 import {onError} from "../notification/error.js";
 import {onSuccess} from "../notification/success.js";
 import {Success} from "../notification/success.js";
+const languageSelector = document.getElementById('language-select');
 
 const profileForm = document.querySelector("form#profile-form");
 const username = profileForm.querySelector("input[name='username']");
 const changePassword = profileForm.querySelector("a#change-password");
 const passwordFields = profileForm.querySelectorAll("div#old-password-field, div#password-field, div#repeat-password-field");
 const inputs = profileForm.querySelectorAll("input[type='text'], input[type='email'], input[type='password']");
-
 // Afficher les champs de mot de passe si le lien est cliqué
 changePassword.addEventListener("click", (e) => {
   e.preventDefault();
@@ -26,6 +26,10 @@ function onSubmit(event) {
   const repassword = profileForm.querySelector("input[name='repeat-password']");
   // Check if the password and the confirmation password are the same
   if (oldPassword.value !== "" && password.value !== repassword.value) {
+    if (languageSelector.value === "EN") {
+      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
+      return;
+    }
     onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
     return;
   }
@@ -33,8 +37,6 @@ function onSubmit(event) {
   const {action, method} = profileForm;
 
   const url = new URL(action);
-  const contextPath = url.href.substring(0, url.href.lastIndexOf("/") + 1);
-
   const formData = new FormData(profileForm);
   for (const [key, value] of formData.entries()) {
     url.searchParams.append(key, value);
