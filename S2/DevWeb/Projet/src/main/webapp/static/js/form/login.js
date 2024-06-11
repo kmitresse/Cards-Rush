@@ -1,5 +1,4 @@
 import {onError} from "../notification/error.js";
-import {onSuccess} from "../notification/success.js";
 import {verifSuccess} from "../notification/success.js";
 
 //Vérifier si un formulaire a été soumis avec succès
