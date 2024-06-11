@@ -1,0 +1,142 @@
+{
+  "index_main" : {
+    "EN" : "Dive into the excitement of CardRush!",
+    "FR" : "Plongez dans l'excitation de CardRush!"
+  },
+  "index_description" : {
+    "EN": "Challenge your reactivity and dominate the game with friends in this fast-paced card race! Join now to experience the adrenaline.",
+    "FR": "Défiez votre réactivité et dominez le jeu avec des amis dans cette course effrénée aux cartes ! Rejoignez maintenant pour vivre l'adrénaline."
+  },
+  "navbar_login" : {
+    "EN": "Login",
+    "FR": "Se connecter"
+  },
+  "navbar_register" : {
+    "EN": "Register",
+    "FR": "S'inscrire"
+  },
+  "navbar_logout" : {
+    "EN": "Logout",
+    "FR": "Se déconnecter"
+  },
+  "navbar_profile" : {
+    "EN": "Profile",
+    "FR": "Profil"
+  },
+  "user_username" : {
+    "EN": "Username",
+    "FR": "Nom d'utilisateur"
+  },
+  "user_password" : {
+    "EN": "Password",
+    "FR": "Mot de passe"
+  },
+  "user_email" : {
+    "EN": "Email",
+    "FR": "Email"
+  },
+  "user_confirm_password" : {
+    "EN": "Confirm Password",
+    "FR": "Confirmer le mot de passe"
+  },
+  "user_confirm_password_input" : {
+    "EN": "Repeat your password",
+    "FR": "Répéter votre mot de passe"
+  },
+  "user_birthdate" : {
+    "EN": "Birthdate",
+    "FR": "Date de naissance"
+  },
+  "user_gender" : {
+    "EN": "Gender",
+    "FR": "Genre"
+  },
+  "user_gender_select_option" : {
+    "EN": "Choose an option",
+    "FR": "Choisir une option"
+  },
+  "user_gender_male" : {
+    "EN": "Male",
+    "FR": "Homme"
+    },
+  "user_gender_female" : {
+    "EN": "Female",
+    "FR": "Femme"
+  },
+  "user_gender_other" : {
+    "EN": "Other",
+    "FR": "Autre"
+  },
+  "login_title" : {
+    "EN": "Login",
+    "FR": "Se connecter"
+  },
+  "login_forgotten_password" : {
+    "EN": "Forgotten password?",
+    "FR": "Mot de passe oublié?"
+  },
+  "login_submit" : {
+    "EN": "Login",
+    "FR": "Se connecter"
+  },
+  "login_not_registered" : {
+    "EN": "Not registered?",
+    "FR": "Pas encore de compte?"
+  },
+  "login_register" : {
+      "EN": "Register now!",
+      "FR": "S'inscrire"
+  },
+  "login_error" : {
+    "EN": "Invalid username or password",
+    "FR": "Nom d'utilisateur ou mot de passe invalide"
+  },
+  "register_title" : {
+    "EN": "Register",
+    "FR": "S'inscrire"
+  },
+    "register_submit" : {
+        "EN": "Register",
+        "FR": "S'inscrire"
+    },
+    "register_already_registered" : {
+        "EN": "Already registered?",
+        "FR": "Déjà inscrit?"
+    },
+    "register_login" : {
+        "EN": "Login now!",
+        "FR": "Se connecter"
+    },
+    "register_error_username" : {
+        "EN": "Username already taken",
+        "FR": "Nom d'utilisateur déjà pris"
+    },
+    "register_error_email" : {
+        "EN": "Email already taken",
+        "FR": "Email déjà utilisé"
+    },
+    "register_error_password" : {
+        "EN": "Passwords do not match",
+        "FR": "Les mots de passe ne correspondent pas"
+    },
+    "forgotten_title" : {
+        "EN": "Forgotten password",
+        "FR": "Mot de passe oublié"
+    },
+    "forgotten_submit" : {
+        "EN": "Send email",
+        "FR": "Envoyer l'email"
+    },
+    "forgotten_error" : {
+        "EN": "The email entered is not associated with any account",
+        "FR": "L'email renseigné n'est associé à aucun compte"
+    },
+    "forgotten_success" : {
+        "EN": "Email sent successfully",
+        "FR": "Email envoyé avec succès"
+    },
+    "forgotten_email_description" : {
+        "EN": "Enter the email address associated with your account to receive a password reset link.",
+        "FR": "Entrez l'adresse email associée à votre compte pour recevoir un lien de réinitialisation de mot de passe."
+    }
+}

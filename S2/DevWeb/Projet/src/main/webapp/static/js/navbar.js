@@ -14,3 +14,19 @@ $navbarBurgers.forEach(el => {
     $target.classList.toggle('is-active');
   });
 });
+
+let languageSelector = document.getElementById('language-select');
+
+languageSelector.addEventListener('change', function() {
+  const contextPath = window.location.href.substring(0,  window.location.href.lastIndexOf("/") + 1);
+  const action = contextPath + "/translate";
+  console.log(action);
+  const method = "PUT";
+
+  const url = new URL(action);
+  url.searchParams.append("language", languageSelector.value);
+
+  fetch(url, {headers: {"Content-Type": "application/json"}, method})
+    .then(() => window.location.href = window.location.href)
+
+});

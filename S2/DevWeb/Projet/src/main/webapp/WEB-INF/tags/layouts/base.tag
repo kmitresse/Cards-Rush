@@ -1,9 +1,12 @@
 <%@tag description="layout/base" pageEncoding="UTF-8" %>
 <%@tag import="uppa.project.Global" %>
+<%@ tag import="uppa.project.web.translation.Translator" %>
 
 <%@attribute name="title"%>
 <%@attribute name="head" fragment="true" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
+
+<% Translator translator =(Translator) session.getAttribute("translator"); %>
 
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
