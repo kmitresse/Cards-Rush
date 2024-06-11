@@ -25,6 +25,7 @@ import uppa.project.database.pojo.User;
 import uppa.project.database.dao.EntityManagerProvider;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "forgottenPasswordServlet", value = "/forgotten-password")
 public class ForgottenPasswordServlet extends HttpServlet {
@@ -41,6 +42,10 @@ public class ForgottenPasswordServlet extends HttpServlet {
    * @throws ServletException si une erreur de servlet survient
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    if (request.getSession().getAttribute("translator") == null) {
+      request.getSession().setAttribute("language", "FR");
+      request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+    }
     request.setAttribute("current", "forgotten-password");
     request.getRequestDispatcher("/WEB-INF/pages/forgotten-password.jsp").forward(request, response);
   }
@@ -58,7 +63,8 @@ public class ForgottenPasswordServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     ForgottenPasswordBean forgottenPasswordBean = new ForgottenPasswordBean()
-      .setEmail(request.getParameter("email"));
+      .setEmail(request.getParameter("email"))
+      .setTranslator((Translator) request.getSession().getAttribute("translator"));
 
     Gson gson = new Gson();
     HttpResponse httpResponse;

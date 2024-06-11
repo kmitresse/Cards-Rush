@@ -14,6 +14,7 @@ import uppa.project.database.dao.jpa.DAO_JPA_RecoveryPasswordToken;
 import uppa.project.database.pojo.RecoveryPasswordToken;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "resetPasswordServlet", value = "/reset-password")
 public class ResetPasswordServlet extends HttpServlet {
@@ -29,6 +30,10 @@ public class ResetPasswordServlet extends HttpServlet {
      * @throws ServletException si une erreur de servlet survient
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+      if (request.getSession().getAttribute("translator") == null) {
+        request.getSession().setAttribute("language", "FR");
+        request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
+      }
       RecoveryPasswordToken token = findRecoveryToken(request.getParameter("token"));
       if (token == null) {
         request.getRequestDispatcher("/WEB-INF/pages/errors/invalid-token-password.jsp").forward(request, response);

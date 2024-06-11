@@ -120,8 +120,8 @@
         "FR": "Les mots de passe ne correspondent pas"
     },
     "forgotten_title" : {
-        "EN": "Forgotten password",
-        "FR": "Mot de passe oublié"
+        "EN": "Forgotten password ?",
+        "FR": "Mot de passe oublié ?"
     },
     "forgotten_submit" : {
         "EN": "Send email",
@@ -138,5 +138,69 @@
     "forgotten_email_description" : {
         "EN": "Enter the email address associated with your account to receive a password reset link.",
         "FR": "Entrez l'adresse email associée à votre compte pour recevoir un lien de réinitialisation de mot de passe."
+    },
+    "forgotten_email_object" : {
+        "EN": "Reset password",
+        "FR": "Réinitialiser le mot de passe"
+    },
+    "forgotten_email_content" : {
+        "EN": "Hello,\n\nYou have requested a password reset.\nTo do this, please click on the following link: {0}/reset-password?token={1}\n\nThis link is valid for 10 minutes.\nIf you are not the origin of this request, please ignore this email.\n\nSincerely,\nThe CardRush team\n\n\n\nThis message is generated automatically, please do not reply to it.\nCardRush is the property of CardRush Corporation, 2024. All rights reserved.\nCardRush Corporation, 2024, 1 rue de la programmation web, 64000 Pau, France\nFictitious company created as part of a university project. Project authors: MITRESSÉ Kevin & VABRE Lucàs",
+        "FR": "Bonjour,\n\nVous avez demandé la réinitialisation de votre mot de passe.\nPour cela, veuillez cliquer sur le lien suivant :{0}/reset-password?token={1}\n\nCe lien est valable 10 minutes.\nSi vous n'êtes pas à l'origine de cette demande, ne prenez pas compte de ce mail.\n\nCordialement,\nL'équipe CardRush\n\n\n\nCe message est généré automatiquement, merci de ne pas y répondre.\nCardRush est la propriété de CardRush Corporation, 2024. Tous droits réservés.\\nCardRush Corporation, 2024, 1 rue de la programmation web, 64000 Pau, France\nSociété fictive créée dans le cadre d'un projet universitaire. Auteurs du projet: MITRESSÉ Kevin & VABRE Lucàs"
+    },
+    "reset_title" : {
+        "EN": "Reset password",
+        "FR": "Réinitialisation du mot de passe"
+    },
+    "reset_submit" : {
+        "EN": "Reset",
+        "FR": "Réinitialiser"
+    },
+    "invalid_token" : {
+        "EN": "Invalid token",
+        "FR": "Token invalide"
+    },
+    "expired_token" : {
+      "EN": "Expired token",
+      "FR": "Token expiré"
+    },
+    "error_token_go_to_connection_page" :{
+      "EN": "Return to the login page",
+      "FR": "Retour à la page de connexion"
+    },
+    "error" : {
+      "EN": "Error",
+      "FR": "Erreur"
+    },
+
+    "reset_success" : {
+        "EN": "Password reset successfully",
+        "FR": "Mot de passe réinitialisé avec succès"
+    },
+    "reset_password" : {
+        "EN": "New password",
+        "FR": "Nouveau mot de passe"
+    },
+    "reset_confirm_password" : {
+        "EN": "Confirm new password",
+        "FR": "Confirmer le nouveau mot de passe"
+    },
+    "reset_password_description" : {
+        "EN": "Enter your new password",
+        "FR": "Entrez votre nouveau mot de passe"
+    },
+    "reset_error_password" : {
+        "EN": "Passwords do not match",
+        "FR": "Les mots de passe ne correspondent pas"
+    },
+    "profile_title" : {
+        "EN": "Profile",
+        "FR": "Profil"
+    },
+    "profile_edit" : {
+        "EN": "Edit",
+        "FR": "Modifier"
     }
+
+
+
 }

@@ -8,6 +8,7 @@ package uppa.project.bean;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.UUID;
 import javax.mail.Authenticator;
@@ -24,6 +25,7 @@ import uppa.project.database.dao.DAOException;
 import uppa.project.database.dao.jpa.Game_JPA_DAO_Factory;
 import uppa.project.database.pojo.RecoveryPasswordToken;
 import uppa.project.database.pojo.User;
+import uppa.project.web.translation.Translator;
 
 import static uppa.project.web.servlet.ForgottenPasswordServlet.CreateToken;
 
@@ -33,6 +35,8 @@ public class ForgottenPasswordBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private String email;
+
+  private Translator translator;
 
   public ForgottenPasswordBean() {
   }
@@ -70,6 +74,11 @@ public class ForgottenPasswordBean implements Serializable {
    */
   public ForgottenPasswordBean setEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ForgottenPasswordBean setTranslator(Translator translator) {
+    this.translator = translator;
     return this;
   }
 
@@ -117,20 +126,12 @@ public class ForgottenPasswordBean implements Serializable {
       Message message = new MimeMessage(session);
       message.setFrom(new InternetAddress(username));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-      message.setSubject("Réinitialisation de votre mot de passe");
-      message.setText("Bonjour,\n\n" +
-        "Vous avez demandé la réinitialisation de votre mot de passe.\n" +
-        "Pour cela, veuillez cliquer sur le lien suivant :"+ requestPath +"/reset-password?token=" + token + "\n\n" +
-        "Ce lien est valable 10 minutes.\n" +
-        "Si vous n'êtes pas à l'origine de cette demande, ne prenez pas compte de ce mail.\n\n" +
-        "Cordialement,\n" +
-        "L'équipe CardRush" +
-        "\n\n\n\n" +
-        "Ce message est généré automatiquement, merci de ne pas y répondre.\n" +
-        "CardRush est la propriété de CardRush Corporation, 2024. Tous droits réservés.\n" +
-        "CardRush Corporation, 2024, 1 rue de la programmation web, 64000 Pau, France\n" +
-        "Société fictive créée dans le cadre d'un projet universitaire. Auteurs du projet: MITRESSÉ Kevin & VABRE Lucàs "
-      );
+      message.setSubject(this.translator.translate("forgotten_email_object"));
+      String contentTemplate = this.translator.translate("forgotten_email_content");
+      String content = MessageFormat.format(contentTemplate, requestPath, token);
+      message.setText(content);
+      System.out.println(contentTemplate);
+      System.out.println(content);
       // Envoi du message
       Transport.send(message);
 
