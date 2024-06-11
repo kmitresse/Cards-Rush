@@ -5,16 +5,15 @@ import com.google.gson.JsonParser;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class Translator {
 
-  private String language;
+  private final String language;
 
-  private JsonParser parser = new JsonParser();
+  private JsonParser parser;
 
   private JsonObject translations;
 
@@ -26,7 +25,7 @@ public class Translator {
     this.parser = new JsonParser();
   }
 
-  public static Translator generateTranslator(HttpSession session , ServletContext context) throws IOException {
+  public static Translator generateTranslator(HttpSession session , ServletContext context) {
     Translator translator;
     System.out.println("null?" + session.getAttribute("language"));
     System.out.println("language EN ??: " + session.getAttribute("language").equals(Translator.Language.EN.name()));
@@ -39,8 +38,7 @@ public class Translator {
     return translator;
   }
 
-  public void setJsonContent(ServletContext context) throws IOException {
-    JsonObject json = new JsonObject();
+  public void setJsonContent(ServletContext context) {
     InputStream is = context.getResourceAsStream("/WEB-INF/translations.json");
     BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
     //Parse the File as a JSON Object

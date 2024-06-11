@@ -20,7 +20,6 @@ public class TranslationServlet extends HttpServlet {
       request.getSession().setAttribute("language", language);
       Translator translator = Translator.generateTranslator(request.getSession(), request.getServletContext());
       request.getSession().setAttribute("translator", translator);
-      Translator sessionTranslator = (Translator) request.getSession().getAttribute("translator");
     }
   }
 }
