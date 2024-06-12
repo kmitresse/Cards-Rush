@@ -1,11 +1,11 @@
 {
-  "index_main" : {
-    "EN" : "Dive into the excitement of CardRush!",
-    "FR" : "Plongez dans l'excitation de CardRush!"
+  "index_main_sentence" : {
+    "EN": "Dive into the excitement of {0}!",
+    "FR" : "Plongez dans l''excitation de {0}!"
   },
   "index_description" : {
-    "EN": "Challenge your reactivity and dominate the game with friends in this fast-paced card race! Join now to experience the adrenaline.",
-    "FR": "Défiez votre réactivité et dominez le jeu avec des amis dans cette course effrénée aux cartes ! Rejoignez maintenant pour vivre l'adrénaline."
+    "EN": "Challenge your reactivity and dominate the game with friends in this fast-paced card race! Join now to experience the adrenaline of {0}.",
+    "FR": "Défiez votre réactivité et dominez le jeu avec des amis dans cette course effrénée aux cartes ! Rejoignez maintenant pour vivre l''adrénaline de {0}."
   },
   "navbar_login" : {
     "EN": "Login",
@@ -22,6 +22,10 @@
   "navbar_profile" : {
     "EN": "Profile",
     "FR": "Profil"
+  },
+  "footer" : {
+    "EN": "<strong>{0}</strong> by Kevin Mitressé & Lucàs Vabre. UPPA M1-TI 2024",
+    "FR": "<strong>{0}</strong> par Kevin Mitressé & Lucàs Vabre. UPPA M1-TI 2024"
   },
   "user_username" : {
     "EN": "Username",
@@ -484,8 +488,8 @@
     "FR": "Salle de jeu"
   },
   "game_room_players_list" : {
-    "EN": "Players list in the game",
-    "FR": "Liste des joueurs dans la partie"
+    "EN": "List of participants",
+    "FR": "Liste des participants"
   },
   "game_room_connected_users_list" : {
     "EN": "List of connected users",

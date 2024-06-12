@@ -13,7 +13,7 @@
 
         <% } else { %>
 
-        <a class="navbar-item" href="${pageContext.request.contextPath}/">
+        <a class="navbar-item" href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg" height="260" alt="Logo">
         </a>
 

@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import uppa.project.web.translation.Translator;
 
-@WebServlet(name = "indexServlet", value = "/index")
+@WebServlet(name = "indexServlet", value = {"/index"})
 public class IndexServlet extends HttpServlet {
 
   public void init() {
@@ -33,7 +33,6 @@ public class IndexServlet extends HttpServlet {
       request.getSession().setAttribute("language", "FR");
       request.getSession().setAttribute("translator", Translator.generateTranslator(request.getSession(), request.getServletContext()));
     }
-    request.setAttribute("current", "index");
     request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
   }
 
