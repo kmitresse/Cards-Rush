@@ -36,7 +36,7 @@
                     </component:card>
                 </div>
                 <div class="column">
-                    <component:card title="${translator.translate('game_room_player')}">
+                    <component:card title="${translator.translate('game_information_title')}">
                         <jsp:useBean id="game" scope="request" type="uppa.project.database.pojo.Game"/>
 
                         <p><strong>${translator.translate('game_information_created_at')}</strong> ${game.createdAt.toLocaleString()}</p>

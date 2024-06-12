@@ -9,7 +9,6 @@
   </filter>
   <filter-mapping>
     <filter-name>AuthenticationFilter</filter-name>
-<!--    <url-pattern>/main-menu</url-pattern>-->
     <url-pattern>/lobby</url-pattern>
     <url-pattern>/rules</url-pattern>
     <url-pattern>/profile</url-pattern>
@@ -26,7 +25,7 @@
   </filter>
   <filter-mapping>
     <filter-name>AlreadyLoggedFilter</filter-name>
-    <url-pattern>/index.html</url-pattern>
+    <url-pattern>/</url-pattern>
     <url-pattern>/login</url-pattern>
     <url-pattern>/register</url-pattern>
     <url-pattern>/forgotten-password</url-pattern>
