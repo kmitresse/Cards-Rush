@@ -30,7 +30,5 @@
 <component:navbar/>
 
 <jsp:doBody/>
-
-<component:footer/>
 </body>
 </html>

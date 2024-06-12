@@ -3,10 +3,15 @@
     --bulma-primary-s: 70%;
     --bulma-primary-l: 35%;
     --modal-content-width: 50rem;
+    --bulma-custom-footer-padding: 1rem 1.5rem 1rem;
 }
 
 .hero {
     background: url("../img/Home.svg") lightgray 50% / cover no-repeat;
+
+    .footer {
+        padding: var(--bulma-custom-footer-padding); !important;
+    }
 }
 
 label.radio.button > input[type="radio"] {
