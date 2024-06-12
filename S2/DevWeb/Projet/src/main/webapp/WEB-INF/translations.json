@@ -330,5 +330,109 @@
   "lobby_connected_users_average_score" : {
     "EN": "Average score",
     "FR": "Score moyen"
+  },
+  "rules_title" : {
+    "EN": "Rules",
+    "FR": "Règles du jeu"
+  },
+  "rules_description" : {
+    "EN": "Card Rush is an online multiplayer speed game.<br> Each player has an identical deck of cards, shuffled randomly. In the center of the board, there is a similar deck.<br> Your goal, should you choose to accept it, is to identify the similarities between your hand and the central deck as quickly as possible.<br> Several choices are available:",
+    "FR": "Card Rush est un jeu de rapidité multijoueurs en ligne.<br> Chaque joueur possède un jeu de cartes identique mais mélangé aléatoirement. Au centre du plateau un jeu de carte similaire.<br>Votre objectif si vous l'acceptez, identifier les similitudes entre votre main et celle du plateau le plus rapidement possible.<br> Plusieurs choix sont possibles :"
+  },
+  "rules_choice_1" : {
+    "EN": "Compared cards are sames;",
+    "FR": "Les cartes comparées sont identiques;"
+  },
+  "rules_choice_2" : {
+    "EN": "Compared cards have same color, but different value;",
+    "FR": "Les cartes comparées ont la même couleur, mais pas la même valeur;"
+  },
+  "rules_choice_3" : {
+    "EN": "Compared cards have same value, but different color;",
+    "FR": "Les cartes comparées ont la même valeur, mais pas la même couleur;"
+  },
+  "rules_choice_4" : {
+    "EN": "Compared cards are completly different;",
+    "FR": "Les cartes comparées sont totalement différentes;"
+  },
+  "rules_difficulty_title" : {
+    "EN": "Difficulty modes",
+    "FR": "Modes de difficulté"
+  },
+  "rules_difficulty_description" : {
+      "EN": "Card Rush offers 2 difficulty modes:",
+      "FR": "Card Rush propose 2 modes de difficulté :"
+  },
+  "difficulty_easy" : {
+    "EN": "Easy",
+    "FR": "Facile"
+  },
+  "rules_difficulty_easy_description" : {
+    "EN": "The <span class=\"tag is-light is-medium is-primary\">easy</span> mode: You must only compare the color of the cards between your hand and the central deck.",
+    "FR": "Le mode <span class=\"tag is-light is-medium is-primary\">facile</span>: Vous ne devez uniquement effectuer des comparaisons entre votre main et celle du plateau."
+  },
+  "rules_difficulty_easy_example" : {
+    "EN": "Example:<br>You: 4 of spades<br>Board: 4 of clubs<br>The answer to select is \"Same value\".",
+    "FR": "Exemple :<br>Vous : 4 de pique<br>Plateau : 4 de trèfle<br>La réponse à selectionner est \"Même valeur\"."
+  },
+  "difficulty_hard" : {
+    "EN": "Hard",
+    "FR": "Difficile"
+  },
+  "rules_difficulty_hard_description" : {
+    "EN": "The <span class=\"tag is-light is-medium is-primary\">hard</span> mode: You must compare the board and the hands of each player (including yourself) and choose the answer corresponding to the largest number of players.",
+    "FR": "Le mode <span class=\"tag is-light is-medium is-primary\">difficile</span>: Vous devez effectuer des comparaisons entre le plateau et les mains de chaque joueur (vous compris) et opter pour la réponse correspondant aux plus grand nombre de joueurs.<br>Attention : Une priorité est définie pour les réponses:"
+  },
+  "rules_difficulty_hard_priorities" : {
+    "EN": "\"Same card\" > \"Same color\" > \"Same value\" > \"None\"",
+    "FR": "\"Même carte\" > \"Même couleur\" > \"Même valeur\" > \"Aucun\""
+  },
+  "rules_difficulty_hard_priorities_explanation" : {
+    "EN": "If two answers have the same number of players, the priority is given to the answer with the highest priority.",
+    "FR": "Si deux réponses ont le même nombre de joueurs, la priorité est donnée à la réponse ayant la priorité la plus élevée."
+  },
+  "rules_difficulty_hard_example" : {
+      "EN": "Example:<br>You: 4 of spades<br>Player 1: 4 of clubs<br>Player 2: 4 of hearts<br>Board: 4 of diamonds<br>The answer to select is \"Same value\".",
+      "FR": "Exemple: (4 joueurs)<br>Joueur 1 : 4 de pique<br>Joueur 2 : Roi de carreau<br>Joueur 3 : 4 de coeur<br>Joueur 4 : As de pique<br>Plateau : Roi de pique<br>La réponse à selectionner est \"Même couleur\" car elle représente 2 joueurs sur les 4."
+  },
+  "rules_score_management_title" : {
+    "EN": "Score management",
+    "FR": "Gestion des scores"
+  },
+  "rules_score_management_description" : {
+    "EN": "The score is calculated as follows:",
+    "FR": "Le score est calculé de la manière suivante :"
+  },
+  "rules_score_management_1" : {
+    "EN": "Correct answer: <span class=\"tag is-success\">+2pts</span>",
+    "FR": "Bonne réponse : <span class=\"tag is-success\">+2pts</span>"
+  },
+  "rules_score_management_2" : {
+    "EN": "Incorrect answer: <span class=\"tag is-success\">+1pt</span> (Example: The card is identical but the player has identified only the similarity on the color (resp. the value).)",
+    "FR": "Réponse partielle : <span class=\"tag is-success\">+1pt</span> (Exemple: La carte est identique mais le joueur n'a identifié que la similitude sur la couleur (resp. la valeur).)"
+  },
+  "rules_score_management_3" : {
+      "EN": "No answer: <span class=\"tag is-light\">+0pt</span>",
+      "FR": "Aucune réponse : <span class=\"tag is-light\">+0pt</span>"
+  },
+  "rules_score_management_4" : {
+      "EN": "Incorrect answer: <span class=\"tag is-danger\">-1pt</span>",
+      "FR": "Mauvais réponse : <span class=\"tag is-danger\">-1pt</span>"
+  },
+  "rules_score_management_5" : {
+      "EN": "Speed bonus: <span class=\"tag is-success\">+1pt</span>",
+      "FR": "Bonus de rapidité : <span class=\"tag is-success\">+1pt</span>"
+  },
+  "rules_winner_title" : {
+    "EN": "Winner of the game",
+    "FR": "Vainqueur de la partie"
+  },
+  "rules_winner_description" : {
+    "EN": "The winner of a game is the one who has accumulated the most points, in case of a tie, the fastest player is declared as the winner.<br>If the tie persists, additional rounds will separate the players.",
+    "FR": "Le vainqueur d'une partie est celui qui aura accumulé le plus de points, en cas d'égalité, le joueur le plus rapide est déclaré vainqueur.<br>Si l'égalité subsiste, des manches supplémentaires départagerons les joueurs."
+  },
+  "rules_end" : {
+    "EN": "Good luck and have fun!",
+    "FR": "Alors affûtez votre agilité et visez la victoire!"
   }
 }

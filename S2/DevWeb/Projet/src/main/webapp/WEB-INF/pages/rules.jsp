@@ -1,83 +1,57 @@
+<%@ page import="uppa.project.web.translation.Translator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
+<% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
 
-<layout:base title="Règles du jeu">
+<layout:base title="${translator.translate('rules_title')}">
     <component:hero>
         <div class="columns">
             <div class="column">
-                <component:card title="Règles du jeu">
+                <component:card title="${translator.translate('rules_title')}">
                     <div class="content">
                         <div class="is-flex is-justify-content-center">
                             <img class="py-5" src="${pageContext.request.contextPath}/static/img/CardsRushLogoBlack.svg"/>
                         </div>
-                        <p>
-                            Card Rush est un jeu de rapidité multijoueurs en ligne.<br>
-                            Chaque joueur possède un jeu de cartes identique mais mélangé aléatoirement. Au centre du plateau un jeu de carte
-                            similaire.<br>
-                            Votre objectif si vous l'acceptez, identifier les similitudes entre votre main et celle du plateau le plus
-                            rapidement possible.
-                            Plusieurs choix sont possibles :
-                        </p>
+                        <p>${translator.translate('rules_description')}</p>
                         <ul>
-                            <li>Les cartes comparées sont identiques</li>
-                            <li>Les cartes comparées ont la même couleur, mais pas la même valeur</li>
-                            <li>Les cartes comparées ont la même valeur, mais pas la même couleur</li>
-                            <li>Les cartes comparées sont totalement différentes</li>
+                            <li>${translator.translate('rules_choice_1')}</li>
+                            <li>${translator.translate('rules_choice_2')}</li>
+                            <li>${translator.translate('rules_choice_3')}</li>
+                            <li>${translator.translate('rules_choice_4')}</li>
                         </ul>
-                        <h2>Modes de difficultés</h2>
-                        <p>Deux modes de difficultés s'offrent à vous :</p>
+                        <h2>${translator.translate('rules_difficulty_title')}</h2>
+                        <p>${translator.translate('rules_difficulty_description')}</p>
                         <ul>
-                            <li><p>Le mode <span class="tag is-light is-medium is-primary">facile</span>: Vous ne devez uniquement effectuer des
-                                comparaisons entre votre main et celle du plateau.</p>
-                                <p>
-                                    Exemple : <br>
-                                    Vous : 4 de pique <br>
-                                    Plateau : 4 de trèfle <br>
-                                    La réponse à selectionner est "Même valeur".
-                                </p>
+                            <li>
+                                <p>${translator.translate('rules_difficulty_easy_description')}</p>
+                                <p>${translator.translate('rules_difficulty_easy_example')}</p>
                             </li>
-                            <li><p>
-                                    Le mode <span class="tag is-light is-medium is-primary">difficile</span>: Vous devez effectuer des
-                                    comparaisons entre le plateau et les mains de chaque joueur (vous compris) et opter pour la réponse correspondant aux plus grand nombre
-                                    de joueurs.<br>
-                                Attention : Une priorité est définie pour les réponses: </p>
-                                   <p class="has-text-weight-bold is-centered"> "Même carte" > "Même couleur" > "Même valeur" > "Aucun"</p>
-                                <p>
-                                    Si deux réponses sont possibles car elles représentent le même nombre de joueurs, la réponse la plus prioritaire est définie comme correcte.
-                                </p>
-                                <p>
-                                    Exemple: (4 joueurs) <br>
-                                    Joueur 1 : 4 de pique <br>
-                                    Joueur 2 : Roi de carreau <br>
-                                    Joueur 3 : 4 de coeur <br>
-                                    Joueur 4 : As de pique <br>
-                                    Plateau : Roi de pique <br>
-                                    La réponse à selectionner est "Même couleur" car elle représente 2 joueurs sur les 4.
-                                </p></li>
-                        </ul>
-                        <h2>Gestion des scores</h2>
-                        <p>Les scores sont définits comme suit:</p>
-                        <ul>
-                            <li>Bonne réponse : <span class="tag is-success">+2pts</span></li>
-                            <li>Réponse partielle : <span class="tag is-success">+1pt</span> (Exemple: la carte est identique mais le joueur a identifié une similitude
-                                uniquement sur la couleur (resp. la valeur)
+                            <li>
+                                <p>${translator.translate('rules_difficulty_hard_description')} </p>
+                                <p class="has-text-weight-bold is-centered"> ${translator.translate('rules_difficulty_hard_priorities')}</p>
+                                <p>${translator.translate('rules_difficulty_hard_priorities_explanation')}</p>
+                                <p>${translator.translate('rules_difficulty_hard_example')}</p>
                             </li>
-                            <li>Aucune réponse : <span class="tag is-light">+0pt</span></li>
-                            <li>Mauvaise réponse : <span class="tag is-danger">-1pt</span></li>
-                            <li>Bonus de rapidité : <span class="tag is-success">+1pt</span></li>
                         </ul>
-                        <h2>Vainqueur de la partie</h2>
-                        <p>Le vainqueur d'une partie est celui qui aura accumulé le plus de points, en cas d'égalité, le joueur le plus rapide est déclaré vainqueur.<br>
-                            Si l'égalité subsiste, des manches supplémentaires départagerons les joueurs.</p>
-                        <h3 class="is-justify-content-centered"> Alors affûtez votre agilité et visez
-                            la victoire!</h3>
+                        <h2>${translator.translate('rules_score_management_title')}</h2>
+                        <p>${translator.translate('rules_score_management_description')}</p>
+                        <ul>
+                            <li>${translator.translate('rules_score_management_1')}</li>
+                            <li>${translator.translate('rules_score_management_2')}</li>
+                            <li>${translator.translate('rules_score_management_3')}</li>
+                            <li>${translator.translate('rules_score_management_4')}</li>
+                            <li>${translator.translate('rules_score_management_5')}</li>
+                        </ul>
+                        <h2>${translator.translate('rules_winner_title')}</h2>
+                        <p>${translator.translate('rules_winner_description')}</p>
+                        <h3 class="is-justify-content-centered"> ${translator.translate('rules_end')}</h3>
                         <a href="${pageContext.request.contextPath}/lobby" class="button is-light is-right">
-                    <span class="icon">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </span>
-                            <span>Retour</span>
+                            <span class="icon">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </span>
+                            <span>${translator.translate('back')}</span>
                         </a>
                     </div>
 
