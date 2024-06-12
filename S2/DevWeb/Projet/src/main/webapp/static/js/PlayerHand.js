@@ -18,7 +18,6 @@ export default class PlayerHand {
             <div class="pb-1 pt-1">
                 <p class="has-text-centered has-text-white title is-4 mb-1">${this.player.user.username}</p>
                 <p class="has-text-centered has-text-white title is-5">${this.player.score}</p>
-
             </div>
         `;
 
@@ -29,6 +28,5 @@ export default class PlayerHand {
                 ${textPosition === PlayerHand.TextPosition.BOTTOM ? text : ""}
             </div>
         `;
-
     }
 }

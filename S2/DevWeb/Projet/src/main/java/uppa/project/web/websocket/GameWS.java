@@ -105,7 +105,7 @@ public class GameWS {
 
       int playerScore = player.getScore();
       Card gameCard = game.getDeck().getCards().get(game.getCurrentRound());
-      Card playerCard = player.getDeck().getCards().get(game.getCurrentRound());
+      Card playerCard = player.getDeck().getCards().get((player.getPartialRightClickCount()+player.getRightClickCount()) % player.getDeck().getCards().size());
 
       player.setCurrentClick(choice);
 
@@ -136,23 +136,18 @@ public class GameWS {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
-              if (isRapid) {
-                player.incrementRapidClickCount();
-                playerScore++;
-              }
               player.setScore(playerScore - 1);
             }
           }
           case COLOR -> {
             if (gameCard.getColor().equals(playerCard.getColor())) {
-              if (gameCard.getValue() != playerCard.getValue()) {
+              if (!gameCard.equals(playerCard)) {
                 if (isRapid) {
                   player.incrementRapidClickCount();
                   playerScore++;
                 }
                 player.incrementRightClickCount();
                 player.setScore(playerScore + 2);
-
               } else {
                 player.incrementPartialRightClickCount();
                 player.setScore(playerScore + 1);
@@ -163,7 +158,7 @@ public class GameWS {
           }
           case VALUE -> {
             if (gameCard.getValue() == playerCard.getValue()) {
-              if (!gameCard.getColor().equals(playerCard.getColor())) {
+              if (!gameCard.equals(playerCard)) {
                 if (isRapid) {
                   player.incrementRapidClickCount();
                   playerScore++;
@@ -207,7 +202,6 @@ public class GameWS {
               player.incrementRightClickCount();
               player.setScore(playerScore + 2);
             } else {
-
               player.setScore(playerScore - 1);
             }
           }
