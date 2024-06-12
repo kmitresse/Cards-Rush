@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/notification.css">
     <script defer type="module" src="${pageContext.request.contextPath}/static/js/navbar.js"></script>
     <script defer type="module" src="${pageContext.request.contextPath}/static/js/notification/error.js"></script>
     <script defer type="module" src="${pageContext.request.contextPath}/static/js/notification/success.js"></script>

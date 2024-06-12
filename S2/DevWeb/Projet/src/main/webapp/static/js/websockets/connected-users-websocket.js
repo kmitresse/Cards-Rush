@@ -1,4 +1,5 @@
 import WebsocketToolkit from "../WebsocketToolkit.js";
+import {onInvite} from "../notification/invite.js";
 
 let users = [];
 const languageSelector = document.getElementById('language-select');
@@ -61,15 +62,7 @@ ws.onMessage("removeUser", (data) => {
 });
 ws.onMessage("invite", (data) => {
   const {from, to, game_id} = data;
-  let inviteMsg ;
-  if (languageSelector.value === "EN") {
-    inviteMsg = from.username + " invited you to join his game";
-  } else {
-    inviteMsg = from.username + " vous a invité à rejoindre sa partie";
-  }
-  if (confirm(from.username + inviteMsg)) {
-    window.location.href = contextPath+"game?id=" + game_id;
-  }
+  onInvite(from.username, contextPath, game_id)
 })
 ws.onError((error) => console.error(error));
 ws.onClose(() => console.log("Disconnected from the server"));

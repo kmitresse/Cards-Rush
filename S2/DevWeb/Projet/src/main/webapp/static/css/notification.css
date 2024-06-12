@@ -6,7 +6,18 @@
 
     transform: translateY(100%);
     opacity: 0;
-    animation: toast 5s ease forwards;
+    animation: toast 5s ease forwards
+}
+
+.invite-notification {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1em !important;
+
+    transform: translateY(100%);
+    opacity: 0;
+    animation: toast-invite 5s ease forwards
 }
 
 @keyframes toast {
@@ -25,6 +36,17 @@
     100% {
         opacity: 0;
         transform: translateY(100%);
+    }
+}
+
+@keyframes toast-invite {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    5%, 100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
