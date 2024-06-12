@@ -541,7 +541,7 @@
   },
   "game_information_title" : {
     "EN": "Game information",
-    "FR": "Informations de la partie"
+    "FR": "Informations sur la partie"
   },
   "game_information_created_at" : {
     "EN": "Created at",
@@ -566,6 +566,10 @@
   "game_information_deck_value_number" : {
     "EN": "Number of values per color",
     "FR": "Nombre de valeurs par couleur"
+  },
+  "game_informations_player_number" : {
+    "EN": "Number of players",
+    "FR": "Nombre de joueurs"
   },
   "timer_unit" : {
     "EN": "seconds",
@@ -594,5 +598,29 @@
   "game_timer" : {
     "EN": "Remaining time:",
     "FR": "Temps restant :"
+  },
+  "game_statistics_title": {
+    "EN": "Game statistics",
+    "FR": "Statistiques de la partie"
+  },
+  "game_statistics_date": {
+    "EN": "Date of the game",
+    "FR": "Date de jeu"
+  },
+  "game_statistics_score": {
+    "EN": "Score",
+    "FR": "Score"
+  },
+  "game_statistics_correct_clicks": {
+    "EN": "Correct clicks",
+    "FR": "Clics corrects"
+  },
+  "game_statistics_rapid_clicks": {
+    "EN": "Rapid clicks",
+    "FR": "Clics rapides"
+  },
+  "game_statistics_win": {
+    "EN": "Win",
+    "FR": "Victoire"
   }
 }
