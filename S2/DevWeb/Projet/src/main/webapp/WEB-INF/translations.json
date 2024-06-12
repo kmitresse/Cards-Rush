@@ -298,5 +298,37 @@
   "back" : {
     "EN": "Back",
     "FR": "Retour"
+  },
+  "lobby_title" : {
+    "EN": "Main Menu",
+    "FR": "Menu Principal"
+  },
+  "lobby_connected_users" : {
+    "EN": "Connected users",
+    "FR": "Utilisateurs connectés"
+  },
+  "lobby_new_game": {
+    "EN": "New game",
+    "FR": "Nouvelle partie"
+  },
+  "lobby_rules": {
+    "EN": "Rules",
+    "FR": "Règles du jeu"
+  },
+  "lobby_connected_users_username" : {
+    "EN": "Username",
+    "FR": "Nom d'utilisateur"
+  },
+  "lobby_connected_users_played_games" : {
+    "EN": "Played games",
+    "FR": "Parties jouées"
+  },
+  "lobby_connected_users_wins" : {
+    "EN": "Wins",
+    "FR": "Victoires"
+  },
+  "lobby_connected_users_average_score" : {
+    "EN": "Average score",
+    "FR": "Score moyen"
   }
 }

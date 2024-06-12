@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="field">
-        <label class="label" for="email">${translator.translate('user_username')}</label>
+        <label class="label" for="email">${translator.translate('user_email')}</label>
         <div class="control has-icons-left">
             <input id="old-email" name="oldEmail" type="hidden" value="${user.email}" class="input is-fullwidth" required>
             <input id="email" name="email" type="email" value="${user.email}" class="input is-fullwidth" required>

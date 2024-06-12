@@ -36,7 +36,7 @@ export function onSuccess(title, message) {
 
   const notificationTitle = document.createElement("p");
   notificationTitle.classList.add("title", "is-6");
-  notificationTitle.innerHTML = "Succès";
+  notificationTitle.innerHTML = title;
 
   const notificationIcon = document.createElement("span");
   notificationIcon.classList.add("icon");
