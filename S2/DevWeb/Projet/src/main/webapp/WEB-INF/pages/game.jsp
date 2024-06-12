@@ -1,9 +1,11 @@
+<%@ page import="uppa.project.web.translation.Translator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
+<% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
 
-<layout:base>
+<layout:base title="${translator.translate('game_room_title')}">
     <jsp:attribute name="head">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/card.css">
     </jsp:attribute>
@@ -13,18 +15,19 @@
 
             <div class="columns" id="gameWaiting">
                 <div class="column">
-                    <component:card title="Liste des joueurs dans la partie">
+                    <component:card title="${translator.translate('game_room_players_list')}">
                         <jsp:attribute name="footer">
                             <div class="card-footer">
-                                <a data-target="#user-list-modal" class="card-footer-item modal-trigger">Ajouter</a>
-                                <a id="start-game-button" class="is-primary card-footer-item">Démarrer</a>
+                                <a id="leave-game-button" href="${pageContext.request.contextPath}/lobby" class="is-primary card-footer-item">${translator.translate('game_room_leave_game')}</a>
+                                <a data-target="#user-list-modal" class="card-footer-item modal-trigger">${translator.translate('game_room_add_player')}</a>
+                                <a id="start-game-button"  class="is-primary card-footer-item">${translator.translate('game_room_start_game')}</a>
                             </div>
                         </jsp:attribute>
                         <jsp:body>
                             <table id="playerList" class="table is-fullwidth">
                                 <thead>
                                 <tr>
-                                    <td>Joueur</td>
+                                    <td>${translator.translate('game_room_player')}</td>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -33,14 +36,15 @@
                     </component:card>
                 </div>
                 <div class="column">
-                    <component:card title="Partie n°${pageContext.request.getParameter('id')}">
+                    <component:card title="${translator.translate('game_room_player')}">
                         <jsp:useBean id="game" scope="request" type="uppa.project.database.pojo.Game"/>
 
-                        <p><strong>Créé le:</strong> ${game.createdAt.toLocaleString()}</p>
-                        <p><strong>Difficulté:</strong> ${game.difficulty}</p>
-                        <p><strong>Nombre de tours:</strong> ${game.nbRounds}</p>
-                        <p><strong>Nombre de couleurs:</strong> ${game.nbColors}</p>
-                        <p><strong>Valeurs par couleur:</strong> ${game.nbValuesPerColor}</p>
+                        <p><strong>${translator.translate('game_information_created_at')}</strong> ${game.createdAt.toLocaleString()}</p>
+                        <p><strong>${translator.translate('game_information_difficulty')}</strong> ${game.difficulty}</p>
+                        <p><strong>${translator.translate('game_information_rounds_number')}</strong> ${game.nbRounds}</p>
+                        <p><strong>${translator.translate('game_information_rounds_duration')}</strong> ${game.timer} ${translator.translate('timer_unit')}</p>
+                        <p><strong>${translator.translate('game_information_deck_color_number')}</strong> ${game.nbColors}</p>
+                        <p><strong>${translator.translate('game_information_deck_value_number')}</strong> ${game.nbValuesPerColor}</p>
                     </component:card>
                 </div>
             </div>
@@ -51,12 +55,12 @@
                     <div class="column is-one-quarter is-justify-content-center" id="choice"
                          style="position: absolute; right: 0; z-index: 9999">
                         <div class="buttons is-flex-direction-column">
-                            <p id="round" class="title has-text-white"></p>
-                            <p id="timer" class="subtitle has-text-white"></p>
-                            <button class="button is-fullwidth" data-value="COLOR_VALUE">Même carte</button>
-                            <button class="button is-fullwidth" data-value="COLOR">Même couleur</button>
-                            <button class="button is-fullwidth" data-value="VALUE">Même valeur</button>
-                            <button class="button is-fullwidth" data-value="NONE">Aucun</button>
+                            <p id="round_info" class="title has-text-white">${translator.translate('game_round')} <span id="round"></span> </p>
+                            <p id="timer_info" class="subtitle has-text-white">${translator.translate('game_timer')} <span id="timer"></span></p>
+                            <button class="button is-fullwidth" data-value="COLOR_VALUE">${translator.translate('game_same_card')}</button>
+                            <button class="button is-fullwidth" data-value="COLOR">${translator.translate('game_same_color')}</button>
+                            <button class="button is-fullwidth" data-value="VALUE">${translator.translate('game_same_value')}</button>
+                            <button class="button is-fullwidth" data-value="NONE">${translator.translate('game_none')}</button>
                         </div>
                     </div>
                 </div>
@@ -70,20 +74,20 @@
             <div class="modal-background"></div>
             <div class="modal-card modal-">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Liste des utilisateurs connectés</p>
+                    <p class="modal-card-title">${translator.translate('game_room_connected_users_list')}</p>
                     <button class="delete" aria-label="close"></button>
                 </header>
                 <section class="modal-card-body">
                     <table class="table is-fullwidth">
                         <thead>
                         <tr>
-                            <th>Utilisateur</th>
-                            <th>Nombre de parties jouées</th>
-                            <th>Nombre de victoires</th>
-                            <th>Score moyen</th>
-                            <th>Clics corrects</th>
-                            <th>Clics rapides</th>
-                            <th>Action</th>
+                            <th>${translator.translate('game_room_player_username')}</th>
+                            <th>${translator.translate('game_room_player_played_games')}</th>
+                            <th>${translator.translate('game_room_player_wins')}</th>
+                            <th>${translator.translate('game_room_player_average_score')}</th>
+                            <th>${translator.translate('game_room_player_correct_clicks')}</th>
+                            <th>${translator.translate('game_room_player_rapid_clicks')}</th>
+                            <th>${translator.translate('game_room_player_action')}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -224,12 +228,12 @@
             let timerInterval;
 
             // Display timer
-            document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+            document.querySelector('#timer').innerText = remainingTime + "s";
 
             const interval = () => {
                 remainingTime--;
 
-                document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+                document.querySelector('#timer').innerText = remainingTime + "s";
 
                 if (remainingTime <= 0) clearInterval(timerInterval);
             }
@@ -292,7 +296,7 @@
                 round.innerText = "";
 
                 // Show current round
-                round.innerText = "Manche " + (currentGame.currentRound + 1)
+                round.innerText = (currentGame.currentRound + 1)
 
                 // Show other player cards
                 game.players
@@ -345,7 +349,7 @@
 
                 clearInterval(timerInterval);
                 remainingTime = timer;
-                document.querySelector('#timer').innerText = "Temps restant: " + remainingTime + "s";
+                document.querySelector('#timer').innerText = remainingTime + "s";
                 timerInterval = setInterval(interval, 1000);
 
                 // Reset content
@@ -357,7 +361,7 @@
                 choice.querySelectorAll('button').forEach(button => button.disabled = false);
 
                 // Show the current round
-                round.innerText = "Manche " + (currentGame.currentRound + 1)
+                round.innerText = (currentGame.currentRound + 1)
 
                 // Show other player cards
                 game.players

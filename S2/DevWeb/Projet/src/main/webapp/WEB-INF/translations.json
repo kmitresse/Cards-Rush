@@ -251,11 +251,11 @@
     "FR": "Victoires"
   },
   "global_statistics_corrects_clics": {
-    "EN": "Corrects clics",
+    "EN": "Corrects clicks",
     "FR": "Clics corrects"
   },
   "global_statistics_rapid_clics": {
-    "EN": "Rapid clics",
+    "EN": "Rapid clicks",
     "FR": "Clics rapides"
   },
   "statistics_games_played" : {
@@ -478,5 +478,121 @@
   "new_game_create" : {
     "EN": "Create game",
     "FR": "Créer la partie"
+  },
+  "game_room_title" : {
+    "EN": "Game room",
+    "FR": "Salle de jeu"
+  },
+  "game_room_players_list" : {
+    "EN": "Players list in the game",
+    "FR": "Liste des joueurs dans la partie"
+  },
+  "game_room_connected_users_list" : {
+    "EN": "List of connected users",
+    "FR": "Liste des utilisateurs connectés"
+  },
+  "game_room_player" : {
+    "EN": "Player",
+    "FR": "Joueur"
+  },
+  "game_room_add_player" : {
+    "EN": "Add player",
+    "FR": "Ajouter un joueur"
+  },
+  "game_room_start_game" : {
+    "EN": "Start game",
+    "FR": "Démarrer la partie"
+  },
+  "game_room_leave_game" : {
+    "EN": "Leave game",
+    "FR": "Quitter la partie"
+  },
+  "game_room_player_username" : {
+    "EN": "Username",
+    "FR": "Nom d'utilisateur"
+  },
+  "game_room_player_played_games" : {
+    "EN": "Played games",
+    "FR": "Parties jouées"
+  },
+  "game_room_player_wins" : {
+    "EN": "Wins",
+    "FR": "Victoires"
+  },
+  "game_room_player_average_score" : {
+    "EN": "Average score",
+    "FR": "Score moyen"
+  },
+  "game_room_player_correct_clicks" : {
+    "EN": "Correct clicks",
+    "FR": "Clics corrects"
+  },
+  "game_room_player_rapid_clicks" : {
+    "EN": "Rapid clicks",
+    "FR": "Clics rapides"
+  },
+  "game_room_player_action" : {
+    "EN": "Action",
+    "FR": "Action"
+  },
+  "game_room_player_invite" : {
+    "EN": "Invite",
+    "FR": "Inviter"
+  },
+  "game_information_title" : {
+    "EN": "Game information",
+    "FR": "Informations de la partie"
+  },
+  "game_information_created_at" : {
+    "EN": "Created at",
+    "FR": "Créée le"
+  },
+  "game_information_difficulty" : {
+      "EN": "Difficulty",
+      "FR": "Difficulté"
+  },
+  "game_information_rounds_number" : {
+    "EN": "Number of rounds",
+    "FR": "Nombre de manches"
+  },
+  "game_information_rounds_duration" : {
+    "EN": "Duration of a round",
+    "FR": "Durée d'une manche"
+  },
+  "game_information_deck_color_number" : {
+    "EN": "Number of colors",
+    "FR": "Nombre de couleurs"
+  },
+  "game_information_deck_value_number" : {
+    "EN": "Number of values per color",
+    "FR": "Nombre de valeurs par couleur"
+  },
+  "timer_unit" : {
+    "EN": "seconds",
+    "FR": "secondes"
+  },
+  "game_same_card" : {
+    "EN": "Same cards",
+    "FR": "Mêmes cartes"
+  },
+  "game_same_color" : {
+      "EN": "Same color",
+      "FR": "Même couleur"
+  },
+  "game_same_value" : {
+      "EN": "Same value",
+      "FR": "Même valeur"
+  },
+  "game_none" : {
+      "EN": "None",
+      "FR": "Aucun"
+  },
+  "game_round" : {
+    "EN": "Round",
+    "FR": "Manche"
+  },
+  "game_timer" : {
+    "EN": "Remaining time:",
+    "FR": "Temps restant :"
   }
 }
