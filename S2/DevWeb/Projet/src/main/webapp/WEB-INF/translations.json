@@ -434,5 +434,49 @@
   "rules_end" : {
     "EN": "Good luck and have fun!",
     "FR": "Alors affûtez votre agilité et visez la victoire!"
+  },
+  "new_game_configuration_title" : {
+    "EN": "New game",
+    "FR": "Nouvelle partie"
+  },
+  "new_game_configuration_global_parameters" : {
+    "EN": "Global parameters",
+    "FR": "Paramètres Généraux"
+  },
+  "new_game_configuration_global_parameters_difficulty" : {
+    "EN": "Difficulty",
+    "FR": "Difficulté"
+  },
+  "new_game_configuration_rounds_parameters" : {
+    "EN": "Rounds parameters",
+    "FR": "Paramètres des manches"
+  },
+  "new_game_configuration_rounds_parameters_number" : {
+    "EN": "Number of rounds",
+    "FR": "Nombre de manches"
+  },
+  "new_game_configuration_rounds_parameters_duration" : {
+    "EN": "Duration of a round (seconds)",
+    "FR": "Durée d'une manche (secondes)"
+  },
+  "new_game_configuration_Deck_parameters" : {
+    "EN": "Deck parameters",
+    "FR": "Paramètres du Deck"
+  },
+  "new_game_configuration_Deck_parameters_color_number" : {
+    "EN": "Number of colors:",
+    "FR": "Nombre de couleurs :"
+  },
+  "new_game_configuration_Deck_parameters_value_number" : {
+    "EN": "Number of values:",
+    "FR": "Nombre de valeurs :"
+  },
+  "new_game_back" : {
+    "EN": "Back to main menu",
+    "FR": "Retour au menu"
+  },
+  "new_game_create" : {
+    "EN": "Create game",
+    "FR": "Créer la partie"
   }
 }
