@@ -1,6 +1,8 @@
 <%@ tag import="uppa.project.database.pojo.User" %>
 <%@tag description="form/profile" pageEncoding="UTF-8" %>
 <%@ tag import="uppa.project.web.translation.Translator" %>
+<%@ tag import="java.util.Date" %>
+<%@ tag import="java.text.SimpleDateFormat" %>
 <% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
 <form id="profile-form" action="${pageContext.request.contextPath}/profile" method="post">
@@ -44,7 +46,19 @@
     </div>
     <div class="field">
         <label class="label">${translator.translate('user_birthdate')}</label>
-        <input class="input" type="text" value="${user.birth.toLocaleString()}" disabled>
+        <% Date date = user.getBirth();
+            String language = translator.getLanguage();
+            SimpleDateFormat sdfDay;
+            SimpleDateFormat sdfHour;
+            if (language.equals("EN")) {
+                sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+            } else {
+                sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+            }
+
+            String day = sdfDay.format(date);
+        %>
+        <input class="input" type="text" value="<%=day%>" disabled>
     </div>
     <div class="field">
         <label class="label" for="gender">${translator.translate('user_gender')}</label>

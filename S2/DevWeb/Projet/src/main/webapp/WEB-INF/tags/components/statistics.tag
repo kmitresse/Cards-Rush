@@ -1,5 +1,7 @@
 <%@ tag import="uppa.project.database.pojo.Player" %>
 <%@ tag import="uppa.project.web.translation.Translator" %>
+<%@ tag import="java.util.Date" %>
+<%@ tag import="java.text.SimpleDateFormat" %>
 <%@tag description="component/statistics" pageEncoding="UTF-8" %>
 <% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
@@ -47,7 +49,22 @@
         Player player = user.getPlayedGames().get(i);
     %>
         <tr>
-            <td><%= player.getGame().getCreatedAt().toLocaleString() %></td>
+            <% Date date = player.getGame().getCreatedAt();
+                String language = translator.getLanguage();
+                SimpleDateFormat sdfDay;
+                SimpleDateFormat sdfHour;
+                if (language.equals("EN")) {
+                    sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+                    sdfHour = new SimpleDateFormat("HH:mm");
+                } else {
+                    sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+                    sdfHour = new SimpleDateFormat("HH:mm");
+                }
+
+                String day = sdfDay.format(date);
+                String hour = sdfHour.format(date);
+            %>
+            <td><%=day%>, <%=hour%> </td>
             <td><%= player.getScore() %></td>
             <td><%= player.getGame().getWinner().getUser().getUsername() %></td>
             <td><a href="${pageContext.request.contextPath}/game-statistics?id=<%= player.getGame().getId() %>">${translator.translate("statistics_game_show")}</a></td>

@@ -17,9 +17,16 @@
     <div class="level-item has-text-centered has-text-on-top">
         <div>
             <% Date date = game.getCreatedAt();
-
-                SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
+                String language = translator.getLanguage();
+                SimpleDateFormat sdfDay;
+                SimpleDateFormat sdfHour;
+                if (language.equals("EN")) {
+                    sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+                    sdfHour = new SimpleDateFormat("HH:mm");
+                } else {
+                    sdfDay = new SimpleDateFormat("dd/MM/yyyy");
+                    sdfHour = new SimpleDateFormat("HH:mm");
+                }
 
                String day = sdfDay.format(date);
                String hour = sdfHour.format(date);
