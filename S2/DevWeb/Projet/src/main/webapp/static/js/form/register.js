@@ -10,24 +10,12 @@ registerForm.addEventListener("submit", onSubmit)
 function onSubmit(event) {
   event.preventDefault();
 
-  const password = registerForm.querySelector("input[name='password']");
-  const repassword = registerForm.querySelector("input[name='repassword']");
-
-  // Check if the password and the confirmation password are the same
-  if (password.value !== repassword.value) {
-    if (languageSelector.value === "EN") {
-      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
-      return;
-    }
-    onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
-    return;
-  }
-
   const {action, method} = registerForm;
 
   const url = new URL(action);
   const contextPath = url.href.substring(0, url.href.lastIndexOf("/") + 1);
   inputs.forEach(input => url.searchParams.append(input.name, input.value));
+  console.log(url.href);
 
   fetch(url, {headers: {"Content-Type": "application/json"}, method})
     .then(res => res.json())

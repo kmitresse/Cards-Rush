@@ -20,7 +20,8 @@ public class ProfileBean {
   private String oldEmail;
   private String email;
   private String oldPassword;
-  private String password;
+  private String newPassword;
+  private String confirmPassword;
   private String gender;
   private User user;
   private HttpResponse error;
@@ -37,6 +38,7 @@ public class ProfileBean {
     EntityManager entityManager = EntityManagerProvider.getInstance();
     entityManager.getTransaction().begin();
     DAO<User> userDAO;
+    String errorMessage = "";
     try {
        userDAO= new Game_JPA_DAO_Factory().getDAOUser();
       // Vérification de l'existence de l'utilisateur
@@ -49,13 +51,17 @@ public class ProfileBean {
       // Vérification de l'unicité de l'adresse e-mail
       User[] users = userDAO.findByField("email", email);
       if (!oldEmail.equals(email) && users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("profile_error_email"));
-        entityManager.getTransaction().rollback();
-        return false;
+        errorMessage += translator.translate("profile_error_email");
       }
       // Verification de l'ancien mot de passe
       if(!oldPassword.isEmpty() && !user.verifyPassword(oldPassword)) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("profile_error_old_password"));
+        errorMessage += "<br>" + translator.translate("profile_error_old_password");
+      }
+      if(!newPassword.equals(confirmPassword)) {
+        errorMessage += "<br>" + translator.translate("profile_error_password");
+      }
+      if (!errorMessage.isEmpty()) {
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, errorMessage);
         entityManager.getTransaction().rollback();
         return false;
       }
@@ -66,8 +72,8 @@ public class ProfileBean {
     }
     // Mise à jour des informations de l'utilisateur
     user.setEmail(email);
-    if (!password.isEmpty()) {
-      user.setPassword(password);
+    if (!newPassword.isEmpty()) {
+      user.setPassword(newPassword);
     }
     user.setGender(User.Gender.valueOf(gender));
     try {
@@ -126,10 +132,21 @@ public class ProfileBean {
    * @param password le nouveau mot de passe de l'utilisateur
    * @return l'entité
    */
-  public ProfileBean setPassword(String password) {
-    this.password = password;
+  public ProfileBean setNewPassword(String password) {
+    this.newPassword = password;
     return this;
   }
+
+  /**
+   *
+   * @param confirmPassword la confirmation du nouveau mot de passe de l'utilisateur
+   * @return l'entité
+   */
+  public ProfileBean setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+    return this;
+  }
+
 
   /**
    *

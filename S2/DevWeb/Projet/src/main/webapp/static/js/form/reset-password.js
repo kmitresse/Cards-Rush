@@ -14,16 +14,6 @@ resetPasswordForm.addEventListener("submit", onSubmit)
 function onSubmit(event) {
   event.preventDefault();
 
-  // Check if the password and the confirmation password are the same
-  if (passwordInput.value !== repasswordInput.value) {
-    if (languageSelector.value === "EN") {
-      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
-      return;
-    }
-    onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
-    return;
-  }
-
   const {action, method} = resetPasswordForm;
 
   const url = new URL(action);

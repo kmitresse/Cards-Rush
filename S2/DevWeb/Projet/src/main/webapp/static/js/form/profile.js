@@ -21,19 +21,6 @@ profileForm.addEventListener("submit", onSubmit);
 function onSubmit(event) {
   event.preventDefault();
 
-  const oldPassword = profileForm.querySelector("input[name='oldPassword']");
-  const password = profileForm.querySelector("input[name='password']");
-  const repassword = profileForm.querySelector("input[name='repeat-password']");
-  // Check if the password and the confirmation password are the same
-  if (oldPassword.value !== "" && password.value !== repassword.value) {
-    if (languageSelector.value === "EN") {
-      onError(new Error("Passwords do not match"), [oldPassword, password, repassword]);
-      return;
-    }
-    onError(new Error("Les mots de passe ne correspondent pas"), [oldPassword, password, repassword]);
-    return;
-  }
-
   const {action, method} = profileForm;
 
   const url = new URL(action);

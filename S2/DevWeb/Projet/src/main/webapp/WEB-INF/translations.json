@@ -235,6 +235,10 @@
     "EN": "Incorrect old password",
     "FR": "Ancien mot de passe incorrect"
   },
+  "profile_error_password" : {
+    "EN": "New passwords do not match",
+    "FR": "Les nouveaux mots de passe ne correspondent pas"
+  },
   "statistics_title" : {
     "EN": "Statistics",
     "FR": "Statistiques"

@@ -23,6 +23,7 @@ public class RegisterBean implements Serializable {
   private String username;
   private String email;
   private String password;
+  private String confirmPassword;
   private String birth;
   private String gender;
 
@@ -44,24 +45,32 @@ public class RegisterBean implements Serializable {
     // Vérification de l'unicité du nom d'utilisateur et de l'adresse e-mail
     try {
       userDAO = jpaDaoFactory.getDAOUser();
-
+      String errorMessage = "";
       // Vérification de l'unicité du nom d'utilisateur
       User[] users = userDAO.findByField("username", username);
       if (users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_username"));
-        return false;
+        errorMessage += translator.translate("register_error_username");
       }
 
       // Vérification de l'unicité de l'adresse e-mail
       users = userDAO.findByField("email", email);
       if (users.length > 0) {
-        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, translator.translate("register_error_email"));
+        errorMessage += "<br>" + translator.translate("register_error_email");
+      }
+      // Vérification de la correspondance des mots de passe
+      if (!password.equals(confirmPassword)) {
+        errorMessage += "<br>" + translator.translate("register_error_password");
+      }
+      if (!errorMessage.isEmpty()) {
+        error = new HttpResponse(HttpResponseCode.UNAUTHORIZED, errorMessage);
         return false;
       }
+
     } catch (DAOException e) {
       error = new HttpResponse(HttpResponseCode.INTERNAL_SERVER_ERROR, translator.translate("internal_error_1"));
       return false;
     }
+
 
     // Creation de l'utilisateur
     User user = new User();
@@ -118,6 +127,16 @@ public class RegisterBean implements Serializable {
    */
   public RegisterBean setPassword(String password) {
     this.password = password;
+    return this;
+  }
+
+  /**
+   *
+   * @param confirmPassword la confirmation du mot de passe
+   * @return l'entité
+   */
+  public RegisterBean setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
     return this;
   }
 

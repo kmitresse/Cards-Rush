@@ -65,16 +65,19 @@ public class ProfileServlet extends HttpServlet {
    * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Translator translator = (Translator) request.getSession().getAttribute("translator");
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
 
     ProfileBean profileBean = new ProfileBean()
+      .setTranslator(translator)
       .setUsername(request.getParameter("username"))
       .setOldEmail(request.getParameter("oldEmail"))
       .setEmail(request.getParameter("email"))
       .setOldPassword(request.getParameter("oldPassword"))
-      .setPassword(request.getParameter("password"))
+      .setNewPassword(request.getParameter("password"))
+      .setConfirmPassword(request.getParameter("repassword"))
       .setGender(request.getParameter("gender"))
       ;
 

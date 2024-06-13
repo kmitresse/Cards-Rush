@@ -20,15 +20,12 @@ public class Translator {
   public enum Language {EN, FR}
 
   public Translator(Language language) {
-    System.out.println("Creating translator for language: " + language.name());
     this.language = language.name();
     this.parser = new JsonParser();
   }
 
   public static Translator generateTranslator(HttpSession session , ServletContext context) {
     Translator translator;
-    System.out.println("null?" + session.getAttribute("language"));
-    System.out.println("language EN ??: " + session.getAttribute("language").equals(Translator.Language.EN.name()));
     if (session.getAttribute("language") != null && session.getAttribute("language").equals(Translator.Language.EN.name())) {
       translator = new Translator(Translator.Language.EN);
     } else {

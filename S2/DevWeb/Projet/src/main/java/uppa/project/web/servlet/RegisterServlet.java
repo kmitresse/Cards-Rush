@@ -50,14 +50,19 @@ public class RegisterServlet extends HttpServlet {
    * @throws IOException si une erreur d'entrée/sortie survient
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    Translator translator = (Translator) request.getSession().getAttribute("translator");
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
 
+
     RegisterBean registerBean = new RegisterBean()
+      .setTranslator(translator)
       .setUsername(request.getParameter("username"))
       .setEmail(request.getParameter("email"))
       .setPassword(request.getParameter("password"))
+      .setConfirmPassword(request.getParameter("repassword"))
       .setBirth(request.getParameter("birth"))
       .setGender(request.getParameter("gender"))
       ;

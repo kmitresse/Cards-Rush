@@ -18,6 +18,7 @@ public class ResetPasswordBean implements Serializable {
 
   private String token;
   private String password;
+  private String confirmPassword;
   private String errorMessage;
   private Translator translator;
 
@@ -45,9 +46,17 @@ public class ResetPasswordBean implements Serializable {
       RecoveryPasswordToken[] tokens = recoveryPasswordTokenDAO.findByField("token", token);
       if (tokens.length == 0) {
         errorMessage = "Ce token n'est pas valide";
+        entityManager.getTransaction().rollback();
         return false;
       }
       RecoveryPasswordToken token = tokens[0];
+
+      // Verifier la correspondance des mots de passe
+      if (!password.equals(confirmPassword)) {
+        errorMessage = "Les mots de passe ne correspondent pas";
+        entityManager.getTransaction().rollback();
+        return false;
+      }
 
       // Récupéreration de l'utilisateur associé au token
       User user = token.getUser();
@@ -84,6 +93,16 @@ public class ResetPasswordBean implements Serializable {
    */
   public ResetPasswordBean setPassword(String password) {
     this.password = password;
+    return this;
+  }
+
+  /**
+   *
+   * @param confirmPassword la confirmation du nouveau mot de passe
+   * @return this
+   */
+  public ResetPasswordBean setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
     return this;
   }
 

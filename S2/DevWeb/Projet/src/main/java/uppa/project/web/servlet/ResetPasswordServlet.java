@@ -55,13 +55,16 @@ public class ResetPasswordServlet extends HttpServlet {
      * @throws IOException si une erreur d'entrée/sortie survient
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      Translator translator = (Translator) request.getSession().getAttribute("translator");
       response.setContentType("application/json");
       response.setCharacterEncoding("UTF-8");
       PrintWriter out = response.getWriter();
 
       ResetPasswordBean resetPasswordBean = new ResetPasswordBean()
+        .setTranslator(translator)
         .setToken(request.getParameter("token"))
         .setPassword(request.getParameter("password"))
+        .setConfirmPassword(request.getParameter("repassword"))
         ;
 
       Gson gson = new Gson();
