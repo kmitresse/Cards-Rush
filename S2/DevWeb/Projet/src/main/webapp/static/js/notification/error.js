@@ -1,4 +1,4 @@
-export function onError(error, inputs) {
+export function onError(error, inputs = []) {
   // Animations des champs
   const languageSelector = document.getElementById('language-select');
 
@@ -25,6 +25,7 @@ export function onError(error, inputs) {
 
   const notificationMessage = document.createElement("p");
   notificationMessage.classList.add("subtitle", "is-6");
+  console.log(error.message)
   notificationMessage.innerHTML = error.message;
 
   notificationTitle.appendChild(notificationIcon);

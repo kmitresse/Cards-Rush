@@ -2,6 +2,7 @@
     --bulma-primary-h: 0;
     --bulma-primary-s: 70%;
     --bulma-primary-l: 35%;
+    --bulma-light-l: 96%;
     --modal-content-width: 50rem;
     --bulma-custom-footer-padding: 1rem 1.5rem 1rem;
 }
@@ -16,6 +17,13 @@
 
 label.radio.button > input[type="radio"] {
     display: none;
+}
+
+a.is-disable {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+    color:black
 }
 
 @media screen and (min-width: 769px) {
