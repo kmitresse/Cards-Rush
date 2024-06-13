@@ -2,17 +2,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags/layouts" %>
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
+<%@taglib prefix="modal" tagdir="/WEB-INF/tags/components/modal" %>
 <% Translator translator = (Translator) request.getSession().getAttribute("translator"); %>
 
 
 <layout:base title="${translator.translate('game_room_title')}">
     <jsp:attribute name="head">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/card.css">
+        <script defer type="module" src="${pageContext.request.contextPath}/static/js/websockets/player-management-websocket.js"></script>
     </jsp:attribute>
     <jsp:body>
 
         <component:hero>
-
             <div class="columns" id="gameWaiting">
                 <div class="column">
                     <component:card title="${translator.translate('game_room_players_list')}">
@@ -24,82 +25,21 @@
                             </div>
                         </jsp:attribute>
                         <jsp:body>
-                            <table id="playerList" class="table is-fullwidth">
-                                <thead>
-                                <tr>
-                                    <td>${translator.translate('game_room_player')}</td>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                            <component:game-player-list/>
                         </jsp:body>
                     </component:card>
                 </div>
                 <div class="column">
                     <component:card title="${translator.translate('game_information_title')}">
-                        <jsp:useBean id="game" scope="request" type="uppa.project.database.pojo.Game"/>
-
-                        <p><strong>${translator.translate('game_information_created_at')}</strong> ${game.createdAt.toLocaleString()}</p>
-                        <p><strong>${translator.translate('game_information_difficulty')}</strong> ${game.difficulty}</p>
-                        <p><strong>${translator.translate('game_information_rounds_number')}</strong> ${game.nbRounds}</p>
-                        <p><strong>${translator.translate('game_information_rounds_duration')}</strong> ${game.timer} ${translator.translate('timer_unit')}</p>
-                        <p><strong>${translator.translate('game_information_deck_color_number')}</strong> ${game.nbColors}</p>
-                        <p><strong>${translator.translate('game_information_deck_value_number')}</strong> ${game.nbValuesPerColor}</p>
+                       <component:game-room-information/>
                     </component:card>
                 </div>
             </div>
-            <div id="gameStarted" style="display:none;">
-                <div class="columns" id="otherCards"></div>
-                <div class="columns">
-                    <div class="column is-flex is-flex-direction-column is-align-items-center" id="deck"></div>
-                    <div class="column is-one-quarter is-justify-content-center" id="choice"
-                         style="position: absolute; right: 0; z-index: 9999">
-                        <div class="buttons is-flex-direction-column">
-                            <p id="round_info" class="title has-text-white">${translator.translate('game_round')} <span id="round"></span> </p>
-                            <p id="timer_info" class="subtitle has-text-white">${translator.translate('game_timer')} <span id="timer"></span></p>
-                            <button class="button is-fullwidth" data-value="COLOR_VALUE">${translator.translate('game_same_card')}</button>
-                            <button class="button is-fullwidth" data-value="COLOR">${translator.translate('game_same_color')}</button>
-                            <button class="button is-fullwidth" data-value="VALUE">${translator.translate('game_same_value')}</button>
-                            <button class="button is-fullwidth" data-value="NONE">${translator.translate('game_none')}</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="columns is-centered" id="myCard">
-                </div>
-            </div>
+            <component:game-start/>
         </component:hero>
 
         <!-- Liste des utilisateurs dans le lobby -->
-        <div id="user-list-modal" class="modal">
-            <div class="modal-background"></div>
-            <div class="modal-card modal-">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">${translator.translate('game_room_connected_users_list')}</p>
-                    <button class="delete" aria-label="close"></button>
-                </header>
-                <section class="modal-card-body">
-                    <table class="table is-fullwidth">
-                        <thead>
-                        <tr>
-                            <th>${translator.translate('game_room_player_username')}</th>
-                            <th>${translator.translate('game_room_player_played_games')}</th>
-                            <th>${translator.translate('game_room_player_wins')}</th>
-                            <th>${translator.translate('game_room_player_average_score')}</th>
-                            <th>${translator.translate('game_room_player_correct_clicks')}</th>
-                            <th>${translator.translate('game_room_player_rapid_clicks')}</th>
-                            <th>${translator.translate('game_room_player_action')}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </section>
-                <footer class="modal-card-foot">
-                    <button class="button is-light">Fermer</button>
-                </footer>
-            </div>
-        </div>
+        <modal:connected-users-list-modal/>
 
         <jsp:useBean id="user" scope="session" type="uppa.project.database.pojo.User"/>
         <script defer type="module">
