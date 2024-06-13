@@ -2,9 +2,11 @@
 <%@taglib prefix="component" tagdir="/WEB-INF/tags/components" %>
 
 <jsp:useBean id="game" scope="request" type="uppa.project.database.pojo.Game"/>
+<jsp:useBean id="user" scope="session" type="uppa.project.database.pojo.User"/>
 
 <input type="hidden" id="game-id" value="${game.id}">
-
+<input type="hidden" id="user-id" value="${user.id}">
+<input type="hidden" id="user-username" value="${user.username}">
 <p><strong>${translator.translate('game_information_created_at')}</strong> ${game.createdAt.toLocaleString()}</p>
 <p><strong>${translator.translate('game_information_difficulty')}</strong> ${game.difficulty}</p>
 <p><strong>${translator.translate('game_information_rounds_number')}</strong> ${game.nbRounds}</p>

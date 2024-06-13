@@ -10,6 +10,7 @@
     <jsp:attribute name="head">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/card.css">
         <script defer type="module" src="${pageContext.request.contextPath}/static/js/websockets/player-management-websocket.js"></script>
+        <script defer type="module" src="${pageContext.request.contextPath}/static/js/modal.js"></script>
     </jsp:attribute>
     <jsp:body>
 
@@ -41,119 +42,6 @@
         <!-- Liste des utilisateurs dans le lobby -->
         <modal:connected-users-list-modal/>
 
-        <jsp:useBean id="user" scope="session" type="uppa.project.database.pojo.User"/>
-        <script defer type="module">
-
-            // Modal
-            document.querySelectorAll('.modal-trigger').forEach(($el) => {
-                $el.addEventListener('click', () => {
-                    const target = $el.dataset.target;
-                    const $target = document.querySelector(target);
-                    $target.classList.add('is-active');
-                });
-            });
-
-            const closeModal = ($el) => $el.classList.remove('is-active');
-            const closeAllModals = () => (document.querySelectorAll('.modal') || []).forEach(($modal) => closeModal($modal));
-
-            // Add a click event on various child elements to close the parent modal
-            (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-                const $target = $close.closest('.modal');
-                $close.addEventListener('click', () => closeModal($target));
-            });
-
-            // Add a keyboard event to close all modals
-            document.addEventListener('keydown', (event) => {
-                if (event.key === "Escape") closeAllModals();
-            });
-        </script>
-
-        <script defer type="module">
-            import WebsocketToolkit from "${pageContext.request.contextPath}/static/js/WebsocketToolkit.js";
-
-            let users = [];
-
-            function updateUsers() {
-                const $tbody = document.querySelector('#user-list-modal tbody');
-                $tbody.innerHTML = '';
-                users.forEach(user => {
-                    const $tr = document.createElement('tr');
-                    const $tdUsername = document.createElement('td');
-                    const $tdNbPlayedGame = document.createElement('td');
-                    const $tdNbWins = document.createElement('td');
-                    const $tdScore = document.createElement('td');
-                    const $tdRightClick = document.createElement('td');
-                    const $tdRapidClick = document.createElement('td');
-                    const $tdAction = document.createElement('td');
-                    const $button = document.createElement('button');
-
-                    $button.classList.add('button', 'is-primary', 'is-light');
-                    $button.textContent = 'Inviter';
-                    $button.addEventListener('click', () => {
-                        const data = {
-                            from: {
-                                id: ${user.id},
-                                username: "${user.username}"
-                            },
-                            to: {...user},
-                            game_id: ${game.id}
-                        };
-                        const message = {
-                            type: "invite",
-                            data: JSON.stringify(data)
-                        };
-
-                        ws.ws.send(JSON.stringify(message));
-                    })
-
-
-                    $tdUsername.textContent = user.username;
-                    $tdNbPlayedGame.textContent = user.nbPlayedGames;
-                    $tdNbWins.textContent = user.nbWin;
-                    $tdScore.textContent = user.scoreRate + "%";
-                    $tdRightClick.textContent = user.rigthClickPercentRate + "%";
-                    $tdRapidClick.textContent = user.rapidClickPercentRate + "%";
-                    $tdAction.appendChild($button);
-
-                    $tr.appendChild($tdUsername);
-                    $tr.appendChild($tdNbPlayedGame);
-                    $tr.appendChild($tdNbWins);
-                    $tr.appendChild($tdScore);
-                    $tr.appendChild($tdRightClick);
-                    $tr.appendChild($tdRapidClick);
-                    $tr.appendChild($tdAction);
-
-                    $tbody.appendChild($tr);
-                });
-            }
-
-            // Websocket for users in the lobby
-            const url = new URL(window.location.href);
-            url.pathname = "${pageContext.request.contextPath}/ws/users/0";
-            url.protocol = "ws:"
-            url.searchParams.delete("id")
-
-            const ws = new WebsocketToolkit(url);
-            ws.onOpen(_ => console.log("Connected to the server"));
-            ws.onMessage("init", (data) => {
-                users = data;
-                updateUsers();
-            });
-            ws.onMessage("addUser", (data) => {
-                users.push(data);
-                updateUsers();
-            });
-            ws.onMessage("removeUser", (data) => {
-                users = users.filter(user => user.id !== data.id);
-                updateUsers();
-            });
-            ws.onMessage("invite", (data) => {
-                const {from, to, game} = data;
-                console.log("User " + from.username + " invited " + to.username + " to play " + game.name);
-            })
-            ws.onError((error) => console.error(error));
-            ws.onClose(() => console.log("Disconnected from the server"));
-        </script>
 
         <script type="module" defer>
             import WebsocketToolkit from "${pageContext.request.contextPath}/static/js/WebsocketToolkit.js";

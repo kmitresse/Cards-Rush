@@ -47,8 +47,6 @@ public class Translator {
   }
 
   public String translate(String text) {
-    System.out.println("Translating: " + text);
-    System.out.println("langue: " + this.language);
     return this.translations.get(text).getAsJsonObject().get(this.language).getAsString();
   }
 

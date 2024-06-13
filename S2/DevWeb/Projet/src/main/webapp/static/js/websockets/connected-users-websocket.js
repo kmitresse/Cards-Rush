@@ -40,10 +40,7 @@ const user = document.querySelector("#user_id")
 // Create a new WebSocket
 const url = new URL(window.location.href);
 const contextPath = url.pathname.substring(0, url.pathname.indexOf("/", 1) + 1)
-console.log(url.pathname)
-console.log(contextPath)
 url.pathname = contextPath + "ws/users/"+user.value;
-console.log(url.pathname)
 url.protocol = "ws:"
 
 const ws = new WebsocketToolkit(url);

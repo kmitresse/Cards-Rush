@@ -1,5 +1,6 @@
 <%@tag description="component/modal/connected-users-list-modal" pageEncoding="UTF-8" %>
 <%@taglib prefix="modal" tagdir="/WEB-INF/tags/components/modal" %>
+
 <div id="user-list-modal" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card modal-">
