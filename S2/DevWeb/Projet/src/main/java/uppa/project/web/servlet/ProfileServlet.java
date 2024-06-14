@@ -109,10 +109,7 @@ public class ProfileServlet extends HttpServlet {
         simplePlayers[i] = new SimplePlayer(players[i], translator);
       }
       Gson gson = new Gson();
-      System.out.println("players");
       String jsonPlayers = gson.toJson(simplePlayers);
-      System.out.println("players");
-      System.out.println("json: "+jsonPlayers);
 
       // Configurer la réponse
       response.setContentType("application/json");

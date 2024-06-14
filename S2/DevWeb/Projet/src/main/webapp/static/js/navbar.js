@@ -20,7 +20,6 @@ let languageSelector = document.getElementById('language-select');
 languageSelector.addEventListener('change', function() {
   const contextPath = window.location.href.substring(0,  window.location.href.lastIndexOf("/") + 1);
   const action = contextPath + "/translate";
-  console.log(action);
   const method = "PUT";
   const pagination = document.querySelector('#current-page');
 

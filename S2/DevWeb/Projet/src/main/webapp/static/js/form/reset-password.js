@@ -31,7 +31,6 @@ function onSubmit(event) {
     })
     .then(() => window.location.href = contextPath+"login?success=reset-password")
     .catch((error) => {
-      console.log(inputs);
       onError(error, inputs);
       }
     )

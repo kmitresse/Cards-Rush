@@ -30,7 +30,6 @@ function onSubmit(event) {
   }
   url.searchParams.append("username", username.value);
 
-  url.searchParams.forEach((value, key) => console.log(key, value));
   fetch(url, {headers: {"Content-Type": "application/json"}, method})
     .then(res => res.json())
     .then(data => {

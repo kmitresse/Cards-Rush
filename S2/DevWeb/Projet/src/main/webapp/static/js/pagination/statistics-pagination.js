@@ -5,7 +5,6 @@ const contextPath = url.pathname.substring(0, url.pathname.indexOf("/", 1) + 1)
 const languageSelector = document.getElementById('language-select');
 const currentPage = document.querySelector('input#current-page');
 const nbPages = document.querySelector('#nb-pages');
-console.log("nbPages:" + nbPages.value);
 let showLabel;
 if (languageSelector.value === 'EN') {
   showLabel = 'Show';
@@ -64,26 +63,20 @@ function updatePagination(pageNumber) {
 }
 
 function updateButtons(oldPageNumber,newPageNumber) {
-  console.log("old: " + oldPageNumber +", new: " + newPageNumber)
 
   if (oldPageNumber === "1") {
-    console.log("previous - not disable")
     paginationPrevious.classList.remove('is-disable');
   }
   if (newPageNumber === "1") {
-    console.log("previous - disable")
     paginationPrevious.classList.add('is-disable');
   }
   if (oldPageNumber === nbPages.value.toString()) {
-    console.log("next - not disable")
     paginationNext.classList.remove('is-disable');
   }
   if (newPageNumber === nbPages.value.toString()) {
-    console.log("next - disable")
     paginationNext.classList.add('is-disable');
   }
   paginationCurrent.textContent = `${newPageNumber}`;
-  console.log(paginationCurrent)
 
 
 }

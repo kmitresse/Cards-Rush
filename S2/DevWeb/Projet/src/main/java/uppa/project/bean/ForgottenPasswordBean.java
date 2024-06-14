@@ -135,8 +135,6 @@ public class ForgottenPasswordBean implements Serializable {
       String contentTemplate = this.translator.translate("forgotten_email_content");
       String content = MessageFormat.format(contentTemplate, requestPath, token);
       message.setText(content);
-      System.out.println(contentTemplate);
-      System.out.println(content);
       // Envoi du message
       Transport.send(message);
 

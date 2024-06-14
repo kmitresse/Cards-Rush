@@ -6,7 +6,6 @@ export function onInvite(from, contextPath, game_id) {
   let inviteMsg;
   let acceptButtonLabel;
   let declineButtonLabel;
-  console.log(from)
   if (languageSelector.value === "EN") {
     inviteTitle = "Invitation from " + from + " !";
     inviteMsg = from + " invited you to join his game";

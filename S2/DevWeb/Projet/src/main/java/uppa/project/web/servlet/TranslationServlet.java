@@ -14,7 +14,6 @@ public class TranslationServlet extends HttpServlet {
   }
 
   public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("\n ok \n");
     if (request.getParameter("language") != null) {
       String language = request.getParameter("language");
       request.getSession().setAttribute("language", language);

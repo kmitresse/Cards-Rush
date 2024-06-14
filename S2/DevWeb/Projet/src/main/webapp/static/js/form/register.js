@@ -15,7 +15,6 @@ function onSubmit(event) {
   const url = new URL(action);
   const contextPath = url.href.substring(0, url.href.lastIndexOf("/") + 1);
   inputs.forEach(input => url.searchParams.append(input.name, input.value));
-  console.log(url.href);
 
   fetch(url, {headers: {"Content-Type": "application/json"}, method})
     .then(res => res.json())

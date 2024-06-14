@@ -15,7 +15,6 @@ const game = document.querySelector('#game-id');
 const from_id = document.querySelector('#user-id');
 const from_username = document.querySelector('#user-username');
 
-console.log(game.value)
 function updateUsers(users) {
   const $tbody = document.querySelector('#user-list-modal tbody');
   $tbody.innerHTML = '';
@@ -93,7 +92,6 @@ ws.onMessage("removeUser", (data) => {
 });
 ws.onMessage("invite", (data) => {
   const {from, to, game} = data;
-  console.log("User " + from.username + " invited " + to.username + " to play " + game.name);
 })
 ws.onError((error) => console.error(error));
 ws.onClose(() => console.log("Disconnected from the server"));
