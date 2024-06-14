@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>uppa</groupId>
-  <artifactId>project</artifactId>
+  <artifactId>cardsrush</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Projet</name>
+  <name>Cards Rush</name>
   <packaging>war</packaging>
 
   <properties>
