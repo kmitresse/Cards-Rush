@@ -22,6 +22,7 @@ languageSelector.addEventListener('change', function() {
   const action = contextPath + "/translate";
   console.log(action);
   const method = "PUT";
+  const pagination = document.querySelector('#current-page');
 
   const url = new URL(action);
   url.searchParams.append("language", languageSelector.value);

@@ -6,6 +6,11 @@
 
 package uppa.project.database.dao;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
+import uppa.project.database.pojo.Player;
+
 /**
  * DAO abstrait et générique pour tout type de données
  *
@@ -79,4 +84,14 @@ public abstract class DAO<D> {
    * @see D
    */
   public abstract D[] findByField(String field, Object value) throws DAOException;
+
+  public Player[] findPlayerForPagination(int userId, int firstData) throws DAOException {
+    EntityManager entityManager = EntityManagerProvider.getInstance();
+    TypedQuery<Player> query = entityManager.createQuery("SELECT p FROM Player p WHERE p.user.id = (:user) ORDER BY p.id DESC", Player.class);
+    query.setParameter("user", userId);
+    query.setFirstResult(firstData);
+    query.setMaxResults(5);
+    List<Player> results = query.getResultList();
+    return results.toArray(new Player[0]);
+  }
 }

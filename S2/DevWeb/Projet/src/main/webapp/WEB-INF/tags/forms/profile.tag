@@ -7,6 +7,7 @@
 
 <form id="profile-form" action="${pageContext.request.contextPath}/profile" method="post">
     <jsp:useBean id="user" class="uppa.project.database.pojo.User" scope="session"/>
+    <input id="user-id" type="hidden" name="user-id" value="${user.id}"/>
     <div class="field">
         <label class="label" for="username">${translator.translate('user_username')}</label>
         <div class="control has-icons-left">

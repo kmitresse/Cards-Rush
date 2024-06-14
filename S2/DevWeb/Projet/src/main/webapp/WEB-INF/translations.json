@@ -630,5 +630,13 @@
   "game_statistics_win": {
     "EN": "Win",
     "FR": "Victoire"
+  },
+  "pagination_previous": {
+    "EN": "Previous",
+    "FR": "Précédent"
+  },
+  "pagination_next": {
+    "EN": "Next",
+    "FR": "Suivant"
   }
 }

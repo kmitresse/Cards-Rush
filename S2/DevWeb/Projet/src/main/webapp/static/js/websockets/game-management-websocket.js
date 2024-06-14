@@ -20,11 +20,9 @@ const buttons = document.querySelectorAll('a#start-game-button, a#invite-player'
 function updateButtons(user) {
   buttons.forEach(button => {
     if (user.id !== gameAdminID ) {
-      console.log("not admin" + user.username)
       button.classList.add('is-disable');
       button.setAttribute('title', 'Accessible uniquement par l\'admin');
     } else {
-      console.log("is admin" + user.username)
       button.classList.remove('is-disable');
       button.removeAttribute('title');
     }
@@ -44,7 +42,6 @@ function updateAdmin(user) {
     }
     onInfo(titleInfo, messageInfo)
   }
-  console.log("admin:" + user.username)
   gameAdminID = user.id;
 }
 let havePlayed = false;
@@ -102,15 +99,11 @@ wsgame.onOpen(() => {
 });
 wsgame.onMessage("updatePlayerList", (data) => {
   players = data;
-  console.log(players)
   if (gameAdminID === -1 || players[0].user.id !== gameAdminID) {
     updateAdmin(players[0].user)
 
   }
   players.forEach((player) => {
-    console.log("player:" + player.user.id)
-    console.log("user:" + userSessionId.value)
-    console.log( player.user.id.toString() == userSessionId.value)
     if (player.user.id.toString() === userSessionId.value) {
       updateButtons(player.user)
     }
@@ -141,7 +134,7 @@ wsgame.onMessage("start", (game) => {
 
   // Show other player cards
   game.players
-    .filter(p => p.user.id !== userSessionId.value)
+    .filter(p => p.user.id.toString() !== userSessionId.value)
     .forEach(p => {
       const playerHand = new PlayerHand(p);
       otherCards.innerHTML += playerHand.render({
@@ -151,7 +144,7 @@ wsgame.onMessage("start", (game) => {
     });
 
   // Show my card
-  const me = game.players.find(p => p.user.id === userSessionId.value);
+  const me = game.players.find(p => p.user.id.toString() === userSessionId.value);
 
   const playerHand = new PlayerHand(me);
   myCard.innerHTML += playerHand.render({
@@ -206,8 +199,9 @@ wsgame.onMessage("nextRound", (game) => {
 
   // Show other player cards
   game.players
-    .filter(p => p.user.id !== userSessionId.value)
+    .filter(p => p.user.id.toString() !== userSessionId.value)
     .forEach(p => {
+      console.log('adversaire:', p)
       const playerHand = new PlayerHand(p);
       otherCards.innerHTML += playerHand.render({
         textPosition: PlayerHand.TextPosition.TOP,
@@ -216,7 +210,7 @@ wsgame.onMessage("nextRound", (game) => {
     });
 
   // Show my card
-  const me = game.players.find(p => p.user.id === userSessionId.value);
+  const me = game.players.find(p => p.user.id.toString() === userSessionId.value);
 
   const playerHand = new PlayerHand(me);
   myCard.innerHTML += playerHand.render({
@@ -231,7 +225,7 @@ wsgame.onMessage("nextRound", (game) => {
 
 wsgame.onMessage("end", (game) => {
   clearInterval(timerInterval);
-  window.location.href = "${pageContext.request.contextPath}/game-statistics?id=${game.id}&endGame=true";
+  window.location.href = contextPath+"/game-statistics?id="+gameId.value+"&endGame=true";
 })
 
 // Close handling

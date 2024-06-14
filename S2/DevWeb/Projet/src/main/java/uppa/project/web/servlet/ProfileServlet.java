@@ -22,6 +22,7 @@ import uppa.project.database.pojo.Player;
 import uppa.project.database.pojo.User;
 import uppa.project.json.HttpResponse;
 import uppa.project.json.HttpResponseCode;
+import uppa.project.json.websocket.SimplePlayer;
 import uppa.project.web.translation.Translator;
 
 @WebServlet(name = "profileServlet", value = "/profile")
@@ -94,6 +95,37 @@ public class ProfileServlet extends HttpServlet {
     }
     out.println(gson.toJson(httpResponse));
     out.flush();
+  }
+
+  public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Translator translator = (Translator) request.getSession().getAttribute("translator");
+    int userID =Integer.parseInt(request.getParameter("userId"));
+    int firstData = Integer.parseInt(request.getParameter("pageNumber")) * 5;
+    try {
+      DAO<Player> playerDAO = new Game_JPA_DAO_Factory().getDAOPlayer();
+      Player[] players = playerDAO.findPlayerForPagination(userID, firstData);
+      SimplePlayer[] simplePlayers = new SimplePlayer[players.length];
+      for (int i = 0; i < players.length; i++) {
+        simplePlayers[i] = new SimplePlayer(players[i], translator);
+      }
+      Gson gson = new Gson();
+      System.out.println("players");
+      String jsonPlayers = gson.toJson(simplePlayers);
+      System.out.println("players");
+      System.out.println("json: "+jsonPlayers);
+
+      // Configurer la réponse
+      response.setContentType("application/json");
+      response.setCharacterEncoding("UTF-8");
+
+      // Envoyer la réponse JSON
+      PrintWriter out = response.getWriter();
+      out.println(jsonPlayers);
+      out.flush();
+
+    } catch (DAOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public void destroy() {

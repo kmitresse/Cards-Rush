@@ -9,6 +9,7 @@
 <layout:base title="${translator.translate('profile_title')}">
     <jsp:attribute name="head">
         <script defer type="module" src="${pageContext.request.contextPath}/static/js/form/profile.js"></script>
+        <script defer type="module" src="${pageContext.request.contextPath}/static/js/pagination/statistics-pagination.js"></script>
     </jsp:attribute>
     <jsp:body>
         <component:hero>
