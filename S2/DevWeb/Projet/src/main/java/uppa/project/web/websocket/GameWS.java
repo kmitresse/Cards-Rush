@@ -100,6 +100,12 @@ public class GameWS {
       timers.put(game, timer);
     }
 
+    ArrayList<Card> playersCurrentCards = new ArrayList<>(games.get(game).size());
+    for (Player player : games.get(game)) {
+      playersCurrentCards.add(player.getDeck().getCards().get((player.getPartialRightClickCount()+player.getRightClickCount()) % player.getDeck().getCards().size()));
+    }
+
+
     if (message.getType().equals("click")) {
       ClickChoice choice = gson.fromJson(message.getData(), ClickChoice.class);
 
@@ -188,10 +194,11 @@ public class GameWS {
           case TIMER_END -> {}
         }
       } else {
-        int nbSameCard = countSameCard(gameCard, games.get(game), game.getCurrentRound());
-        int nbSameColor = countSameColor(gameCard, games.get(game), game.getCurrentRound());
-        int nbSameValue = countSameValue(gameCard, games.get(game), game.getCurrentRound());
-        int nbNone = countNone(gameCard, games.get(game), game.getCurrentRound());
+        int nbSameCard = countSameCard(gameCard, playersCurrentCards);
+        int nbSameColor = countSameColor(gameCard, playersCurrentCards);
+        int nbSameValue = countSameValue(gameCard, playersCurrentCards);
+        int nbNone = countNone(gameCard, playersCurrentCards);
+
         switch (choice) {
           case COLOR_VALUE -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
@@ -199,7 +206,7 @@ public class GameWS {
                 player.incrementRapidClickCount();
                 playerScore++;
               }
-              player.incrementRightClickCount();
+              player.incrementTmpRightClickCount();
               player.setScore(playerScore + 2);
             } else {
               player.setScore(playerScore - 1);
@@ -207,14 +214,14 @@ public class GameWS {
           }
           case COLOR -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
-              player.incrementPartialRightClickCount();
+              player.incrementTmpPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameColor > nbSameCard) && (nbSameColor >= nbSameValue) && (nbSameColor >= nbNone)) {
               if (isRapid) {
                 player.incrementRapidClickCount();
                 playerScore++;
               }
-              player.incrementRightClickCount();
+              player.incrementTmpRightClickCount();
               player.setScore(playerScore + 2);
             } else {
               player.setScore(playerScore - 1);
@@ -222,14 +229,14 @@ public class GameWS {
           }
           case VALUE -> {
             if ((nbSameCard >= nbSameColor) && (nbSameCard >= nbSameValue) && (nbSameCard >= nbNone)) {
-              player.incrementPartialRightClickCount();
+              player.incrementTmpPartialRightClickCount();
               player.setScore(playerScore + 1);
             } else if ((nbSameValue > nbSameCard) && (nbSameValue > nbSameColor) && (nbSameValue >= nbNone)) {
               if (isRapid) {
                 player.incrementRapidClickCount();
                 playerScore++;
               }
-              player.incrementRightClickCount();
+              player.incrementTmpRightClickCount();
               player.setScore(playerScore + 2);
             } else {
               player.setScore(playerScore - 1);
@@ -241,7 +248,7 @@ public class GameWS {
                 player.incrementRapidClickCount();
                 playerScore++;
               }
-              player.incrementRightClickCount();
+              player.incrementTmpRightClickCount();
               player.setScore(playerScore + 2);
             } else {
               player.setScore(playerScore - 1);
@@ -249,6 +256,7 @@ public class GameWS {
           }
           case TIMER_END -> {}
         }
+
       }
 
       // Diffuser le score du joueur
@@ -260,7 +268,11 @@ public class GameWS {
         timers.get(game).cancel();
 
         // Réinitialiser les clics courrants
-        for (Player p : games.get(game)) p.setCurrentClick(null);
+        for (Player p : games.get(game)) {
+          p.setRightClickCount(p.getTmpRightClickCount());
+          p.setPartialRightClickCount(p.getTmpPartialRightClickCount());
+          p.setCurrentClick(null);
+        }
 
         List<Player> players = games.get(game);
         players.sort((p1, p2) -> {
@@ -308,15 +320,14 @@ public class GameWS {
    * Retourne le nombre de joueurs avec une carte identique à celle du plateau
    *
    * @param gameCard     carte du plateau
-   * @param players      liste des joueurs
-   * @param currentRound manche courante
+   * @param currentCards liste des cartes des joueurs
    * @return nombre de cartes identiques à celle du plateau
    */
-  private int countSameCard(Card gameCard, List<Player> players, int currentRound) {
+  private int countSameCard(Card gameCard, List<Card> currentCards) {
     int counter = 0;
-    for (Player player : players) {
-      Card card = player.getDeck().getCards().get(currentRound);
+    for (Card card : currentCards) {
       if (gameCard.equals(card)) {
+
         counter++;
       }
     }
@@ -326,15 +337,13 @@ public class GameWS {
   /**
    * Retourne le nombre de joueurs avec une carte avec seulement la couleur correspondante à celle du plateau
    *
-   * @param gameCard
-   * @param players
-   * @param currentRound
+   * @param gameCard     carte du plateau
+   * @param currentCards liste des cartes des joueurs
    * @return nombre de couleurs identiques à celle du plateau
    */
-  private int countSameColor(Card gameCard, List<Player> players, int currentRound) {
+  private int countSameColor(Card gameCard, List<Card> currentCards) {
     int counter = 0;
-    for (Player player : players) {
-      Card card = player.getDeck().getCards().get(currentRound);
+    for (Card card : currentCards) {
       if (gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
         counter++;
       }
@@ -346,14 +355,12 @@ public class GameWS {
    * Retourne le nombre de joueurs avec une carte avec seulement la valeur correspondante à celle du plateau
    *
    * @param gameCard     carte du plateau
-   * @param players      liste des joueurs
-   * @param currentRound manche courante
+   * @param currentCards liste des cartes des joueurs
    * @return nombre de valeurs identiques à celle du plateau
    */
-  private int countSameValue(Card gameCard, List<Player> players, int currentRound) {
+  private int countSameValue(Card gameCard, List<Card> currentCards) {
     int counter = 0;
-    for (Player player : players) {
-      Card card = player.getDeck().getCards().get(currentRound);
+    for (Card card : currentCards) {
       if (gameCard.getValue().equals(card.getValue()) && !gameCard.getColor().equals(card.getColor())) {
         counter++;
       }
@@ -364,15 +371,13 @@ public class GameWS {
   /**
    * Retourne le nombre de joueurs avec une carte totalement différente de celle du plateau
    *
-   * @param gameCard
-   * @param players
-   * @param currentRound
+   * @param gameCard     carte du plateau
+   * @param currentCards liste des cartes des joueurs
    * @return nombre de cartes totalement différentes de celle du plateau
    */
-  private int countNone(Card gameCard, List<Player> players, int currentRound) {
+  private int countNone(Card gameCard, List<Card> currentCards) {
     int counter = 0;
-    for (Player player : players) {
-      Card card = player.getDeck().getCards().get(currentRound);
+    for (Card card : currentCards) {
       if (!gameCard.getColor().equals(card.getColor()) && !gameCard.getValue().equals(card.getValue())) {
         counter++;
       }

@@ -53,11 +53,18 @@ public class Player implements Serializable {
   @Column(name = "click_count")
   private int clickCount;
 
+
   @Column(name = "right_click_count")
   private int rightClickCount;
 
   @Transient
+  private int tmpRightClickCount;
+
+  @Transient
   private int partialRightClickCount;
+
+  @Transient
+  private int tmpPartialRightClickCount;
 
   @Column(name = "rapid_click_count")
   private int rapidClickCount;
@@ -90,6 +97,8 @@ public class Player implements Serializable {
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
     this.partialRightClickCount = 0;
+    this.tmpRightClickCount = 0;
+    this.tmpPartialRightClickCount = 0;
   }
 
   /**
@@ -109,6 +118,8 @@ public class Player implements Serializable {
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
     this.partialRightClickCount = 0;
+    this.tmpRightClickCount = 0;
+    this.tmpPartialRightClickCount = 0;
   }
 
   /**
@@ -132,6 +143,8 @@ public class Player implements Serializable {
     this.rightClickCount = rightClickCount;
     this.rapidClickCount = rapidClickCount;
     this.partialRightClickCount = 0;
+    this.tmpRightClickCount = 0;
+    this.tmpPartialRightClickCount = 0;
 
     this.deck = new Deck(game.getNbColors(), game.getNbValuesPerColor());
     this.deck.shuffle();
@@ -266,6 +279,22 @@ public class Player implements Serializable {
   }
 
   /**
+   * @return le nombre de clics corrects du joueur
+   */
+  public int getTmpRightClickCount() {
+    return tmpRightClickCount;
+  }
+
+  /**
+   * Incrémente de 1 le nombre de clics corrects
+   */
+  public void incrementTmpRightClickCount() {
+    tmpRightClickCount++;
+  }
+
+
+
+  /**
    * @return le pourcentage de clics corrects du joueur sur la partie courante
    */
   public double getRatioRightClick() {
@@ -292,6 +321,20 @@ public class Player implements Serializable {
    */
   public void incrementPartialRightClickCount() {
     partialRightClickCount++;
+  }
+
+  /**
+   * @return le nombre de clics corrects du joueur
+   */
+  public int getTmpPartialRightClickCount() {
+    return tmpPartialRightClickCount;
+  }
+
+  /**
+   * Incrémente de 1 le nombre de clics corrects
+   */
+  public void incrementTmpPartialRightClickCount() {
+    tmpPartialRightClickCount++;
   }
 
   /**
@@ -357,4 +400,7 @@ public class Player implements Serializable {
   }
 
 
+  public void setPartialRightClickCount(int tmpPartialRightClickCount) {
+    this.partialRightClickCount = tmpPartialRightClickCount;
+  }
 }

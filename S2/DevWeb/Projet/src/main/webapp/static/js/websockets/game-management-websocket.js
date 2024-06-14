@@ -201,7 +201,6 @@ wsgame.onMessage("nextRound", (game) => {
   game.players
     .filter(p => p.user.id.toString() !== userSessionId.value)
     .forEach(p => {
-      console.log('adversaire:', p)
       const playerHand = new PlayerHand(p);
       otherCards.innerHTML += playerHand.render({
         textPosition: PlayerHand.TextPosition.TOP,
