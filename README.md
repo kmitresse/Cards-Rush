@@ -1,4 +1,10 @@
-# Projet Développent Web - 2024
+# Cards Rush - Projet Développement Web - 2024
+
+English version available [here](README_EN.md)
+
+## Auteurs :
+- [Kevin MITRESSÉ](http://kmitresse.free.fr)
+- [Lucàs VABRE](https://portfolio-lucasvbr.vercel.app/)
 
 ## Installation
 
@@ -36,14 +42,15 @@ Depuis un terminal bash (ou git bash), se positionner à la racine du projet pui
 # Lancement du container docker contenant la base de données
 # project_devweb est le nom du projet, vous pouvez le changer à votre guise
 # retirer la commande -p project_devweb si vous ne souhaitez pas nommer le projet, il portera par défaut le nom du dossier contenant le projet
-docker-compose -p project_devweb up -d
+docker-compose -p cardsRush up -d
 
 # Installation des dépendances maven
+mvn clean package
 mvn install
 ````
 
 ## Lancement du projet
-Depuis IntelliJ, ouvrir l'onglet `file > project structure` et ajouter les artefacts suivants :
+Depuis IntelliJ, ouvrir l'onglet `file > project structure` et vérifier que les artefacts suivants sont bien présents :
 - project: war
 - project: war exploded
 
@@ -55,3 +62,19 @@ Sur IntelliJ, vous pouvez ajouter une configuration Tomcat depuis l'onglet "edit
 
 Editez la configuration comme suit (le port utilisé pour Tomcat conseillé est 8080, mais vous pouvez le changer si vous le souhaitez ou s'il est déjà utilisé par un autre service sur votre machine) :
 ![Configuration Tomcat.png](readmeTools/tomcat_configuration.png)
+![Configuration Tomcat2.png](readmeTools/tomcat_deployment.png)
+
+Enfin, allumez votre container docker contenant la base de données puis lancez l'application depuis votre navigateur.
+
+## Parties multijoueurs
+
+Cards Rush est un jeu multijoueurs. Pour joueur avec vos amis en local, vous devez être connecté au même réseau (même wifi, même partage de connexion, etc...).
+
+Le lien a utiliser pour accéder au jeu est le suivant : `http://ip:8080/cardsrush_war_exploded/` (ip étant l'adresse ip de la machine hébergeant le serveur Tomcat).
+
+L'application n'étant pas encore hébérgée en ligne, il est nécessaire de lancer l'application sur une machine et de partager l'adresse ip de cette machine pour que les autres joueurs puissent se connecter.
+
+## Potentielles améliorations à prévoir:
+
+- Hebergement du jeu en ligne.
+- Ajout d'un chat pour les parties multijoueurs lorsque l'application sera hébergée en ligne.
