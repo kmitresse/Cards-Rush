@@ -1,91 +1,77 @@
 # Cards Rush - Web Development Project - 2024
+[Version française disponible ici](README_FR.md)
 
-Version française disponible [ici](README.md)
-
-## Authors :
-
+## Authors:
 - [Kevin MITRESSÉ](http://kmitresse.free.fr)
 - [Lucàs VABRE](https://portfolio-lucasvbr.vercel.app/)
 
 ## Installation
+To be able to run the project, you need to have Docker and Maven installed on your machine.
 
-To be able to run the project, you need to have docker and maven installed on your machine.
-
-### Installation of docker desktop
-
-To install docker desktop, go to the official docker website and download the version corresponding to your operating system.
+### Installation of Docker Desktop
+To install Docker Desktop, go to the official Docker website and download the version corresponding to your operating system.
 
 Link: [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-### Installation of maven
+### Installation of Maven
+To install Maven, go to the official Maven website and download the version corresponding to your operating system.
 
-To install maven, go to the official maven website and download the version corresponding to your operating system.
+Installation tutorial: [Maven](https://www.baeldung.com/install-maven-on-windows-linux-mac)
 
-Link to an installation tutorial: [Maven](https://www.baeldung.com/install-maven-on-windows-linux-mac)
+### Additional prerequisites (only for Windows)
+On Windows, you need to have installed a bash terminal system like Git Bash or Windows Terminal.
 
-### Additional prerequisites (only for windows)
+Recommended: Download Git Bash (Easy to use and groups all bash commands): [Git Bash](https://git-scm.com/downloads)
 
-On windows, you need to have installed a bash terminal system like git bash or windows terminal.
+Download Windows Terminal: [Windows Terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab)
 
-`Recommended` Link to git bash (Easy to use and groups all bash commands): [Git Bash](https://git-scm.com/downloads)
+### Project Installation
+Once all the tools are installed, run the following commands to install the project:
 
-Link to windows terminal: [Windows Terminal](https://www.microsoft.com/fr-fr/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab)
+From a bash terminal (or Git Bash), navigate to the root of the project and run the following commands:
 
-### Project installation
-
-Once all the tools are installed.
-Run the following commands to install the project:
-
-From a bash terminal (or git bash), go to the root of the project and run the following commands:
-
-```` bash
-
+```bash
 # Create the .sql scripts
 ./mysql/build.sh
 
-# Launch the docker container containing the database
-# project_devweb is the name of the project, you can change it as you wish
-# remove the -p project_devweb command if you do not want to name the project, it will default to the name of the folder containing the project
+# Launch the Docker container containing the database
+# "cardsRush" is the name of the project, you can change it as you wish
+# Remove the -p cardsRush command if you do not want to name the project, it will default to the name of the folder containing the project
 docker-compose -p cardsRush up -d
 
-# Install maven dependencies
+# Install Maven dependencies
 mvn clean package
 mvn install
-````
-## Launch of the project
 
-From IntelliJ, open the `file > project structure` tab and check that the following artifacts are present:
+```
+
+## Launch of the Project
+
+From IntelliJ, open the `File > Project Structure` tab and check that the following artifacts are present:
 - project: war
 - project: war exploded
 
-![Onglet project_structure.png](readmeTools/project_structure.png)
+![Project Structure](readmeTools/project_structure.png)
 
-We use tomcat to launch our project.
+We use Tomcat to launch our project.
 
-On IntelliJ, you can add a Tomcat configuration from the "edit run configurations" tab, then by clicking on the "+" button at the top left of the launch window.
+In IntelliJ, you can add a Tomcat configuration from the "Edit Run Configurations" tab, then by clicking on the "+" button at the top left of the launch window.
 
 Edit the configuration as follows (the port used for Tomcat is 8080, but you can change it if you wish or if it is already used by another service on your machine):
-![Configuration Tomcat.png](readmeTools/tomcat_configuration.png)
-![Configuration Tomcat2.png](readmeTools/tomcat_deployment.png)
+![Tomcat Configuration](readmeTools/tomcat_configuration.png)
+![Tomcat Deployment](readmeTools/tomcat_deployment.png)
 
-Finally, start your docker container containing the database and launch the application from your browser.
+Finally, start your Docker container containing the database and launch the application from your browser.
 
-## Multiplayer games
+## Multiplayer Games
 
-Cards Rush is a multiplayer game. To play with your friends locally, you must be connected to the same network (same wifi, same connection sharing, etc...).
+Cards Rush is a multiplayer game. To play with your friends locally, you must be connected to the same network (same Wi-Fi, same connection sharing, etc.).
 
-The link to use to access the game is as follows: `http://ip:8080/cardsrush_war_exploded/` (ip being the ip address of the machine hosting the Tomcat server).
+The link to use to access the game is as follows: `http://ip:8080/cardsrush_war_exploded/` (where "ip" is the IP address of the machine hosting the Tomcat server).
 
-As the application is not yet hosted online, it is necessary to launch the application on a machine and share the ip address of this machine so that other players can connect.
+Since the application is not yet hosted online, you need to launch the application on a machine and share the IP address of this machine so that other players can connect.
 
-
-## Potential improvements to consider:
+## Potential Improvements to Consider
 
 - Hosting the game online.
 - Adding a chat for multiplayer games when the application is hosted online.
-
-
-## Potentielles améliorations à prévoir:
-
-- Hebergement du jeu en ligne.
-- Ajout d'un chat pour les parties multijoueurs lorsque l'application sera hébergée en ligne.
