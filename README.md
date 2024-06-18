@@ -4,7 +4,7 @@ Version anglaise disponible [ici](README_EN.md)
 
 ## Auteurs :
 - [Kevin MITRESSÉ](http://kmitresse.free.fr)
-- [Lucàs VABRE](https://portfolio-lucasvbr.vercel.app/)
+- [Lucàs VABRE](https://lucasvbr.dev/)
 
 ## Installation
 
