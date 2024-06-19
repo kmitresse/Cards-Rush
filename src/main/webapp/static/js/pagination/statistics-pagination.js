@@ -47,22 +47,11 @@ function updatePagination(pageNumber) {
           table.appendChild(row);
         }
       }
-
-
-      // data.forEach(player => {
-      //   const row = document.createElement('tr');
-      //   row.classList.add('played-game-row');
-      //   row.innerHTML = `
-      //      <td>${player.createdDate}</td>
-      //      <td>${player.score}</td>
-      //      <td>${player.winnerUsername}</td>
-      //      <td><a href="${contextPath}game-statistics?id=${player.gameId}">${showLabel}</a></td>`
-      //   table.appendChild(row);
-      // });
   })
 }
 
 function updateButtons(oldPageNumber,newPageNumber) {
+  console.log("oldPageNumber: " + oldPageNumber + " newPageNumber: " + newPageNumber, "nbPages: " + nbPages.value.toString())
 
   if (oldPageNumber === "1") {
     paginationPrevious.classList.remove('is-disable');
@@ -70,10 +59,11 @@ function updateButtons(oldPageNumber,newPageNumber) {
   if (newPageNumber === "1") {
     paginationPrevious.classList.add('is-disable');
   }
-  if (oldPageNumber === nbPages.value.toString()) {
+  if (oldPageNumber <= nbPages.value.toString()) {
     paginationNext.classList.remove('is-disable');
   }
-  if (newPageNumber === nbPages.value.toString()) {
+  if (newPageNumber >= nbPages.value.toString()) {
+    console.log("paginationNext.classList.add('is-disable');");
     paginationNext.classList.add('is-disable');
   }
   paginationCurrent.textContent = `${newPageNumber}`;

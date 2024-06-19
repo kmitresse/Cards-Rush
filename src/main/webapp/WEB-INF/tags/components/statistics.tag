@@ -45,7 +45,7 @@
     </thead>
     <tbody></tbody>
 </table>
-<nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+<nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
     <ul class="pagination-list">
         <li><a class="pagination-previous">${translator.translate('pagination_previous')}</a></li>
         <li><a class="pagination-link pagination-current" aria-label="Goto page 1"><%=currentPage%></a></li>
