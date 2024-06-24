@@ -71,19 +71,19 @@ export function verifSuccess() {
     } else {
       onSuccess(Success.successLabels.FR, Success.successValues.FR.RESET_PASSWORD)
     }
-    if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.CREATE_ACCOUNT) {
-      if (languageSelector.value === "EN") {
-        onSuccess(Success.successLabels.EN, Success.successValues.EN.CREATE_ACCOUNT)
-      } else {
-        onSuccess(Success.successLabels.FR, Success.successValues.FR.CREATE_ACCOUNT)
-      }
+  }
+  if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.CREATE_ACCOUNT) {
+    if (languageSelector.value === "EN") {
+      onSuccess(Success.successLabels.EN, Success.successValues.EN.CREATE_ACCOUNT)
+    } else {
+      onSuccess(Success.successLabels.FR, Success.successValues.FR.CREATE_ACCOUNT)
     }
-    if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.UPDATE_PROFILE) {
-      if (languageSelector.value === "EN") {
-        onSuccess(Success.successLabels.EN, Success.successValues.EN.UPDATE_PROFILE)
-      } else {
-        onSuccess(Success.successLabels.FR, Success.successValues.FR.UPDATE_PROFILE)
-      }
+  }
+  if (url.searchParams.get("success") !== undefined && url.searchParams.get("success") === Success.successKeys.UPDATE_PROFILE) {
+    if (languageSelector.value === "EN") {
+      onSuccess(Success.successLabels.EN, Success.successValues.EN.UPDATE_PROFILE)
+    } else {
+      onSuccess(Success.successLabels.FR, Success.successValues.FR.UPDATE_PROFILE)
     }
   }
 }
