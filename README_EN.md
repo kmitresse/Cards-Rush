@@ -1,5 +1,5 @@
 # Cards Rush - Web Development Project - 2024
-[Version française disponible ici](README_FR.md)
+[Version française disponible ici](README.md)
 
 ## Authors:
 - [Kevin MITRESSÉ](http://kmitresse.free.fr)
